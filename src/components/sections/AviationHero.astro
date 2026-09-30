@@ -1,0 +1,84 @@
+---
+import SkyScene from './SkyScene.astro';
+import StatsStrip from './StatsStrip.astro';
+import { t } from '@/i18n/ui';
+import type { Locale } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+  kicker: string;
+  h1: string;
+  text: string;
+  requestHref: string;
+  servicesHref: string;
+}
+const { locale, kicker, h1, text, requestHref, servicesHref } = Astro.props;
+const s = t(locale);
+---
+
+<section class="av-hero" data-parallax-scope data-parallax-start="top">
+  <SkyScene locale={locale} variant="hero" priority />
+  <div class="container content" data-parallax-y="-35" data-parallax-fade>
+    <span class="kicker">{kicker}</span>
+    <h1 class="display display-xl">{h1}</h1>
+    <p class="lead">{text}</p>
+    <div class="ctas">
+      <a href={requestHref} class="btn"
+        >{s.cta.aviationRequest} <span class="chev" aria-hidden="true">›</span></a
+      >
+      <a href={servicesHref} class="btn-link">{s.cta.aviationServices}</a>
+    </div>
+  </div>
+  <div class="stats-wrap">
+    <StatsStrip locale={locale} />
+  </div>
+</section>
+
+<style>
+  .av-hero {
+    position: relative;
+    min-height: max(100svh, 40rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: var(--cloud);
+    overflow: hidden;
+  }
+  .content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 1.5rem;
+    align-content: center;
+    flex: 1;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+  .content .display {
+    max-width: 14ch;
+  }
+  .content .lead {
+    color: rgb(245 243 238 / 0.82);
+    max-width: 34rem;
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 2rem;
+    margin-top: 0.75rem;
+  }
+  .stats-wrap {
+    position: relative;
+    z-index: 4;
+  }
+  @media (max-width: 760px) {
+    .av-hero {
+      min-height: max(100svh, 50rem);
+    }
+    .content {
+      align-content: start;
+      padding-top: 7.5rem;
+    }
+  }
+</style>

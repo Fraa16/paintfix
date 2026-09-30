@@ -1,0 +1,211 @@
+---
+/**
+ * Home hero: two worlds side by side. The car panel carries a price anchor (approachable),
+ * the aviation panel says "on request" (exclusive). Hovered panel widens on desktop.
+ */
+import Img from '@/components/ui/Img.astro';
+import Logo from '@/components/global/Logo.astro';
+import DraftMark from '@/components/global/DraftMark.astro';
+import type { Locale } from '@/i18n/routes';
+
+interface Panel {
+  kicker: string;
+  title: string;
+  text: string;
+  price: string;
+  cta: string;
+  href: string;
+}
+interface Props {
+  locale: Locale;
+  h1: string;
+  intro: string;
+  car: Panel;
+  aviation: Panel;
+  priceDraft?: boolean;
+}
+const { locale, h1, intro, car, aviation, priceDraft = false } = Astro.props;
+---
+
+<section class="diptych-hero">
+  <div class="container intro">
+    <h1 class="h1" data-reveal>{h1}</h1>
+    <p class="intro-text" data-reveal style="--reveal-i: 1">{intro}</p>
+  </div>
+  <div class="panels">
+    <a href={car.href} class="panel panel-car" data-theme="auto">
+      <Img
+        slot="auto-diptych"
+        locale={locale}
+        priority
+        sizes="(min-width: 900px) 55vw, 100vw"
+        class="bg"
+      />
+      <div class="shade"></div>
+      <div class="panel-body">
+        <span class="kicker">{car.kicker}</span>
+        <h2 class="display display-l title">{car.title}</h2>
+        <p class="text">{car.text}</p>
+        <p class="price">{car.price}<DraftMark draft={priceDraft} locale={locale} /></p>
+        <span class="btn">{car.cta} <span class="chev" aria-hidden="true">→</span></span>
+      </div>
+    </a>
+    <a href={aviation.href} class="panel panel-av" data-theme="aviation">
+      <Img
+        slot="av-diptych"
+        locale={locale}
+        eager
+        sizes="(min-width: 900px) 55vw, 100vw"
+        class="bg"
+      />
+      <div class="shade"></div>
+      <div class="panel-body">
+        <Logo variant="seal" class="seal" />
+        <span class="kicker">{aviation.kicker}</span>
+        <h2 class="display display-l title">{aviation.title}</h2>
+        <p class="text">{aviation.text}</p>
+        <p class="price">{aviation.price}</p>
+        <span class="btn">{aviation.cta} <span class="chev" aria-hidden="true">›</span></span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<style>
+  .diptych-hero {
+    background: var(--c-bg);
+  }
+  .intro {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: end;
+    gap: 1rem 3rem;
+    padding-block: clamp(2rem, 1rem + 3vw, 3.5rem) clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+  .h1 {
+    font-size: clamp(1.6rem, 1rem + 2.4vw, 2.75rem);
+    font-weight: 640;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    max-width: 22ch;
+  }
+  .intro-text {
+    color: var(--c-muted);
+    justify-self: end;
+    max-width: 26rem;
+  }
+  .panels {
+    display: flex;
+    min-height: clamp(34rem, calc(100svh - 14rem), 48rem);
+  }
+  .panel {
+    position: relative;
+    flex: 1 1 50%;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--c-ink);
+    transition: flex-grow 0.9s var(--ease-glide);
+  }
+  .panel :global(.bg) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.4s var(--ease-glide);
+  }
+  .panel:hover :global(.bg) {
+    transform: scale(1.04);
+  }
+  .shade {
+    position: absolute;
+    inset: 0;
+  }
+  .panel-car .shade {
+    background: linear-gradient(
+      0deg,
+      rgb(255 255 255 / 0.94) 0%,
+      rgb(255 255 255 / 0.7) 35%,
+      transparent 70%
+    );
+  }
+  .panel-av .shade {
+    background: linear-gradient(
+      0deg,
+      rgb(14 24 48 / 0.96) 0%,
+      rgb(14 24 48 / 0.7) 38%,
+      transparent 72%
+    );
+  }
+  .panel-body {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.9rem;
+    padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+    max-width: 36rem;
+  }
+  .panel-body :global(.seal) {
+    width: 3rem;
+    height: 3rem;
+  }
+  .title {
+    hyphens: manual;
+  }
+  .text {
+    color: var(--c-muted);
+    max-width: 28rem;
+  }
+  .panel-av .text {
+    color: rgb(245 243 238 / 0.8);
+  }
+  .price {
+    font-weight: 620;
+    font-size: 1.05rem;
+  }
+  .panel-car .price {
+    color: var(--c-accent-text);
+  }
+  .panel-av .price {
+    font-size: 0.75rem;
+    font-stretch: 125%;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .panel-body .btn {
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+  @media (hover: hover) and (min-width: 900px) {
+    .panels:hover .panel {
+      flex-grow: 0.8;
+    }
+    .panels .panel:hover {
+      flex-grow: 1.25;
+    }
+  }
+  @media (max-width: 900px) {
+    .intro {
+      grid-template-columns: 1fr;
+    }
+    .intro-text {
+      justify-self: start;
+    }
+    .panels {
+      flex-direction: column;
+      min-height: 0;
+    }
+    .panel {
+      min-height: 30rem;
+    }
+    .panel-av {
+      min-height: 40rem;
+    }
+    .panel-av :global(.bg) {
+      object-position: 30% top;
+    }
+  }
+</style>

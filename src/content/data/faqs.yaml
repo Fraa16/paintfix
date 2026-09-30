@@ -1,0 +1,170 @@
+# FAQ entries. Answers aim for 40–60 words (answer-engine friendly).
+# Tokens: {price:<package-id>} renders the current "ab"-price from packages.yaml.
+
+# ---------- Home ----------
+- id: home-cost
+  page: home
+  order: 1
+  q:
+    de: Was kostet eine Fahrzeugaufbereitung bei Paintfix?
+    en: How much does car detailing at Paintfix cost?
+  a:
+    de: Die Außenaufbereitung beginnt bei {price:exterior} €, die Innenaufbereitung bei {price:interior} € und die Komplettaufbereitung bei {price:complete} €, jeweils für einen Kleinwagen. Größere Fahrzeuge und stärkere Verschmutzung kosten etwas mehr. Den finalen Preis nennen wir Ihnen nach einer kurzen Begutachtung, bevor wir anfangen.
+    en: The exterior detail starts at €{price:exterior}, the interior detail at €{price:interior} and the full detail at €{price:complete}, each for a small car. Larger vehicles and heavier soiling cost a little more. We confirm the final price after a short inspection, before any work begins.
+- id: home-aviation-price
+  page: home
+  order: 2
+  q:
+    de: Ist Paintfix teurer, weil Sie auch Flugzeuge aufbereiten?
+    en: Is Paintfix more expensive because you also detail aircraft?
+  a:
+    de: Nein. Fahrzeug- und Flugzeugaufbereitung sind getrennt kalkuliert, mit eigenen Produkten und eigenen Preisen. Für Ihr Auto zahlen Sie Preise für Autos, und die Paketpreise stehen offen auf dieser Website. Aus der Luftfahrt übernehmen wir nur eines in die Autowerkstatt, nämlich die Genauigkeit.
+    en: No. Car and aircraft detailing are priced separately, with their own products and their own rates. For your car you pay car prices, and our package prices are published on this website. The one thing we bring over from aviation is the precision.
+- id: home-where
+  page: home
+  order: 3
+  draft: true
+  q:
+    de: Wo arbeitet Paintfix?
+    en: Where does Paintfix work?
+  a:
+    de: Unser Sitz ist in Telgte bei Münster. Fahrzeuge aus Telgte, Münster und dem Münsterland bereiten wir nach Terminvereinbarung auf. Flugzeuge bereiten wir direkt vor Ort auf, im Hangar oder auf dem Vorfeld, an Flugplätzen in Nordrhein-Westfalen und nach Absprache darüber hinaus.
+    en: We are based in Telgte near Münster. We detail cars from Telgte, Münster and the wider Münsterland by appointment. Aircraft are detailed on site, in the hangar or on the ramp, at airfields across North Rhine-Westphalia and further afield by arrangement.
+- id: home-booking
+  page: home
+  order: 4
+  draft: true
+  q:
+    de: Wie schnell bekomme ich einen Termin?
+    en: How quickly can I get an appointment?
+  a:
+    de: Meist innerhalb von ein bis zwei Wochen. Schreiben Sie uns über das Formular, per E-Mail oder telefonisch, welches Fahrzeug und welches Paket Sie interessiert. Wir melden uns innerhalb eines Werktags mit einem Terminvorschlag und dem voraussichtlichen Preis.
+    en: Usually within one to two weeks. Tell us via the form, by email or by phone which vehicle and which package you are interested in. We reply within one working day with a proposed date and the expected price.
+
+# ---------- Car ----------
+- id: car-interior-cost
+  page: car
+  order: 1
+  q:
+    de: Was kostet eine Innenreinigung beim Auto?
+    en: How much does a car interior clean cost?
+  a:
+    de: Unsere Innenaufbereitung beginnt bei {price:interior} € für einen Kleinwagen. Darin enthalten sind Saugen, Sprühextraktion von Polstern und Teppichen, die Pflege aller Kunststoffe und die Scheiben innen. Für Tierhaare oder starke Gerüche gibt es Zusatzleistungen. Den genauen Preis nennen wir nach einem kurzen Blick ins Fahrzeug.
+    en: Our interior detail starts at €{price:interior} for a small car. It includes vacuuming, extraction cleaning of seats and carpets, care for all plastics and the interior glass. Pet hair and strong odours are available as extras. We confirm the exact price after a quick look inside the car.
+- id: car-duration
+  page: car
+  order: 2
+  draft: true
+  q:
+    de: Wie lange dauert eine Autoaufbereitung?
+    en: How long does car detailing take?
+  a:
+    de: Eine Außenaufbereitung dauert etwa zwei bis drei Stunden, eine Innenaufbereitung drei bis vier Stunden, eine Komplettaufbereitung rund einen Tag. Für Lackkorrektur und Keramikversiegelung planen wir zwei Tage ein, weil die Versiegelung in Ruhe aushärten muss, bevor das Auto wieder in den Regen darf.
+    en: An exterior detail takes about two to three hours, an interior detail three to four hours and a full detail around one day. For paint correction and ceramic coating we plan two days, because the coating needs time to cure before the car goes back out in the rain.
+- id: car-lease
+  page: car
+  order: 3
+  q:
+    de: Lohnt sich eine Aufbereitung vor der Leasingrückgabe?
+    en: Is detailing worth it before returning a leased car?
+  a:
+    de: Oft ja. Flecken, Gerüche und leichte Kratzer werden bei der Rückgabe als Mängel bewertet und in Rechnung gestellt. Eine Aufbereitung vorher kostet meist weniger als diese Nachforderungen. Wir sehen uns das Fahrzeug an und sagen Ihnen offen, ob sich die Aufbereitung in Ihrem Fall rechnet.
+    en: Often, yes. Stains, odours and light scratches are assessed as defects at return and charged to you. Detailing beforehand usually costs less than those charges. We look at the car and tell you honestly whether detailing pays off in your case.
+- id: car-ceramic
+  page: car
+  order: 4
+  q:
+    de: Was bringt eine Keramikversiegelung?
+    en: What does a ceramic coating do?
+  a:
+    de: Eine Keramikversiegelung legt eine harte, glatte Schutzschicht auf den Lack. Schmutz haftet schlechter, Wasser perlt ab und die Wäsche geht schneller. Wir verwenden CQuartz von CarPro. Wie lange die Schicht hält, hängt vom Produkt und von der Pflege ab. Das besprechen wir vor dem Auftrag.
+    en: A ceramic coating adds a hard, slick protective layer to the paint. Dirt sticks less, water beads off and washing is quicker. We use CQuartz by CarPro. How long the layer lasts depends on the product and on aftercare, and we discuss both before the job.
+- id: car-products
+  page: car
+  order: 5
+  q:
+    de: Welche Produkte verwendet Paintfix für Autos?
+    en: Which products does Paintfix use on cars?
+  a:
+    de: Im Automobilbereich arbeiten wir ausschließlich mit CarPro, also Reinigern, Polituren und der Keramikversiegelung CQuartz aus einem System. Die Produkte sind aufeinander abgestimmt. Das macht das Ergebnis berechenbar und die Pflege danach einfach, weil Sie zu Hause mit passenden Produkten weiterpflegen können.
+    en: For cars we work exclusively with CarPro, meaning cleaners, polishes and the CQuartz ceramic coating from one system. The products are designed to work together. That makes results predictable and aftercare simple, because you can keep maintaining the car at home with matching products.
+- id: car-pickup
+  page: car
+  order: 6
+  draft: true
+  q:
+    de: Gibt es einen Hol- und Bringservice?
+    en: Do you offer pick-up and delivery?
+  a:
+    de: Ja, in Telgte, Münster und im nahen Münsterland holen wir Ihr Fahrzeug auf Wunsch ab und bringen es aufbereitet zurück. Den Service und einen möglichen Aufpreis stimmen wir bei der Terminvereinbarung ab. So verlieren Sie keine Zeit und müssen sich um nichts kümmern.
+    en: Yes. In Telgte, Münster and the nearby Münsterland we can collect your car and return it detailed. We agree the service and any surcharge when booking. That way you lose no time and have nothing to organise.
+
+# ---------- Aviation ----------
+- id: av-types
+  page: aviation
+  order: 1
+  draft: true
+  q:
+    de: Welche Flugzeuge bereitet Paintfix Aviation auf?
+    en: Which aircraft does Paintfix Aviation detail?
+  a:
+    de: Wir arbeiten an Flugzeugen der General und Business Aviation, von einmotorigen Kolbenflugzeugen und Turboprops bis zu Business Jets. Vor jedem Auftrag klären wir Muster, Oberflächen und Vorgaben aus dem Wartungshandbuch. Für ungewöhnliche Oberflächen oder Sonderlackierungen stimmen wir das Vorgehen vorab mit Halter oder Wartungsbetrieb ab.
+    en: We work on general and business aviation aircraft, from single-engine pistons and turboprops to business jets. Before every job we confirm the type, the surfaces and the maintenance manual requirements. For unusual surfaces or special paint schemes we agree the method with the owner or maintenance organisation first.
+- id: av-location
+  page: aviation
+  order: 2
+  q:
+    de: Arbeiten Sie im Hangar oder auf dem Vorfeld?
+    en: Do you work in the hangar or on the ramp?
+  a:
+    de: Beides. Wir arbeiten dort, wo Ihr Flugzeug steht, im Hangar mit Nasswäsche oder auf dem Vorfeld mit wasserloser Dry Wash, auch ohne Waschplatz. Zugang, Zeitfenster und Abläufe stimmen wir vorher mit FBO, Flugplatz oder Halter ab, damit der Betrieb nicht gestört wird.
+    en: Both. We work where your aircraft is, in the hangar with a wet wash or on the ramp with a waterless dry wash, even without a wash bay. We agree access, time windows and procedures with the FBO, airfield or owner beforehand, so operations are not disrupted.
+- id: av-products
+  page: aviation
+  order: 3
+  draft: true
+  q:
+    de: Welche Produkte verwenden Sie am Flugzeug?
+    en: Which products do you use on aircraft?
+  a:
+    de: Für Reinigung und Kabinenpflege verwenden wir Produkte von Aero-Sense, einem Hersteller von Luftfahrtchemie. Für blankes Aluminium nutzen wir unter anderem NUVITE NuShine II in den Graden G6 und S. Die Spezifikationen der eingesetzten Produkte und die Datenblätter stellen wir Ihnen auf Anfrage zur Verfügung.
+    en: For cleaning and cabin care we use products from Aero-Sense, a manufacturer of aviation chemicals. For bare aluminium we use NUVITE NuShine II, including Grades G6 and S. We provide the specifications and data sheets of the products we use on request.
+- id: av-duration
+  page: aviation
+  order: 4
+  draft: true
+  q:
+    de: Wie lange dauert eine Exterior-Wäsche?
+    en: How long does an exterior wash take?
+  a:
+    de: Das hängt von Muster, Verschmutzung und Methode ab. Eine Exterior-Wäsche an einem einmotorigen Flugzeug dauert wenige Stunden, an einem Business Jet planen wir einen halben bis ganzen Tag. Brightwork-Politur und Kabinenaufbereitung dauern länger. Den Zeitbedarf nennen wir mit dem Angebot, passend zu Ihrer Bodenzeit.
+    en: It depends on the type, the soiling and the method. An exterior wash on a single-engine aircraft takes a few hours, and for a business jet we plan half a day to a full day. Brightwork polishing and cabin detailing take longer. We state the time needed with the quote, matched to your ground time.
+- id: av-insurance
+  page: aviation
+  order: 5
+  draft: true
+  q:
+    de: Ist Paintfix Aviation für Arbeiten an Luftfahrzeugen versichert?
+    en: Is Paintfix Aviation insured for work on aircraft?
+  a:
+    de: Ja. Wir haben eine Betriebshaftpflichtversicherung, die Arbeiten an Luftfahrzeugen ausdrücklich einschließt. Den Versicherungsnachweis senden wir Ihnen, Ihrem Operator oder Ihrer Management-Firma gerne vor dem ersten Auftrag zu, damit die Freigabe intern ohne Rückfragen läuft.
+    en: Yes. We hold business liability insurance that explicitly covers work on aircraft. We are happy to send the certificate of insurance to you, your operator or your management company before the first job, so internal approval runs without follow-up questions.
+- id: av-ron
+  page: aviation
+  order: 6
+  draft: true
+  q:
+    de: Können Sie über Nacht oder zwischen zwei Flügen arbeiten?
+    en: Can you work overnight or between two flights?
+  a:
+    de: Ja. Bei einem Übernachtstopp (RON) oder einem kurzen Turnaround planen wir den Einsatz um Ihre Bodenzeit herum. Nennen Sie uns Ankunft, Abflug und Standort, und wir sagen Ihnen, welche Leistungen in diesem Zeitfenster sinnvoll möglich sind.
+    en: Yes. For a remain-overnight stop (RON) or a short turnaround we plan the job around your ground time. Tell us arrival, departure and location, and we will tell you which services fit sensibly into that window.
+- id: av-billing
+  page: aviation
+  order: 7
+  q:
+    de: Können wir über unsere Management-Firma abrechnen?
+    en: Can we be invoiced through our management company?
+  a:
+    de: Ja. Wir rechnen mit dem Halter, dem Operator oder der Management-Firma ab, so wie es für Sie passt. Für wiederkehrende Aufträge bieten wir Pflegeprogramme mit festen Intervallen und einer Sammelrechnung an. Ein fester Ansprechpartner kennt Ihre Flugzeuge und Ihre Vorgaben.
+    en: Yes. We invoice the owner, the operator or the management company, whichever suits you. For recurring work we offer care programmes with fixed intervals and a consolidated invoice. A dedicated contact knows your aircraft and your requirements.

@@ -1,0 +1,514 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/mona-sans/wdth.css';
+
+/*
+ * Paintfix design system
+ * ----------------------
+ * One typeface family (Mona Sans, variable wdth 75–125), two stances:
+ *   [data-theme="auto"]      Paintfix (master brand, automotive): daylight, graphite, normal width
+ *   [data-theme="aviation"]  Paintfix Aviation: midnight navy, champagne gold, expanded caps
+ * Themes nest: any element can switch world with data-theme. Section tones (.tone-*) re-map the
+ * colour tokens inside a theme (e.g. graphite panel, ivory interlude).
+ */
+
+@theme inline {
+  --font-sans: 'Mona Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --color-bg: var(--c-bg);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-accent: var(--c-accent);
+  --color-kicker: var(--c-kicker);
+}
+
+/* ---------- raw palette ---------- */
+:root {
+  --white: #ffffff;
+  --paper: #f5f5f3;
+  --graphite: #1a1d21;
+  --graphite-2: #23272d;
+  --ink: #111418;
+  --steel: #5b6168;
+  --hairline: #e3e4e1;
+  --cobalt: #2447b8; /* candidate signature accent, final choice with the logo */
+  --cobalt-deep: #1b3794;
+
+  --navy: #0e1830;
+  --navy-2: #16223f;
+  --navy-3: #1f2d50;
+  --cloud: #f5f3ee;
+  --mist: #a7aebf;
+  --ivory: #f4f1ea;
+  --gold: #c2a36b;
+  --gold-light: #d6bd8a;
+  --gold-ink: #7a5e30; /* gold as text on light backgrounds (AA) */
+
+  --ease-crisp: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+/* ---------- theme: automotive / master ---------- */
+:root,
+[data-theme='auto'] {
+  --c-bg: var(--white);
+  --c-ink: var(--ink);
+  --c-muted: var(--steel);
+  --c-line: var(--hairline);
+  --c-accent: var(--cobalt);
+  --c-accent-hover: var(--cobalt-deep);
+  --c-on-accent: var(--white);
+  --c-accent-text: var(--cobalt);
+  --c-kicker: var(--cobalt);
+  --c-card: var(--white);
+
+  --display-stretch: 100%;
+  --display-weight: 640;
+  --display-tracking: -0.025em;
+  --display-transform: none;
+  --display-leading: 1.02;
+  --fs-display-xl: clamp(2.6rem, 1.4rem + 5vw, 5.75rem);
+  --fs-display-l: clamp(2.1rem, 1.3rem + 3.4vw, 4rem);
+  --fs-display-m: clamp(1.65rem, 1.2rem + 1.8vw, 2.6rem);
+  --fs-giant: clamp(3.2rem, 1rem + 9vw, 9.5rem);
+
+  --kicker-stretch: 110%;
+
+  --btn-bg: var(--c-accent);
+  --btn-ink: var(--c-on-accent);
+  --btn-border: var(--c-accent);
+  --btn-bg-hover: var(--c-accent-hover);
+  --btn-ink-hover: var(--c-on-accent);
+  --btn-radius: 4px;
+  --btn-transform: none;
+  --btn-tracking: 0.005em;
+  --btn-size: 0.98rem;
+  --btn-stretch: 100%;
+  --btn-pad: 0.95rem 1.45rem;
+
+  --section-y: clamp(4.5rem, 2.5rem + 6vw, 8.5rem);
+  --container: 80rem;
+  --radius-media: 6px;
+}
+
+/* ---------- theme: aviation ---------- */
+[data-theme='aviation'] {
+  --c-bg: var(--navy);
+  --c-ink: var(--cloud);
+  --c-muted: var(--mist);
+  --c-line: rgb(245 243 238 / 0.14);
+  --c-accent: var(--gold);
+  --c-accent-hover: var(--gold-light);
+  --c-on-accent: var(--navy);
+  --c-accent-text: var(--gold);
+  --c-kicker: var(--gold);
+  --c-card: var(--navy-2);
+
+  --display-stretch: 125%;
+  --display-weight: 600;
+  --display-tracking: 0.015em;
+  --display-transform: uppercase;
+  --display-leading: 1.04;
+  --fs-display-xl: clamp(1.9rem, 0.7rem + 4.6vw, 4.6rem);
+  --fs-display-l: clamp(1.6rem, 0.8rem + 3vw, 3.4rem);
+  --fs-display-m: clamp(1.25rem, 0.9rem + 1.4vw, 2rem);
+  --fs-giant: clamp(2.6rem, 0.6rem + 8.4vw, 8.8rem);
+
+  --kicker-stretch: 125%;
+
+  --btn-bg: transparent;
+  --btn-ink: var(--gold);
+  --btn-border: var(--gold);
+  --btn-bg-hover: var(--gold);
+  --btn-ink-hover: var(--navy);
+  --btn-radius: 0;
+  --btn-transform: uppercase;
+  --btn-tracking: 0.2em;
+  --btn-size: 0.74rem;
+  --btn-stretch: 125%;
+  --btn-pad: 1.05rem 1.6rem;
+
+  --section-y: clamp(5.5rem, 3rem + 8vw, 11rem);
+  --container: 82.5rem;
+  --radius-media: 0;
+}
+
+/* ---------- section tones ---------- */
+.tone-alt {
+  --c-bg: var(--paper);
+}
+[data-theme='auto'] .tone-panel,
+.tone-panel[data-theme='auto'] {
+  --c-bg: var(--graphite);
+  --c-ink: #f4f4f2;
+  --c-muted: #a9aeb5;
+  --c-line: rgb(255 255 255 / 0.12);
+  --c-kicker: #a9b8ee;
+  --c-accent-text: #a9b8ee;
+  --c-card: var(--graphite-2);
+}
+[data-theme='aviation'] .tone-panel {
+  --c-bg: var(--navy-2);
+  --c-card: var(--navy-3);
+}
+[data-theme='aviation'] .tone-ivory,
+[data-theme='aviation'] .tone-white {
+  --c-bg: var(--ivory);
+  --c-ink: var(--navy);
+  --c-muted: #4a5468;
+  --c-line: rgb(14 24 48 / 0.14);
+  --c-kicker: var(--gold-ink);
+  --c-accent-text: var(--gold-ink);
+  --c-card: var(--white);
+  --btn-ink: var(--navy);
+  --btn-border: var(--navy);
+  --btn-bg-hover: var(--navy);
+  --btn-ink-hover: var(--cloud);
+}
+[data-theme='aviation'] .tone-white {
+  --c-bg: var(--white);
+}
+
+/* ---------- base ---------- */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    overflow-x: clip;
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    background: var(--c-bg);
+    color: var(--c-ink);
+    font-stretch: 100%;
+  }
+  [data-theme] {
+    color: var(--c-ink);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--c-accent);
+    color: var(--c-on-accent);
+  }
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ---------- layout ---------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.section {
+  background: var(--c-bg);
+  color: var(--c-ink);
+  padding-block: var(--section-y);
+  position: relative;
+}
+.section-tight {
+  padding-block: calc(var(--section-y) * 0.6);
+}
+
+/* ---------- typography roles ---------- */
+.display {
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+  line-height: var(--display-leading);
+  hyphens: manual;
+}
+.display-xl {
+  font-size: var(--fs-display-xl);
+}
+.display-l {
+  font-size: var(--fs-display-l);
+}
+.display-m {
+  font-size: var(--fs-display-m);
+}
+.display-giant {
+  font-size: var(--fs-giant);
+  line-height: 0.92;
+}
+.display .soft {
+  color: color-mix(in srgb, var(--c-ink) 55%, var(--c-bg));
+}
+.kicker {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 620;
+  font-stretch: var(--kicker-stretch);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-kicker);
+  line-height: 1.4;
+}
+.lead {
+  font-size: clamp(1.08rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--c-muted);
+  max-width: 38rem;
+}
+.caption-caps {
+  font-size: 0.8rem;
+  font-weight: 620;
+  font-stretch: var(--kicker-stretch);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.muted {
+  color: var(--c-muted);
+}
+.accent-text {
+  color: var(--c-accent-text);
+}
+.prose-legal h2 {
+  font-size: 1.35rem;
+  font-weight: 640;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.prose-legal h3 {
+  font-size: 1.1rem;
+  font-weight: 620;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose-legal p,
+.prose-legal ul {
+  margin-bottom: 1rem;
+  color: var(--c-muted);
+}
+.prose-legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-legal a {
+  color: var(--c-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: var(--btn-pad);
+  font-size: var(--btn-size);
+  font-weight: 620;
+  font-stretch: var(--btn-stretch);
+  letter-spacing: var(--btn-tracking);
+  text-transform: var(--btn-transform);
+  line-height: 1.2;
+  text-decoration: none;
+  border-radius: var(--btn-radius);
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  transition:
+    background-color 0.25s var(--ease-crisp),
+    color 0.25s var(--ease-crisp),
+    border-color 0.25s var(--ease-crisp),
+    transform 0.25s var(--ease-crisp);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover {
+  background: var(--btn-bg-hover);
+  color: var(--btn-ink-hover);
+  border-color: var(--btn-bg-hover);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn .chev {
+  transition: transform 0.25s var(--ease-crisp);
+}
+.btn:hover .chev {
+  transform: translateX(3px);
+}
+.btn-outline {
+  --btn-bg: transparent;
+  --btn-ink: var(--c-ink);
+  --btn-border: color-mix(in srgb, var(--c-ink) 35%, transparent);
+  --btn-bg-hover: var(--c-ink);
+  --btn-ink-hover: var(--c-bg);
+}
+[data-theme='aviation'] .btn-outline {
+  --btn-ink: var(--c-ink);
+  --btn-border: var(--c-line);
+}
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 620;
+  font-stretch: var(--btn-stretch);
+  text-transform: var(--btn-transform);
+  letter-spacing: var(--btn-tracking);
+  font-size: var(--btn-size);
+  color: var(--c-ink);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--c-ink) 30%, transparent);
+  padding-bottom: 0.2rem;
+  transition: border-color 0.25s var(--ease-crisp);
+}
+.btn-link:hover {
+  border-color: var(--c-accent);
+}
+
+/* ---------- motifs ---------- */
+/* Automotive: "gloss line", a hairline with a travelling sheen. */
+.gloss-line {
+  position: relative;
+  height: 1px;
+  background: var(--c-line);
+  overflow: hidden;
+}
+.gloss-line::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 -30%;
+  width: 30%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--c-accent) 70%, white),
+    transparent
+  );
+  animation: gloss 6s var(--ease-glide) infinite;
+}
+@keyframes gloss {
+  0% {
+    left: -30%;
+  }
+  60%,
+  100% {
+    left: 110%;
+  }
+}
+/* Aviation: gold horizon hairline with the seal in the centre. */
+.horizon {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  color: var(--gold);
+}
+.horizon::before,
+.horizon::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.horizon::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* ---------- media ---------- */
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-media);
+  background: color-mix(in srgb, var(--c-ink) 8%, var(--c-bg));
+}
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- utilities ---------- */
+.sr-only-focusable:not(:focus):not(:focus-within) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- reveal on scroll (only when JS is available) ---------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.8s var(--ease-glide),
+    transform 0.8s var(--ease-glide);
+  transition-delay: calc(var(--reveal-i, 0) * 90ms);
+}
+[data-theme='aviation'].js [data-reveal],
+.js [data-theme='aviation'] [data-reveal] {
+  transition-duration: 1.2s;
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- cross-document view transitions ---------- */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease-glide);
+}
+::view-transition-group(brand) {
+  animation-duration: 0.6s;
+  animation-timing-function: var(--ease-glide);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  @view-transition {
+    navigation: none;
+  }
+}

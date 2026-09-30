@@ -1,0 +1,138 @@
+---
+/** A giant section word ("INNENRAUM", "EXTERIOR") with lead text and 2-up image cards. */
+import Img from '@/components/ui/Img.astro';
+import type { SlotId } from '@/content/media';
+import type { Locale } from '@/i18n/routes';
+
+interface Card {
+  media: string;
+  title: string;
+  text: string;
+}
+interface Props {
+  locale: Locale;
+  id: string;
+  word: string;
+  lead: string;
+  cards: readonly Card[];
+  tone?: 'base' | 'alt' | 'white' | 'ivory';
+  href?: string;
+  linkLabel?: string;
+}
+const { locale, id, word, lead, cards, tone = 'base', href, linkLabel } = Astro.props;
+---
+
+<section class:list={['section giant', `tone-${tone}`]} id={id} data-parallax-scope>
+  <div class="container">
+    <div class="head">
+      <h2 class="display display-giant word" data-parallax-x="-4">{word}</h2>
+      <div class="lead-wrap" data-reveal>
+        <span class="motif" aria-hidden="true"></span>
+        <p class="lead">{lead}</p>
+        {
+          href && linkLabel && (
+            <a href={href} class="btn-link">
+              {linkLabel}
+            </a>
+          )
+        }
+      </div>
+    </div>
+    <div class="cards">
+      {
+        cards.map((c, i) => (
+          <figure class="card" data-reveal style={`--reveal-i: ${i}`}>
+            <div class="media card-media">
+              <Img
+                slot={c.media as SlotId}
+                locale={locale}
+                sizes="(min-width: 900px) 45vw, 92vw"
+                widths={[480, 768, 1080, 1400]}
+              />
+            </div>
+            <figcaption>
+              <span class="caption-caps">{c.title}</span>
+              <span class="muted">{c.text}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .giant {
+    overflow: hidden;
+  }
+  .head {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    align-items: end;
+    gap: 2rem 4rem;
+    margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  }
+  .word {
+    white-space: nowrap;
+    will-change: transform;
+  }
+  :global([data-theme='auto']) .word {
+    font-weight: 700;
+    letter-spacing: -0.045em;
+  }
+  .lead-wrap {
+    display: grid;
+    gap: 1.25rem;
+    padding-bottom: 0.75rem;
+  }
+  .motif {
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background: var(--c-accent);
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr;
+    gap: clamp(1rem, 0.5rem + 2vw, 2rem);
+  }
+  .card-media {
+    aspect-ratio: 16 / 10;
+  }
+  .card:nth-child(2) .card-media {
+    aspect-ratio: auto;
+    height: calc(100% - 5.5rem);
+    min-height: 14rem;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+  .card :global(img) {
+    transition: transform 1.2s var(--ease-glide);
+  }
+  .card:hover :global(img) {
+    transform: scale(1.035);
+  }
+  figcaption {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1.25rem 0.25rem 0;
+  }
+  @media (max-width: 900px) {
+    .head {
+      grid-template-columns: 1fr;
+    }
+    .word {
+      white-space: normal;
+      hyphens: auto;
+    }
+    .cards {
+      grid-template-columns: 1fr;
+    }
+    .card:nth-child(2) .card-media {
+      aspect-ratio: 16 / 10;
+      height: auto;
+    }
+  }
+</style>

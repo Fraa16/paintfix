@@ -1,0 +1,157 @@
+---
+import Img from '@/components/ui/Img.astro';
+import Icon from '@/components/ui/Icon.astro';
+import DraftMark from '@/components/global/DraftMark.astro';
+import { getAviationServices } from '@/lib/content';
+import type { Locale } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+  id: string;
+  kicker: string;
+  title: readonly string[];
+  lead: string;
+}
+const { locale, id, kicker, title, lead } = Astro.props;
+const services = await getAviationServices();
+---
+
+<section class="hangar" id={id} data-parallax-scope>
+  <div class="bg" data-parallax-y="-12">
+    <Img slot="av-hangar" locale={locale} decorative />
+  </div>
+  <div class="veil"></div>
+  <div class="container inner">
+    <div class="head" data-reveal>
+      <div>
+        <span class="kicker">{kicker}</span>
+        <h2 class="display display-l">{title.map((l) => <span class="block">{l}</span>)}</h2>
+      </div>
+      <p class="lead">{lead}</p>
+    </div>
+    <ul class="services">
+      {
+        services.map((s, i) => (
+          <li class="service" id={`service-${s.id}`} data-reveal style={`--reveal-i: ${i % 3}`}>
+            <span class="ic">
+              <Icon name={s.data.icon} size={28} />
+            </span>
+            <h3 class="name">
+              {s.data.name[locale]}
+              <DraftMark draft={s.data.draft} locale={locale} />
+            </h3>
+            <p class="desc">{s.data.desc[locale]}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hangar {
+    position: relative;
+    overflow: hidden;
+    color: var(--cloud);
+    padding-block: var(--section-y);
+    background: var(--navy);
+  }
+  .bg {
+    position: absolute;
+    inset: -12% 0;
+  }
+  .bg :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.6) contrast(1.05);
+  }
+  .veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(14 24 48 / 0.82), rgb(14 24 48 / 0.9));
+  }
+  .inner {
+    position: relative;
+    z-index: 1;
+  }
+  .head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 4rem;
+    align-items: end;
+    margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+  .block {
+    display: block;
+  }
+  .lead {
+    color: rgb(245 243 238 / 0.78);
+    justify-self: end;
+  }
+  .services {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--c-line);
+  }
+  .service {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: 2.25rem 2rem 2.5rem 0;
+    border-bottom: 1px solid var(--c-line);
+  }
+  .service:not(:nth-child(3n + 1)) {
+    padding-left: 2rem;
+    border-left: 1px solid var(--c-line);
+  }
+  .ic {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 1px solid rgb(194 163 107 / 0.55);
+    border-radius: 50%;
+    color: var(--gold);
+  }
+  .name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-stretch: 125%;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .desc {
+    font-size: 0.97rem;
+    color: rgb(245 243 238 / 0.72);
+  }
+  @media (max-width: 960px) {
+    .head {
+      grid-template-columns: 1fr;
+    }
+    .lead {
+      justify-self: start;
+    }
+    .services {
+      grid-template-columns: 1fr 1fr;
+    }
+    .service:not(:nth-child(3n + 1)) {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .service:nth-child(even) {
+      padding-left: 1.5rem;
+      border-left: 1px solid var(--c-line);
+    }
+  }
+  @media (max-width: 600px) {
+    .services {
+      grid-template-columns: 1fr;
+    }
+    .service:nth-child(even) {
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+</style>

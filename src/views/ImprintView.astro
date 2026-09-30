@@ -1,0 +1,159 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DraftMark from '@/components/global/DraftMark.astro';
+import { path, type Locale } from '@/i18n/routes';
+import { site } from '@/content/site';
+import { imageCredits, hasPlaceholders } from '@/content/media';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const de = locale === 'de';
+const credits = imageCredits();
+---
+
+<BaseLayout
+  locale={locale}
+  routeKey="imprint"
+  theme="auto"
+  title={de ? 'Impressum | Paintfix' : 'Legal notice | Paintfix'}
+  description={de
+    ? 'Impressum von Paintfix und Paintfix Aviation, Telgte.'
+    : 'Legal notice of Paintfix and Paintfix Aviation, Telgte, Germany.'}
+  noindex
+>
+  <section class="section">
+    <div class="container legal prose-legal">
+      <span class="kicker">{de ? 'Rechtliches' : 'Legal'}</span>
+      <h1 class="display display-l">
+        {de ? 'Impressum' : 'Legal notice'}<DraftMark locale={locale} />
+      </h1>
+      {
+        !de && (
+          <p>
+            <em>This is a courtesy translation. The German version is legally binding.</em>
+          </p>
+        )
+      }
+
+      <h2>
+        {
+          de
+            ? 'Angaben gemäß § 5 DDG'
+            : 'Information pursuant to § 5 DDG (German Digital Services Act)'
+        }
+      </h2>
+      <p>
+        {site.owner}<br />
+        {
+          de
+            ? 'Paintfix und Paintfix Aviation (Geschäftsbezeichnungen)'
+            : 'Paintfix and Paintfix Aviation (trading names)'
+        }<br />
+        {site.street}<br />
+        {site.postalCode}
+        {site.city}<br />
+        {de ? 'Deutschland' : 'Germany'}
+      </p>
+
+      <h2>{de ? 'Kontakt' : 'Contact'}</h2>
+      <p>
+        {de ? 'Telefon' : 'Phone'}: <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a><br />
+        E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+        {de ? 'Flugzeugaufbereitung' : 'Aircraft detailing'}: <a
+          href={`mailto:${site.aviationEmail}`}>{site.aviationEmail}</a
+        >
+      </p>
+
+      <h2>{de ? 'Umsatzsteuer' : 'VAT'}</h2>
+      <p>
+        {
+          de
+            ? 'Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [wird ergänzt] bzw. Hinweis auf Kleinunternehmerregelung nach § 19 UStG.'
+            : 'VAT identification number pursuant to § 27a UStG: [to be added], or notice of the small-business scheme under § 19 UStG.'
+        }
+        <DraftMark locale={locale} />
+      </p>
+
+      <h2>
+        {
+          de
+            ? 'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV'
+            : 'Responsible for content pursuant to § 18 (2) MStV'
+        }
+      </h2>
+      <p>
+        {site.owner}, {site.street}, {site.postalCode}
+        {site.city}
+      </p>
+
+      <h2>{de ? 'Verbraucherstreitbeilegung' : 'Consumer dispute resolution'}</h2>
+      <p>
+        {
+          de
+            ? 'Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.'
+            : 'We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.'
+        }
+      </p>
+
+      <h2>{de ? 'Marken' : 'Trademarks'}</h2>
+      <p>
+        {
+          de
+            ? 'CARPRO, CQuartz, Aero-Sense, NUVITE und NuShine sind Marken ihrer jeweiligen Inhaber. Die Nennung dient der Beschreibung der von uns verwendeten Produkte und stellt keine Partnerschaft oder Empfehlung durch die Markeninhaber dar.'
+            : 'CARPRO, CQuartz, Aero-Sense, NUVITE and NuShine are trademarks of their respective owners. They are named to describe the products we use and do not imply a partnership with or endorsement by the trademark owners.'
+        }
+      </p>
+
+      <h2>{de ? 'Bildnachweise' : 'Image credits'}</h2>
+      {
+        credits.length > 0 ? (
+          <ul>
+            {credits.map((m) => (
+              <li>
+                {m.alt[locale] || m.id}:{' '}
+                {m.source === 'ai'
+                  ? de
+                    ? 'KI-generierte Illustration (Symbolbild)'
+                    : 'AI-generated illustration'
+                  : m.credit}
+                {m.license && ` (${m.license})`}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>
+            {de
+              ? 'Alle Fotos: Paintfix, sofern nicht anders angegeben.'
+              : 'All photos: Paintfix unless stated otherwise.'}
+          </p>
+        )
+      }
+      <p>
+        {
+          de
+            ? 'Mit KI erzeugte Bilder sind Symbolbilder. Sie zeigen keine von Paintfix durchgeführten Arbeiten.'
+            : 'AI-generated images are illustrations. They do not show work carried out by Paintfix.'
+        }
+        {hasPlaceholders && <DraftMark locale={locale} />}
+      </p>
+
+      <p class="back">
+        <a href={path('privacy', locale)}>{de ? 'Zur Datenschutzerklärung' : 'Privacy policy'} →</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 48rem;
+  }
+  .legal h1 {
+    margin: 0.75rem 0 1.5rem;
+  }
+  .back {
+    margin-top: 3rem;
+  }
+</style>

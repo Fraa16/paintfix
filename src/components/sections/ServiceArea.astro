@@ -1,0 +1,54 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import DraftMark from '@/components/global/DraftMark.astro';
+import { site, isDraft } from '@/content/site';
+import type { Locale } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<ul class="towns" data-reveal>
+  {
+    site.serviceArea.map((town, i) => (
+      <li class:list={{ base: i === 0 }}>
+        {i === 0 && <Icon name="pin" size={16} />}
+        {town}
+      </li>
+    ))
+  }
+  <li class="draft-li"><DraftMark draft={isDraft('serviceArea')} locale={locale} /></li>
+</ul>
+
+<style>
+  .towns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--c-line);
+    border-radius: 999px;
+    font-size: 0.95rem;
+    background: var(--c-card);
+  }
+  li.base {
+    border-color: var(--c-accent);
+    color: var(--c-accent-text);
+    font-weight: 600;
+  }
+  li.draft-li {
+    border: 0;
+    background: none;
+    padding: 0;
+  }
+  li.draft-li:empty {
+    display: none;
+  }
+</style>

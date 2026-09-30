@@ -1,0 +1,218 @@
+---
+/**
+ * Layered golden-hour scene for Paintfix Aviation. Each layer carries its own parallax speed
+ * (data-parallax-y / -x, in % of the layer's own size) which src/scripts/parallax.ts animates.
+ * Order back → front: sky, far clouds, mid clouds, aircraft, near clouds.
+ */
+import Img from '@/components/ui/Img.astro';
+import type { Locale } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+  variant?: 'hero' | 'interlude' | 'flyby';
+  priority?: boolean;
+  jet?: boolean;
+}
+const { locale, variant = 'hero', priority = false, jet = true } = Astro.props;
+const flyby = variant === 'flyby';
+---
+
+<div class:list={['sky-scene', `v-${variant}`]} aria-hidden={jet ? undefined : 'true'}>
+  <div class="layer sky" data-parallax-y="10">
+    <Img
+      slot={flyby ? 'av-flyby-sky' : 'av-sky'}
+      locale={locale}
+      decorative
+      priority={priority}
+      sizes="(orientation: portrait) 200vh, 100vw"
+    />
+  </div>
+  <div class="layer far" data-parallax-y="-4">
+    <Img
+      slot="av-clouds-far"
+      locale={locale}
+      decorative
+      sizes="(orientation: portrait) 150vw, 100vw"
+      widths={[640, 960, 1280]}
+      quality={50}
+    />
+  </div>
+  <div class="layer mid" data-parallax-y="-12">
+    <Img
+      slot="av-clouds-mid"
+      locale={locale}
+      decorative
+      eager={priority}
+      sizes="(orientation: portrait) 150vw, 100vw"
+      widths={[640, 960, 1280]}
+      quality={50}
+    />
+  </div>
+  {
+    jet && (
+      <div
+        class="layer jet"
+        data-parallax-y={flyby ? '-10' : '-30'}
+        data-parallax-x={flyby ? '170' : '8'}
+        data-flyby={flyby ? '' : undefined}
+      >
+        <Img
+          slot="av-jet"
+          locale={locale}
+          eager={priority}
+          sizes="(min-width: 900px) 50vw, 90vw"
+          widths={[640, 960, 1280, 1600]}
+        />
+      </div>
+    )
+  }
+  <div class="layer near" data-parallax-y="-26">
+    <Img
+      slot="av-clouds-near"
+      locale={locale}
+      decorative
+      eager={priority}
+      sizes="(orientation: portrait) 150vw, 100vw"
+      widths={[640, 960, 1280]}
+      quality={50}
+    />
+  </div>
+  <div class="scrim"></div>
+</div>
+
+<style>
+  .sky-scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #1c2c4e;
+    isolation: isolate;
+  }
+  .layer {
+    position: absolute;
+    will-change: transform;
+  }
+  .layer :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .sky {
+    inset: -12% 0 -6% 0;
+  }
+  /* Soft top edge on every cloud layer, so no layer ever shows a seam (also for final AI assets). */
+  .far,
+  .mid,
+  .near {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 38%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 38%);
+  }
+  .far {
+    left: -5%;
+    right: -5%;
+    bottom: 22%;
+    height: 38%;
+    opacity: 0.85;
+  }
+  .mid {
+    left: -5%;
+    right: -5%;
+    bottom: 2%;
+    height: 44%;
+  }
+  .jet {
+    left: 47%;
+    top: 17%;
+    width: min(50vw, 880px);
+    aspect-ratio: 1600 / 560;
+    filter: drop-shadow(0 24px 30px rgb(10 14 30 / 0.25));
+  }
+  .jet :global(img) {
+    object-fit: contain;
+  }
+  .near {
+    left: -8%;
+    right: -8%;
+    bottom: -14%;
+    height: 42%;
+  }
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgb(10 17 36 / 0.7) 0%, rgb(10 17 36 / 0.25) 45%, transparent 70%),
+      linear-gradient(180deg, rgb(10 17 36 / 0.35) 0%, transparent 30%);
+    pointer-events: none;
+  }
+  .v-interlude .jet {
+    left: 44%;
+    top: 22%;
+    width: min(46vw, 760px);
+  }
+  .v-interlude .scrim {
+    background: linear-gradient(
+      90deg,
+      rgb(10 17 36 / 0.78) 0%,
+      rgb(10 17 36 / 0.35) 50%,
+      transparent 75%
+    );
+  }
+  .v-flyby .jet {
+    left: -60%;
+    top: 16%;
+    width: min(44vw, 700px);
+  }
+  .v-flyby .scrim {
+    background: linear-gradient(
+      180deg,
+      transparent 35%,
+      rgb(14 24 48 / 0.75) 75%,
+      rgb(14 24 48) 100%
+    );
+  }
+  /* Without the motion script the flyby aircraft simply rests in view. */
+  :global(.no-js) .v-flyby .jet {
+    left: 42%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .v-flyby .jet {
+      left: 42%;
+    }
+  }
+  @media (max-width: 760px) {
+    /* The far layer adds little on small screens; lazy + hidden means it is never downloaded there. */
+    .far {
+      display: none;
+    }
+    .jet {
+      left: 8%;
+      top: auto;
+      bottom: 27%;
+      width: 88vw;
+    }
+    .v-interlude .jet {
+      left: 10%;
+      top: auto;
+      bottom: 9%;
+      width: 82vw;
+    }
+    .v-flyby .jet {
+      width: 80vw;
+      top: 20%;
+      bottom: auto;
+    }
+    .scrim {
+      background: linear-gradient(
+        180deg,
+        rgb(10 17 36 / 0.75) 0%,
+        rgb(10 17 36 / 0.35) 45%,
+        transparent 70%
+      );
+    }
+  }
+</style>
+
+<script>
+  import { initParallax } from '@/scripts/parallax';
+  initParallax();
+</script>

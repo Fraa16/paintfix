@@ -1,0 +1,9 @@
+# Coverage. Only airfields the client confirms may stay; everything is draft until then.
+- { id: EDLT, order: 1, base: true, draft: true, icao: EDLT, name: Flugplatz Münster-Telgte, city: Telgte, lat: 51.9443, lng: 7.7736 }
+- { id: EDDG, order: 2, draft: true, icao: EDDG, name: Flughafen Münster/Osnabrück, city: Greven, lat: 52.1346, lng: 7.6848 }
+- { id: EDLW, order: 3, draft: true, icao: EDLW, name: Dortmund Airport, city: Dortmund, lat: 51.5183, lng: 7.6122 }
+- { id: EDLP, order: 4, draft: true, icao: EDLP, name: Paderborn/Lippstadt Airport, city: Büren, lat: 51.6141, lng: 8.6163 }
+- { id: EDLE, order: 5, draft: true, icao: EDLE, name: Flughafen Essen/Mülheim, city: Mülheim an der Ruhr, lat: 51.4023, lng: 6.9373 }
+- { id: EDDL, order: 6, draft: true, icao: EDDL, name: Flughafen Düsseldorf, city: Düsseldorf, lat: 51.2895, lng: 6.7668 }
+- { id: EDLN, order: 7, draft: true, icao: EDLN, name: Flughafen Mönchengladbach, city: Mönchengladbach, lat: 51.2303, lng: 6.5044 }
+- { id: EDDK, order: 8, draft: true, icao: EDDK, name: Flughafen Köln/Bonn, city: Köln, lat: 50.8659, lng: 7.1427 }

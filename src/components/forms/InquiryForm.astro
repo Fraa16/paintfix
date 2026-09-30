@@ -1,0 +1,453 @@
+---
+import { getPackages, getAviationServices } from '@/lib/content';
+import { path, type Locale } from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { site } from '@/content/site';
+
+interface Props {
+  locale: Locale;
+  track: 'auto' | 'aviation';
+  id?: string;
+  hidden?: boolean;
+}
+const { locale, track, id, hidden = false } = Astro.props;
+const s = t(locale);
+const f = s.form;
+const isAv = track === 'aviation';
+const [packages, services] = await Promise.all([getPackages(), getAviationServices()]);
+const uid = `f-${track}`;
+const privacyText = f.privacy.split('{link}');
+const fallbackEmail = isAv ? site.aviationEmail : site.email;
+---
+
+<form
+  class:list={['inquiry', `track-${track}`]}
+  method="post"
+  action="/api/contact"
+  id={id}
+  hidden={hidden}
+  data-inquiry
+  data-theme={isAv ? 'aviation' : 'auto'}
+  novalidate
+>
+  <input type="hidden" name="track" value={track} />
+  <input type="hidden" name="locale" value={locale} />
+  <input type="hidden" name="ts" value="" data-ts />
+  <div class="hp" aria-hidden="true">
+    <label for={`${uid}-website`}>Website</label>
+    <input type="text" id={`${uid}-website`} name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="fields">
+    {
+      isAv && (
+        <div class="field">
+          <label for={`${uid}-company`}>{f.company}</label>
+          <input
+            id={`${uid}-company`}
+            name="company"
+            type="text"
+            autocomplete="organization"
+            required
+          />
+        </div>
+      )
+    }
+    <div class="field">
+      <label for={`${uid}-name`}>{f.name}</label>
+      <input id={`${uid}-name`} name="name" type="text" autocomplete="name" required />
+    </div>
+    {
+      isAv && (
+        <div class="field">
+          <label for={`${uid}-role`}>
+            {f.role} <span class="opt">({f.optional})</span>
+          </label>
+          <input id={`${uid}-role`} name="role" type="text" autocomplete="organization-title" />
+        </div>
+      )
+    }
+    <div class="field">
+      <label for={`${uid}-email`}>{f.email}</label>
+      <input id={`${uid}-email`} name="email" type="email" autocomplete="email" required />
+    </div>
+    <div class="field">
+      <label for={`${uid}-phone`}>
+        {f.phone}
+        <span class="opt">({f.optional})</span>
+      </label>
+      <input id={`${uid}-phone`} name="phone" type="tel" autocomplete="tel" />
+    </div>
+
+    {
+      isAv ? (
+        <>
+          <div class="field">
+            <label for={`${uid}-type`}>{f.aircraftType}</label>
+            <input
+              id={`${uid}-type`}
+              name="aircraftType"
+              type="text"
+              placeholder={
+                locale === 'de'
+                  ? 'z. B. Citation CJ3, PC-12, SR22'
+                  : 'e.g. Citation CJ3, PC-12, SR22'
+              }
+              required
+            />
+          </div>
+          <div class="field">
+            <label for={`${uid}-reg`}>
+              {f.registration} <span class="opt">({f.optional})</span>
+            </label>
+            <input id={`${uid}-reg`} name="registration" type="text" autocapitalize="characters" />
+          </div>
+          <div class="field">
+            <label for={`${uid}-loc`}>{f.location}</label>
+            <input
+              id={`${uid}-loc`}
+              name="location"
+              type="text"
+              placeholder="EDLT, EDDG …"
+              autocapitalize="characters"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for={`${uid}-time`}>
+              {f.timeframe} <span class="opt">({f.optional})</span>
+            </label>
+            <input id={`${uid}-time`} name="timeframe" type="text" />
+          </div>
+          <fieldset class="field full">
+            <legend>{f.services}</legend>
+            <div class="checks">
+              {services.map((sv) => (
+                <label class="check">
+                  <input type="checkbox" name="services" value={sv.data.name[locale]} />
+                  <span>{sv.data.name[locale]}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </>
+      ) : (
+        <>
+          <div class="field">
+            <label for={`${uid}-vehicle`}>{f.vehicle}</label>
+            <input
+              id={`${uid}-vehicle`}
+              name="vehicle"
+              type="text"
+              placeholder={locale === 'de' ? 'z. B. VW Tiguan' : 'e.g. VW Tiguan'}
+              required
+            />
+          </div>
+          <div class="field">
+            <label for={`${uid}-class`}>{f.vehicleClass}</label>
+            <select id={`${uid}-class`} name="vehicleClass">
+              {f.vehicleClasses.map((c) => (
+                <option value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
+          <div class="field">
+            <label for={`${uid}-pkg`}>{f.packages}</label>
+            <select id={`${uid}-pkg`} name="package" data-package-select>
+              {packages.map((p) => (
+                <option value={p.id}>{p.data.name[locale]}</option>
+              ))}
+              <option value="beratung">
+                {locale === 'de' ? 'Noch unsicher, bitte beraten' : 'Not sure yet, please advise'}
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label for={`${uid}-date`}>
+              {f.date} <span class="opt">({f.optional})</span>
+            </label>
+            <input id={`${uid}-date`} name="date" type="date" />
+          </div>
+        </>
+      )
+    }
+
+    <div class="field full">
+      <label for={`${uid}-msg`}>
+        {f.message}
+        <span class="opt">({f.optional})</span>
+      </label>
+      <textarea id={`${uid}-msg`} name="message" rows="4"></textarea>
+    </div>
+
+    <label class="check full consent">
+      <input type="checkbox" name="privacy" value="yes" required />
+      <span>
+        {privacyText[0]}<a href={path('privacy', locale)}>{f.privacyLink}</a>{privacyText[1]}
+      </span>
+    </label>
+  </div>
+
+  <div class="submit-row">
+    <button type="submit" class="btn" data-submit>
+      <span data-label>{isAv ? f.submitAviation : f.submitCar}</span>
+      {
+        isAv && (
+          <span class="chev" aria-hidden="true">
+            ›
+          </span>
+        )
+      }
+    </button>
+    <p class="micro">{isAv ? f.microcopyAviation : f.microcopyCar}</p>
+  </div>
+
+  <div class="status" role="status" aria-live="polite" data-status></div>
+
+  <div class="success" hidden data-success tabindex="-1">
+    <p class="success-title">{f.successTitle}</p>
+    <p>{isAv ? f.successAviation : f.successCar}</p>
+  </div>
+
+  <template data-messages>
+    <span data-k="sending">{f.sending}</span>
+    <span data-k="invalid">{f.invalid}</span>
+    <span data-k="error">{f.error} <a href={`mailto:${fallbackEmail}`}>{fallbackEmail}</a>.</span>
+  </template>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-inquiry]').forEach((form) => {
+    const ts = form.querySelector<HTMLInputElement>('[data-ts]');
+    if (ts) ts.value = String(Date.now());
+
+    // Pre-select a package from ?paket=<id>
+    const pkg = new URLSearchParams(location.search).get('paket');
+    const select = form.querySelector<HTMLSelectElement>('[data-package-select]');
+    if (pkg && select && [...select.options].some((o) => o.value === pkg)) select.value = pkg;
+
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const success = form.querySelector<HTMLElement>('[data-success]')!;
+    const button = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const label = button.querySelector<HTMLElement>('[data-label]')!;
+    const msg = (k: string) =>
+      form
+        .querySelector<HTMLTemplateElement>('[data-messages]')!
+        .content.querySelector(`[data-k="${k}"]`)!.innerHTML;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      const invalid = [
+        ...form.querySelectorAll<HTMLInputElement>('input, select, textarea'),
+      ].filter((el) => !el.checkValidity());
+      if (invalid.length) {
+        invalid.forEach((el) => el.setAttribute('aria-invalid', 'true'));
+        status.innerHTML = msg('invalid');
+        invalid[0].focus();
+        return;
+      }
+      const original = label.textContent;
+      button.disabled = true;
+      label.innerHTML = msg('sending');
+      status.textContent = '';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const data = await res.json().catch(() => ({ ok: false }));
+        if (!res.ok || !data.ok) throw new Error(data.error ?? 'failed');
+        form.querySelector('.fields')!.setAttribute('hidden', '');
+        form.querySelector('.submit-row')!.setAttribute('hidden', '');
+        success.hidden = false;
+        success.focus();
+      } catch {
+        status.innerHTML = msg('error');
+      } finally {
+        button.disabled = false;
+        label.textContent = original;
+      }
+    });
+  });
+</script>
+
+<style>
+  .inquiry {
+    display: grid;
+    gap: 2rem;
+  }
+  .hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1.75rem;
+  }
+  .field {
+    display: grid;
+    gap: 0.45rem;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  .full {
+    grid-column: 1 / -1;
+  }
+  label,
+  legend {
+    font-size: 0.85rem;
+    font-weight: 580;
+    color: var(--c-ink);
+  }
+  .track-aviation label,
+  .track-aviation legend {
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-stretch: 115%;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  legend {
+    margin-bottom: 0.75rem;
+  }
+  .opt {
+    font-weight: 400;
+    color: var(--c-muted);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  input:not([type='checkbox']),
+  select,
+  textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--c-ink);
+    background: var(--c-card);
+    border: 1px solid color-mix(in srgb, var(--c-ink) 18%, transparent);
+    border-radius: 4px;
+    padding: 0.85rem 0.95rem;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+  .track-aviation input:not([type='checkbox']),
+  .track-aviation select,
+  .track-aviation textarea {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgb(245 243 238 / 0.28);
+    border-radius: 0;
+    padding: 0.7rem 0;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: color-mix(in srgb, var(--c-muted) 70%, transparent);
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-accent) 18%, transparent);
+  }
+  .track-aviation input:focus,
+  .track-aviation textarea:focus {
+    box-shadow: 0 1px 0 var(--gold);
+  }
+  [aria-invalid='true'] {
+    border-color: #c2410c !important;
+  }
+  .checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .check {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    font-weight: 450;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--c-ink);
+    cursor: pointer;
+  }
+  .checks .check {
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--c-line);
+    font-size: 0.85rem;
+  }
+  .track-aviation .check {
+    font-size: 0.88rem;
+    font-weight: 450;
+    font-stretch: 100%;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--c-ink);
+  }
+  .check input {
+    margin-top: 0.2rem;
+    accent-color: var(--c-accent);
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+  .consent {
+    font-size: 0.85rem;
+    color: var(--c-muted);
+  }
+  .track-aviation .consent {
+    font-size: 0.85rem;
+    font-stretch: 100%;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--c-muted);
+  }
+  .consent a {
+    color: var(--c-accent-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .submit-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+  .micro {
+    font-size: 0.85rem;
+    color: var(--c-muted);
+  }
+  .status:not(:empty) {
+    font-size: 0.92rem;
+    color: #c2410c;
+  }
+  .success {
+    padding: 2rem;
+    border: 1px solid var(--c-accent);
+    border-radius: var(--btn-radius);
+  }
+  .success-title {
+    font-size: 1.4rem;
+    font-weight: 640;
+    font-stretch: var(--display-stretch);
+    text-transform: var(--display-transform);
+    margin-bottom: 0.5rem;
+  }
+  @media (max-width: 640px) {
+    .fields {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

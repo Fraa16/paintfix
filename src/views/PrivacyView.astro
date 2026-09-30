@@ -1,0 +1,238 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DraftMark from '@/components/global/DraftMark.astro';
+import { type Locale } from '@/i18n/routes';
+import { site, analyticsEnabled } from '@/content/site';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const de = locale === 'de';
+const updated = de ? 'Stand: Oktober 2026' : 'Last updated: October 2026';
+---
+
+<BaseLayout
+  locale={locale}
+  routeKey="privacy"
+  theme="auto"
+  title={de ? 'Datenschutzerklärung | Paintfix' : 'Privacy policy | Paintfix'}
+  description={de
+    ? 'Datenschutzerklärung von Paintfix und Paintfix Aviation, Telgte.'
+    : 'Privacy policy of Paintfix and Paintfix Aviation, Telgte, Germany.'}
+  noindex
+>
+  <section class="section">
+    <div class="container legal prose-legal">
+      <span class="kicker">{de ? 'Rechtliches' : 'Legal'}</span>
+      <h1 class="display display-l">
+        {de ? 'Datenschutzerklärung' : 'Privacy policy'}<DraftMark locale={locale} />
+      </h1>
+      {
+        !de && (
+          <p>
+            <em>This is a courtesy translation. The German version is legally binding.</em>
+          </p>
+        )
+      }
+
+      {
+        de ? (
+          <>
+            <h2>1. Verantwortlicher</h2>
+            <p>
+              {site.owner}, Paintfix / Paintfix Aviation, {site.street}, {site.postalCode}{' '}
+              {site.city}, Deutschland.
+              <br />
+              E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>, Telefon:{' '}
+              {site.phoneDisplay}
+            </p>
+
+            <h2>2. Das Wichtigste in Kürze</h2>
+            <ul>
+              <li>
+                Diese Website setzt keine Cookies und verwendet kein Tracking zu Werbezwecken.
+              </li>
+              <li>
+                Es werden keine Inhalte Dritter eingebettet (keine Karten, Videos oder
+                Social-Media-Plugins).
+              </li>
+              <li>
+                Schriftarten werden von unserem eigenen Server geladen. Es besteht keine Verbindung
+                zu Google Fonts.
+              </li>
+              <li>
+                Daten aus dem Kontaktformular verwenden wir ausschließlich zur Bearbeitung Ihrer
+                Anfrage.
+              </li>
+            </ul>
+
+            <h2>3. Hosting</h2>
+            <p>
+              Diese Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA,
+              gehostet. Beim Aufruf der Website verarbeitet Vercel technisch notwendige Daten
+              (IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser und Betriebssystem) in
+              Server-Logfiles, um die Website auszuliefern und die Sicherheit zu gewährleisten. Das
+              Kontaktformular wird in einem Rechenzentrum in Frankfurt am Main verarbeitet.
+            </p>
+            <p>
+              Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
+              sicheren und funktionsfähigen Website). Mit Vercel besteht ein
+              Auftragsverarbeitungsvertrag. Für Übermittlungen in die USA stützt sich Vercel auf das
+              EU-US Data Privacy Framework sowie auf Standardvertragsklauseln der EU-Kommission.
+            </p>
+
+            {analyticsEnabled && (
+              <>
+                <h2>4. Reichweitenmessung (Vercel Web Analytics)</h2>
+                <p>
+                  Wir nutzen Vercel Web Analytics, um die Nutzung der Website in anonymisierter,
+                  zusammengefasster Form auszuwerten (z. B. aufgerufene Seiten, Herkunftsland,
+                  Gerätetyp). Es werden keine Cookies gesetzt und keine Profile gebildet. Besucher
+                  werden über einen täglich wechselnden Hash gezählt, der keine Identifizierung
+                  erlaubt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+                </p>
+              </>
+            )}
+
+            <h2>{analyticsEnabled ? '5' : '4'}. Kontaktformular, E-Mail und Telefon</h2>
+            <p>
+              Wenn Sie uns über das Formular, per E-Mail oder telefonisch kontaktieren, verarbeiten
+              wir Ihre Angaben (z. B. Name, Kontaktdaten, Fahrzeug- oder Flugzeugdaten, Nachricht),
+              um Ihre Anfrage zu beantworten und ein Angebot zu erstellen. Rechtsgrundlage ist Art.
+              6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) und im Übrigen Art. 6 Abs. 1 lit. f
+              DSGVO.
+            </p>
+            <p>
+              Formularanfragen werden per E-Mail über unseren E-Mail-Anbieter IONOS SE, Elgendorfer
+              Str. 57, 56410 Montabaur, übermittelt und gespeichert. Mit IONOS besteht ein
+              Auftragsverarbeitungsvertrag. Wir löschen Ihre Daten, sobald sie nicht mehr benötigt
+              werden. Kommt ein Auftrag zustande, gelten die gesetzlichen Aufbewahrungsfristen (z.
+              B. nach HGB und AO).
+            </p>
+
+            <h2>{analyticsEnabled ? '6' : '5'}. Externe Links</h2>
+            <p>
+              Links zu externen Angeboten, etwa zu Google Maps für die Routenplanung, öffnen die
+              Seite des jeweiligen Anbieters. Erst dann gelten dessen Datenschutzbestimmungen.
+            </p>
+
+            <h2>{analyticsEnabled ? '7' : '6'}. Ihre Rechte</h2>
+            <p>
+              Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung
+              (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20)
+              und Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21).
+              Wenden Sie sich dazu an die oben genannte Adresse.
+            </p>
+            <p>
+              Sie können sich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, zum
+              Beispiel bei der Landesbeauftragten für Datenschutz und Informationsfreiheit
+              Nordrhein-Westfalen, Kavalleriestraße 2–4, 40213 Düsseldorf.
+            </p>
+
+            <h2>{analyticsEnabled ? '8' : '7'}. Verschlüsselung</h2>
+            <p>
+              Diese Website nutzt aus Sicherheitsgründen eine TLS-Verschlüsselung (erkennbar an
+              „https://“).
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>1. Controller</h2>
+            <p>
+              {site.owner}, Paintfix / Paintfix Aviation, {site.street}, {site.postalCode}{' '}
+              {site.city}, Germany.
+              <br />
+              Email: <a href={`mailto:${site.email}`}>{site.email}</a>, phone: {site.phoneDisplay}
+            </p>
+
+            <h2>2. Summary</h2>
+            <ul>
+              <li>This website sets no cookies and uses no advertising tracking.</li>
+              <li>No third-party content is embedded (no maps, videos or social media plugins).</li>
+              <li>Fonts are served from our own server. There is no connection to Google Fonts.</li>
+              <li>We use contact form data only to handle your request.</li>
+            </ul>
+
+            <h2>3. Hosting</h2>
+            <p>
+              This website is hosted by Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723,
+              USA. When you visit the site, Vercel processes technically necessary data (IP address,
+              date and time, page requested, browser and operating system) in server log files to
+              deliver the site and keep it secure. The contact form is processed in a data centre in
+              Frankfurt am Main.
+            </p>
+            <p>
+              The legal basis is Art. 6(1)(f) GDPR (legitimate interest in a secure, working
+              website). A data processing agreement is in place with Vercel. For transfers to the
+              USA, Vercel relies on the EU-US Data Privacy Framework and the European Commission’s
+              standard contractual clauses.
+            </p>
+
+            {analyticsEnabled && (
+              <>
+                <h2>4. Audience measurement (Vercel Web Analytics)</h2>
+                <p>
+                  We use Vercel Web Analytics to evaluate website usage in anonymised, aggregated
+                  form (e.g. pages viewed, country, device type). No cookies are set and no profiles
+                  are created. Visitors are counted using a daily rotating hash that does not allow
+                  identification. The legal basis is Art. 6(1)(f) GDPR.
+                </p>
+              </>
+            )}
+
+            <h2>{analyticsEnabled ? '5' : '4'}. Contact form, email and phone</h2>
+            <p>
+              When you contact us via the form, by email or by phone, we process your details (e.g.
+              name, contact details, vehicle or aircraft data, message) to answer your request and
+              prepare a quote. The legal basis is Art. 6(1)(b) GDPR (pre-contractual measures) and
+              otherwise Art. 6(1)(f) GDPR.
+            </p>
+            <p>
+              Form requests are transmitted and stored by email via our email provider IONOS SE,
+              Elgendorfer Str. 57, 56410 Montabaur, Germany, with whom a data processing agreement
+              is in place. We delete your data once it is no longer needed. If a contract is
+              concluded, statutory retention periods apply.
+            </p>
+
+            <h2>{analyticsEnabled ? '6' : '5'}. External links</h2>
+            <p>
+              Links to external services, such as Google Maps for directions, open the provider’s
+              website. Only then do their privacy terms apply.
+            </p>
+
+            <h2>{analyticsEnabled ? '7' : '6'}. Your rights</h2>
+            <p>
+              You have the right of access (Art. 15 GDPR), rectification (Art. 16), erasure (Art.
+              17), restriction of processing (Art. 18), data portability (Art. 20) and to object to
+              processing based on legitimate interests (Art. 21). Please contact us at the address
+              above.
+            </p>
+            <p>
+              You may also lodge a complaint with a data protection supervisory authority, for
+              example the State Commissioner for Data Protection and Freedom of Information of North
+              Rhine-Westphalia, Kavalleriestraße 2–4, 40213 Düsseldorf, Germany.
+            </p>
+
+            <h2>{analyticsEnabled ? '8' : '7'}. Encryption</h2>
+            <p>This website uses TLS encryption for security (recognisable by “https://”).</p>
+          </>
+        )
+      }
+      <p class="updated">{updated}</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 48rem;
+  }
+  .legal h1 {
+    margin: 0.75rem 0 1.5rem;
+  }
+  .updated {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+  }
+</style>

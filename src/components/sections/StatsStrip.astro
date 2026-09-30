@@ -1,0 +1,85 @@
+---
+import DraftMark from '@/components/global/DraftMark.astro';
+import { getAviationStats } from '@/lib/content';
+import type { Locale } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const stats = await getAviationStats();
+---
+
+<div class="stats">
+  <dl class="container stats-grid">
+    {
+      stats.map((s) => (
+        <div class="stat">
+          <dt class="label">
+            {s.data.label[locale]}
+            <DraftMark draft={s.data.draft} locale={locale} />
+          </dt>
+          <dd class="value">{s.data.value[locale]}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</div>
+
+<style>
+  .stats {
+    position: relative;
+    background: rgb(14 24 48 / 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgb(194 163 107 / 0.35);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    padding: 1.4rem 1.25rem 1.5rem;
+    border-left: 1px solid var(--c-line);
+  }
+  .stat:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .value {
+    font-size: clamp(1.05rem, 0.85rem + 0.7vw, 1.4rem);
+    font-weight: 600;
+    font-stretch: 125%;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--c-ink);
+    line-height: 1.1;
+  }
+  .label {
+    font-size: 0.72rem;
+    font-weight: 560;
+    font-stretch: 115%;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgb(245 243 238 / 0.72);
+  }
+  @media (max-width: 760px) {
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .stat {
+      padding: 1rem 0.75rem 1.1rem;
+    }
+    .stat:nth-child(odd) {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .stat:nth-child(n + 3) {
+      border-top: 1px solid var(--c-line);
+    }
+  }
+</style>

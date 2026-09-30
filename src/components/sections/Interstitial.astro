@@ -1,0 +1,45 @@
+---
+import Img from '@/components/ui/Img.astro';
+import Logo from '@/components/global/Logo.astro';
+import type { SlotId } from '@/content/media';
+import type { Locale } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+  media: SlotId;
+}
+const { locale, media } = Astro.props;
+---
+
+<section class="interstitial" data-parallax-scope>
+  <div class="img" data-parallax-y="-14">
+    <Img slot={media} locale={locale} />
+  </div>
+  <Logo variant="seal" class="mono" />
+</section>
+
+<style>
+  .interstitial {
+    position: relative;
+    height: clamp(22rem, 72vh, 44rem);
+    overflow: hidden;
+    background: var(--navy);
+  }
+  .img {
+    position: absolute;
+    inset: -14% 0;
+  }
+  .img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .interstitial :global(.mono) {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 2rem;
+    width: clamp(3.5rem, 2.5rem + 3vw, 5.5rem);
+    height: auto;
+    z-index: 1;
+  }
+</style>

@@ -1,0 +1,37 @@
+# À-la-carte extras. Proposals until confirmed by the client.
+- id: pet-hair
+  order: 1
+  draft: true
+  priceFrom: 39
+  name: { de: Tierhaarentfernung, en: Pet hair removal }
+  desc: { de: Für Polster und Teppiche, auch bei hartnäckigen Haaren., en: For seats and carpets, including stubborn hair. }
+- id: odour
+  order: 2
+  draft: true
+  priceFrom: 49
+  name: { de: Geruchsneutralisation, en: Odour treatment }
+  desc: { de: Ozonbehandlung gegen Rauch-, Tier- und Feuchtegerüche., en: Ozone treatment for smoke, pet and damp odours. }
+- id: leather
+  order: 3
+  draft: true
+  priceFrom: 59
+  name: { de: Lederreinigung & -pflege, en: Leather clean & care }
+  desc: { de: Schonende Reinigung und Pflege, die das Leder geschmeidig hält., en: Gentle cleaning and conditioning that keeps leather supple. }
+- id: headlights
+  order: 4
+  draft: true
+  priceFrom: 69
+  name: { de: Scheinwerferaufbereitung, en: Headlight restoration }
+  desc: { de: Vergilbte Scheinwerfer poliert und versiegelt., en: Yellowed headlights polished and sealed. }
+- id: wheels
+  order: 5
+  draft: true
+  priceFrom: 79
+  name: { de: Felgenversiegelung, en: Wheel coating }
+  desc: { de: Keramikschutz für Felgen, damit Bremsstaub schlechter haftet., en: Ceramic protection so brake dust sticks less. }
+- id: engine
+  order: 6
+  draft: true
+  priceFrom: 39
+  name: { de: Motorraumpflege, en: Engine bay care }
+  desc: { de: Vorsichtige Reinigung und Pflege von Kunststoffen und Schläuchen., en: Careful cleaning and dressing of plastics and hoses. }

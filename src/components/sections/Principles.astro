@@ -1,0 +1,56 @@
+---
+interface Item {
+  title: string;
+  text: string;
+}
+interface Props {
+  items: readonly Item[];
+}
+const { items } = Astro.props;
+---
+
+<ul class="principles">
+  {
+    items.map((it, i) => (
+      <li data-reveal style={`--reveal-i: ${i}`}>
+        <span class="n">{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="title">{it.title}</h3>
+        <p class="text">{it.text}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+  li {
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--c-line);
+  }
+  .n {
+    font-size: 0.8rem;
+    font-weight: 620;
+    letter-spacing: 0.16em;
+    color: var(--c-kicker);
+  }
+  .title {
+    font-size: 1.3rem;
+    font-weight: 640;
+    letter-spacing: -0.01em;
+  }
+  .text {
+    color: var(--c-muted);
+  }
+  @media (max-width: 860px) {
+    .principles {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

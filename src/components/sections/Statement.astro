@@ -1,0 +1,58 @@
+---
+import Logo from '@/components/global/Logo.astro';
+
+interface Props {
+  soft: string;
+  strong: string;
+  sub: string;
+}
+const { soft, strong, sub } = Astro.props;
+---
+
+<section class="section tone-ivory statement" data-parallax-scope>
+  <div class="container inner">
+    <h2 class="display display-giant words">
+      <span class="sr-only">{soft} {strong}</span>
+      <span class="soft-w" data-parallax-x="4" aria-hidden="true">{soft}</span>
+      <span class="strong-w" data-parallax-x="-4" aria-hidden="true">{strong}</span>
+    </h2>
+    <p class="sub caption-caps accent-text" data-reveal>{sub}</p>
+    <div class="horizon" aria-hidden="true">
+      <Logo variant="seal" class="h-seal" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .statement {
+    overflow: hidden;
+    text-align: center;
+  }
+  .words {
+    display: grid;
+    gap: 0.1em;
+    font-size: clamp(2.2rem, 0.4rem + 7.5vw, 7.8rem);
+  }
+  /* 50% keeps the two-tone effect while meeting 3:1 for large text. */
+  .soft-w {
+    color: color-mix(in srgb, var(--c-ink) 50%, var(--c-bg));
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .sub {
+    margin-top: 2rem;
+  }
+  .horizon {
+    margin-top: 3rem;
+  }
+  .horizon :global(.h-seal) {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+</style>
