@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&amp;display=swap">
+<style>body{margin:0;background:#E7E5E0;-webkit-font-smoothing:antialiased;} a{color:#0C0D0F;} a:hover{color:#C8322A;}</style>
+</helmet>
+<div style="min-height:100vh;padding:clamp(40px,5vw,72px) clamp(20px,3vw,48px) 96px;font-family:'Mona Sans',system-ui,sans-serif;color:#0C0D0F;">
+  <div style="max-width:1880px;margin:0 auto;">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 48px;padding-bottom:28px;border-bottom:1px solid #C9C6BF;">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#5E636B;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Website v3 · Mobil</div>
+        <h1 style="margin:0;font-size:clamp(28px,2.9vw,45px);line-height:1;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;">Vier Ansichten auf dem Smartphone</h1>
+      </div>
+      <p style="margin:0;max-width:440px;font-size:15px;line-height:1.6;color:#4A4E55;text-wrap:pretty;">Live-Ansichten der Website bei 402 px Breite. Jede Ansicht lässt sich scrollen und bedienen.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:64px 48px;margin-top:56px;">
+      <figure style="margin:0;display:flex;flex-direction:column;gap:24px;width:402px;">
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+          <div style="height:100%;display:flex;flex-direction:column;background:#ffffff;">
+            <div style="flex:none;height:54px;"></div>
+            <iframe src="Paintfix%20Website%20v4.dc.html?page=home" title="Fahrzeugaufbereitung Startseite" style="flex:1;display:block;width:100%;border:0;"></iframe>
+            <div style="flex:none;height:22px;"></div>
+          </div>
+        </x-import>
+        <figcaption style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">01 · Fahrzeug · Startseite</span>
+          <span style="font-size:14px;line-height:1.55;color:#4A4E55;">Feste Leiste mit Anrufen und Termin, immer mit dem Daumen erreichbar. Der grüne Punkt zeigt, ob gerade geöffnet ist.</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;gap:24px;width:402px;">
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+          <div style="height:100%;display:flex;flex-direction:column;background:#ffffff;">
+            <div style="flex:none;height:54px;"></div>
+            <iframe src="Paintfix%20Website%20v4.dc.html?page=req" title="Fahrzeugaufbereitung Anfrage" style="flex:1;display:block;width:100%;border:0;"></iframe>
+            <div style="flex:none;height:22px;"></div>
+          </div>
+        </x-import>
+        <figcaption style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">02 · Fahrzeug · Anfrage</span>
+          <span style="font-size:14px;line-height:1.55;color:#4A4E55;">Leistungen und Fahrzeugklasse wählen, der Festpreis steht sofort darunter.</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;gap:24px;width:402px;">
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="402px,874px">
+          <div style="height:100%;display:flex;flex-direction:column;background:#0D1A2C;">
+            <div style="flex:none;height:54px;"></div>
+            <iframe src="Paintfix%20Website%20v4.dc.html?page=av" title="Aviation Startseite" style="flex:1;display:block;width:100%;border:0;"></iframe>
+            <div style="flex:none;height:22px;"></div>
+          </div>
+        </x-import>
+        <figcaption style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.2em;">03 · AVIATION · STARTSEITE</span>
+          <span style="font-size:14px;line-height:1.55;color:#4A4E55;">Das Bild bleibt frei. Ops-Telefon und Angebot liegen in einer dunklen Leiste am unteren Rand.</span>
+        </figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;gap:24px;width:402px;">
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+          <div style="height:100%;display:flex;flex-direction:column;background:#F4EFE6;">
+            <div style="flex:none;height:54px;"></div>
+            <iframe src="Paintfix%20Website%20v4.dc.html?page=av&amp;anchor=av-type&amp;type=Challenger%20350&amp;svc=ec" title="Aviation Angebotsformular" style="flex:1;display:block;width:100%;border:0;"></iframe>
+            <div style="flex:none;height:22px;"></div>
+          </div>
+        </x-import>
+        <figcaption style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.2em;">04 · AVIATION · ANGEBOT</span>
+          <span style="font-size:14px;line-height:1.55;color:#4A4E55;">Muster wählen, Richtwerte für Dauer, Team und Bodenzeit erscheinen direkt im Formular.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

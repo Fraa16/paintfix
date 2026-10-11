@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&amp;display=swap">
+<script src="./image-slot.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#ffffff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+*{box-sizing:border-box}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:#0C0D0F;text-decoration:none}
+a:hover{color:#C8322A}
+::selection{background:#0C0D0F;color:#ffffff}
+input::placeholder,textarea::placeholder{color:#8A8F96}
+@keyframes pfDot{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+@keyframes pfCue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+</style>
+</helmet>
+<div style="position:relative;min-height:100vh;font-family:'Mona Sans',system-ui,sans-serif;color:#0C0D0F;background:#ffffff;">
+<div ref="{{ topRef }}" style="position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;"></div>
+<sc-if value="{{ curtainOn }}" hint-placeholder-val="{{ false }}">
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:{{ curtainBg }};color:{{ curtainFg }};transform:{{ curtainT }};transition:{{ curtainTr }};">
+    <sc-if value="{{ curtainAv }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:24px;font-family:'Mona Sans',sans-serif;opacity:{{ curtainInner }};transition:opacity 0.6s ease 0.2s;">
+        <div style="display:flex;align-items:center;gap:20px;">
+          <span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(24px,2.6vw,38px));letter-spacing:0.375em;">PAINTFIX</span>
+          <span style="display:block;width:1px;height:30px;background:rgba(244,239,230,0.4);"></span>
+          <span style="font-size:clamp(11px,0.95vw,14px);letter-spacing:0.44em;">AVIATION</span>
+        </div>
+        <span style="display:block;width:56px;height:1px;background:#C8AE82;"></span>
+        <span style="font-size:10px;letter-spacing:0.34em;text-transform:uppercase;color:#C8AE82;">Business Aviation · EDDG</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ curtainCar }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:20px;opacity:{{ curtainInner }};transition:opacity 0.5s ease 0.15s;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="position:relative;display:block;width:30px;height:30px;background:#0C0D0F;"><span style="position:absolute;right:0;bottom:0;width:12px;height:12px;background:#C8322A;"></span></span>
+          <span style="font-size:24px;font-weight:700;font-stretch:125%;letter-spacing:0.07em;">PAINTFIX</span>
+        </div>
+        <span style="font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#5E636B;">Fahrzeugaufbereitung · Telgte</span>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isCar }}" hint-placeholder-val="{{ true }}">
+<header style="position:sticky;top:0;z-index:40;background:rgba(255,255,255,0.94);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid #E6E6E3;">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+    <button onClick="{{ goHome }}" aria-label="Paintfix Startseite" style="display:flex;align-items:center;gap:12px;background:none;border:0;padding:0;cursor:pointer;">
+      <span style="position:relative;display:block;width:22px;height:22px;background:#0C0D0F;"><span style="position:absolute;right:0;bottom:0;width:9px;height:9px;background:#C8322A;"></span></span>
+      <span style="font-size:17px;font-weight:700;font-stretch:125%;letter-spacing:0.07em;">PAINTFIX</span>
+    </button>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:36px;font-size:14px;font-weight:500;">
+        <button onClick="{{ goAuto }}" style="background:none;border:0;border-bottom:1.5px solid {{ navAutoLine }};padding:6px 0;cursor:pointer;" style-hover="color:#C8322A">Leistungen &amp; Preise</button>
+        <button onClick="{{ goAblauf }}" style="background:none;border:0;border-bottom:1.5px solid transparent;padding:6px 0;cursor:pointer;" style-hover="color:#C8322A">Ablauf</button>
+        <button onClick="{{ goStandort }}" style="background:none;border:0;border-bottom:1.5px solid transparent;padding:6px 0;cursor:pointer;" style-hover="color:#C8322A">Standort</button>
+      </nav>
+    </sc-if>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ goAv }}" style="display:flex;align-items:baseline;gap:8px;background:none;border:0;padding:0;cursor:pointer;color:#0D1A2C;" style-hover="color:#C8322A">
+          <span style="font-family:'Cinzel',serif;font-weight:400;font-size:12.8px;">Paintfix Aviation</span><span style="font-size:12px;">↗</span>
+        </button>
+      </sc-if>
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><button onClick="{{ goReq }}" style="display:inline-flex;align-items:center;gap:12px;height:44px;padding:0 20px;background:#0C0D0F;color:#ffffff;border:0;cursor:pointer;font-size:14px;font-weight:600;" style-hover="background:#2A2D31">Termin anfragen</button></sc-if>
+      <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMenu }}" style="height:44px;padding:0 4px;background:none;border:0;cursor:pointer;font-size:14px;font-weight:600;">{{ menuLabel }}</button>
+      </sc-if>
+    </div>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="border-top:1px solid #E6E6E3;background:#ffffff;padding:8px clamp(20px,4vw,56px) 24px;display:flex;flex-direction:column;">
+      <button onClick="{{ goAuto }}" style="text-align:left;background:none;border:0;border-bottom:1px solid #EEEEEB;padding:18px 0;font-size:20px;font-weight:600;font-stretch:110%;cursor:pointer;">Leistungen &amp; Preise</button>
+      <button onClick="{{ goAblauf }}" style="text-align:left;background:none;border:0;border-bottom:1px solid #EEEEEB;padding:18px 0;font-size:20px;font-weight:600;font-stretch:110%;cursor:pointer;">Ablauf</button>
+      <button onClick="{{ goStandort }}" style="text-align:left;background:none;border:0;border-bottom:1px solid #EEEEEB;padding:18px 0;font-size:20px;font-weight:600;font-stretch:110%;cursor:pointer;">Standort</button>
+      <button onClick="{{ goAv }}" style="text-align:left;background:none;border:0;padding:18px 0;font-family:'Cinzel',serif;font-weight:400;font-size:16px;color:#0D1A2C;cursor:pointer;">Paintfix Aviation ↗</button>
+    </div>
+  </sc-if>
+</header>
+</sc-if>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<main data-screen-label="01 Startseite">
+
+<section style="position:relative;background:#ffffff;overflow:hidden;">
+  <div style="max-width:1360px;margin:0 auto;padding:clamp(36px,5vw,72px) clamp(20px,4vw,56px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,5vw,88px);align-items:end;">
+    <div style="padding-bottom:clamp(0px,1.5vw,24px);container-type:inline-size;">
+      <div data-rv="0" style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#5E636B;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Fahrzeugaufbereitung · Telgte bei Münster</div>
+      <h1 style="margin:28px 0 0;font-size:clamp(40px,13.4cqi,112px);line-height:0.92;font-weight:700;font-stretch:125%;letter-spacing:-0.02em;font-family:'Mona Sans'">
+        <span style="display:block;overflow:hidden;padding-bottom:0.07em;"><span data-rvm="80" style="display:block;">Gründlich</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:0.07em;"><span data-rvm="190" style="display:block;">bis ins Detail.</span></span>
+      </h1>
+      <p data-rv="360" style="margin:28px 0 0;max-width:480px;font-size:clamp(16px,1.3vw,19px);line-height:1.6;color:#4A4E55;text-wrap:pretty;">Außen, innen, Politur und Keramikversiegelung für Ihr Alltagsauto, in unserer Halle in Telgte. Den Festpreis kennen Sie, bevor wir beginnen.</p>
+      <div data-rv="460" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:36px;">
+        <button onClick="{{ goReq }}" style="display:inline-flex;align-items:center;gap:14px;height:56px;padding:0 28px;background:#0C0D0F;color:#ffffff;border:0;cursor:pointer;font-size:14px;font-weight:600;" style-hover="background:#2A2D31">Termin anfragen <span>→</span></button>
+        <button onClick="{{ goAuto }}" style="display:inline-flex;align-items:center;height:56px;padding:0 28px;background:transparent;color:#0C0D0F;border:1px solid #0C0D0F;cursor:pointer;font-size:14px;font-weight:600;" style-hover="background:#F5F5F3">Alle Preise</button>
+      </div>
+      <div data-rv="560" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:28px;font-size:13px;color:#4A4E55;">{{ liveDot }}<span>{{ openText }}</span><span style="color:#B5B8BD;">·</span><span>Marshallstraße 34, Telgte</span></div>
+    </div>
+    <div data-rvc="120" style="position:relative;aspect-ratio:4/5;max-height:calc(100vh - 140px);min-height:420px;overflow:hidden;background:#EDEDEA;color:#7B8088;">
+      <div data-px="0.07" style="position:absolute;left:0;right:0;top:-8%;bottom:-8%;">
+        <image-slot id="v2-car-hero" shape="rect" src="img/car-20381587.jpg" placeholder="Foto: Detail Scheinwerfer mit Wassertropfen, Hochformat"></image-slot>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:12px;padding:44px 20px 18px;font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff;background:linear-gradient(180deg,rgba(12,13,15,0),rgba(12,13,15,0.55));pointer-events:none;"><span>VW Golf · Außenaufbereitung</span><span>ab 89 €</span></div>
+    </div>
+  </div>
+  <div style="max-width:1360px;margin:0 auto;padding:clamp(48px,6vw,88px) clamp(20px,4vw,56px) clamp(64px,8vw,112px);">
+    <div data-rvs="90" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:0 24px;">
+      <sc-for list="{{ homeSvc }}" as="s" hint-placeholder-count="4">
+        <button onClick="{{ s.goSvc }}" style="display:flex;flex-direction:column;gap:22px;padding:22px 0 8px;background:none;border:0;border-top:2px solid #0C0D0F;cursor:pointer;text-align:left;" style-hover="border-top-color:#C8322A">
+          <span style="display:flex;justify-content:space-between;font-size:13px;color:#5E636B;"><span>{{ s.no }}</span><span>{{ s.dur }}</span></span>
+          <span style="font-size:20px;font-weight:600;font-stretch:108%;letter-spacing:-0.01em;">{{ s.name }}</span>
+          <span style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:14px;color:#5E636B;">ab</span><span style="font-size:clamp(40px,3.6vw,56px);font-weight:500;letter-spacing:-0.035em;font-variant-numeric:tabular-nums;line-height:1;">{{ s.base }}</span></span>
+        </button>
+      </sc-for>
+    </div>
+    <p style="margin:20px 0 0;font-size:13px;color:#5E636B;">Preise für Kleinwagen inkl. MwSt. Limousinen, Kombis, SUVs und Vans finden Sie auf der Leistungsseite.</p>
+  </div>
+</section>
+<section id="leistungen" style="padding:clamp(88px,11vw,160px) 0 clamp(72px,9vw,128px);background:#ffffff;border-top:1px solid #E6E6E3;overflow-x:clip;">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px 64px;align-items:end;">
+      <div>
+        <div data-rv="0" style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#5E636B;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Leistungen</div>
+        <h2 data-rv="80" style="margin:20px 0 0;font-size:calc(0.86 * clamp(36px,4.4vw,64px));line-height:1.02;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;text-wrap:balance;font-family:'Mona Sans'">Was wir für Ihr Fahrzeug tun.</h2>
+      </div>
+      <div data-rv="160" style="display:flex;flex-direction:column;gap:18px;align-items:flex-start;">
+        <p style="margin:0;max-width:520px;font-size:17px;line-height:1.6;color:#4A4E55;text-wrap:pretty;">Vier Leistungen, einzeln oder kombiniert. Außen und innen zusammen kosten weniger als einzeln gebucht.</p>
+        <button onClick="{{ goAuto }}" style="display:inline-flex;align-items:center;gap:10px;padding:0 0 4px;background:none;border:0;border-bottom:1.5px solid #0C0D0F;cursor:pointer;font-size:14px;font-weight:600;" style-hover="color:#C8322A;border-bottom-color:#C8322A">Alle Preise und Fahrzeugklassen <span>→</span></button>
+      </div>
+    </div>
+    <div ref="{{ listRef }}" onMouseMove="{{ onListMove }}" onMouseLeave="{{ onListLeave }}" style="position:relative;margin-top:clamp(48px,6vw,80px);border-top:1px solid #0C0D0F;">
+      <sc-for list="{{ svcRows }}" as="s" hint-placeholder-count="4">
+        <button onClick="{{ s.goSvc }}" onMouseEnter="{{ s.enter }}" onFocus="{{ s.enter }}" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 32px;width:100%;padding:clamp(24px,2.8vw,40px) 0;background:none;border:0;border-bottom:1px solid #E1E1DE;cursor:pointer;text-align:left;color:#0C0D0F;opacity:{{ s.op }};transition:opacity 0.4s ease;">
+          <span style="flex:0 0 40px;font-size:13px;color:#5E636B;font-variant-numeric:tabular-nums;">{{ s.no }}</span>
+          <span style="flex:1 1 360px;font-size:calc(0.86 * clamp(26px,3.8vw,60px));line-height:1;font-weight:700;font-stretch:125%;letter-spacing:-0.0175em;transform:translateX({{ s.shift }});transition:transform 0.6s cubic-bezier(.2,.7,.2,1);font-family:'Mona Sans'">{{ s.name }}</span>
+          <span style="flex:1 1 200px;font-size:15px;line-height:1.5;color:#4A4E55;">{{ s.short }}</span>
+          <span style="flex:0 0 96px;font-size:14px;color:#5E636B;">{{ s.dur }}</span>
+          <span style="flex:0 0 150px;display:flex;align-items:baseline;justify-content:flex-end;gap:6px;white-space:nowrap;"><span style="font-size:13px;color:#5E636B;">ab</span><span style="font-size:30px;font-weight:500;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;">{{ s.base }}</span></span>
+        </button>
+      </sc-for>
+      <div ref="{{ floatRef }}" aria-hidden="true" style="position:absolute;left:0;top:0;z-index:3;width:clamp(220px,19vw,290px);aspect-ratio:4/5;overflow:hidden;pointer-events:none;background:#EDEDEA;box-shadow:0 40px 80px -40px rgba(12,13,15,0.5);opacity:{{ floatOp }};transition:opacity 0.35s ease;">
+        <img src="img/car-6872176.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ fo0 }};transition:opacity 0.35s ease;">
+        <img src="img/car-37809563.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ fo1 }};transition:opacity 0.35s ease;">
+        <img src="img/car-14615262.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ fo2 }};transition:opacity 0.35s ease;">
+        <img src="img/car-30787396.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ fo3 }};transition:opacity 0.35s ease;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 0 clamp(88px,11vw,160px);background:#ffffff;">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px 64px;align-items:end;">
+      <div>
+        <div data-rv="0" style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#5E636B;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Politur · Vorher und nachher</div>
+        <h2 data-rv="80" style="margin:20px 0 0;font-size:calc(0.86 * clamp(36px,4.4vw,64px));line-height:1.02;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;text-wrap:balance;font-family:'Mona Sans'">Derselbe Lack, einen Tag später.</h2>
+      </div>
+      <p data-rv="160" style="margin:0;max-width:520px;font-size:17px;line-height:1.6;color:#4A4E55;text-wrap:pretty;">Waschanlagen hinterlassen feine Kratzer, in denen sich das Licht kreisförmig bricht. Die Maschinenpolitur trägt sie ab und gibt dem Lack seine Tiefe zurück. Ziehen Sie den Regler.</p>
+    </div>
+    <div ref="{{ baRef }}" data-rv="120" onPointerDown="{{ baDown }}" onPointerMove="{{ baMove }}" onPointerUp="{{ baUp }}" onPointerCancel="{{ baUp }}" onKeyDown="{{ baKey }}" tabIndex="0" role="slider" aria-label="Vorher-Nachher-Vergleich" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="position:relative;margin-top:clamp(40px,5vw,64px);width:100%;aspect-ratio:21/9;min-height:300px;overflow:hidden;background:#1A1C1F;cursor:ew-resize;touch-action:pan-y;user-select:none;-webkit-user-select:none;outline:none;">
+      <img src="img/car-12397895.jpg" alt="Lack nach der Politur" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 58%;pointer-events:none;">
+      <div ref="{{ baClipRef }}" style="position:absolute;inset:0;clip-path:inset(0 50% 0 0);pointer-events:none;">
+        <img src="img/car-12397895.jpg" alt="Lack vor der Politur" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 58%;filter:saturate(0.45) contrast(0.78) brightness(0.88) blur(0.5px);">
+        <div style="position:absolute;inset:0;background:repeating-radial-gradient(circle at 46% 40%, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 1px, rgba(255,255,255,0) 1px, rgba(255,255,255,0) 6px), linear-gradient(180deg, rgba(232,232,226,0.18), rgba(232,232,226,0.1));mix-blend-mode:screen;"></div>
+        <span style="position:absolute;left:20px;top:20px;padding:8px 12px;background:rgba(12,13,15,0.78);color:#ffffff;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;">Vorher</span>
+      </div>
+      <span style="position:absolute;right:20px;top:20px;padding:8px 12px;background:#ffffff;color:#0C0D0F;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;pointer-events:none;">Nachher</span>
+      <div ref="{{ baHandleRef }}" style="position:absolute;top:0;bottom:0;left:50%;width:0;pointer-events:none;">
+        <span style="position:absolute;top:0;bottom:0;left:-1px;width:2px;background:#ffffff;"></span>
+        <span style="position:absolute;top:50%;left:-30px;width:60px;height:60px;margin-top:-30px;display:flex;align-items:center;justify-content:center;gap:12px;background:#ffffff;color:#0C0D0F;border-radius:50%;font-size:16px;font-weight:600;box-shadow:0 12px 32px rgba(0,0,0,0.28);"><span>‹</span><span>›</span></span>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;margin-top:18px;font-size:13px;color:#5E636B;"><span>Mercedes-Benz C-Klasse · Politur, 1 Tag</span><span>Politur ab 249 € inkl. MwSt.</span></div>
+  </div>
+</section>
+<section id="ablauf" data-prog="1" style="padding:clamp(88px,11vw,160px) 0;background:#F5F5F3;">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);">
+    <div data-rv="0" style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#5E636B;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Ablauf</div>
+    <h2 data-rv="80" style="margin:20px 0 0;max-width:14ch;font-size:calc(0.86 * clamp(36px,4.4vw,64px));line-height:1.02;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;text-wrap:balance;font-family:'Mona Sans'">So läuft Ihr Termin ab.</h2>
+    <div style="position:relative;margin-top:clamp(48px,6vw,80px);">
+      <div style="position:absolute;left:0;right:0;top:0;height:2px;background:#DCDCD8;"></div>
+      <div data-progbar="1" style="position:absolute;left:0;right:0;top:0;height:2px;background:#0C0D0F;transform:scaleX(0);transform-origin:0 50%;"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:40px 32px;">
+        <div data-step="0" style="position:relative;padding-top:32px;transition:opacity 0.6s ease;">
+          <span style="position:absolute;left:0;top:-5px;width:12px;height:12px;background:#0C0D0F;"></span>
+          <div style="font-size:64px;font-weight:300;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums;">01</div>
+          <div style="margin-top:28px;font-size:20px;font-weight:600;font-stretch:108%;">Anfrage</div>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4A4E55;">Online, telefonisch oder direkt bei uns. Sie nennen Fahrzeug und gewünschte Leistung.</p>
+        </div>
+        <div data-step="1" style="position:relative;padding-top:32px;transition:opacity 0.6s ease;">
+          <span style="position:absolute;left:0;top:-5px;width:12px;height:12px;background:#0C0D0F;"></span>
+          <div style="font-size:64px;font-weight:300;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums;">02</div>
+          <div style="margin-top:28px;font-size:20px;font-weight:600;font-stretch:108%;">Festpreis</div>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4A4E55;">Nach einer kurzen Sichtung erhalten Sie einen verbindlichen Preis. Ohne Ihre Zustimmung beginnen wir nicht.</p>
+        </div>
+        <div data-step="2" style="position:relative;padding-top:32px;transition:opacity 0.6s ease;">
+          <span style="position:absolute;left:0;top:-5px;width:12px;height:12px;background:#0C0D0F;"></span>
+          <div style="font-size:64px;font-weight:300;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums;">03</div>
+          <div style="margin-top:28px;font-size:20px;font-weight:600;font-stretch:108%;">Aufbereitung</div>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4A4E55;">In unserer Halle in Telgte, mit Produkten, die wir für jedes Material passend auswählen.</p>
+        </div>
+        <div data-step="3" style="position:relative;padding-top:32px;transition:opacity 0.6s ease;">
+          <span style="position:absolute;left:0;top:-5px;width:12px;height:12px;background:#C8322A;"></span>
+          <div style="font-size:64px;font-weight:300;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums;">04</div>
+          <div style="margin-top:28px;font-size:20px;font-weight:600;font-stretch:108%;">Übergabe</div>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4A4E55;">Sie bekommen Ihr Fahrzeug mit Fotoprotokoll zurück und sehen genau, was gemacht wurde.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#0D1A2C;color:#F4EFE6;">
+  <button onClick="{{ goAv }}" style="display:block;width:100%;margin:0;padding:0;font-family:'Mona Sans',sans-serif;background:transparent;border:0;color:#F4EFE6;text-align:left;cursor:pointer;transition:background 0.5s ease;" style-hover="background:#122440">
+    <span style="max-width:1360px;margin:0 auto;padding:clamp(56px,7vw,104px) clamp(20px,4vw,56px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px 56px;">
+      <span style="display:flex;align-items:center;gap:14px;">
+        <span style="font-family:'Cinzel',serif;font-weight:400;font-size:13.6px;letter-spacing:0.375em;">PAINTFIX</span>
+        <span style="display:block;width:1px;height:18px;background:rgba(244,239,230,0.4);"></span>
+        <span style="font-size:10px;letter-spacing:0.38em;">AVIATION</span>
+      </span>
+      <span style="flex:1 1 420px;max-width:640px;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(21px,1.9vw,28px));line-height:1.4;text-wrap:pretty;">Business Aviation betreuen wir in einem eigenen Bereich, mit eigenem Team und eigener Kalkulation.</span>
+      <span style="display:inline-flex;align-items:center;gap:16px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;">Zur Flugzeugaufbereitung<span style="display:block;width:44px;height:1px;background:#C8AE82;"></span></span>
+    </span>
+  </button>
+</section>
+<section id="standort" style="padding:clamp(88px,11vw,160px) 0;background:#ffffff;">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px clamp(40px,6vw,96px);align-items:center;">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#5E636B;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Standort</div>
+      <h2 data-rv="0" style="margin:20px 0 0;font-size:calc(0.86 * clamp(36px,4.4vw,64px));line-height:1.02;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;text-wrap:balance;font-family:'Mona Sans'">Marshallstraße 34, Telgte.</h2>
+      <p style="margin:20px 0 0;max-width:460px;font-size:17px;line-height:1.6;color:#4A4E55;">Zwischen Münster und Warendorf, mit Parkplätzen direkt an der Halle.</p>
+      <div style="margin-top:40px;display:flex;flex-direction:column;font-size:15px;">
+        <div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 0;border-top:1px solid #D6D6D2;"><span style="color:#5E636B;">Adresse</span><span>Marshallstraße 34, 48291 Telgte</span></div>
+        <div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 0;border-top:1px solid #D6D6D2;"><span style="color:#5E636B;">Öffnungszeiten</span><span>Mo–Fr 8–18 Uhr · Sa 9–14 Uhr</span></div>
+        <div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 0;border-top:1px solid #D6D6D2;"><span style="color:#5E636B;">Telefon</span><span>02504 000 00 00</span></div>
+        <div style="display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 0;border-top:1px solid #D6D6D2;border-bottom:1px solid #D6D6D2;"><span style="color:#5E636B;">E-Mail</span><span>hallo@paintfix.de</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:36px;">
+        <button onClick="{{ goReq }}" style="display:inline-flex;align-items:center;gap:14px;height:54px;padding:0 26px;background:#0C0D0F;color:#ffffff;border:0;cursor:pointer;font-size:14px;font-weight:600;" style-hover="background:#2A2D31">Termin anfragen <span>→</span></button>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Marshallstra%C3%9Fe+34+48291+Telgte" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;height:54px;padding:0 26px;border:1px solid #0C0D0F;color:#0C0D0F;font-size:14px;font-weight:600;" style-hover="background:#ffffff;color:#0C0D0F">Route planen</a>
+      </div>
+    </div>
+    <div style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#E4E4E0;color:#7B8088;">
+      <image-slot id="v2-car-standort" shape="rect" src="img/car-31154217.jpg" placeholder="Foto: Halle von außen oder Team bei der Arbeit"></image-slot>
+    </div>
+  </div>
+</section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isAuto }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="02 Fahrzeugaufbereitung">
+  <section style="background:#F5F5F3;">
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(48px,6vw,88px) clamp(20px,4vw,56px) clamp(56px,7vw,96px);">
+      <div style="display:flex;gap:10px;font-size:13px;color:#5E636B;">
+        <button onClick="{{ goHome }}" style="background:none;border:0;padding:0;cursor:pointer;color:#5E636B;" style-hover="color:#0C0D0F">Start</button><span>/</span><span style="color:#0C0D0F;">Fahrzeugaufbereitung</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:28px 64px;align-items:end;margin-top:40px;">
+        <h1 data-rv="60" style="margin:0;font-size:clamp(44px,5.4vw,88px);line-height:0.94;font-weight:700;font-stretch:125%;letter-spacing:-0.0175em;text-wrap:balance;font-family:'Mona Sans'">Leistungen und Preise.</h1>
+        <p style="margin:0;max-width:520px;font-size:18px;line-height:1.6;color:#4A4E55;text-wrap:pretty;">Alle Preise inklusive Mehrwertsteuer für ein Fahrzeug in normalem Zustand. Nach einer kurzen Sichtung nennen wir Ihnen den Festpreis. Ohne Ihre Zustimmung wird es nicht teurer.</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="preise" style="position:sticky;top:76px;z-index:30;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #E6E6E3;">
+    <div style="max-width:1360px;margin:0 auto;padding:14px clamp(20px,4vw,56px);display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;">
+      <span style="font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Preise für</span>
+      <div style="display:flex;border:1px solid #D6D6D2;">
+        <sc-for list="{{ classes }}" as="c" hint-placeholder-count="3">
+          <button onClick="{{ c.onClick }}" style="height:44px;padding:0 18px;border:0;background:{{ c.bg }};color:{{ c.fg }};cursor:pointer;font-size:14px;font-weight:600;white-space:nowrap;">{{ c.label }}</button>
+        </sc-for>
+      </div>
+      <span style="font-size:13px;color:#5E636B;">{{ vClassEx }}</span>
+    </div>
+  </div>
+
+  <section style="background:#ffffff;padding-bottom:clamp(64px,8vw,112px);">
+    <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);">
+      <sc-for list="{{ svc }}" as="s" hint-placeholder-count="4">
+        <article data-rv="0" id="svc-{{ s.id }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:32px clamp(32px,5vw,88px);padding:clamp(48px,6vw,88px) 0;border-bottom:1px solid #E1E1DE;">
+          <div style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#EDEDEA;color:#7B8088;">
+            <image-slot id="v2-auto-{{ s.id }}" shape="rect" src="{{ s.img2 }}" placeholder="Foto: {{ s.name }}, Arbeitsschritt"></image-slot>
+          </div>
+          <div style="display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;gap:16px;font-size:13px;color:#5E636B;"><span>{{ s.no }} / 04</span><span>Dauer {{ s.dur }}</span></div>
+            <h2 data-rv="0" style="margin:18px 0 0;font-size:calc(0.86 * clamp(26px,3.4vw,50px));line-height:1.02;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;font-family:'Mona Sans'">{{ s.name }}</h2>
+            <p style="margin:18px 0 0;max-width:560px;font-size:17px;line-height:1.6;color:#4A4E55;text-wrap:pretty;">{{ s.desc }}</p>
+            <div style="margin-top:28px;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#5E636B;">Im Preis enthalten</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:0 24px;margin-top:10px;">
+              <sc-for list="{{ s.incl }}" as="i" hint-placeholder-count="6">
+                <div style="display:flex;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid #EEEEEB;font-size:15px;"><span style="flex:none;display:block;width:10px;height:1.5px;background:#C8322A;transform:translateY(-4px);"></span>{{ i }}</div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-top:auto;padding-top:36px;">
+              <div>
+                <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-size:15px;color:#5E636B;">ab</span><span style="font-size:clamp(44px,4vw,60px);font-weight:500;letter-spacing:-0.035em;line-height:1;font-variant-numeric:tabular-nums;">{{ s.price }}</span></div>
+                <div style="margin-top:8px;font-size:13px;color:#5E636B;">{{ vClassLabel }} · inkl. MwSt.</div>
+              </div>
+              <button onClick="{{ s.onReq }}" style="display:inline-flex;align-items:center;gap:14px;height:54px;padding:0 26px;background:#0C0D0F;color:#ffffff;border:0;cursor:pointer;font-size:14px;font-weight:600;" style-hover="background:#2A2D31">Anfragen <span>→</span></button>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:#0C0D0F;color:#F2F2F0;">
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px 64px;align-items:end;">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#B9BDC3;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Komplettaufbereitung</div>
+        <h2 data-rv="0" style="margin:20px 0 0;max-width:14ch;font-size:calc(0.86 * clamp(36px,4.4vw,64px));line-height:1.02;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;text-wrap:balance;font-family:'Mona Sans'">Außen und innen an einem Termin.</h2>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-size:16px;color:#B9BDC3;">ab</span><span style="font-size:clamp(56px,5.6vw,84px);font-weight:500;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums;">{{ comboPrice }}</span></div>
+          <div style="margin-top:12px;font-size:14px;color:#B9BDC3;">{{ vClassLabel }} · Sie sparen {{ comboSave }} gegenüber der Einzelbuchung.</div>
+        </div>
+        <button onClick="{{ comboReq }}" style="display:inline-flex;align-items:center;gap:14px;height:54px;padding:0 26px;background:#F2F2F0;color:#0C0D0F;border:0;cursor:pointer;font-size:14px;font-weight:600;" style-hover="background:#ffffff">Komplett anfragen <span>→</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#ffffff;padding:clamp(72px,9vw,128px) 0 0;">
+    <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);">
+      <div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#5E636B;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Zusatzleistungen</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:0 24px;margin-top:28px;">
+        <sc-for list="{{ extras }}" as="x" hint-placeholder-count="4">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:22px 0;border-top:1px solid #0C0D0F;font-size:16px;"><span style="font-weight:500;">{{ x.name }}</span><span style="white-space:nowrap;font-variant-numeric:tabular-nums;color:#4A4E55;">{{ x.price }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#ffffff;padding:clamp(88px,11vw,160px) 0;">
+    <div style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:40px clamp(40px,6vw,96px);align-items:start;">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#5E636B;"><span style="display:block;width:7px;height:7px;background:#C8322A;"></span>Häufige Fragen</div>
+        <h2 data-rv="0" style="margin:20px 0 0;max-width:12ch;font-size:calc(0.86 * clamp(36px,4.4vw,64px));line-height:1.02;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;text-wrap:balance;font-family:'Mona Sans'">Fragen zu Preis und Ablauf.</h2>
+      </div>
+      <div style="border-top:1px solid #0C0D0F;">
+        <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="5">
+          <div style="border-bottom:1px solid #E1E1DE;">
+            <button onClick="{{ q.onClick }}" style="display:flex;justify-content:space-between;align-items:center;gap:24px;width:100%;padding:24px 0;background:none;border:0;cursor:pointer;text-align:left;font-size:19px;font-weight:600;font-stretch:106%;" style-hover="color:#C8322A">
+              <span>{{ q.q }}</span><span style="flex:none;width:24px;text-align:center;font-size:24px;font-weight:300;">{{ q.sign }}</span>
+            </button>
+            <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;padding:0 48px 28px 0;font-size:16px;line-height:1.65;color:#4A4E55;text-wrap:pretty;">{{ q.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+<sc-if value="{{ isReq }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="04 Anfrage" style="background:#F5F5F3;">
+  <div style="max-width:1360px;margin:0 auto;padding:clamp(48px,6vw,88px) clamp(20px,4vw,56px) clamp(88px,10vw,144px);">
+    <div style="display:flex;gap:10px;font-size:13px;color:#5E636B;">
+      <button onClick="{{ goHome }}" style="background:none;border:0;padding:0;cursor:pointer;color:#5E636B;" style-hover="color:#0C0D0F">Start</button><span>/</span><span style="color:#0C0D0F;">Termin anfragen</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:24px 64px;align-items:end;margin-top:40px;">
+      <h1 data-rv="60" style="margin:0;font-size:clamp(44px,5.4vw,88px);line-height:0.94;font-weight:700;font-stretch:125%;letter-spacing:-0.0175em;font-family:'Mona Sans'">Termin anfragen.</h1>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <p style="margin:0;max-width:500px;font-size:18px;line-height:1.6;color:#4A4E55;">Sie erhalten innerhalb eines Werktags einen Festpreis und Terminvorschläge. Die Anfrage ist unverbindlich.</p>
+        <button onClick="{{ goAv }}" style="display:flex;align-items:baseline;gap:8px;background:none;border:0;padding:0;cursor:pointer;color:#0D1A2C;text-align:left;font-size:14px;" style-hover="color:#C8322A">Anfrage für ein Flugzeug? <span style="font-family:'Cinzel',serif;font-weight:400;font-size:12.8px;">Zu Paintfix Aviation</span> ↗</button>
+      </div>
+    </div>
+
+    <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:32px;margin-top:clamp(48px,6vw,72px);">
+      <div style="flex:1 1 560px;min-width:0;background:#ffffff;border:1px solid #E1E1DE;">
+        <div style="padding:clamp(24px,3.5vw,44px);border-bottom:1px solid #EEEEEB;">
+          <div style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;color:#5E636B;">01</span><h2 data-rv="0" style="margin:0;font-size:20.6px;font-weight:700;font-stretch:125%;letter-spacing:-0.005em;font-family:'Mona Sans'">Leistungen</h2></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px;margin-top:24px;">
+            <sc-for list="{{ reqList }}" as="r" hint-placeholder-count="4">
+              <button onClick="{{ r.onClick }}" style="display:flex;align-items:flex-start;gap:14px;padding:18px;background:#ffffff;border:1.5px solid {{ r.rowBd }};cursor:pointer;text-align:left;" style-hover="border-color:#0C0D0F">
+                <span style="flex:none;display:flex;align-items:center;justify-content:center;width:22px;height:22px;margin-top:1px;border:1.5px solid #0C0D0F;background:{{ r.boxBg }};color:#ffffff;font-size:13px;line-height:1;"><sc-if value="{{ r.checked }}" hint-placeholder-val="{{ false }}">✓</sc-if></span>
+                <span style="flex:1;display:flex;flex-direction:column;gap:4px;">
+                  <span style="font-size:16px;font-weight:600;">{{ r.name }}</span>
+                  <span style="font-size:13px;color:#5E636B;">{{ r.dur }}</span>
+                </span>
+                <span style="font-size:15px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;">ab {{ r.price }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:clamp(24px,3.5vw,44px);border-bottom:1px solid #EEEEEB;">
+          <div style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;color:#5E636B;">02</span><h2 data-rv="0" style="margin:0;font-size:20.6px;font-weight:700;font-stretch:125%;letter-spacing:-0.005em;font-family:'Mona Sans'">Fahrzeug</h2></div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:24px;border:1px solid #D6D6D2;">
+            <sc-for list="{{ reqClasses }}" as="c" hint-placeholder-count="3">
+              <button onClick="{{ c.onClick }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px 16px;border:0;background:{{ c.bg }};color:{{ c.fg }};cursor:pointer;text-align:left;">
+                <span style="font-size:15px;font-weight:600;">{{ c.label }}</span><span style="font-size:12px;opacity:0.75;">{{ c.ex }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <label style="display:block;margin-top:20px;">
+            <span style="display:block;margin-bottom:8px;font-size:13px;font-weight:600;">Marke und Modell</span>
+            <input value="{{ f.car }}" onChange="{{ onCar }}" placeholder="z. B. VW Golf Variant, 2021" style="width:100%;height:56px;padding:0 16px;border:1px solid #D6D6D2;background:#ffffff;font-size:16px;outline:none;" style-focus="border-color:#0C0D0F">
+          </label>
+        </div>
+        <div style="padding:clamp(24px,3.5vw,44px);border-bottom:1px solid #EEEEEB;">
+          <div style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;color:#5E636B;">03</span><h2 data-rv="0" style="margin:0;font-size:20.6px;font-weight:700;font-stretch:125%;letter-spacing:-0.005em;font-family:'Mona Sans'">Wunschtermin</h2></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px;margin-top:24px;">
+            <label style="display:block;">
+              <span style="display:block;margin-bottom:8px;font-size:13px;font-weight:600;">Datum</span>
+              <input type="date" value="{{ f.date }}" onChange="{{ onDate }}" style="width:100%;height:56px;padding:0 16px;border:1px solid #D6D6D2;background:#ffffff;font-size:16px;outline:none;" style-focus="border-color:#0C0D0F">
+            </label>
+            <div>
+              <span style="display:block;margin-bottom:8px;font-size:13px;font-weight:600;">Abgabe</span>
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #D6D6D2;">
+                <sc-for list="{{ times }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.onClick }}" style="height:54px;padding:0 6px;border:0;background:{{ t.bg }};color:{{ t.fg }};cursor:pointer;font-size:14px;font-weight:600;">{{ t.label }}</button></sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:clamp(24px,3.5vw,44px);">
+          <div style="display:flex;align-items:baseline;gap:14px;"><span style="font-size:13px;color:#5E636B;">04</span><h2 data-rv="0" style="margin:0;font-size:20.6px;font-weight:700;font-stretch:125%;letter-spacing:-0.005em;font-family:'Mona Sans'">Kontakt</h2></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px;margin-top:24px;">
+            <label style="display:block;"><span style="display:block;margin-bottom:8px;font-size:13px;font-weight:600;">Name</span><input value="{{ f.name }}" onChange="{{ onName }}" placeholder="Vor- und Nachname" style="width:100%;height:56px;padding:0 16px;border:1px solid #D6D6D2;background:#ffffff;font-size:16px;outline:none;" style-focus="border-color:#0C0D0F"></label>
+            <label style="display:block;"><span style="display:block;margin-bottom:8px;font-size:13px;font-weight:600;">Telefon</span><input value="{{ f.phone }}" onChange="{{ onPhone }}" placeholder="Für Rückfragen" style="width:100%;height:56px;padding:0 16px;border:1px solid #D6D6D2;background:#ffffff;font-size:16px;outline:none;" style-focus="border-color:#0C0D0F"></label>
+          </div>
+          <label style="display:block;margin-top:16px;"><span style="display:block;margin-bottom:8px;font-size:13px;font-weight:600;">E-Mail</span><input type="email" value="{{ f.email }}" onChange="{{ onEmail }}" placeholder="name@beispiel.de" style="width:100%;height:56px;padding:0 16px;border:1px solid #D6D6D2;background:#ffffff;font-size:16px;outline:none;" style-focus="border-color:#0C0D0F"></label>
+          <label style="display:block;margin-top:16px;"><span style="display:block;margin-bottom:8px;font-size:13px;font-weight:600;">Nachricht <span style="font-weight:400;color:#5E636B;">(optional)</span></span><textarea value="{{ f.msg }}" onChange="{{ onMsg }}" rows="4" placeholder="Besonderheiten, z. B. Tierhaare oder Kratzer an der Fahrertür" style="width:100%;padding:16px;border:1px solid #D6D6D2;background:#ffffff;font-size:16px;line-height:1.5;outline:none;resize:vertical;" style-focus="border-color:#0C0D0F"></textarea></label>
+          <button onClick="{{ toggleConsent }}" style="display:flex;align-items:flex-start;gap:14px;margin-top:24px;padding:0;background:none;border:0;cursor:pointer;text-align:left;font-size:14px;line-height:1.5;color:#4A4E55;">
+            <span style="flex:none;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border:1.5px solid #0C0D0F;background:{{ consentBg }};color:#ffffff;font-size:13px;line-height:1;"><sc-if value="{{ consentOn }}" hint-placeholder-val="{{ false }}">✓</sc-if></span>
+            Ich bin einverstanden, dass Paintfix meine Angaben zur Bearbeitung der Anfrage verwendet.
+          </button>
+          <button onClick="{{ submitReq }}" style="display:inline-flex;align-items:center;justify-content:center;gap:14px;width:100%;height:60px;margin-top:32px;background:#0C0D0F;color:#ffffff;border:0;cursor:pointer;font-size:15px;font-weight:600;" style-hover="background:#2A2D31">Anfrage senden <span>→</span></button>
+        </div>
+      </div>
+
+      <aside style="flex:1 1 320px;max-width:440px;position:sticky;top:100px;">
+        <div style="background:#0C0D0F;color:#F2F2F0;padding:32px;">
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#B9BDC3;">Ihre Auswahl · {{ reqClassLabel }}</div>
+          <div style="margin-top:20px;">
+            <sc-for list="{{ reqLines }}" as="l" hint-placeholder-count="1">
+              <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #26292D;font-size:15px;"><span>{{ l.name }}</span><span style="white-space:nowrap;font-variant-numeric:tabular-nums;">{{ l.price }}</span></div>
+            </sc-for>
+            <sc-if value="{{ reqNoLines }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:14px 0;border-bottom:1px solid #26292D;font-size:15px;color:#B9BDC3;">Noch keine Leistung gewählt.</div>
+            </sc-if>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:28px;">
+            <span style="font-size:14px;color:#B9BDC3;">Richtpreis</span>
+            <span style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:15px;color:#B9BDC3;">ab</span><span style="font-size:48px;font-weight:500;letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums;">{{ reqTotal }}</span></span>
+          </div>
+          <sc-if value="{{ reqCombo }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:16px;font-size:13px;color:#F2F2F0;">Kombipreis für außen + innen berücksichtigt.</div>
+          </sc-if>
+          <p style="margin:16px 0 0;font-size:13px;line-height:1.55;color:#B9BDC3;">Inkl. MwSt. Den Festpreis nennen wir nach kurzer Sichtung, bevor wir beginnen.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;padding:24px 32px;background:#ffffff;border:1px solid #E1E1DE;border-top:0;font-size:14px;">
+          <span style="color:#5E636B;">Lieber telefonieren?</span>
+          <span style="font-size:18px;font-weight:600;">02504 000 00 00</span>
+          <span style="color:#5E636B;">Mo–Fr 8–18 Uhr · Sa 9–14 Uhr</span>
+        </div>
+      </aside>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:clamp(48px,6vw,72px);padding:clamp(32px,5vw,72px);background:#ffffff;border:1px solid #E1E1DE;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:40px 64px;">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:center;width:56px;height:56px;background:#0C0D0F;color:#ffffff;font-size:22px;">✓</div>
+        <h2 data-rv="0" style="margin:28px 0 0;font-size:calc(0.86 * clamp(34px,4vw,56px));line-height:1.02;font-weight:700;font-stretch:125%;letter-spacing:-0.015em;font-family:'Mona Sans'">Danke{{ sentName }}.</h2>
+        <p style="margin:18px 0 0;max-width:460px;font-size:17px;line-height:1.6;color:#4A4E55;">Ihre Anfrage ist bei uns. Wir melden uns innerhalb eines Werktags mit Festpreis und Terminvorschlägen.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;">
+          <button onClick="{{ goHome }}" style="display:inline-flex;align-items:center;height:54px;padding:0 26px;background:#0C0D0F;color:#ffffff;border:0;cursor:pointer;font-size:14px;font-weight:600;" style-hover="background:#2A2D31">Zur Startseite</button>
+          <button onClick="{{ newReq }}" style="display:inline-flex;align-items:center;height:54px;padding:0 26px;background:transparent;color:#0C0D0F;border:1px solid #0C0D0F;cursor:pointer;font-size:14px;font-weight:600;" style-hover="background:#F5F5F3">Anfrage bearbeiten</button>
+        </div>
+      </div>
+      <div style="border-top:2px solid #0C0D0F;">
+        <sc-for list="{{ reqLines }}" as="l" hint-placeholder-count="1">
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid #E1E1DE;font-size:15px;"><span>{{ l.name }}</span><span style="font-variant-numeric:tabular-nums;">{{ l.price }}</span></div>
+        </sc-for>
+        <div style="display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:17px;font-weight:600;"><span>Richtpreis · {{ reqClassLabel }}</span><span>ab {{ reqTotal }}</span></div>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+</main>
+</sc-if>
+<sc-if value="{{ isCar }}" hint-placeholder-val="{{ true }}">
+<div style="background:#0C0D0F;color:#F2F2F0;">
+  <sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
+    <section style="max-width:1360px;margin:0 auto;padding:clamp(80px,10vw,144px) clamp(20px,4vw,56px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:40px;border-bottom:1px solid #26292D;">
+      <div>
+        <h2 data-rv="0" style="margin:0;max-width:15ch;font-size:calc(0.86 * clamp(38px,5vw,76px));line-height:1.0;font-weight:700;font-stretch:125%;letter-spacing:-0.0175em;text-wrap:balance;font-family:'Mona Sans'">Sagen Sie uns, was Ihr Auto braucht.</h2>
+        <p style="margin:24px 0 0;max-width:480px;font-size:17px;line-height:1.6;color:#B9BDC3;">Sie erhalten innerhalb eines Werktags einen Festpreis und Terminvorschläge.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:28px;">
+        <button onClick="{{ goReq }}" style="display:inline-flex;align-items:center;gap:14px;height:58px;padding:0 30px;background:#F2F2F0;color:#0C0D0F;border:0;cursor:pointer;font-size:15px;font-weight:600;" style-hover="background:#ffffff">Termin anfragen <span>→</span></button>
+        <div style="display:flex;flex-direction:column;gap:4px;"><span style="font-size:13px;color:#8A8F96;">Oder anrufen</span><span style="font-size:18px;font-weight:600;">02504 000 00 00</span></div>
+      </div>
+    </section>
+  </sc-if>
+  <footer style="max-width:1360px;margin:0 auto;padding:clamp(56px,6vw,80px) clamp(20px,4vw,56px) 40px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px 32px;">
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;background:none;border:0;padding:0;cursor:pointer;color:#F2F2F0;">
+          <span style="position:relative;display:block;width:22px;height:22px;background:#F2F2F0;"><span style="position:absolute;right:0;bottom:0;width:9px;height:9px;background:#C8322A;"></span></span>
+          <span style="font-size:17px;font-weight:700;font-stretch:125%;letter-spacing:0.07em;">PAINTFIX</span>
+        </button>
+        <p style="margin:0;font-size:14px;line-height:1.7;color:#B9BDC3;">Marshallstraße 34<br>48291 Telgte</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;">
+        <span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#8A8F96;margin-bottom:6px;">Leistungen</span>
+        <sc-for list="{{ homeSvc }}" as="s" hint-placeholder-count="4"><button onClick="{{ goAuto }}" style="background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#D3D6DA;" style-hover="color:#ffffff">{{ s.name }}</button></sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;">
+        <span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#8A8F96;margin-bottom:6px;">Paintfix</span>
+        <button onClick="{{ goAblauf }}" style="background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#D3D6DA;" style-hover="color:#ffffff">Ablauf</button>
+        <button onClick="{{ goStandort }}" style="background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#D3D6DA;" style-hover="color:#ffffff">Standort</button>
+        <button onClick="{{ goReq }}" style="background:none;border:0;padding:0;text-align:left;cursor:pointer;color:#D3D6DA;" style-hover="color:#ffffff">Termin anfragen</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;">
+        <span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#8A8F96;margin-bottom:6px;">Rechtliches</span>
+        <span style="color:#D3D6DA;">Impressum</span>
+        <span style="color:#D3D6DA;">Datenschutz</span>
+        <span style="color:#D3D6DA;">AGB</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:64px;padding-top:24px;border-top:1px solid #26292D;font-size:13px;color:#8A8F96;">
+      <span>© {{ year }} Paintfix · Inh. Arian Hassanzadeh</span>
+      <button onClick="{{ goAv }}" style="display:flex;align-items:baseline;gap:8px;background:none;border:0;padding:0;cursor:pointer;color:#D9D2C4;" style-hover="color:#ffffff"><span style="font-family:'Cinzel',serif;font-weight:400;font-size:12.8px;">Paintfix Aviation</span><span>↗</span></button>
+    </div>
+  </footer>
+  <sc-if value="{{ carSpace }}" hint-placeholder-val="{{ false }}"><div style="height:76px;"></div></sc-if>
+</div>
+<sc-if value="{{ carBarOn }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,0.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid #E1E1DE;color:#0C0D0F;">
+    <a href="{{ telCar }}" style="display:flex;align-items:center;justify-content:center;gap:10px;height:52px;border:1px solid #0C0D0F;color:#0C0D0F;font-size:15px;font-weight:600;text-decoration:none;">{{ liveDot }}Anrufen</a>
+    <button onClick="{{ goReq }}" style="display:flex;align-items:center;justify-content:center;gap:12px;height:52px;background:#0C0D0F;color:#ffffff;border:0;cursor:pointer;font-size:15px;font-weight:600;">Termin anfragen <span>→</span></button>
+  </div>
+</sc-if>
+</sc-if>
+<sc-if value="{{ isAv }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="03 Flugzeugaufbereitung" style="position:relative;background:#F4EFE6;color:#0D1A2C;font-family:'Mona Sans',system-ui,sans-serif;font-weight:350;">
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;background:{{ avNavBg }};color:{{ avNavFg }};border-bottom:1px solid {{ avNavLine }};backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:background 0.5s ease,color 0.5s ease,border-color 0.5s ease;">
+    <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);height:84px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <button onClick="{{ avTop }}" style="display:flex;align-items:center;gap:14px;background:none;border:0;padding:0;cursor:pointer;color:inherit;">
+        <span style="font-family:'Cinzel',serif;font-weight:400;font-size:14.4px;letter-spacing:0.375em;">PAINTFIX</span>
+        <span style="display:block;width:1px;height:18px;background:currentColor;opacity:0.4;"></span>
+        <span style="font-size:10px;letter-spacing:0.38em;">AVIATION</span>
+      </button>
+      <sc-if value="{{ avNavWide }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex;align-items:center;gap:30px;">
+          <sc-for list="{{ avNav }}" as="n" hint-placeholder-count="5">
+            <button onClick="{{ n.onClick }}" style="background:none;border:0;padding:6px 0;cursor:pointer;color:inherit;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;" style-hover="opacity:0.6">{{ n.label }}</button>
+          </sc-for>
+        </nav>
+      </sc-if>
+      <div style="display:flex;align-items:center;gap:24px;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.2em;">
+          <button onClick="{{ setDE }}" style="background:none;border:0;padding:4px 2px;cursor:pointer;color:inherit;opacity:{{ deOp }};">DE</button>
+          <span style="opacity:0.4;">/</span>
+          <button onClick="{{ setEN }}" style="background:none;border:0;padding:4px 2px;cursor:pointer;color:inherit;opacity:{{ enOp }};">EN</button>
+        </div>
+        <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><button onClick="{{ avGoQuote }}" style="height:44px;padding:0 20px;background:transparent;color:inherit;border:1px solid currentColor;cursor:pointer;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;white-space:nowrap;" style-hover="opacity:0.7">{{ av.cta }}</button></sc-if>
+      </div>
+    </div>
+  </header>
+
+  <section style="position:sticky;top:0;z-index:1;height:100vh;min-height:640px;overflow:hidden;background:#0D1A2C;color:#F4EFE6;">
+    <div data-pxy="0.3" style="position:absolute;left:0;right:0;top:-30%;bottom:0;background:#0A1424;color:#9AA6B6;">
+      <div style="position:absolute;inset:0;transform:scale({{ avHeroScale }});transition:transform 3.2s cubic-bezier(.2,.7,.2,1);">
+        <image-slot id="v2-av-hero" shape="rect" src="img/av-28772726.jpg" placeholder="{{ av.imgHero }}"></image-slot>
+      </div>
+    </div>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(13,26,44,0.6) 0%, rgba(13,26,44,0) 24%, rgba(13,26,44,0) 40%, rgba(13,26,44,0.9) 100%);"></div>
+    <div data-fade="1" style="position:absolute;left:0;right:0;bottom:0;padding-bottom:{{ avHeroPad }};pointer-events:none;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);">
+        <div data-rv="200" style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#C8AE82;"><span style="display:block;width:40px;height:1px;background:#C8AE82;"></span>{{ av.heroLabel }}</div>
+        <h1 style="margin:28px 0 0;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(52px,7.4vw,124px));line-height:1;letter-spacing:0.02em;">
+          <span style="display:block;overflow:hidden;padding-bottom:0.1em;margin-bottom:-0.1em;"><span data-rvm="300" style="display:block;">{{ av.aT1 }}</span></span>
+          <span style="display:block;overflow:hidden;padding-bottom:0.1em;margin-bottom:-0.1em;"><span data-rvm="430" style="display:block;">{{ av.aT2 }}</span></span>
+        </h1>
+        <div data-rv="650" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;margin-top:40px;">
+          <p style="margin:0;max-width:520px;font-size:clamp(15px,1.2vw,17px);line-height:1.7;color:#E2DBCD;text-wrap:pretty;">{{ av.sub }}</p>
+          <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-wrap:wrap;gap:12px;pointer-events:auto;">
+            <button onClick="{{ avGoQuote }}" style="height:56px;padding:0 30px;background:#F4EFE6;color:#0D1A2C;border:0;cursor:pointer;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;" style-hover="background:#ffffff">{{ av.cta }}</button>
+            <button onClick="{{ avGoServices }}" style="height:56px;padding:0 30px;background:transparent;color:#F4EFE6;border:1px solid rgba(244,239,230,0.45);cursor:pointer;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;" style-hover="border-color:#F4EFE6">{{ av.cta2 }}</button>
+          </div></sc-if>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;right:clamp(20px,4vw,64px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:16px;color:#C8AE82;pointer-events:none;">
+      <span style="writing-mode:vertical-rl;font-size:10px;letter-spacing:0.34em;text-transform:uppercase;">{{ av.scroll }}</span>
+      {{ cue }}
+    </div>
+  </section>
+  <sc-if value="{{ avSecOn }}" hint-placeholder-val="{{ false }}">
+    <div aria-hidden="true" style="position:fixed;left:22px;bottom:36px;z-index:45;display:flex;flex-direction:column;align-items:center;gap:14px;color:#F4EFE6;mix-blend-mode:difference;pointer-events:none;">
+      <span style="display:block;width:1px;height:48px;background:currentColor;opacity:0.6;"></span>
+      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;letter-spacing:0.32em;text-transform:uppercase;white-space:nowrap;">{{ avSecLabel }}</span>
+    </div>
+  </sc-if>
+<div ref="{{ avRef }}" style="position:relative;z-index:2;background:#F4EFE6;">
+    <section style="padding:clamp(96px,12vw,176px) 0;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);">
+        <div style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#4C5666;"><span style="display:block;width:40px;height:1px;background:#9C7F52;"></span>{{ av.audLabel }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:32px clamp(40px,6vw,120px);align-items:end;margin-top:32px;">
+          <h2 data-rv="0" style="margin:0;max-width:16ch;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(40px,4.8vw,76px));line-height:1.04;letter-spacing:0.02em;text-wrap:balance;">{{ av.audTitle }}</h2>
+          <p style="margin:0;max-width:520px;font-size:17px;line-height:1.75;color:#4C5666;text-wrap:pretty;">{{ av.audIntro }}</p>
+        </div>
+        <div data-rvs="140" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:48px clamp(32px,4vw,64px);margin-top:clamp(64px,8vw,112px);">
+          <sc-for list="{{ av.aud }}" as="a" hint-placeholder-count="3">
+            <div style="padding-top:28px;border-top:1px solid #9C7F52;">
+              <div style="font-family:'Cinzel',serif;font-weight:400;font-size:24px;line-height:1.15;">{{ a.t }}</div>
+              <p style="margin:16px 0 0;max-width:380px;font-size:16px;line-height:1.7;color:#4C5666;">{{ a.d }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section data-expand="1" style="position:relative;height:250vh;background:#F4EFE6;">
+      <div style="position:sticky;top:0;height:100vh;overflow:hidden;">
+        <div data-expand-frame="1" style="position:absolute;inset:0;clip-path:inset(20% 26% 20% 26%);background:#0A1424;color:#9AA6B6;">
+          <div data-expand-img="1" style="position:absolute;inset:0;transform:scale(1.2);">
+            <image-slot id="v2-av-night" shape="rect" src="img/av-25724429.jpg" placeholder="{{ av.imgRamp }}"></image-slot>
+          </div>
+          <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(10,20,36,0.72) 0%, rgba(10,20,36,0.15) 42%, rgba(10,20,36,0) 62%, rgba(10,20,36,0.55) 100%);"></div>
+        </div>
+        <div data-expand-text="1" style="position:absolute;left:0;right:0;top:calc(84px + 7vh);display:flex;flex-direction:column;align-items:center;gap:22px;padding:0 24px;text-align:center;color:#F4EFE6;opacity:0;pointer-events:none;">
+          <div style="font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#C8AE82;">{{ av.expLabel }}</div>
+          <div style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(40px,5.4vw,92px));line-height:1.04;letter-spacing:0.02em;">{{ av.expT1 }}<br><span style="">{{ av.expT2 }}</span></div>
+        </div>
+        <div data-expand-cap="1" style="position:absolute;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding:24px clamp(20px,4vw,64px);font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#E2DBCD;opacity:0;pointer-events:none;">
+          <span>{{ av.rampCaption }}</span><span>52°08′05″ N · 7°41′04″ E</span>
+        </div>
+      </div>
+    </section>
+<sc-if value="{{ hsOn }}" hint-placeholder-val="{{ true }}">
+    <section id="av-services" data-hs="1" style="position:relative;min-height:100vh;background:#EDE6D9;">
+      <div style="position:sticky;top:0;height:100vh;overflow:hidden;">
+        <div data-hs-track="1" style="position:absolute;top:0;left:0;height:100%;width:max-content;display:flex;">
+          <div style="flex:none;width:clamp(440px,38vw,640px);height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:calc(84px + 9vh) clamp(32px,4vw,72px) 9vh clamp(20px,4vw,64px);">
+            <div>
+              <div data-rv="0" style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#4C5666;"><span style="display:block;width:40px;height:1px;background:#9C7F52;"></span>{{ av.svcLabel }}</div>
+              <h2 data-rv="80" style="margin:28px 0 0;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(48px,5.4vw,92px));line-height:1;letter-spacing:0.015em;">{{ av.svcTitle }}</h2>
+              <p data-rv="160" style="margin:28px 0 0;max-width:380px;font-size:16px;line-height:1.7;color:#4C5666;">{{ av.svcNote }}</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:#4C5666;"><span>{{ av.hsHint }}</span><span style="display:block;width:72px;height:1px;background:#9C7F52;"></span><span>→</span></div>
+          </div>
+          <sc-for list="{{ avCats }}" as="c" hint-placeholder-count="3">
+            <div style="flex:none;width:min(1160px,84vw);height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,3.5vw,64px);padding:calc(84px + 6vh) clamp(28px,3.5vw,64px) 6vh;border-left:1px solid rgba(13,26,44,0.14);">
+              <div style="position:relative;overflow:hidden;background:#DFD6C5;color:#6A7280;">
+                <image-slot id="v2-av-cat-{{ c.key }}" shape="rect" src="{{ c.img }}" placeholder="{{ c.ph }}"></image-slot>
+                <span style="position:absolute;left:24px;bottom:12px;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(72px,7vw,128px));line-height:1;color:#F4EFE6;pointer-events:none;text-shadow:0 2px 24px rgba(13,26,44,0.35);">{{ c.no }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;justify-content:space-between;min-height:0;">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:20px;border-bottom:1px solid #0D1A2C;">
+                  <span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(30px,2.8vw,44px));line-height:1;">{{ c.label }}</span>
+                  <span style="font-size:10px;letter-spacing:0.3em;color:#4C5666;font-variant-numeric:tabular-nums;">{{ c.pos }}</span>
+                </div>
+                <div>
+                  <sc-for list="{{ c.items }}" as="x" hint-placeholder-count="4">
+                    <div style="display:grid;grid-template-columns:40px minmax(0,1fr);gap:4px 12px;padding:clamp(12px,2vh,22px) 0;border-top:1px solid rgba(13,26,44,0.16);">
+                      <span style="font-family:'Cinzel',serif;font-weight:400;font-size:11.2px;color:#7A6340;padding-top:6px;">{{ x.no }}</span>
+                      <div>
+                        <div style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(21px,1.8vw,27px));line-height:1.2;">{{ x.t }}</div>
+                        <p style="margin:6px 0 0;max-width:440px;font-size:14px;line-height:1.6;color:#4C5666;">{{ x.d }}</p>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+          <div style="flex:none;width:clamp(24px,4vw,64px);"></div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+<sc-if value="{{ hsOff }}" hint-placeholder-val="{{ false }}">
+<section id="av-services" style="padding:clamp(96px,12vw,176px) 0;background:#EDE6D9;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#4C5666;"><span style="display:block;width:40px;height:1px;background:#9C7F52;"></span>{{ av.svcLabel }}</div>
+            <h2 data-rv="0" style="margin:28px 0 0;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(44px,5.6vw,92px));line-height:1;letter-spacing:0.015em;">{{ av.svcTitle }}</h2>
+          </div>
+          <div style="display:flex;gap:32px;">
+            <sc-for list="{{ avTabs }}" as="t" hint-placeholder-count="3">
+              <button onClick="{{ t.onClick }}" style="display:flex;align-items:baseline;gap:10px;padding:0 0 10px;background:none;border:0;border-bottom:1px solid {{ t.line }};cursor:pointer;color:{{ t.color }};" style-hover="color:#0D1A2C">
+                <span style="font-family:'Cinzel',serif;font-weight:400;font-size:11.2px;">{{ t.no }}</span><span style="font-size:12px;letter-spacing:0.24em;text-transform:uppercase;">{{ t.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px clamp(40px,6vw,112px);margin-top:clamp(56px,7vw,96px);align-items:start;">
+          <div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#DFD6C5;color:#6A7280;">
+            <sc-if value="{{ avTab0 }}" hint-placeholder-val="{{ true }}"><image-slot id="v2-av-svc-ext" shape="rect" src="img/av-14983522.jpg" placeholder="{{ avImgTab }}"></image-slot></sc-if>
+            <sc-if value="{{ avTab1 }}" hint-placeholder-val="{{ false }}"><image-slot id="v2-av-svc-cab" shape="rect" src="img/av-20562278.jpg" placeholder="{{ avImgTab }}"></image-slot></sc-if>
+            <sc-if value="{{ avTab2 }}" hint-placeholder-val="{{ false }}"><image-slot id="v2-av-svc-pro" shape="rect" src="img/av-32346742.jpg" placeholder="{{ avImgTab }}"></image-slot></sc-if>
+          </div>
+          <div>
+            <sc-for list="{{ avSvc }}" as="x" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:56px 1fr;gap:8px 16px;padding:32px 0;border-top:1px solid rgba(13,26,44,0.18);">
+                <span style="font-family:'Cinzel',serif;font-weight:400;font-size:12.8px;color:#7A6340;padding-top:8px;">{{ x.no }}</span>
+                <div>
+                  <div style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(26px,2.4vw,34px));line-height:1.15;">{{ x.t }}</div>
+                  <p style="margin:12px 0 0;max-width:480px;font-size:16px;line-height:1.7;color:#4C5666;">{{ x.d }}</p>
+                </div>
+              </div>
+            </sc-for>
+            <p style="margin:0;padding-top:28px;border-top:1px solid rgba(13,26,44,0.18);font-size:13px;letter-spacing:0.04em;color:#4C5666;">{{ av.svcNote }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+    <section style="position:relative;height:clamp(480px,80vh,860px);overflow:hidden;background:#0D1A2C;color:#F4EFE6;">
+      <div data-px="0.2" style="position:absolute;left:0;right:0;top:-20%;bottom:-20%;background:radial-gradient(70% 70% at 50% 45%, #263A55 0%, #13233A 55%, #0A1424 100%);color:#9AA6B6;"><image-slot id="v2-av-cabin-band" shape="rect" src="img/av-20562279.jpg" placeholder="{{ av.imgCabin }}"></image-slot></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:rgba(13,26,44,0.35);"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 clamp(20px,6vw,96px);pointer-events:none;">
+        <p style="margin:0;max-width:20ch;text-align:center;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(34px,4.4vw,72px));line-height:1.12;text-wrap:balance;">„{{ av.quote }}“</p>
+      </div>
+    </section>
+
+    <section id="av-process" data-prog="1" style="padding:clamp(96px,12vw,176px) 0;background:#0D1A2C;color:#F4EFE6;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);">
+        <div data-rv="0" style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#C8AE82;"><span style="display:block;width:40px;height:1px;background:#C8AE82;"></span>{{ av.procLabel }}</div>
+        <h2 data-rv="80" style="margin:28px 0 0;max-width:18ch;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(40px,4.8vw,76px));line-height:1.04;letter-spacing:0.02em;text-wrap:balance;">{{ av.procTitle }}</h2>
+        <div style="position:relative;margin-top:clamp(64px,8vw,112px);">
+          <div style="position:absolute;left:0;right:0;top:0;height:1px;background:rgba(200,174,130,0.28);"></div>
+          <div data-progbar="1" style="position:absolute;left:0;right:0;top:0;height:1px;background:#C8AE82;transform:scaleX(0);transform-origin:0 50%;"></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:48px clamp(24px,3vw,48px);">
+            <sc-for list="{{ av.proc }}" as="p" hint-placeholder-count="4">
+              <div data-step="{{ $index }}" style="position:relative;padding-top:36px;transition:opacity 0.7s ease;">
+                <span style="position:absolute;left:0;top:-4px;width:8px;height:8px;background:#C8AE82;transform:rotate(45deg);"></span>
+                <div style="font-family:'Cinzel',serif;font-weight:400;font-size:44.8px;line-height:1;color:#C8AE82;">{{ p.n }}</div>
+                <div style="margin-top:32px;font-family:'Cinzel',serif;font-weight:400;font-size:20.8px;line-height:1.2;">{{ p.t }}</div>
+                <p style="margin:14px 0 0;font-size:15px;line-height:1.7;color:#D2CABB;">{{ p.d }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="av-standards" style="padding:clamp(96px,12vw,176px) 0;overflow-x:clip;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:64px clamp(40px,6vw,120px);align-items:start;">
+        <div>
+          <div data-rv="0" style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#4C5666;"><span style="display:block;width:40px;height:1px;background:#9C7F52;"></span>{{ av.stdLabel }}</div>
+          <h2 data-rv="80" style="margin:28px 0 0;max-width:15ch;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(40px,4.8vw,76px));line-height:1.04;letter-spacing:0.02em;text-wrap:balance;">{{ av.stdTitle }}</h2>
+          <div data-rvs="110" style="margin-top:clamp(48px,6vw,72px);">
+            <sc-for list="{{ av.std }}" as="d" hint-placeholder-count="4">
+              <div style="padding:26px 0;border-top:1px solid rgba(13,26,44,0.18);">
+                <div style="font-family:'Cinzel',serif;font-weight:400;font-size:19.2px;line-height:1.2;">{{ d.t }}</div>
+                <p style="margin:10px 0 0;max-width:500px;font-size:15px;line-height:1.7;color:#4C5666;">{{ d.d }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <figure style="margin:0;position:sticky;top:124px;">
+          <div data-rv="0" style="position:relative;background:#FBF8F2;border:1px solid rgba(13,26,44,0.12);box-shadow:0 50px 100px -60px rgba(13,26,44,0.5);padding:clamp(24px,3vw,40px);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-bottom:20px;border-bottom:1px solid #0D1A2C;">
+              <div>
+                <div style="font-family:'Cinzel',serif;font-weight:400;font-size:9.6px;letter-spacing:0.335em;">PAINTFIX <span style="font-family:'Mona Sans',sans-serif;font-size:9px;letter-spacing:0.34em;">AVIATION</span></div>
+                <div style="margin-top:14px;font-family:'Cinzel',serif;font-weight:400;font-size:22.4px;">{{ av.rep.title }}</div>
+              </div>
+              <span style="font-size:12px;letter-spacing:0.08em;color:#4C5666;font-variant-numeric:tabular-nums;">{{ av.rep.no }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0 24px;">
+              <sc-for list="{{ av.rep.rows }}" as="r" hint-placeholder-count="5">
+                <div style="padding:14px 0;border-bottom:1px solid rgba(13,26,44,0.12);"><div style="font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:#4C5666;">{{ r.k }}</div><div style="margin-top:6px;font-size:15px;font-weight:500;font-variant-numeric:tabular-nums;">{{ r.v }}</div></div>
+              </sc-for>
+            </div>
+            <div style="margin-top:28px;font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:#4C5666;">{{ av.rep.checksLabel }}</div>
+            <div data-rvs="320" style="margin-top:8px;">
+              <sc-for list="{{ av.rep.checks }}" as="c" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px dotted rgba(13,26,44,0.25);font-size:14px;">
+                  <span style="flex:none;display:flex;align-items:center;justify-content:center;width:18px;height:18px;background:#0D1A2C;color:#F4EFE6;font-size:10px;line-height:1;">✓</span>
+                  <span style="flex:1;">{{ c.k }}</span><span style="font-variant-numeric:tabular-nums;color:#4C5666;">{{ c.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:24px;">
+              <img src="img/av-14983522.jpg" alt="" style="display:block;width:100%;aspect-ratio:1;object-fit:cover;">
+              <img src="img/av-32346742.jpg" alt="" style="display:block;width:100%;aspect-ratio:1;object-fit:cover;">
+              <img src="img/av-20562278.jpg" alt="" style="display:block;width:100%;aspect-ratio:1;object-fit:cover;">
+              <img src="img/av-28776071.jpg" alt="" style="display:block;width:100%;aspect-ratio:1;object-fit:cover;">
+            </div>
+            <div style="margin-top:10px;font-size:12px;color:#4C5666;">{{ av.rep.photos }}</div>
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-top:28px;padding-top:20px;border-top:1px solid #0D1A2C;">
+              <div><div style="font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:#4C5666;">{{ av.rep.sign }}</div><div style="margin-top:6px;font-family:'Cinzel',serif;font-weight:400;font-size:17.6px;">M. Becker</div></div>
+              <span style="font-size:12px;color:#4C5666;">{{ av.rep.notified }}</span>
+            </div>
+            <div data-stamp="1500" style="position:absolute;right:clamp(14px,2.2vw,30px);bottom:clamp(76px,7vw,104px);width:124px;height:124px;border:1.5px solid #8A6E43;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#8A6E43;mix-blend-mode:multiply;transform:rotate(-8deg);pointer-events:none;">
+              <span style="position:absolute;inset:7px;border:0.75px solid #8A6E43;border-radius:50%;"></span>
+              <span style="display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;">
+                <span style="font-size:7px;letter-spacing:0.3em;">PAINTFIX AVIATION</span>
+                <span style="font-family:'Cinzel',serif;font-weight:400;font-size:15.2px;line-height:1;">{{ av.rep.sign }}</span>
+                <span style="font-size:7.5px;letter-spacing:0.18em;font-variant-numeric:tabular-nums;">14 · 10 · 2026</span>
+              </span>
+            </div>
+          </div>
+          <figcaption style="margin-top:16px;font-size:13px;color:#4C5666;">{{ av.repCaption }}</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="av-fleet" style="padding:clamp(96px,12vw,176px) 0;background:#EDE6D9;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:72px clamp(40px,6vw,120px);align-items:start;">
+        <div>
+          <div data-rv="0" style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#4C5666;"><span style="display:block;width:40px;height:1px;background:#9C7F52;"></span>{{ av.fleetLabel }}</div>
+          <h2 data-rv="80" style="margin:28px 0 0;max-width:14ch;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(40px,4.4vw,68px));line-height:1.04;letter-spacing:0.02em;text-wrap:balance;">{{ av.fleetTitle }}</h2>
+          <div data-rvs="110" style="margin-top:48px;">
+            <sc-for list="{{ av.fleet }}" as="m" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:minmax(120px,0.4fr) 1fr;gap:8px 24px;padding:22px 0;border-top:1px solid rgba(13,26,44,0.18);">
+                <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;padding-top:4px;">{{ m.c }}</span>
+                <span style="font-family:'Cinzel',serif;font-weight:400;font-size:15.2px;line-height:1.45;">{{ m.m }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <p style="margin:0;padding-top:22px;border-top:1px solid rgba(13,26,44,0.18);font-size:13px;color:#4C5666;">{{ av.fleetNote }}</p>
+        </div>
+        <div>
+          <div data-rv="0" style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#4C5666;"><span style="display:block;width:40px;height:1px;background:#9C7F52;"></span>{{ av.baseLabel }}</div>
+          <div data-rv="100" style="position:relative;margin-top:28px;aspect-ratio:260/236;overflow:hidden;background:#F4EFE6;border:1px solid rgba(13,26,44,0.12);color:#0D1A2C;">
+            <div style="position:absolute;left:0;right:0;top:30.51%;border-top:1px dashed rgba(13,26,44,0.14);"></div>
+            <div style="position:absolute;top:0;bottom:0;left:50%;border-left:1px dashed rgba(13,26,44,0.14);"></div>
+            <div style="position:absolute;left:50%;top:30.51%;width:38.46%;aspect-ratio:1;border:1px solid rgba(156,127,82,0.55);border-radius:50%;transform:translate(-50%,-50%);"></div>
+            <div style="position:absolute;left:50%;top:30.51%;width:76.92%;aspect-ratio:1;border:1px solid rgba(156,127,82,0.45);border-radius:50%;transform:translate(-50%,-50%);"></div>
+            <div style="position:absolute;left:50%;top:30.51%;width:115.38%;aspect-ratio:1;border:1px solid rgba(156,127,82,0.35);border-radius:50%;transform:translate(-50%,-50%);"></div>
+            <span style="position:absolute;left:60.4%;top:48.9%;font-size:10px;letter-spacing:0.14em;color:#7A6340;">50 KM</span>
+            <span style="position:absolute;left:70%;top:67.2%;font-size:10px;letter-spacing:0.14em;color:#7A6340;">100 KM</span>
+            <span style="position:absolute;left:79.6%;top:85.6%;font-size:10px;letter-spacing:0.14em;color:#7A6340;">150 KM</span>
+            <div style="position:absolute;left:50%;top:30.51%;width:33.11%;border-top:1px dashed #0D1A2C;transform-origin:0 0;transform:rotate(42.27deg);opacity:{{ gL1 }};transition:opacity 0.3s ease;"></div>
+            <div style="position:absolute;left:50%;top:30.51%;width:26.41%;border-top:1px dashed #0D1A2C;transform-origin:0 0;transform:rotate(94.09deg);opacity:{{ gL2 }};transition:opacity 0.3s ease;"></div>
+            <div style="position:absolute;left:50%;top:30.51%;width:43.46%;border-top:1px dashed #0D1A2C;transform-origin:0 0;transform:rotate(123.71deg);opacity:{{ gL3 }};transition:opacity 0.3s ease;"></div>
+            <div style="position:absolute;left:50%;top:30.51%;width:56.1%;border-top:1px dashed #0D1A2C;transform-origin:0 0;transform:rotate(104.69deg);opacity:{{ gL4 }};transition:opacity 0.3s ease;"></div>
+            <span style="position:absolute;left:{{ gKmL }};top:{{ gKmT }};transform:translate(10px,-50%);padding:3px 7px;background:#0D1A2C;color:#F4EFE6;font-size:11px;font-weight:500;white-space:nowrap;opacity:{{ gKmOp }};transition:opacity 0.3s ease;">{{ gKm }}</span>
+            <div style="position:absolute;left:52.65%;top:37.75%;width:7px;height:7px;border:1px solid #0D1A2C;background:#F4EFE6;transform:translate(-50%,-50%);"></div>
+            <span style="position:absolute;left:52.65%;top:37.75%;transform:translate(10px,-50%);font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#4C5666;white-space:nowrap;">Telgte · {{ av.chartSeat }}</span>
+            <div style="position:absolute;left:50%;top:30.51%;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid #C8AE82;border-radius:50%;opacity:{{ gH0 }};transition:opacity 0.3s ease;"></div>
+            <div style="position:absolute;left:50%;top:30.51%;width:{{ gS0 }};height:{{ gS0 }};border-radius:50%;background:#0D1A2C;transform:translate(-50%,-50%);transition:width 0.3s ease,height 0.3s ease;"></div>
+            <div style="position:absolute;left:50%;top:30.51%;transform:translate(18px,-62%);display:flex;flex-direction:column;gap:3px;white-space:nowrap;"><span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(15px,1.4vw,20px));line-height:1;">EDDG</span><span style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#4C5666;">Münster/Osnabrück</span></div>
+            <div style="position:absolute;left:74.5%;top:55.04%;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid #C8AE82;border-radius:50%;opacity:{{ gH1 }};transition:opacity 0.3s ease;"></div>
+            <div style="position:absolute;left:74.5%;top:55.04%;width:{{ gS1 }};height:{{ gS1 }};border-radius:50%;background:#0D1A2C;transform:translate(-50%,-50%);transition:width 0.3s ease,height 0.3s ease;"></div>
+            <div style="position:absolute;left:74.5%;top:55.04%;transform:translate(14px,-62%);display:flex;flex-direction:column;gap:3px;white-space:nowrap;"><span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(15px,1.4vw,20px));line-height:1;">EDLP</span><span style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#4C5666;">Paderborn</span></div>
+            <div style="position:absolute;left:48.12%;top:59.53%;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid #C8AE82;border-radius:50%;opacity:{{ gH2 }};transition:opacity 0.3s ease;"></div>
+            <div style="position:absolute;left:48.12%;top:59.53%;width:{{ gS2 }};height:{{ gS2 }};border-radius:50%;background:#0D1A2C;transform:translate(-50%,-50%);transition:width 0.3s ease,height 0.3s ease;"></div>
+            <div style="position:absolute;left:48.12%;top:59.53%;transform:translate(calc(-100% - 14px),-62%);display:flex;flex-direction:column;align-items:flex-end;gap:3px;white-space:nowrap;"><span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(15px,1.4vw,20px));line-height:1;">EDLW</span><span style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#4C5666;">Dortmund</span></div>
+            <div style="position:absolute;left:25.88%;top:70.34%;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid #C8AE82;border-radius:50%;opacity:{{ gH3 }};transition:opacity 0.3s ease;"></div>
+            <div style="position:absolute;left:25.88%;top:70.34%;width:{{ gS3 }};height:{{ gS3 }};border-radius:50%;background:#0D1A2C;transform:translate(-50%,-50%);transition:width 0.3s ease,height 0.3s ease;"></div>
+            <div style="position:absolute;left:25.88%;top:70.34%;transform:translate(14px,-62%);display:flex;flex-direction:column;gap:3px;white-space:nowrap;"><span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(15px,1.4vw,20px));line-height:1;">EDDL</span><span style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#4C5666;">Düsseldorf</span></div>
+            <div style="position:absolute;left:35.77%;top:90.3%;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid #C8AE82;border-radius:50%;opacity:{{ gH4 }};transition:opacity 0.3s ease;"></div>
+            <div style="position:absolute;left:35.77%;top:90.3%;width:{{ gS4 }};height:{{ gS4 }};border-radius:50%;background:#0D1A2C;transform:translate(-50%,-50%);transition:width 0.3s ease,height 0.3s ease;"></div>
+            <div style="position:absolute;left:35.77%;top:90.3%;transform:translate(14px,-62%);display:flex;flex-direction:column;gap:3px;white-space:nowrap;"><span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(15px,1.4vw,20px));line-height:1;">EDDK</span><span style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#4C5666;">Köln/Bonn</span></div>
+            <span style="position:absolute;left:16px;top:14px;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#4C5666;">{{ av.chartLabel }}</span>
+            <span style="position:absolute;right:18px;top:12px;font-family:'Cinzel',serif;font-weight:400;font-size:12px;">N ↑</span>
+          </div>
+          <div style="margin-top:8px;">
+            <sc-for list="{{ avBaseRows }}" as="b" hint-placeholder-count="5">
+              <div onMouseEnter="{{ b.enter }}" onMouseLeave="{{ b.leave }}" style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:18px 0;border-bottom:1px solid rgba(13,26,44,0.18);cursor:default;opacity:{{ b.op }};transition:opacity 0.3s ease;">
+                <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;">
+                  <span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(30px,2.8vw,42px));line-height:1;letter-spacing:0.055em;">{{ b.i }}</span>
+                  <span style="font-size:15px;color:#4C5666;">{{ b.n }}</span>
+                </div>
+                <span style="display:flex;align-items:baseline;gap:16px;white-space:nowrap;"><span style="font-size:13px;color:#4C5666;font-variant-numeric:tabular-nums;">{{ b.km }}</span><span style="font-size:10px;letter-spacing:0.26em;text-transform:uppercase;">{{ b.s }}</span></span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="av-terms" style="padding:clamp(96px,12vw,176px) 0 0;background:#F4EFE6;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:28px clamp(40px,6vw,120px);align-items:end;">
+          <div>
+            <div data-rv="0" style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#4C5666;"><span style="display:block;width:40px;height:1px;background:#9C7F52;"></span>{{ av.termsLabel }}</div>
+            <h2 data-rv="80" style="margin:28px 0 0;max-width:14ch;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(40px,4.8vw,76px));line-height:1.04;letter-spacing:0.02em;text-wrap:balance;">{{ av.termsTitle }}</h2>
+          </div>
+          <p data-rv="160" style="margin:0;max-width:480px;font-size:16px;line-height:1.7;color:#4C5666;text-wrap:pretty;">{{ av.termsIntro }}</p>
+        </div>
+        <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+          <div data-rv="0" style="display:grid;grid-template-columns:minmax(150px,0.7fr) repeat(3,minmax(0,1fr));margin-top:clamp(64px,7vw,104px);border-top:1px solid #0D1A2C;">
+            <div></div>
+            <sc-for list="{{ avModels }}" as="m" hint-placeholder-count="3">
+              <div style="padding:32px clamp(20px,2vw,36px) 36px;border-left:1px solid rgba(13,26,44,0.14);">
+                <div style="font-family:'Cinzel',serif;font-weight:400;font-size:17.6px;color:#7A6340;">{{ m.n }}</div>
+                <div style="margin-top:20px;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(26px,2.2vw,34px));line-height:1.1;">{{ m.t }}</div>
+                <p style="margin:14px 0 0;max-width:300px;font-size:14px;line-height:1.6;color:#4C5666;">{{ m.d }}</p>
+              </div>
+            </sc-for>
+            <sc-for list="{{ avRows }}" as="r" hint-placeholder-count="5">
+              <div style="padding:20px 16px 20px 0;border-top:1px solid rgba(13,26,44,0.14);font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ r.k }}</div>
+              <div style="padding:20px clamp(20px,2vw,36px);border-top:1px solid rgba(13,26,44,0.14);border-left:1px solid rgba(13,26,44,0.14);font-size:15px;line-height:1.5;">{{ r.v0 }}</div>
+              <div style="padding:20px clamp(20px,2vw,36px);border-top:1px solid rgba(13,26,44,0.14);border-left:1px solid rgba(13,26,44,0.14);font-size:15px;line-height:1.5;">{{ r.v1 }}</div>
+              <div style="padding:20px clamp(20px,2vw,36px);border-top:1px solid rgba(13,26,44,0.14);border-left:1px solid rgba(13,26,44,0.14);font-size:15px;line-height:1.5;">{{ r.v2 }}</div>
+            </sc-for>
+            <div style="border-top:1px solid #0D1A2C;"></div>
+            <sc-for list="{{ avModels }}" as="m" hint-placeholder-count="3">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:24px clamp(20px,2vw,36px);border-top:1px solid #0D1A2C;border-left:1px solid rgba(13,26,44,0.14);">
+                <span style="font-family:'Cinzel',serif;font-weight:400;font-size:12.8px;">{{ av.termsPrice }}</span>
+                <button onClick="{{ m.onAsk }}" style="display:flex;align-items:center;gap:12px;background:none;border:0;padding:6px 0;cursor:pointer;color:#0D1A2C;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;" style-hover="color:#7A6340">{{ av.termsCta }}<span style="display:block;width:28px;height:1px;background:currentColor;"></span></button>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:20px;margin-top:48px;">
+            <sc-for list="{{ avModels }}" as="m" hint-placeholder-count="3">
+              <div style="padding:28px 22px;background:#FBF8F2;border:1px solid rgba(13,26,44,0.12);">
+                <div style="display:flex;align-items:baseline;gap:14px;"><span style="font-family:'Cinzel',serif;font-weight:400;font-size:14.4px;color:#7A6340;">{{ m.n }}</span><span style="font-family:'Cinzel',serif;font-weight:400;font-size:22.4px;line-height:1.1;">{{ m.t }}</span></div>
+                <p style="margin:12px 0 0;font-size:14px;line-height:1.6;color:#4C5666;">{{ m.d }}</p>
+                <div style="margin-top:16px;">
+                  <sc-for list="{{ m.rows }}" as="r" hint-placeholder-count="5"><div style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:12px;padding:12px 0;border-top:1px solid rgba(13,26,44,0.12);"><span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#4C5666;padding-top:3px;">{{ r.k }}</span><span style="font-size:14px;line-height:1.5;">{{ r.v }}</span></div></sc-for>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px;padding-top:16px;border-top:1px solid #0D1A2C;"><span style="font-family:'Cinzel',serif;font-weight:400;font-size:12px;">{{ av.termsPrice }}</span><button onClick="{{ m.onAsk }}" style="height:44px;padding:0 18px;background:#0D1A2C;color:#F4EFE6;border:0;cursor:pointer;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;">{{ av.termsCta }}</button></div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div data-rv="0" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));margin-top:clamp(80px,10vw,144px);background:#0D1A2C;color:#F4EFE6;">
+          <div style="padding:clamp(32px,5vw,72px);">
+            <div style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#C8AE82;"><span style="display:block;width:40px;height:1px;background:#C8AE82;"></span>{{ av.docsLabel }}</div>
+            <h3 style="margin:24px 0 0;max-width:16ch;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(32px,3.4vw,52px));line-height:1.08;">{{ av.docsTitle }}</h3>
+            <p style="margin:20px 0 0;max-width:460px;font-size:15px;line-height:1.7;color:#D2CABB;">{{ av.docsIntro }}</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:0 32px;margin-top:36px;">
+              <sc-for list="{{ av.docs }}" as="d" hint-placeholder-count="6">
+                <div style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:16px 0;border-top:1px solid rgba(244,239,230,0.14);">
+                  <span style="font-family:'Cinzel',serif;font-weight:400;font-size:10.4px;color:#C8AE82;padding-top:3px;">—</span>
+                  <div><div style="font-size:15px;font-weight:500;">{{ d.t }}</div><div style="margin-top:4px;font-size:13px;line-height:1.5;color:#B8B2A6;">{{ d.d }}</div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,5vw,72px);border-left:1px solid rgba(244,239,230,0.14);background:#0A1424;">
+            <div style="position:relative;width:min(200px,56%);aspect-ratio:3/4;margin:12px auto 44px;">
+              <div style="position:absolute;inset:0;transform:translate(18px,-14px) rotate(5deg);background:#C8AE82;opacity:0.3;"></div>
+              <div style="position:absolute;inset:0;transform:translate(9px,-7px) rotate(2.5deg);background:#D9D1C1;"></div>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:20px;background:#F4EFE6;color:#0D1A2C;box-shadow:0 30px 60px -28px rgba(0,0,0,0.7);">
+                <div style="font-family:'Cinzel',serif;font-weight:400;font-size:8px;letter-spacing:0.335em;">PAINTFIX <span style="font-family:'Mona Sans',sans-serif;font-size:7px;letter-spacing:0.34em;">AVIATION</span></div>
+                <div><div style="font-family:'Cinzel',serif;font-weight:400;font-size:16.8px;line-height:1.1;">{{ av.docsCover }}</div><div style="margin-top:10px;font-size:8px;letter-spacing:0.24em;text-transform:uppercase;color:#4C5666;">{{ av.docsCoverMeta }}</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px;"><span style="display:block;height:1px;background:rgba(13,26,44,0.25);"></span><span style="display:block;width:70%;height:1px;background:rgba(13,26,44,0.25);"></span><span style="display:block;width:40%;height:1px;background:rgba(13,26,44,0.25);"></span></div>
+              </div>
+            </div>
+            <sc-if value="{{ docsOpen }}" hint-placeholder-val="{{ true }}">
+              <label style="display:block;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#B8B2A6;">{{ av.docsCompany }}</span><input value="{{ docs.company }}" onChange="{{ onDocsCompany }}" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(244,239,230,0.35);background:transparent;font-size:17px;outline:none;color:#F4EFE6;" style-focus="border-bottom-color:#F4EFE6"></label>
+              <label style="display:block;margin-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#B8B2A6;">{{ av.docsEmail }}</span><input type="email" value="{{ docs.email }}" onChange="{{ onDocsEmail }}" placeholder="name@operator.aero" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid {{ docsLine }};background:transparent;font-size:17px;outline:none;color:#F4EFE6;" style-focus="border-bottom-color:#F4EFE6"></label>
+              <sc-if value="{{ docsErr }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;color:#E0907F;">{{ av.docsErr }}</div></sc-if>
+              <button onClick="{{ docsSubmit }}" style="width:100%;height:56px;margin-top:28px;background:#F4EFE6;color:#0D1A2C;border:0;cursor:pointer;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;" style-hover="background:#ffffff">{{ av.docsBtn }}</button>
+              <p style="margin:14px 0 0;font-size:12px;line-height:1.6;color:#B8B2A6;">{{ av.docsNote }}</p>
+            </sc-if>
+            <sc-if value="{{ docsSent }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(28px,2.6vw,38px));line-height:1.1;">{{ av.docsDone }}</div>
+              <div style="display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding:16px 0;border-top:1px solid rgba(244,239,230,0.14);border-bottom:1px solid rgba(244,239,230,0.14);font-size:13px;"><span style="overflow-wrap:anywhere;">{{ av.docsFile }}</span><span style="flex:none;color:#B8B2A6;">{{ av.docsMeta }}</span></div>
+              <p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:#D2CABB;overflow-wrap:anywhere;">{{ av.docsDoneSub }} {{ docsMail }}.</p>
+              <button onClick="{{ docsReset }}" style="margin-top:24px;height:48px;padding:0 24px;background:transparent;color:#F4EFE6;border:1px solid rgba(244,239,230,0.5);cursor:pointer;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;">{{ av.docsAgain }}</button>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="av-contact" style="padding:clamp(96px,12vw,176px) 0;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px clamp(40px,6vw,120px);align-items:start;">
+        <div>
+          <div style="display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#4C5666;"><span style="display:block;width:40px;height:1px;background:#9C7F52;"></span>{{ av.formLabel }}</div>
+          <h2 data-rv="0" style="margin:28px 0 0;font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(44px,5.6vw,92px));line-height:1;letter-spacing:0.015em;">{{ av.formTitle }}</h2>
+          <p style="margin:28px 0 0;max-width:440px;font-size:17px;line-height:1.7;color:#4C5666;text-wrap:pretty;">{{ av.formIntro }}</p>
+          <div style="margin-top:48px;padding-top:24px;border-top:1px solid #0D1A2C;max-width:440px;">
+            <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#4C5666;">{{ av.direct }}</div>
+            <div style="margin-top:14px;font-family:'Cinzel',serif;font-weight:400;font-size:19.2px;line-height:1.5;">{{ av.opsPhone }}<br>{{ av.opsMail }}</div>
+          </div>
+        </div>
+        <div>
+          <sc-if value="{{ avNotSent }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:8px 32px;">
+              <label style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.company }}</span><input value="{{ af.company }}" onChange="{{ onAvCompany }}" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;outline:none;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></label>
+              <label style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.name }}</span><input value="{{ af.name }}" onChange="{{ onAvName }}" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;outline:none;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></label>
+              <label style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.email }}</span><input type="email" value="{{ af.email }}" onChange="{{ onAvEmail }}" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;outline:none;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></label>
+              <label style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.phone }}</span><input value="{{ af.phone }}" onChange="{{ onAvPhone }}" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;outline:none;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></label>
+              <label id="av-type" style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.type }}</span><span style="position:relative;display:block;"><select value="{{ avTypeSel }}" onChange="{{ onAvTypeSel }}" style="width:100%;height:48px;padding:0 28px 0 0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);border-radius:0;background:transparent;font-family:inherit;font-size:17px;outline:none;color:#0D1A2C;appearance:none;-webkit-appearance:none;cursor:pointer;" style-focus="border-bottom-color:#0D1A2C"><option value="">{{ av.f.typePick }}</option><sc-for list="{{ avTypeGroups }}" as="g" hint-placeholder-count="0"><optgroup label="{{ g.g }}"><sc-for list="{{ g.items }}" as="t" hint-placeholder-count="0"><option value="{{ t.name }}">{{ t.name }}</option></sc-for></optgroup></sc-for><option value="other">{{ av.f.typeOther }}</option></select><span style="position:absolute;right:2px;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none;">▾</span></span></label>
+              <sc-if value="{{ avTypeOther }}" hint-placeholder-val="{{ false }}"><label style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.typeOther }}</span><input value="{{ af.type }}" onChange="{{ onAvType }}" placeholder="Learjet 75" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;outline:none;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></label></sc-if>
+              <label style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.reg }}</span><input value="{{ af.reg }}" onChange="{{ onAvReg }}" placeholder="D-B…" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;outline:none;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></label>
+              <label style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.apt }}</span><input value="{{ af.apt }}" onChange="{{ onAvApt }}" placeholder="EDDG" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;outline:none;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></label>
+              <label style="display:block;padding-top:16px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.window }}</span><input value="{{ af.window }}" onChange="{{ onAvWindow }}" placeholder="14.10., 06:00–09:00 UTC" style="width:100%;height:48px;padding:0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;outline:none;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></label>
+            </div>
+            <div style="margin-top:32px;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.services }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;">
+              <sc-for list="{{ avSvcChips }}" as="c" hint-placeholder-count="3"><button onClick="{{ c.onClick }}" style="height:44px;padding:0 22px;border:1px solid #0D1A2C;background:{{ c.bg }};color:{{ c.fg }};cursor:pointer;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;">{{ c.label }}</button></sc-for>
+            </div>
+            <div style="margin-top:28px;padding:24px clamp(20px,2.4vw,32px);background:#EDE6D9;">
+              <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;"><span>{{ av.est.label }}</span><span style="color:#0D1A2C;">{{ estType }}</span></div>
+              <sc-if value="{{ estEmpty }}" hint-placeholder-val="{{ true }}"><p style="margin:14px 0 0;max-width:460px;font-size:14px;line-height:1.6;color:#4C5666;">{{ av.est.empty }}</p></sc-if>
+              <sc-if value="{{ estOn }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:14px;">
+                  <sc-for list="{{ estRows }}" as="r" hint-placeholder-count="2">
+                    <div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:16px;align-items:baseline;padding:12px 0;border-top:1px solid rgba(13,26,44,0.14);">
+                      <span style="font-family:'Cinzel',serif;font-weight:400;font-size:16px;">{{ r.label }}</span>
+                      <span style="font-size:14px;font-variant-numeric:tabular-nums;">{{ r.dur }}</span>
+                      <span style="font-size:13px;color:#4C5666;">{{ r.crew }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;padding-top:18px;border-top:1px solid #0D1A2C;">
+                  <span style="font-size:10px;letter-spacing:0.26em;text-transform:uppercase;">{{ av.est.ground }}</span>
+                  <span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(30px,2.8vw,40px));line-height:1;">{{ estGround }}</span>
+                </div>
+                <sc-for list="{{ estNotes }}" as="n" hint-placeholder-count="1"><p style="margin:12px 0 0;font-size:13px;color:#0D1A2C;">{{ n }}</p></sc-for>
+                <p style="margin:8px 0 0;font-size:12px;line-height:1.6;color:#4C5666;">{{ av.est.note }}</p>
+              </sc-if>
+            </div>
+            <div style="margin-top:32px;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.model }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;">
+              <sc-for list="{{ avModelChips }}" as="c" hint-placeholder-count="3"><button onClick="{{ c.onClick }}" style="height:44px;padding:0 22px;border:1px solid #0D1A2C;background:{{ c.bg }};color:{{ c.fg }};cursor:pointer;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;">{{ c.label }}</button></sc-for>
+            </div>
+            <label style="display:block;margin-top:24px;"><span style="display:block;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#4C5666;">{{ av.f.notes }}</span><textarea value="{{ af.notes }}" onChange="{{ onAvNotes }}" rows="3" style="width:100%;padding:12px 0;border:0;border-bottom:1px solid rgba(13,26,44,0.3);background:transparent;font-size:17px;line-height:1.5;outline:none;resize:vertical;color:#0D1A2C;" style-focus="border-bottom-color:#0D1A2C"></textarea></label>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;margin-top:40px;">
+              <p style="margin:0;max-width:340px;font-size:12px;line-height:1.6;color:#4C5666;">{{ av.f.privacy }}</p>
+              <button onClick="{{ avSubmit }}" style="height:58px;padding:0 36px;background:#0D1A2C;color:#F4EFE6;border:0;cursor:pointer;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;" style-hover="background:#1C2F4A">{{ av.f.send }}</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ avSent }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:clamp(32px,4vw,56px);border:1px solid #0D1A2C;">
+              <div style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(40px,4vw,64px));line-height:1;">{{ av.sentTitle }}</div>
+              <p style="margin:20px 0 0;max-width:420px;font-size:17px;line-height:1.7;color:#4C5666;">{{ av.sentText }}</p>
+              <button onClick="{{ avAgain }}" style="margin-top:32px;height:52px;padding:0 28px;background:transparent;color:#0D1A2C;border:1px solid #0D1A2C;cursor:pointer;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;">{{ av.again }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+
+    <footer style="background:#0D1A2C;color:#F4EFE6;">
+      <div style="max-width:1440px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(20px,4vw,64px) 40px;">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;padding-bottom:clamp(48px,6vw,80px);border-bottom:1px solid rgba(244,239,230,0.14);">
+          <div data-rv="0" style="display:flex;flex-direction:column;gap:18px;">
+            <span style="font-family:'Cinzel',serif;font-weight:400;font-size:calc(0.8 * clamp(48px,8vw,136px));line-height:0.9;letter-spacing:0.095em;">PAINTFIX</span>
+            <span style="font-size:clamp(11px,1vw,14px);letter-spacing:0.62em;">AVIATION</span>
+          </div>
+          <button onClick="{{ avGoQuote }}" style="height:56px;padding:0 30px;background:#F4EFE6;color:#0D1A2C;border:0;cursor:pointer;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;" style-hover="background:#ffffff">{{ av.cta }}</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:40px 32px;padding-top:48px;font-size:14px;line-height:1.8;color:#D2CABB;">
+          <div>
+            <div style="margin-bottom:12px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#C8AE82;">{{ av.direct }}</div>
+            <div>{{ av.opsPhone }}</div><div>{{ av.opsMail }}</div>
+          </div>
+          <div>
+            <div style="margin-bottom:12px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#C8AE82;">{{ av.baseLabel }}</div>
+            <sc-for list="{{ av.bases }}" as="b" hint-placeholder-count="5"><div>{{ b.i }} · {{ b.n }}</div></sc-for>
+          </div>
+          <div>
+            <div style="margin-bottom:12px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#C8AE82;">{{ av.footAddrLabel }}</div>
+            <sc-for list="{{ av.footAddr }}" as="l" hint-placeholder-count="3"><div>{{ l }}</div></sc-for>
+          </div>
+          <div>
+            <div style="margin-bottom:12px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#C8AE82;">Legal</div>
+            <sc-for list="{{ av.legal }}" as="l" hint-placeholder-count="3"><div>{{ l }}</div></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:64px;padding-top:24px;border-top:1px solid rgba(244,239,230,0.14);font-size:12px;color:#B8B2A6;">
+          <span>© {{ year }} · {{ av.footDiv }}</span>
+          <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer;color:#F4EFE6;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;" style-hover="color:#C8AE82">{{ av.footCar }} ↗</button>
+        </div>
+      </div>
+    </footer>
+    <sc-if value="{{ avSpace }}" hint-placeholder-val="{{ false }}"><div style="height:76px;background:#0D1A2C;"></div></sc-if>
+    <sc-if value="{{ avBarOn }}" hint-placeholder-val="{{ false }}">
+      <div style="position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(13,26,44,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(200,174,130,0.35);">
+        <a href="{{ telAv }}" style="display:flex;align-items:center;justify-content:center;height:52px;border:1px solid rgba(244,239,230,0.5);color:#F4EFE6;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;">{{ av.barCall }}</a>
+        <button onClick="{{ avGoQuote }}" style="height:52px;background:#F4EFE6;color:#0D1A2C;border:0;cursor:pointer;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;">{{ av.cta }}</button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Startseite&quot;,&quot;Fahrzeugaufbereitung&quot;,&quot;Flugzeugaufbereitung&quot;,&quot;Anfrage&quot;],&quot;default&quot;:&quot;Startseite&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Ansicht&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Voll&quot;,&quot;Reduziert&quot;],&quot;default&quot;:&quot;Voll&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Bewegung&quot;},&quot;smooth&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;An&quot;,&quot;Aus&quot;],&quot;default&quot;:&quot;An&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Bewegung&quot;},&quot;avServices&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Horizontal-Scroll&quot;,&quot;Tabs&quot;],&quot;default&quot;:&quot;Horizontal-Scroll&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aviation&quot;}}">
+class Component extends DCLogic {
+  constructor(...a) {
+    super(...a);
+    const p = this.props || a[0] || {};
+    this.SVC = [
+      { id: 'aussen', img2: 'img/car-6873023.jpg', no: '01', name: 'Außenaufbereitung', short: 'Handwäsche, Felgen, Versiegelung', dur: 'ca. 2–3 Std.', p: [89, 109, 129],
+        desc: 'Schonende Handwäsche im Zwei-Eimer-Verfahren, Felgen und Reifen, Insekten- und Teerentfernung. Zum Abschluss eine Sprühversiegelung, die mehrere Wochen hält.',
+        incl: ['Vorwäsche mit Aktivschaum', 'Handwäsche, Zwei-Eimer-Verfahren', 'Felgen, Reifen, Radkästen', 'Insekten- und Teerentfernung', 'Scheiben außen', 'Sprühversiegelung'] },
+      { id: 'innen', img2: 'img/car-37809563.jpg', no: '02', name: 'Innenaufbereitung', short: 'Polster, Kunststoffe, Scheiben', dur: 'ca. 3–4 Std.', p: [119, 139, 169],
+        desc: 'Gründliche Reinigung des Innenraums vom Dachhimmel bis zum Kofferraum. Polster oder Leder werden je nach Material gereinigt und gepflegt, Gerüche neutralisiert.',
+        incl: ['Saugen inkl. Kofferraum', 'Polster- oder Lederreinigung', 'Kunststoff- und Zierteilpflege', 'Türfalze und Einstiege', 'Scheiben innen, streifenfrei', 'Geruchsneutralisation'] },
+      { id: 'politur', img2: 'img/car-14908957.jpg', no: '03', name: 'Politur', short: 'Lackreinigung, Maschinenpolitur', dur: '1 Tag', p: [249, 299, 349],
+        desc: 'Dekontamination mit Reinigungsknete, danach maschinelle Politur. Entfernt Waschkratzer, Hologramme und matte Stellen und gibt dem Lack seine Tiefe zurück.',
+        incl: ['Dekontamination mit Knete', 'Lackschichtdickenmessung', 'Einstufige Maschinenpolitur', 'Kunststoffe und Gummis abgeklebt', 'Wachsversiegelung', 'Mehrstufige Korrektur auf Anfrage'] },
+      { id: 'keramik', img2: 'img/car-29132800.jpg', no: '04', name: 'Keramikversiegelung', short: 'Lackkorrektur, Keramikschutz', dur: '2 Tage', p: [590, 690, 790],
+        desc: 'Nach Außenaufbereitung und Lackkorrektur tragen wir eine zweischichtige Keramikversiegelung auf. Der Lack bleibt länger sauber, glänzt tiefer und ist gegen Umwelteinflüsse geschützt.',
+        incl: ['Außenaufbereitung inklusive', 'Einstufige Lackkorrektur', 'Zwei Schichten Keramik', 'Felgen und Scheiben versiegelt', 'Aushärtung unter Infrarot', 'Schutz bis zu 3 Jahre'] }
+    ];
+    this.COMBO = [189, 229, 269];
+    this.CLASSES = [
+      { label: 'Kleinwagen', ex: 'z. B. VW Polo, Mini' },
+      { label: 'Limousine & Kombi', ex: 'z. B. BMW 3er, VW Passat' },
+      { label: 'SUV & Van', ex: 'z. B. Audi Q5, VW Multivan' }
+    ];
+    this.EXTRAS = [
+      { name: 'Tierhaarentfernung', price: 'ab 29 €' }, { name: 'Motorraumreinigung', price: 'ab 39 €' },
+      { name: 'Ozonbehandlung gegen Gerüche', price: 'ab 49 €' }, { name: 'Scheinwerferaufbereitung', price: 'ab 59 €' }
+    ];
+    this.FAQ = [
+      { q: 'Warum steht bei den Preisen „ab“?', a: 'Der Preis hängt von Größe und Zustand ab. Die Preise gelten für ein Fahrzeug in normalem Zustand. Nach einer kurzen Sichtung nennen wir Ihnen einen Festpreis, bevor wir beginnen. Ohne Ihre Zustimmung wird es nicht teurer.' },
+      { q: 'Wie lange dauert die Aufbereitung?', a: 'Außen- und Innenaufbereitung erledigen wir in der Regel am selben Tag. Für eine Politur rechnen Sie mit einem Tag, für eine Keramikversiegelung mit zwei Tagen, weil die Beschichtung aushärten muss.' },
+      { q: 'Lohnt sich eine Keramikversiegelung?', a: 'Wenn Sie Ihr Fahrzeug länger fahren und Wert auf einfache Pflege legen, ja. Der Lack verschmutzt langsamer, die Wäsche geht schneller und der Glanz hält über Jahre. Für eine Leasingrückgabe reicht meist eine Politur.' },
+      { q: 'Arbeiten Sie auch für Autohäuser und Flotten?', a: 'Ja. Für Händler, Leasingrückläufer und Firmenflotten vereinbaren wir feste Konditionen und rechnen gesammelt ab.' },
+      { q: 'Was hat Paintfix mit Flugzeugen zu tun?', a: 'Paintfix Aviation ist unser eigener Bereich für Business Aviation, mit eigenem Team und eigener Kalkulation. Für Ihr Auto bedeutet das: dieselbe Gründlichkeit und ein Fotoprotokoll bei jeder Übergabe. Die Preise für Fahrzeuge berechnen wir unabhängig davon.' }
+    ];
+    this.AVIDS = ['av-services', 'av-process', 'av-standards', 'av-fleet', 'av-terms', 'av-contact'];
+    this.ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+    this.KM = ['', '86 km', '69 km', '113 km', '146 km'];
+    this.GEO = [[50, 30.51], [74.5, 55.04], [48.12, 59.53], [25.88, 70.34], [35.77, 90.3]];
+    this.CATIMG = ['img/av-14983522.jpg', 'img/av-20562278.jpg', 'img/av-32346742.jpg'];
+    this.state = {
+      page: this.mapPage(this.urlParam('page') || p.startPage),
+      vClass: 0, req: { aussen: true, innen: false, politur: false, keramik: false }, reqClass: 0,
+      form: { name: '', phone: '', email: '', car: '', date: '', msg: '' }, time: 2, consent: false, submitted: false,
+      faq: 0, lang: 'de', avTab: 0, avData: null,
+      avForm: { company: '', name: '', email: '', phone: '', type: '', reg: '', apt: '', window: '', notes: '' },
+      avSel: this.urlParam('svc') === 'ec' ? { 0: true, 1: true } : { 0: true }, avSent: false, avModel: -1, avTypeSel: this.urlParam('type') || '',
+      docs: { email: '', company: '' }, docsSent: false, docsErr: false,
+      w: typeof window !== 'undefined' ? window.innerWidth : 1440, menu: false, avOver: false,
+      avIn: false, avSec: -1, hover: -1, lastHover: 0, baseHover: -1, curtain: null, now: Date.now()
+    };
+    this.topRef = React.createRef(); this.avRef = React.createRef(); this.listRef = React.createRef(); this.floatRef = React.createRef();
+    this.baRef = React.createRef(); this.baClipRef = React.createRef(); this.baHandleRef = React.createRef();
+    this._timers = [];
+  }
+
+  mapPage(v) {
+    const t = String(v || '').toLowerCase();
+    if (t.startsWith('flug') || t.startsWith('av')) return 'av';
+    if (t.startsWith('fahr') || t.startsWith('auto')) return 'auto';
+    if (t.startsWith('anf') || t.startsWith('req')) return 'req';
+    return 'home';
+  }
+  letter(v, d) { return v ? String(v).trim().charAt(0).toUpperCase() : d; }
+  eur(n) { return n.toLocaleString('de-DE') + '\u00A0€'; }
+
+
+  reduced() {
+    const m = String((this.props || {}).motion || '').toLowerCase();
+    return m.indexOf('red') === 0 || (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+  ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  later(fn, ms) { const id = setTimeout(fn, ms); this._timers.push(id); return id; }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onResize);
+    this.onResize();
+    import(new URL('./paintfix-data-v3.js', document.baseURI).href).then(m => this.setState({ avData: m.AV }, this.kick)).catch(e => console.warn('paintfix-data', e));
+    this._clock = setInterval(() => this.setState({ now: Date.now() }), 60000);
+    window.addEventListener('wheel', this.onWheel, { passive: false });
+    const an = this.urlParam('anchor');
+    if (an) this.later(() => { const el = document.getElementById(an); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - (this.state.page === 'av' ? 84 : 76) + 1); }, 1100);
+    if (this.state.page === 'av') this.avIntro();
+    this.later(this.kick, 400);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('wheel', this.onWheel);
+    this.smoothStop();
+    clearInterval(this._clock); this._timers.forEach(clearTimeout);
+    cancelAnimationFrame(this._raf); cancelAnimationFrame(this._fl); cancelAnimationFrame(this._baAnim);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const p = this.props || {}, q = prevProps || {};
+    if (p.startPage !== q.startPage) this.setState({ page: this.mapPage(p.startPage), curtain: null });
+    if (prevState && prevState.page !== this.state.page) {
+      window.scrollTo(0, 0);
+      const a = this._anchor; this._anchor = null;
+      if (a) this.later(() => this.scrollToId(a), 140);
+      this._baDone = false;
+      if (this.state.page === 'av') this.avIntro(); else if (this.state.avIn) this.setState({ avIn: false, avSec: -1, avOver: false });
+    }
+    this.kick();
+  }
+  avIntro() { if (this.state.avIn) this.setState({ avIn: false }); this.later(() => this.setState({ avIn: true }), 90); }
+
+  kick = () => this.onScroll();
+  onResize = () => { const w = window.innerWidth; if (w !== this.state.w) this.setState({ w }); this.kick(); };
+  onScroll = () => {
+    if (this._raf) return;
+    this._raf = requestAnimationFrame(() => { this._raf = null; this.frame(); });
+  };
+  frame() {
+    const vh = window.innerHeight, red = this.reduced(), s = this.state;
+    const top = this.topRef.current ? this.topRef.current.getBoundingClientRect().top : -window.scrollY;
+    const sy = Math.max(0, -top);
+    document.querySelectorAll('[data-px]').forEach(el => {
+      if (red) { el.style.transform = ''; return; }
+      const f = parseFloat(el.getAttribute('data-px')) || 0, r = (el.parentElement || el).getBoundingClientRect();
+      if (r.bottom < -300 || r.top > vh + 300) return;
+      el.style.transform = 'translate3d(0,' + (-((r.top + r.height / 2) - vh / 2) * f).toFixed(1) + 'px,0)';
+    });
+    document.querySelectorAll('[data-pxy]').forEach(el => { el.style.transform = red ? '' : 'translate3d(0,' + (sy * (parseFloat(el.getAttribute('data-pxy')) || 0)).toFixed(1) + 'px,0)'; });
+    document.querySelectorAll('[data-fade]').forEach(el => { el.style.opacity = String(Math.max(0, 1 - sy / (vh * 0.6)).toFixed(3)); });
+    this.reveal(vh, red, !!(s.curtain && s.curtain.ph !== 'reveal'));
+    document.querySelectorAll('[data-expand]').forEach(sec => {
+      const r = sec.getBoundingClientRect(), h = sec.offsetHeight;
+      const pr = Math.min(1, Math.max(0, -r.top / Math.max(1, h - vh)));
+      const e = this.ease(Math.min(1, pr / 0.6)), t = Math.min(1, Math.max(0, (pr - 0.5) / 0.25));
+      const q = n => sec.querySelector('[data-expand-' + n + ']');
+      const fr = q('frame'), im = q('img'), tx = q('text'), cp = q('cap');
+      const iy = (20 * (1 - e)).toFixed(2), ix = (26 * (1 - e)).toFixed(2);
+      if (fr) fr.style.clipPath = 'inset(' + iy + '% ' + ix + '% ' + iy + '% ' + ix + '%)';
+      if (im) im.style.transform = 'scale(' + (1.2 - 0.2 * e).toFixed(4) + ')';
+      if (tx) { tx.style.opacity = t.toFixed(3); tx.style.transform = 'translateY(' + (28 * (1 - t)).toFixed(1) + 'px)'; }
+      if (cp) cp.style.opacity = t.toFixed(3);
+    });
+    document.querySelectorAll('[data-hs]').forEach(sec => {
+      const tr = sec.querySelector('[data-hs-track]'); if (!tr) return;
+      const dist = Math.max(0, tr.scrollWidth - sec.clientWidth), h = dist + vh;
+      if (Math.abs(sec.offsetHeight - h) > 2) sec.style.height = h + 'px';
+      const r = sec.getBoundingClientRect(), pr = Math.min(1, Math.max(0, -r.top / Math.max(1, h - vh)));
+      tr.style.transform = 'translate3d(' + (-pr * dist).toFixed(1) + 'px,0,0)';
+    });
+    document.querySelectorAll('[data-prog]').forEach(sec => {
+      const r = sec.getBoundingClientRect(), pr = red ? 1 : Math.min(1, Math.max(0, (vh * 0.78 - r.top) / (r.height * 0.55)));
+      const bar = sec.querySelector('[data-progbar]'); if (bar) bar.style.transform = 'scaleX(' + pr.toFixed(3) + ')';
+      sec.querySelectorAll('[data-step]').forEach(st => { const i = parseInt(st.getAttribute('data-step'), 10) || 0; st.style.opacity = pr >= (i + 0.35) / 4 ? '1' : '0.3'; });
+    });
+    const ba = this.baRef.current;
+    if (ba && !this._baDone) { const r = ba.getBoundingClientRect(); if (r.top < vh * 0.72 && r.bottom > 0) { this._baDone = true; if (!red) this.later(() => this.baIntro(), 450); } }
+    if (s.page === 'av') {
+      const c = this.avRef.current, over = c ? c.getBoundingClientRect().top <= 90 : false;
+      let sec = -1;
+      this.AVIDS.forEach((id, i) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= vh * 0.45) sec = i; });
+      if (over !== s.avOver || sec !== s.avSec) this.setState({ avOver: over, avSec: sec });
+    }
+  }
+  reveal(vh, red, hold) {
+    const E = 'cubic-bezier(.2,.7,.2,1)';
+    document.querySelectorAll('[data-rv],[data-rvm],[data-rvs],[data-rvc],[data-stamp]').forEach(el => {
+      if (el.__rv === 2) return;
+      if (!el.__rv) {
+        if (red) { el.__rv = 2; return; }
+        this.prep(el, E); el.__rv = 1; el.getBoundingClientRect();
+      }
+      if (hold) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.92 && r.bottom > -60) { this.show(el); el.__rv = 2; }
+    });
+  }
+  prep(el, E) {
+    const d = k => parseInt(el.getAttribute(k), 10) || 0;
+    const set = (n, o, tr, tn) => { n.style.opacity = o; n.style.translate = tr; n.style.transition = tn; };
+    if (el.hasAttribute('data-rvs')) { const st = d('data-rvs') || 100; Array.prototype.forEach.call(el.children, (c, i) => set(c, '0', '0 28px', 'opacity 1s ' + E + ' ' + (i * st) + 'ms, translate 1.1s ' + E + ' ' + (i * st) + 'ms')); }
+    else if (el.hasAttribute('data-rvm')) { el.style.translate = '0 110%'; el.style.transition = 'translate 1.25s cubic-bezier(.19,1,.22,1) ' + d('data-rvm') + 'ms'; }
+    else if (el.hasAttribute('data-rvc')) { el.style.clipPath = 'inset(100% 0 0 0)'; el.style.transition = 'clip-path 1.6s cubic-bezier(.77,0,.18,1) ' + d('data-rvc') + 'ms'; }
+    else if (el.hasAttribute('data-stamp')) { el.style.opacity = '0'; el.style.transform = 'scale(1.7) rotate(-20deg)'; el.style.transition = 'opacity .3s ease ' + d('data-stamp') + 'ms, transform .6s cubic-bezier(.2,1.6,.4,1) ' + d('data-stamp') + 'ms'; }
+    else set(el, '0', '0 32px', 'opacity 1.1s ' + E + ' ' + d('data-rv') + 'ms, translate 1.2s ' + E + ' ' + d('data-rv') + 'ms');
+  }
+  show(el) {
+    if (el.hasAttribute('data-rvs')) Array.prototype.forEach.call(el.children, c => { c.style.opacity = '1'; c.style.translate = '0 0'; });
+    else if (el.hasAttribute('data-rvm')) el.style.translate = '0 0';
+    else if (el.hasAttribute('data-rvc')) el.style.clipPath = 'inset(0 0 0 0)';
+    else if (el.hasAttribute('data-stamp')) { el.style.opacity = '1'; el.style.transform = 'scale(1) rotate(-8deg)'; }
+    else { el.style.opacity = '1'; el.style.translate = '0 0'; }
+  }
+
+  urlParam(k) { try { return new URLSearchParams(window.location.search).get(k); } catch (e) { return null; } }
+  smoothOn() {
+    const P = this.props || {}, s = this.state;
+    return s.page === 'av' && s.w >= 980 && !this.reduced() && String(P.smooth || '').toLowerCase().indexOf('aus') !== 0 && !(typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches);
+  }
+  onWheel = e => {
+    if (!this.smoothOn() || e.ctrlKey || e.defaultPrevented) return;
+    const t = e.target;
+    if (t && t.closest && t.closest('textarea,select,[data-native-scroll]')) return;
+    let dy = e.deltaY;
+    if (e.deltaMode === 1) dy *= 16; else if (e.deltaMode === 2) dy *= window.innerHeight;
+    if (Math.abs(e.deltaX) > Math.abs(dy)) return;
+    e.preventDefault();
+    this.smoothTo((this._sRun ? this._sT : window.scrollY) + dy);
+  };
+  smoothTo(y) {
+    const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    this._sT = Math.max(0, Math.min(max, y));
+    if (!this._sRun) { this._sRun = true; this._sC = window.scrollY; this._sL = performance.now(); this._sRaf = requestAnimationFrame(this.smoothLoop); }
+  }
+  smoothStop() { if (this._sRun) { this._sRun = false; cancelAnimationFrame(this._sRaf); } }
+  smoothLoop = now => {
+    if (!this._sRun) return;
+    if (Math.abs(window.scrollY - this._sC) > 3) { this._sRun = false; return; }
+    const dt = Math.min(64, now - this._sL); this._sL = now;
+    const a = 1 - Math.pow(1 - 0.085, dt / 16.67);
+    let y = this._sC + (this._sT - this._sC) * a;
+    if (Math.abs(this._sT - y) < 0.6) y = this._sT;
+    this._sC = y; window.scrollTo(0, y);
+    if (y !== this._sT) this._sRaf = requestAnimationFrame(this.smoothLoop); else this._sRun = false;
+  };
+
+  scrollToId(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    this.smoothStop();
+    const off = this.state.page === 'av' ? 84 : 76;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off + 1, behavior: 'smooth' });
+  }
+
+  go(page, anchor) {
+    const s = this.state;
+    if (s.curtain) return;
+    if (page === s.page) {
+      if (anchor) this.scrollToId(anchor); else window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (s.menu) this.setState({ menu: false });
+      return;
+    }
+    this._anchor = anchor || null;
+    if (((page === 'av') !== (s.page === 'av')) && !this.reduced()) {
+      this.setState({ curtain: { to: page, ph: 'prep' }, menu: false });
+      requestAnimationFrame(() => requestAnimationFrame(() => this.setState(st => ({ curtain: st.curtain && { ...st.curtain, ph: 'cover' } }))));
+      this.later(() => this.setState({ page }), 860);
+      this.later(() => this.setState(st => ({ curtain: st.curtain && { ...st.curtain, ph: 'reveal' } }), this.kick), 1220);
+      this.later(() => this.setState({ curtain: null }), 2200);
+      return;
+    }
+    this.setState({ page, menu: false });
+  }
+  reqWith(sel, cls) {
+    this.setState({ req: sel, reqClass: cls, submitted: false });
+    this.go('req');
+  }
+  total(sel, c) {
+    const S = this.SVC, L = [];
+    const k = !!sel.keramik, a = !!sel.aussen && !k, i = !!sel.innen;
+    let combo = false;
+    if (a && i) { L.push({ name: 'Komplett außen + innen', n: this.COMBO[c] }); combo = true; }
+    else { if (a) L.push({ name: S[0].name, n: S[0].p[c] }); if (i) L.push({ name: S[1].name, n: S[1].p[c] }); }
+    if (sel.politur) L.push({ name: S[2].name, n: S[2].p[c] });
+    if (k) L.push({ name: S[3].name + (sel.aussen ? ' (inkl. Außen)' : ''), n: S[3].p[c] });
+    return { lines: L.map(l => ({ name: l.name, price: this.eur(l.n) })), sum: L.reduce((t, l) => t + l.n, 0), combo };
+  }
+  field(k) { return e => { const v = e.target.value; this.setState(s => ({ form: { ...s.form, [k]: v } })); }; }
+  avField(k) { return e => { const v = e.target.value; this.setState(s => ({ avForm: { ...s.avForm, [k]: v } })); }; }
+
+
+  openStatus(now) {
+    const d = new Date(now), day = d.getDay(), h = d.getHours() + d.getMinutes() / 60;
+    const H = [null, [8, 18], [8, 18], [8, 18], [8, 18], [8, 18], [9, 14]], N = ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'];
+    const t = H[day];
+    if (t && h >= t[0] && h < t[1]) return { open: true, text: 'Heute geöffnet bis ' + t[1] + ' Uhr' };
+    if (t && h < t[0]) return { open: false, text: 'Öffnet heute um ' + t[0] + ' Uhr' };
+    for (let k = 1; k <= 7; k++) { const nd = (day + k) % 7; if (H[nd]) return { open: false, text: 'Geschlossen · öffnet ' + (k === 1 ? 'morgen' : N[nd]) + ' um ' + H[nd][0] + ' Uhr' }; }
+    return { open: false, text: '' };
+  }
+  onListMove = e => {
+    const el = this.listRef.current; if (!el) return;
+    const r = el.getBoundingClientRect(); this._ft = { x: e.clientX - r.left, y: e.clientY - r.top, w: r.width };
+    if (!this._fc) this._fc = { x: this._ft.x, y: this._ft.y };
+    if (!this._fl) this._fl = requestAnimationFrame(this.floatLoop);
+  };
+  floatLoop = () => {
+    this._fl = null; const f = this.floatRef.current, t = this._ft, c = this._fc; if (!f || !t || !c) return;
+    c.x += (t.x - c.x) * 0.16; c.y += (t.y - c.y) * 0.16;
+    const w = f.offsetWidth, h = f.offsetHeight, x = c.x > t.w * 0.62 ? c.x - w - 36 : c.x + 36;
+    f.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + (c.y - h / 2).toFixed(1) + 'px,0) rotate(' + Math.max(-5, Math.min(5, (t.x - c.x) * 0.05)).toFixed(2) + 'deg)';
+    if (Math.abs(t.x - c.x) > 0.4 || Math.abs(t.y - c.y) > 0.4) this._fl = requestAnimationFrame(this.floatLoop);
+  };
+  onListLeave = () => { this._fc = null; if (this.state.hover !== -1) this.setState({ hover: -1 }); };
+  baSet(v) {
+    this._ba = v; const c = this.baClipRef.current, h = this.baHandleRef.current;
+    if (c) c.style.clipPath = 'inset(0 ' + (100 - v).toFixed(2) + '% 0 0)';
+    if (h) h.style.left = v.toFixed(2) + '%';
+  }
+  baFrom(e) { const el = this.baRef.current; if (!el) return; const r = el.getBoundingClientRect(); this.baSet(Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100))); }
+  baDown = e => { this._baDrag = true; cancelAnimationFrame(this._baAnim); try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_) {} this.baFrom(e); };
+  baMove = e => { if (this._baDrag) this.baFrom(e); };
+  baUp = () => { this._baDrag = false; };
+  baKey = e => {
+    const v = this._ba == null ? 50 : this._ba;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); this.baSet(Math.max(0, v - 5)); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); this.baSet(Math.min(100, v + 5)); }
+  };
+  baIntro() {
+    const seq = [[50, 24, 750], [24, 76, 1000], [76, 50, 750]]; let i = 0, t0 = performance.now();
+    const step = now => {
+      if (this._baDrag) return;
+      const g = seq[i], t = Math.min(1, (now - t0) / g[2]);
+      this.baSet(g[0] + (g[1] - g[0]) * this.ease(t));
+      if (t >= 1) { i++; t0 = now; if (i >= seq.length) return; }
+      this._baAnim = requestAnimationFrame(step);
+    };
+    this._baAnim = requestAnimationFrame(step);
+  }
+
+  v3vals(s, av) {
+    const TY = av.types || [], E = av.est || {}, tsel = s.avTypeSel, de = s.lang === 'de';
+    let fac = 0; TY.forEach(g => g.items.forEach(it => { if (it[0] === tsel) fac = it[1]; }));
+    const r5 = h => Math.round(h * 2) / 2, fmt = h => r5(h).toLocaleString(de ? 'de-DE' : 'en-GB');
+    const sel = [0, 1, 2].filter(i => s.avSel[i]);
+    let estRows = [], ground = '', notes = [];
+    if (fac) {
+      const ext = r5(3 * fac), cab = r5(2.5 * fac), days = Math.max(1, r5(2 * fac));
+      const crew = [fac >= 1.8 ? 4 : fac >= 1.3 ? 3 : 2, fac >= 1.8 ? 3 : 2, fac >= 1.8 ? 4 : 3];
+      const dur = [E.approx + ' ' + fmt(ext) + ' ' + E.h, E.approx + ' ' + fmt(cab) + ' ' + E.h, E.approx + ' ' + fmt(days) + ' ' + E.d];
+      estRows = sel.map(i => ({ label: (av.tabs || [])[i] || '', dur: dur[i], crew: crew[i] + ' ' + E.crew }));
+      if (s.avSel[2]) { ground = dur[2]; notes.push(E.hangar); }
+      else if (s.avSel[0] && s.avSel[1]) { ground = E.approx + ' ' + fmt(Math.max(ext, cab) + 0.5) + ' ' + E.h; notes.push(E.parallel); }
+      else if (sel.length) ground = dur[sel[0]];
+    }
+    const narrow = s.w < 980, carSpace = narrow && s.page !== 'av' && s.page !== 'req';
+    const chip = on => ({ bg: on ? '#0D1A2C' : 'transparent', fg: on ? '#F4EFE6' : '#0D1A2C' });
+    return {
+      avTypeGroups: TY.map(g => ({ g: g.g, items: g.items.map(it => ({ name: it[0] })) })),
+      avTypeSel: tsel, onAvTypeSel: e => this.setState({ avTypeSel: e.target.value }), avTypeOther: tsel === 'other',
+      estOn: !!fac && sel.length > 0, estEmpty: !fac || !sel.length, estRows, estGround: ground, estNotes: notes, estType: fac ? tsel : '',
+      avModels: (av.models || []).map((m, i) => ({ ...m, rows: (av.rows || []).map(r => ({ k: r.k, v: r.v[i] })), onAsk: () => this.setState({ avModel: i }, () => this.scrollToId('av-contact')) })),
+      avModelChips: (av.models || []).map((m, i) => ({ label: m.t, ...chip(s.avModel === i), onClick: () => this.setState({ avModel: s.avModel === i ? -1 : i }) })),
+      avRows: (av.rows || []).map(r => ({ k: r.k, v0: r.v[0], v1: r.v[1], v2: r.v[2] })),
+      docs: s.docs, docsOpen: !s.docsSent, docsSent: s.docsSent, docsErr: s.docsErr, docsLine: s.docsErr ? '#E0907F' : 'rgba(244,239,230,0.35)',
+      onDocsEmail: e => { const v = e.target.value; this.setState(st => ({ docs: { ...st.docs, email: v }, docsErr: false })); },
+      onDocsCompany: e => { const v = e.target.value; this.setState(st => ({ docs: { ...st.docs, company: v } })); },
+      docsSubmit: () => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s.docs.email.trim()) ? this.setState({ docsSent: true, docsErr: false }) : this.setState({ docsErr: true }),
+      docsMail: s.docs.email.trim(), docsReset: () => this.setState({ docsSent: false }),
+      carBarOn: carSpace && !s.menu, carSpace, avBarOn: narrow && s.page === 'av' && s.avSec !== 5, avSpace: narrow && s.page === 'av',
+      avHeroPad: narrow ? '132px' : 'clamp(48px,8vh,104px)', avNavWide: s.w >= 1240,
+      telCar: 'tel:+4925040000000', telAv: 'tel:' + String(av.opsPhone || '').replace(/[^+\d]/g, '')
+    };
+  }
+
+  renderVals() {
+    const s = this.state, P = this.props || {}, eur = n => this.eur(n), INK = '#0C0D0F', WHITE = '#FFFFFF', red = this.reduced();
+    const seg = on => ({ bg: on ? INK : 'transparent', fg: on ? WHITE : INK, bd: on ? INK : '#D6D6D2' });
+    const EMPTY = { nav: [], meta: [], aud: [], tabs: [], svc: [[], [], []], proc: [], std: [], rep: { rows: [], checks: [] }, fleet: [], bases: [], f: {}, legal: [], imgTabs: [], footAddr: [], models: [], rows: [], docs: [], est: {}, secs: [], types: [] };
+    const av = (s.avData && s.avData[s.lang]) || EMPTY;
+    const svc = this.SVC.map(x => ({ ...x, price: eur(x.p[s.vClass]), base: eur(x.p[0]), goSvc: () => this.go('auto', 'svc-' + x.id),
+      onReq: () => this.reqWith({ aussen: false, innen: false, politur: false, keramik: false, [x.id]: true }, s.vClass) }));
+    const hv = s.hover, lh = hv >= 0 ? hv : s.lastHover;
+    const svcRows = svc.map((x, i) => ({ ...x, op: hv < 0 || hv === i ? '1' : '0.28', shift: hv === i ? '18px' : '0px',
+      enter: () => { if (this.state.hover !== i) this.setState({ hover: i, lastHover: i }); } }));
+    const rt = this.total(s.req, s.reqClass);
+    const reqList = this.SVC.map(x => { const on = !!s.req[x.id]; return { name: x.name, short: x.short, dur: x.dur, no: x.no, price: eur(x.p[s.reqClass]), checked: on,
+      boxBg: on ? INK : WHITE, rowBd: on ? INK : '#E1E1DE', onClick: () => this.setState(st => ({ req: { ...st.req, [x.id]: !st.req[x.id] } })) }; });
+    const f = s.form, af = s.avForm, navDark = !s.avOver, os = this.openStatus(s.now);
+    const cu = s.curtain, cuAv = !!(cu && cu.to === 'av'), bh = s.baseHover;
+    const hsOn = s.w >= 980 && !red && String(P.avServices || '').toLowerCase().indexOf('tab') !== 0;
+    const G = {};
+    for (let i = 0; i < 5; i++) { const on = bh === i; G['gS' + i] = on ? '12px' : (i === 0 ? '10px' : '7px'); G['gH' + i] = on || (i === 0 && bh < 0) ? '1' : '0'; G['gL' + i] = on ? '1' : '0'; }
+    const gm = bh > 0 ? this.GEO[bh] : this.GEO[1];
+    return {
+      topRef: this.topRef, avRef: this.avRef, listRef: this.listRef, floatRef: this.floatRef, baRef: this.baRef, baClipRef: this.baClipRef, baHandleRef: this.baHandleRef,
+      showCta: s.page === 'home' || s.page === 'auto',
+      isHome: s.page === 'home', isAuto: s.page === 'auto', isReq: s.page === 'req', isAv: s.page === 'av', isCar: s.page !== 'av',
+      wide: s.w >= 980, narrow: s.w < 980, menuOpen: s.menu && s.w < 980, menuLabel: s.menu ? 'Schließen' : 'Menü',
+      toggleMenu: () => this.setState({ menu: !s.menu }),
+      goHome: () => this.go('home'), goAuto: () => this.go('auto'), goReq: () => this.go('req'), goAv: () => this.go('av'),
+      goAblauf: () => this.go('home', 'ablauf'), goStandort: () => this.go('home', 'standort'), goLeistungen: () => this.go('home', 'leistungen'),
+      goPreise: () => this.go('auto', 'preise'),
+      navAutoLine: s.page === 'auto' ? INK : 'transparent',
+      homeSvc: svc, svc, svcRows, floatOp: hv >= 0 && s.w >= 980 ? '1' : '0',
+      fo0: lh === 0 ? '1' : '0', fo1: lh === 1 ? '1' : '0', fo2: lh === 2 ? '1' : '0', fo3: lh === 3 ? '1' : '0',
+      onListMove: this.onListMove, onListLeave: this.onListLeave,
+      baDown: this.baDown, baMove: this.baMove, baUp: this.baUp, baKey: this.baKey,
+      liveDot: React.createElement('span', { style: { display: 'block', flex: 'none', width: '8px', height: '8px', borderRadius: '50%', background: os.open ? '#2F8F5B' : '#A2A6AD', animation: os.open && !red ? 'pfDot 2.4s ease-in-out infinite' : 'none' } }),
+      openText: os.text,
+      classes: this.CLASSES.map((c, i) => ({ ...c, ...seg(s.vClass === i), onClick: () => this.setState({ vClass: i }) })),
+      vClassLabel: this.CLASSES[s.vClass].label, vClassEx: this.CLASSES[s.vClass].ex,
+      comboPrice: eur(this.COMBO[s.vClass]), comboSave: eur(this.SVC[0].p[s.vClass] + this.SVC[1].p[s.vClass] - this.COMBO[s.vClass]),
+      comboReq: () => this.reqWith({ aussen: true, innen: true, politur: false, keramik: false }, s.vClass),
+      extras: this.EXTRAS,
+      faqs: this.FAQ.map((q, i) => ({ q: q.q, a: q.a, open: s.faq === i, sign: s.faq === i ? '–' : '+', onClick: () => this.setState({ faq: s.faq === i ? -1 : i }) })),
+      reqList, reqClasses: this.CLASSES.map((c, i) => ({ ...c, ...seg(s.reqClass === i), onClick: () => this.setState({ reqClass: i }) })),
+      reqLines: rt.lines, reqHasLines: rt.lines.length > 0, reqNoLines: rt.lines.length === 0, reqTotal: eur(rt.sum), reqCombo: rt.combo,
+      reqClassLabel: this.CLASSES[s.reqClass].label,
+      times: ['Vormittag', 'Nachmittag', 'Flexibel'].map((t, i) => ({ label: t, ...seg(s.time === i), onClick: () => this.setState({ time: i }) })),
+      f, onName: this.field('name'), onPhone: this.field('phone'), onEmail: this.field('email'), onCar: this.field('car'), onDate: this.field('date'), onMsg: this.field('msg'),
+      consentBg: s.consent ? INK : WHITE, consentOn: s.consent, toggleConsent: () => this.setState({ consent: !s.consent }),
+      submitReq: () => this.setState({ submitted: true }, () => window.scrollTo({ top: 0, behavior: 'smooth' })),
+      submitted: s.submitted, notSubmitted: !s.submitted, sentName: f.name ? ', ' + f.name.trim().split(' ')[0] : '',
+      newReq: () => this.setState({ submitted: false }),
+      av, lang: s.lang, deOp: s.lang === 'de' ? '1' : '0.5', enOp: s.lang === 'en' ? '1' : '0.5',
+      setDE: () => this.setState({ lang: 'de' }), setEN: () => this.setState({ lang: 'en' }),
+      avNavBg: navDark ? 'rgba(13,26,44,0)' : 'rgba(244,239,230,0.92)', avNavFg: navDark ? '#F4EFE6' : '#0D1A2C',
+      avNavLine: navDark ? 'rgba(244,239,230,0.16)' : 'rgba(13,26,44,0.12)', avBtnBg: navDark ? '#F4EFE6' : '#0D1A2C', avBtnFg: navDark ? '#0D1A2C' : '#F4EFE6',
+      avNav: (av.nav || []).map((label, i) => ({ label, onClick: () => this.scrollToId(this.AVIDS[i]) })),
+      avTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }), avGoQuote: () => this.scrollToId('av-contact'), avGoServices: () => this.scrollToId('av-services'),
+      avTabs: (av.tabs || []).map((label, i) => ({ label, no: '0' + (i + 1), color: s.avTab === i ? '#0D1A2C' : '#6A7280', line: s.avTab === i ? '#0D1A2C' : 'transparent', onClick: () => this.setState({ avTab: i }) })),
+      avTab0: s.avTab === 0, avTab1: s.avTab === 1, avTab2: s.avTab === 2,
+      avSvc: ((av.svc || [])[s.avTab] || []).map((x, i) => ({ ...x, no: String(i + 1).padStart(2, '0') })),
+      avImgTab: (av.imgTabs || [])[s.avTab] || '',
+      avSvcChips: (av.tabs || []).map((label, i) => { const on = !!s.avSel[i]; return { label, bg: on ? '#0D1A2C' : 'transparent', fg: on ? '#F4EFE6' : '#0D1A2C', onClick: () => this.setState(st => ({ avSel: { ...st.avSel, [i]: !st.avSel[i] } })) }; }),
+      af, onAvCompany: this.avField('company'), onAvName: this.avField('name'), onAvEmail: this.avField('email'), onAvPhone: this.avField('phone'),
+      onAvType: this.avField('type'), onAvReg: this.avField('reg'), onAvApt: this.avField('apt'), onAvWindow: this.avField('window'), onAvNotes: this.avField('notes'),
+      avSubmit: () => this.setState({ avSent: true }), avSent: s.avSent, avNotSent: !s.avSent, avAgain: () => this.setState({ avSent: false }),
+      cue: React.createElement('span', { style: { display: 'block', width: '1px', height: '56px', background: 'currentColor', animation: 'pfCue 2.6s cubic-bezier(.6,0,.2,1) infinite' } }),
+      year: '2026',
+      curtainOn: !!cu, curtainAv: cuAv, curtainCar: !!cu && !cuAv, curtainBg: cuAv ? '#0D1A2C' : '#FFFFFF', curtainFg: cuAv ? '#F4EFE6' : '#0C0D0F',
+      curtainT: !cu || cu.ph === 'prep' ? 'translate3d(0,100%,0)' : cu.ph === 'cover' ? 'translate3d(0,0,0)' : 'translate3d(0,-100%,0)',
+      curtainTr: !cu || cu.ph === 'prep' ? 'none' : 'transform 0.85s cubic-bezier(.76,0,.24,1)',
+      curtainInner: cu && cu.ph !== 'prep' ? '1' : '0',
+      avHeroScale: s.avIn || red ? '1' : '1.12',
+      avSecOn: s.page === 'av' && s.avOver && s.avSec >= 0 && s.w >= 1200,
+      avSecLabel: s.avSec >= 0 ? this.ROMAN[s.avSec] + ' — ' + ((av.secs || [])[s.avSec] || '') : '',
+      hsOn, hsOff: !hsOn,
+      avCats: (av.tabs || []).map((label, i) => ({ key: ['ext', 'cab', 'pro'][i], no: '0' + (i + 1), pos: '0' + (i + 1) + ' / 03', label, img: this.CATIMG[i], ph: (av.imgTabs || [])[i] || '',
+        items: ((av.svc || [])[i] || []).map((x, j) => ({ ...x, no: '0' + (j + 1) })) })),
+      avBaseRows: (av.bases || []).map((b, i) => ({ ...b, km: this.KM[i] || '', op: bh < 0 || bh === i ? '1' : '0.4', enter: () => this.setState({ baseHover: i }), leave: () => this.setState({ baseHover: -1 }) })),
+      ...this.v3vals(s, av),
+      ...G,
+      gKm: bh > 0 ? this.KM[bh] : '', gKmOp: bh > 0 ? '1' : '0', gKmL: ((50 + gm[0]) / 2).toFixed(2) + '%', gKmT: ((30.51 + gm[1]) / 2).toFixed(2) + '%'
+    };
+  }
+}
+</script>
+</body>
+</html>
