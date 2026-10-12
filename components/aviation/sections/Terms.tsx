@@ -164,7 +164,20 @@ export function Terms({ locale }: { locale: Locale }) {
 
           <div className="flex flex-col justify-center border-l border-av-line-on-navy bg-av-navy-deep p-[clamp(32px,5vw,72px)]">
             <DocCover locale={locale} />
-            <DocsForm locale={locale} />
+            <DocsForm
+              copy={{
+                docsAgain: t.docsAgain,
+                docsBtn: t.docsBtn,
+                docsCompany: t.docsCompany,
+                docsDone: t.docsDone,
+                docsDoneSub: t.docsDoneSub,
+                docsEmail: t.docsEmail,
+                docsErr: t.docsErr,
+                docsFile: t.docsFile,
+                docsMeta: t.docsMeta,
+                docsNote: t.docsNote,
+              }}
+            />
           </div>
         </div>
       </div>

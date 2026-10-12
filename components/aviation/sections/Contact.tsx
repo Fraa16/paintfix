@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { AvOverline } from "@/components/aviation/Overline";
 import { aviation, type Locale } from "@/content/aviation";
-import { ContactForm } from "./ContactForm";
+import { ContactForm, type ContactCopy } from "./ContactForm";
 import { ContactFormFromQuery } from "./ContactFormFromQuery";
 import { telHref } from "../shell/ui";
 
@@ -11,6 +11,17 @@ import { telHref } from "../shell/ui";
  */
 export function Contact({ locale }: { locale: Locale }) {
   const t = aviation[locale];
+  // Nur die Texte, die das Formular braucht, und nur in dieser Sprache an den Client geben.
+  const copy: ContactCopy = {
+    f: t.f,
+    est: t.est,
+    tabs: t.tabs,
+    models: t.models,
+    types: t.types,
+    sentTitle: t.sentTitle,
+    sentText: t.sentText,
+    again: t.again,
+  };
 
   return (
     <section id="av-contact" aria-labelledby="av-contact-title" className="py-av-section">
@@ -41,8 +52,8 @@ export function Contact({ locale }: { locale: Locale }) {
         </div>
 
         <div>
-          <Suspense fallback={<ContactForm locale={locale} />}>
-            <ContactFormFromQuery locale={locale} />
+          <Suspense fallback={<ContactForm locale={locale} copy={copy} />}>
+            <ContactFormFromQuery locale={locale} copy={copy} />
           </Suspense>
         </div>
       </div>

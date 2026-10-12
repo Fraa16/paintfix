@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 /** Startseite Fahrzeug (README 8.1). Header, Footer und Aktionsleiste kommen aus dem Layout. */
 export default function HomePage() {
   return (
-    <main>
+    <main id="inhalt" tabIndex={-1} className="focus:outline-none">
       <Hero />
       <ServiceList />
       <BeforeAfter />

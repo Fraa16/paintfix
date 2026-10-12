@@ -46,8 +46,18 @@ const EMPTY_FIELDS: Record<FieldKey, string> = {
  *
  * Phase 2: vollständige Oberfläche ohne Versand. Der Danke-Zustand erscheint nur in der
  * Entwicklung, damit eine Vorschau nie einen erfolgreichen Versand vortäuscht.
+ *
+ * `pending`: Platzhalter, solange die Vorbelegung aus der URL noch nicht gelesen ist (Suspense-
+ * Fallback vor der Hydration). Keine Auswahl markiert, Preise unsichtbar, gleiches Layout. So steht
+ * bei einem Link wie /anfrage?leistungen=keramik&klasse=2 nie kurz ein falscher Preis da.
  */
-export function RequestForm({ prefill = defaultPrefill() }: { prefill?: RequestPrefill }) {
+export function RequestForm({
+  prefill = defaultPrefill(),
+  pending = false,
+}: {
+  prefill?: RequestPrefill;
+  pending?: boolean;
+}) {
   const [selected, setSelected] = useState(prefill.services);
   const [vehicleClass, setVehicleClass] = useState<VehicleClassIndex>(prefill.vehicleClass);
   const [fields, setFields] = useState(EMPTY_FIELDS);
@@ -128,7 +138,7 @@ export function RequestForm({ prefill = defaultPrefill() }: { prefill?: RequestP
             className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-3"
           >
             {services.map((s) => {
-              const on = selected[s.id];
+              const on = !pending && selected[s.id];
               return (
                 <label
                   key={s.id}
@@ -150,7 +160,12 @@ export function RequestForm({ prefill = defaultPrefill() }: { prefill?: RequestP
                     <span className="text-[16px] font-semibold">{s.name}</span>
                     <span className="text-[13px] text-car-muted">{s.dur}</span>
                   </span>
-                  <span className="text-[15px] font-semibold whitespace-nowrap tabular-nums">
+                  <span
+                    className={cx(
+                      "text-[15px] font-semibold whitespace-nowrap tabular-nums",
+                      pending && "invisible",
+                    )}
+                  >
                     {fromPrice(s.p[vehicleClass])}
                   </span>
                 </label>
@@ -165,7 +180,7 @@ export function RequestForm({ prefill = defaultPrefill() }: { prefill?: RequestP
           </StepHeading>
           <Segment
             name="klasse"
-            value={vehicleClass}
+            value={(pending ? -1 : vehicleClass) as VehicleClassIndex}
             onChange={setVehicleClass}
             labelledBy="anfrage-fahrzeug"
             className="mt-6"
@@ -277,7 +292,7 @@ export function RequestForm({ prefill = defaultPrefill() }: { prefill?: RequestP
         </Step>
       </form>
 
-      <RequestSummary estimate={estimate} classLabel={classLabel} />
+      <RequestSummary estimate={estimate} classLabel={classLabel} pending={pending} />
     </div>
   );
 }

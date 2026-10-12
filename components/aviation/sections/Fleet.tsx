@@ -38,7 +38,7 @@ export function Fleet({ locale }: { locale: Locale }) {
 
         <div>
           <AvOverline>{t.baseLabel}</AvOverline>
-          <FleetBases locale={locale} />
+          <FleetBases copy={{ bases: t.bases, chartLabel: t.chartLabel, chartSeat: t.chartSeat }} />
         </div>
       </div>
     </section>

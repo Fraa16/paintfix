@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
+import { rescrollToHash } from "@/components/shared/root-scroll";
 import { vehicleClasses, type VehicleClassIndex } from "@/content/fahrzeug";
 import { cx } from "@/lib/cx";
 import { usePriceClass } from "./PriceClass";
@@ -11,25 +12,37 @@ import { usePriceClass } from "./PriceClass";
  *
  * Abweichung von der Referenz: Die Segmente verkleinern ihren Innenabstand unter ca. 440px
  * (18px → min. 4px), damit die Gruppe bei 360–402px nicht seitlich übersteht (CLAUDE.md, Regel 8).
+ *
+ * Die Leiste meldet ihre Höhe als --pf-sticky-h ans <html> (scroll-padding, globals.css), damit
+ * Anker wie #svc-politur und der Tastaturfokus unter Header und Leiste landen. Gemessen im
+ * Layout-Effekt, also vor dem Hash-Sprung von Next bei Client-Navigation; beim ersten Laden springt
+ * der Browser vor der Hydration, deshalb einmal neu zum Anker.
  */
 export function ClassBar() {
-  const { cls, setCls, setBarHeight } = usePriceClass();
+  const { cls, setCls } = usePriceClass();
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const measure = () => setBarHeight(Math.round(el.getBoundingClientRect().height));
+    const root = document.documentElement.style;
+    const measure = () =>
+      root.setProperty("--pf-sticky-h", `${Math.round(el.getBoundingClientRect().height)}px`);
+    measure();
+    rescrollToHash("svc-");
     const ro = new ResizeObserver(measure);
     ro.observe(el);
-    return () => ro.disconnect();
-  }, [setBarHeight]);
+    return () => {
+      ro.disconnect();
+      root.removeProperty("--pf-sticky-h");
+    };
+  }, []);
 
   return (
     <div
       id="preise"
       ref={ref}
-      className="sticky top-car-header z-30 border-b border-car-line-ui bg-car-header-bg backdrop-blur-[14px]"
+      className="sticky top-car-header z-30 scroll-mt-[calc(var(--pf-sticky-h,0px)*-1)] border-b border-car-line-ui bg-car-header-bg backdrop-blur-[14px]"
     >
       <div className="mx-auto flex max-w-car flex-wrap items-center gap-x-6 gap-y-3 px-car-gutter py-3.5">
         <span id="preise-label" className="text-[13px] font-semibold tracking-[0.14em] uppercase">

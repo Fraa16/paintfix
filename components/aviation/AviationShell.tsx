@@ -5,6 +5,7 @@ import { AvFooter } from "./shell/AvFooter";
 import { AvHeader } from "./shell/AvHeader";
 import { AvScrollState } from "./shell/AvScrollState";
 import { AvSectionIndicator } from "./shell/AvSectionIndicator";
+import { SkipLink } from "@/components/shared/SkipLink";
 import { avUi, telHref } from "./shell/ui";
 
 /**
@@ -19,6 +20,10 @@ export function AviationShell({ locale, children }: { locale: Locale; children: 
       data-brand="av"
       className="relative bg-av-cream font-sans leading-[normal] font-[350] text-av-navy"
     >
+      <SkipLink
+        label={avUi[locale].skip}
+        className="focus:bg-av-cream focus:text-av-navy focus:outline-av-navy"
+      />
       <AvScrollState>
         <AvHeader locale={locale} nav={av.nav} cta={av.cta} />
         {children}

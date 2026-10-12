@@ -18,7 +18,8 @@ const HAZE =
 /**
  * Vorher/Nachher-Regler (README 9.5, Referenz Zeilen 172–186 und 1381–1394).
  * Nachher = Foto, Vorher = dasselbe Foto mit Filter, per clip-path auf den Reglerwert beschnitten.
- * Zeiger mit setPointerCapture, touch-action: pan-y, Tastatur ← / → ± 5 %, Pos1 / Ende.
+ * Zeiger mit setPointerCapture, touch-action: pan-y, Tastatur ← / → (auch ↑ / ↓) ± 5 %, Bild auf/ab,
+ * Pos1 / Ende.
  * Platzhalter: vor dem Launch durch ein echtes Fotopaar ersetzen (media.ts, UWG § 5).
  * Das Intro (50 → 24 → 76 → 50 %) kommt in Phase 4.
  */
@@ -50,17 +51,19 @@ export function BeforeAfterSlider() {
     dragging.current = false;
   };
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    const next =
-      e.key === "ArrowLeft"
-        ? value - STEP
-        : e.key === "ArrowRight"
-          ? value + STEP
-          : e.key === "Home"
-            ? 0
-            : e.key === "End"
-              ? 100
-              : null;
-    if (next === null) return;
+    // Wie das WAI-ARIA-Slider-Muster: Pfeile ± 5 %, Bild auf/ab ± 20 %, Pos1/Ende 0/100 %.
+    const keys: Record<string, number> = {
+      ArrowLeft: value - STEP,
+      ArrowDown: value - STEP,
+      ArrowRight: value + STEP,
+      ArrowUp: value + STEP,
+      PageDown: value - 4 * STEP,
+      PageUp: value + 4 * STEP,
+      Home: 0,
+      End: 100,
+    };
+    const next = keys[e.key];
+    if (next === undefined) return;
     e.preventDefault();
     setValue(clamp(next));
   };

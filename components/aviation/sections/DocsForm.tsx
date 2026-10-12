@@ -1,8 +1,8 @@
 "use client";
 
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { AvButton } from "@/components/aviation/Button";
-import { aviation, type Locale } from "@/content/aviation";
+import type { AviationCopy } from "@/content/aviation";
 import { cx } from "@/lib/cx";
 import { fieldFocus, fieldNoOutline } from "./form-styles";
 
@@ -11,7 +11,8 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const labelClass = "block text-[10px] tracking-[0.26em] text-av-on-navy-muted uppercase";
 const inputClass = cx(
-  "h-12 w-full border-0 border-b bg-transparent p-0 text-[17px] text-av-cream",
+  // Platzhalter auf Navy in --av-on-navy-muted (8,8:1), das --av-muted der Aviation-Seite wäre zu dunkel.
+  "h-12 w-full border-0 border-b bg-transparent p-0 text-[17px] text-av-cream placeholder:text-av-on-navy-muted",
   fieldNoOutline,
 );
 /** Linie rgba(244,239,230,.35), Fokus Creme; bei Fehler bleibt sie auch im Fokus --av-error. */
@@ -21,14 +22,39 @@ const lineOk = "border-av-cream/35 focus:border-av-cream";
  * Lieferantenunterlagen anfordern (README 10.3, Referenz Zeilen 944–968). Phase 2: nur Oberfläche.
  * Der Erfolgszustand erscheint nur außerhalb der Produktion, damit keine Vorschau einen Versand vortäuscht.
  */
-export function DocsForm({ locale }: { locale: Locale }) {
-  const t = aviation[locale];
+/** Texte des Unterlagen-Formulars in der aktuellen Sprache (von Terms.tsx). */
+export type DocsCopy = Pick<
+  AviationCopy,
+  | "docsAgain"
+  | "docsBtn"
+  | "docsCompany"
+  | "docsDone"
+  | "docsDoneSub"
+  | "docsEmail"
+  | "docsErr"
+  | "docsFile"
+  | "docsMeta"
+  | "docsNote"
+>;
+
+export function DocsForm({ copy: t }: { copy: DocsCopy }) {
   const id = useId();
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
   const [sent, setSent] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
+  const companyRef = useRef<HTMLInputElement>(null);
+  const doneRef = useRef<HTMLParagraphElement>(null);
+  /** Fokus nur nach einem Wechsel zwischen Formular und Erfolg setzen, nicht beim Laden. */
+  const switched = useRef(false);
+
+  useEffect(() => {
+    if (!switched.current) return;
+    // Erfolgsmeldung nach dem Absenden, erstes Feld nach „Erneut herunterladen“.
+    if (sent) doneRef.current?.focus();
+    else companyRef.current?.focus();
+  }, [sent]);
 
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -39,13 +65,20 @@ export function DocsForm({ locale }: { locale: Locale }) {
     }
     setError(false);
     // Phase 3: Versand
-    if (process.env.NODE_ENV !== "production") setSent(true);
+    if (process.env.NODE_ENV !== "production") {
+      switched.current = true;
+      setSent(true);
+    }
   }
 
   if (sent) {
     return (
       <div role="status">
-        <p className="font-cinzel text-[clamp(22.4px,2.08vw,30.4px)] leading-[1.1] font-normal">
+        <p
+          ref={doneRef}
+          tabIndex={-1}
+          className="font-cinzel text-[clamp(22.4px,2.08vw,30.4px)] leading-[1.1] font-normal"
+        >
           {t.docsDone}
         </p>
         <p className="mt-6 flex justify-between gap-4 border-y border-av-line-on-navy py-4 text-[13px]">
@@ -58,7 +91,10 @@ export function DocsForm({ locale }: { locale: Locale }) {
         <AvButton
           variant="ghostCream"
           size="docs"
-          onClick={() => setSent(false)}
+          onClick={() => {
+            switched.current = true;
+            setSent(false);
+          }}
           className="mt-6 w-full"
         >
           {t.docsAgain}
@@ -72,6 +108,7 @@ export function DocsForm({ locale }: { locale: Locale }) {
       <label className={cx("block", fieldFocus)}>
         <span className={labelClass}>{t.docsCompany}</span>
         <input
+          ref={companyRef}
           name="company"
           autoComplete="organization"
           value={company}

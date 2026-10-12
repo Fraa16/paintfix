@@ -23,7 +23,7 @@ export const metadata: Metadata = {
  */
 export default function LeistungenPage() {
   return (
-    <main>
+    <main id="inhalt" tabIndex={-1} className="focus:outline-none">
       <PriceClassProvider className="leading-[normal]">
         <PageHead />
         <ClassBar />

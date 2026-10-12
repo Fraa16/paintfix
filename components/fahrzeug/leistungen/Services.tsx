@@ -8,9 +8,7 @@ const total = String(services.length).padStart(2, "0");
 /**
  * Die vier Leistungen #svc-{id} (README 8.2 Punkt 3, Referenz Zeilen 294–328): Bild links, Text
  * rechts, unter ca. 1010px untereinander. Nur die Preiszeile ist Client-Komponente.
- *
- * scroll-margin-top = Höhe der Klassenleiste (gemessen, sonst Schätzwert), damit /leistungen#svc-…
- * unter Header (scroll-padding-top) und Klassenleiste landet.
+ * Anker #svc-… landen über scroll-padding unter Header und Klassenleiste (siehe ClassBar).
  */
 export function Services() {
   return (
@@ -23,7 +21,7 @@ export function Services() {
               key={s.id}
               id={`svc-${s.id}`}
               aria-labelledby={`svc-${s.id}-title`}
-              className="grid scroll-mt-[var(--pf-bar-h,135px)] grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] gap-x-[clamp(32px,5vw,88px)] gap-y-8 border-b border-car-line py-[clamp(48px,6vw,88px)] wide:scroll-mt-[var(--pf-bar-h,75px)]"
+              className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] gap-x-[clamp(32px,5vw,88px)] gap-y-8 border-b border-car-line py-[clamp(48px,6vw,88px)]"
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-car-image-bg">
                 <Image

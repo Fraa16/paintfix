@@ -1,7 +1,7 @@
 import type { Locale } from "@/content/aviation";
 
 /**
- * Zugänglichkeitstexte der Aviation-Hülle (aria-label), die weder in aviation.json noch in der
+ * Zugänglichkeitstexte der Aviation-Hülle (aria-label, Sprunglink), die weder in aviation.json noch in der
  * Referenz stehen. Sichtbare Texte kommen ausschließlich aus content/aviation.ts.
  */
 export const avUi: Record<
@@ -13,6 +13,7 @@ export const avUi: Record<
     langNames: Record<Locale, string>;
     quickContact: string;
     serviceTabs: string;
+    skip: string;
   }
 > = {
   de: {
@@ -22,6 +23,7 @@ export const avUi: Record<
     langNames: { de: "Deutsch", en: "English" },
     quickContact: "Schnellkontakt",
     serviceTabs: "Leistungsbereiche",
+    skip: "Zum Inhalt springen",
   },
   en: {
     toTop: "Paintfix Aviation, back to top",
@@ -30,6 +32,7 @@ export const avUi: Record<
     langNames: { de: "Deutsch", en: "English" },
     quickContact: "Quick contact",
     serviceTabs: "Service areas",
+    skip: "Skip to content",
   },
 };
 

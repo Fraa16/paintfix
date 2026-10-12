@@ -1,9 +1,13 @@
-import { aviation, type Locale } from "@/content/aviation";
+import type { AviationCopy, Locale } from "@/content/aviation";
 
 /**
  * Richtwerte für das Aviation-Angebot (README 10.2, Referenz v3vals Zeilen 1407–1418).
  * Reine Funktionen ohne Zustand: Muster → Faktor f, daraus Dauer und Team je Leistung und die Bodenzeit.
+ * Die Texte (`types`, `est`, `tabs`) kommen als Argument, damit der Client nur eine Sprache lädt.
  */
+
+/** Teile von aviation[locale], die die Richtwerte brauchen. */
+export type EstimateCopy = Pick<AviationCopy, "types" | "est" | "tabs">;
 
 /** Leistungen in der Reihenfolge von `tabs`: 0 Außen, 1 Kabine, 2 Schutz. */
 export type AvService = 0 | 1 | 2;
@@ -40,16 +44,16 @@ export interface Estimate {
 }
 
 /** Muster gruppiert nach Klasse, aus `types` ([Name, Faktor]). */
-export function aircraftGroups(locale: Locale): AircraftGroup[] {
-  return aviation[locale].types.map((g) => ({
+export function aircraftGroups(types: EstimateCopy["types"]): AircraftGroup[] {
+  return types.map((g) => ({
     group: g.g,
     items: g.items.map(([name, factor]) => ({ name: String(name), factor: Number(factor) })),
   }));
 }
 
 /** Faktor f des Musters, 0 für unbekannte Muster und „Anderes Muster“. */
-export function aircraftFactor(name: string, locale: Locale): number {
-  for (const g of aircraftGroups(locale)) {
+export function aircraftFactor(name: string, types: EstimateCopy["types"]): number {
+  for (const g of aircraftGroups(types)) {
     for (const t of g.items) if (t.name === name) return t.factor;
   }
   return 0;
@@ -78,18 +82,20 @@ export function formatHalf(h: number, locale: Locale): string {
  */
 export function estimate({
   locale,
+  copy,
   type,
   services,
 }: {
   locale: Locale;
+  copy: EstimateCopy;
   type: string;
   services: readonly AvService[];
 }): Estimate | null {
-  const f = aircraftFactor(type, locale);
+  const f = aircraftFactor(type, copy.types);
   const sel = avServices.filter((i) => services.includes(i));
   if (!f || sel.length === 0) return null;
 
-  const { est, tabs } = aviation[locale];
+  const { est, tabs } = copy;
   const fmt = (h: number) => formatHalf(h, locale);
   const ext = roundHalf(3 * f);
   const cab = roundHalf(2.5 * f);

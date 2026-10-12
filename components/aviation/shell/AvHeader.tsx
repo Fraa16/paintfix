@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { AvButton } from "@/components/aviation/Button";
 import { AvLogo } from "@/components/aviation/Logo";
-import { aviationPath, aviationSectionIds, type Locale } from "@/content/aviation";
+import { aviationPath, aviationSectionIds, type Locale } from "@/content/aviation-meta";
 import { cx } from "@/lib/cx";
 import { useAvScroll } from "./AvScrollState";
 import { avUi } from "./ui";
@@ -70,8 +70,9 @@ export function AvHeader({ locale, nav, cta }: { locale: Locale; nav: string[]; 
                   aria-current={l === locale ? "page" : undefined}
                   className={cx(
                     "px-0.5 py-1 tracking-normal",
-                    // Referenz: 0.5, ergibt nur 3,2:1. 0.7 erreicht 4,5:1 auf Creme und Navy (Regel 9).
-                    l === locale ? "opacity-100" : "opacity-70",
+                    // Referenz: 0.5, ergibt nur 3,2:1. 0.85 erreicht mindestens 4,6:1, auch über dem
+                    // Hero-Bild (transparenter Header beim Laden) und auf Creme (Regel 9).
+                    l === locale ? "opacity-100" : "opacity-85",
                   )}
                 >
                   {l.toUpperCase()}

@@ -40,7 +40,7 @@ export function OpeningStatus() {
   const status = useOpenStatus();
   return (
     <>
-      <LiveDot open={status?.open ?? false} />
+      <LiveDot open={status?.open ?? false} className={status ? undefined : "invisible"} />
       <span className={status ? undefined : "invisible"}>
         {status?.text ?? openStatusPlaceholder}
       </span>

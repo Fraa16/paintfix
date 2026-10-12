@@ -1,19 +1,24 @@
 import { site } from "@/content/site";
+import { cx } from "@/lib/cx";
 import { eur } from "@/lib/format";
 import type { PriceEstimate } from "@/lib/pricing";
 
 /**
  * Zusammenfassung neben dem Formular (README 8.3 Punkt 3, Referenz Zeilen 446–472): schwarze Karte
  * mit Positionen und Richtpreis, darunter die Telefonbox. Ab der Zeile neben dem Formular sticky
- * bei 100px (Header 76px + 24px).
+ * bei 100px (Header 76px + 24px). `pending`: Klasse, Positionen und Richtpreis unsichtbar, solange
+ * die Vorbelegung aus der URL noch nicht gelesen ist (siehe RequestForm).
  */
 export function RequestSummary({
   estimate,
   classLabel,
+  pending = false,
 }: {
   estimate: PriceEstimate;
   classLabel: string;
+  pending?: boolean;
 }) {
+  const hide = pending ? "invisible" : undefined;
   return (
     <aside
       aria-labelledby="anfrage-auswahl"
@@ -24,7 +29,7 @@ export function RequestSummary({
           id="anfrage-auswahl"
           className="text-[12px] font-semibold tracking-[0.16em] text-car-on-ink-muted uppercase"
         >
-          Ihre Auswahl · {classLabel}
+          Ihre Auswahl · <span className={hide}>{classLabel}</span>
         </h2>
         <ul className="mt-5">
           {estimate.lines.map((line) => (
@@ -32,8 +37,8 @@ export function RequestSummary({
               key={line.name}
               className="flex justify-between gap-4 border-b border-car-ink-line py-3.5 text-[15px]"
             >
-              <span>{line.name}</span>
-              <span className="whitespace-nowrap tabular-nums">{eur(line.price)}</span>
+              <span className={hide}>{line.name}</span>
+              <span className={cx("whitespace-nowrap tabular-nums", hide)}>{eur(line.price)}</span>
             </li>
           ))}
           {estimate.lines.length === 0 && (
@@ -50,7 +55,12 @@ export function RequestSummary({
           <span className="text-[14px] text-car-on-ink-muted">Richtpreis</span>
           <span className="flex items-baseline gap-2">
             <span className="text-[15px] text-car-on-ink-muted">ab</span>
-            <span className="text-[48px] leading-none font-medium tracking-[-0.03em] tabular-nums">
+            <span
+              className={cx(
+                "text-[48px] leading-none font-medium tracking-[-0.03em] tabular-nums",
+                hide,
+              )}
+            >
               {eur(estimate.sum)}
             </span>
           </span>

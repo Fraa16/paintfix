@@ -16,7 +16,7 @@ import { Contact } from "./sections/Contact";
  */
 export function AviationPage({ locale }: { locale: Locale }) {
   return (
-    <main>
+    <main id="inhalt" tabIndex={-1} className="focus:outline-none">
       <Hero locale={locale} />
       <div data-av-content="" className="relative z-2 bg-av-cream">
         <Audience locale={locale} />

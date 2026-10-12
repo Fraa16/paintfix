@@ -1,7 +1,15 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { aviationSectionIds } from "@/content/aviation";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import { rescrollToHash, useRootVar } from "@/components/shared/root-scroll";
+import { aviationSectionIds } from "@/content/aviation-meta";
 
 /**
  * Scrollzustand der Aviation-Seite (Referenz frame(), Zeilen 1244–1249):
@@ -33,6 +41,11 @@ function measure(): AvScroll {
 
 export function AvScrollState({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AvScroll>(initial);
+
+  // Anker und Fokus unter dem 84px hohen Aviation-Header (scroll-padding, globals.css). Beim ersten
+  // Laden ist der Browser vor der Hydration mit 76px gesprungen, deshalb einmal neu zum Anker.
+  useRootVar("--pf-header-h", "var(--av-header-h)");
+  useLayoutEffect(() => rescrollToHash("av-"), []);
 
   useEffect(() => {
     let raf = 0;

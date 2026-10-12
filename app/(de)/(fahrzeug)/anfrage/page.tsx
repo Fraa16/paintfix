@@ -14,14 +14,14 @@ export const metadata: Metadata = {
 /**
  * Termin anfragen (README 8.3). Kein CTA-Band und keine mobile Aktionsleiste; Header und Footer
  * kommen aus dem Layout. Die Vorbelegung per Query wird erst im Browser gelesen; bis dahin zeigt der
- * Suspense-Fallback das Formular im Standardzustand.
+ * Suspense-Fallback das Formular ohne Auswahl und mit unsichtbaren Preisen (RequestForm pending).
  */
 export default function RequestPage() {
   return (
-    <main className="bg-car-surface leading-[normal]">
+    <main id="inhalt" tabIndex={-1} className="bg-car-surface leading-[normal] focus:outline-none">
       <div className="mx-auto max-w-car px-car-gutter pt-[clamp(48px,6vw,88px)] pb-[clamp(88px,10vw,144px)]">
         <RequestHead />
-        <Suspense fallback={<RequestForm />}>
+        <Suspense fallback={<RequestForm pending />}>
           <RequestFormFromQuery />
         </Suspense>
       </div>

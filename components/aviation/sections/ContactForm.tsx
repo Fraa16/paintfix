@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { AvButton } from "@/components/aviation/Button";
-import { aviation, type Locale } from "@/content/aviation";
+import type { AviationCopy, Locale } from "@/content/aviation";
 import { cx } from "@/lib/cx";
 import {
   aircraftFactor,
@@ -21,6 +21,12 @@ import {
 } from "@/lib/estimate";
 import { fieldFocus, fieldNoOutline } from "./form-styles";
 import { setAvModel, useAvModel } from "./model-store";
+
+/** Texte des Formulars in der aktuellen Sprache (von Contact.tsx, siehe content/aviation-meta.ts). */
+export type ContactCopy = Pick<
+  AviationCopy,
+  "f" | "est" | "tabs" | "models" | "types" | "sentTitle" | "sentText" | "again"
+>;
 
 export interface ContactPrefill {
   /** Muster aus ?type=…, sonst "" */
@@ -99,16 +105,17 @@ function Chip({
  */
 export function ContactForm({
   locale,
+  copy: t,
   prefill = defaultContactPrefill,
 }: {
   locale: Locale;
+  copy: ContactCopy;
   prefill?: ContactPrefill;
 }) {
-  const t = aviation[locale];
   const f = t.f;
   const est = t.est;
   const id = useId();
-  const groups = aircraftGroups(locale);
+  const groups = aircraftGroups(t.types);
 
   const [fields, setFields] = useState(emptyFields);
   const [typeSel, setTypeSel] = useState(prefill.type);
@@ -116,10 +123,15 @@ export function ContactForm({
   const [sent, setSent] = useState(false);
   const model = useAvModel();
   const thanksRef = useRef<HTMLHeadingElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  /** Fokus nur nach einem Wechsel zwischen Formular und Danke-Zustand setzen, nicht beim Laden. */
+  const switched = useRef(false);
 
   useEffect(() => {
-    // Nach dem Absenden den Fokus auf den Danke-Titel setzen.
+    if (!switched.current) return;
+    // Danke-Titel nach dem Absenden, erstes Feld nach „Neue Anfrage“ (der Button verschwindet).
     if (sent) thanksRef.current?.focus();
+    else formRef.current?.querySelector<HTMLInputElement>("input")?.focus();
   }, [sent]);
 
   const bind = (key: FieldKey) => ({
@@ -131,13 +143,16 @@ export function ContactForm({
   const toggleService = (i: AvService) =>
     setServices((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]));
 
-  const result = estimate({ locale, type: typeSel, services });
-  const estType = aircraftFactor(typeSel, locale) > 0 ? typeSel : "";
+  const result = estimate({ locale, copy: t, type: typeSel, services });
+  const estType = aircraftFactor(typeSel, t.types) > 0 ? typeSel : "";
 
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // Phase 3: Versand
-    if (process.env.NODE_ENV !== "production") setSent(true);
+    if (process.env.NODE_ENV !== "production") {
+      switched.current = true;
+      setSent(true);
+    }
   }
 
   if (sent) {
@@ -154,7 +169,10 @@ export function ContactForm({
         <AvButton
           variant="outlineNavy"
           size="again"
-          onClick={() => setSent(false)}
+          onClick={() => {
+            switched.current = true;
+            setSent(false);
+          }}
           className="mt-8"
         >
           {t.again}
@@ -164,7 +182,7 @@ export function ContactForm({
   }
 
   return (
-    <form noValidate onSubmit={submit}>
+    <form ref={formRef} noValidate onSubmit={submit}>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-x-8 gap-y-2">
         <Field label={f.company} name="company" autoComplete="organization" {...bind("company")} />
         <Field label={f.name} name="name" autoComplete="name" {...bind("name")} />

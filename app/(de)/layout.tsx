@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import "../globals.css";
 import { cinzel, mona } from "../fonts";
 import { siteUrl } from "@/lib/site-url";
+import { SmoothScroll } from "@/components/shared/SmoothScroll";
 
 /** Root-Layout für alle deutschen Seiten (Fahrzeug und /aviation). */
 export const metadata: Metadata = {
@@ -13,7 +14,10 @@ export const metadata: Metadata = {
 export default function GermanRootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="de" data-scroll-behavior="smooth" className={`${mona.variable} ${cinzel.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SmoothScroll />
+      </body>
     </html>
   );
 }

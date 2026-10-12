@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
-import { aviation, baseMap, seatOnMap, type Locale } from "@/content/aviation";
+import type { AviationCopy } from "@/content/aviation";
+import { baseMap, seatOnMap } from "@/content/aviation-meta";
 import { cx } from "@/lib/cx";
 
 /** Darstellung der Ortsnamen auf der Karte wie in der Referenz (Abstand zum Punkt, Laufweite). */
@@ -35,8 +36,11 @@ const at = ([left, top]: readonly [number, number]): CSSProperties => ({
  * Linie ab EDDG mit Entfernung und blendet die übrigen Zeilen auf 40 % ab. Das ist eine rein visuelle
  * Ergänzung: Entfernung und Status stehen als Text in jeder Zeile, deshalb keine Tab-Stopps.
  */
-export function FleetBases({ locale }: { locale: Locale }) {
-  const t = aviation[locale];
+export function FleetBases({
+  copy: t,
+}: {
+  copy: Pick<AviationCopy, "bases" | "chartLabel" | "chartSeat">;
+}) {
   const [active, setActive] = useState(-1);
   const kmPos = active > 0 ? baseMap[active].pos : baseMap[1].pos;
 

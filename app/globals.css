@@ -116,16 +116,27 @@
 }
 
 @layer base {
+  /*
+   * Anker und Tastaturfokus landen unter festen Leisten, nie dahinter (WCAG 2.4.11). Die Variablen
+   * setzen die Komponenten selbst (components/shared/root-scroll.ts):
+   *   --pf-header-h  Aviation-Header (84px), sonst gilt der Fahrzeug-Header (76px)
+   *   --pf-sticky-h  zusätzlich klebende Leiste, z. B. die Klassenleiste auf /leistungen
+   *   --pf-bar-car / --pf-bar-av  mobile Aktionsleisten unten (nur unter 980px)
+   */
   html {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    scroll-padding-top: var(--car-header-h);
+    scroll-padding-top: calc(var(--pf-header-h, var(--car-header-h)) + var(--pf-sticky-h, 0px));
+    scroll-padding-bottom: max(var(--pf-bar-car, 0px), var(--pf-bar-av, 0px));
   }
-  html:has([data-brand="av"]) {
-    scroll-padding-top: var(--av-header-h);
-  }
-  @media (prefers-reduced-motion: no-preference) {
+  @media (width >= 980px) {
     html {
+      scroll-padding-bottom: 0;
+    }
+  }
+  /* Weiches Scrollen erst nach dem Laden (SmoothScroll.tsx), nie bei reduzierter Bewegung. */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-smooth] {
       scroll-behavior: smooth;
     }
   }
@@ -138,9 +149,17 @@
     background: var(--car-ink);
     color: var(--car-bg);
   }
+  /*
+   * Platzhalter in --car-muted / --av-muted statt --car-input-placeholder (#8A8F96, nur 3,3:1 auf Weiß
+   * und 2,8:1 auf Creme). Die Platzhalter tragen Formathinweise, deshalb gilt 4,5:1 (Regel 9).
+   */
   input::placeholder,
   textarea::placeholder {
-    color: var(--car-input-placeholder);
+    color: var(--car-muted);
+  }
+  [data-brand="av"] input::placeholder,
+  [data-brand="av"] textarea::placeholder {
+    color: var(--av-muted);
   }
   button,
   input,

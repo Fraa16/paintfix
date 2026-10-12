@@ -18,7 +18,7 @@ export function LegalPage({
   children: ReactNode;
 }) {
   return (
-    <main>
+    <main id="inhalt" tabIndex={-1} className="focus:outline-none">
       <section className="bg-car-surface">
         <div className="mx-auto max-w-car px-car-gutter pt-[clamp(48px,6vw,88px)] pb-[clamp(56px,7vw,96px)]">
           <CarBreadcrumb current={title} />
