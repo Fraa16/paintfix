@@ -47,7 +47,7 @@ export function CarButton({
     <Action
       {...(rest as ActionProps)}
       className={cx(
-        "inline-flex items-center gap-3.5 font-semibold whitespace-nowrap transition-colors",
+        "inline-flex items-center gap-3.5 leading-[normal] font-semibold whitespace-nowrap transition-colors",
         variants[variant],
         sizes[size],
         className,
@@ -72,7 +72,7 @@ export function CarTextLink({
     <Action
       {...(rest as ActionProps)}
       className={cx(
-        "inline-flex w-fit items-center gap-2.5 border-b-[1.5px] border-car-ink pb-1 text-sm font-semibold transition-colors hover:border-car-red hover:text-car-red",
+        "inline-flex w-fit items-center gap-2.5 border-b-[1.5px] border-car-ink pb-1 text-sm leading-[normal] font-semibold transition-colors hover:border-car-red hover:text-car-red",
         className,
       )}
     >

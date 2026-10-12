@@ -17,7 +17,7 @@ export function CarOverline({
   return (
     <p
       className={cx(
-        "flex items-center gap-3 text-xs font-medium tracking-[0.18em] uppercase",
+        "flex items-center gap-3 text-xs leading-[normal] font-medium tracking-[0.18em] uppercase",
         tone === "onInk" ? "text-car-on-ink-muted" : "text-car-muted",
         className,
       )}

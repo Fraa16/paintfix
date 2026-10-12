@@ -37,7 +37,7 @@ export function AvButton({ variant = "cream", size, className, children, ...rest
     <Action
       {...(rest as ActionProps)}
       className={cx(
-        "inline-flex items-center justify-center text-[11px] tracking-[0.24em] whitespace-nowrap uppercase transition-[background-color,border-color,opacity]",
+        "inline-flex items-center justify-center text-[11px] leading-[normal] tracking-[0.24em] whitespace-nowrap uppercase transition-[background-color,border-color,opacity]",
         sizes[resolved],
         variants[variant],
         className,
@@ -58,7 +58,7 @@ export function AvTextLink({
     <Action
       {...(rest as ActionProps)}
       className={cx(
-        "inline-flex w-fit items-center gap-3 py-1.5 text-[11px] tracking-[0.24em] uppercase transition-colors hover:text-av-gold-text",
+        "inline-flex w-fit items-center gap-3 py-1.5 text-[11px] leading-[normal] tracking-[0.24em] uppercase transition-colors hover:text-av-gold-text",
         className,
       )}
     >

@@ -46,7 +46,11 @@ export const services = data.services as Service[];
 export const vehicleClasses = data.vehicleClasses as [VehicleClass, VehicleClass, VehicleClass];
 /** Komplettaufbereitung (außen + innen) je Fahrzeugklasse. */
 export const comboPrice = data.comboPrice as [number, number, number];
-export const extras = data.extras as Extra[];
+/** Preise mit geschütztem Leerzeichen vor dem Euro-Zeichen (CLAUDE.md, Regel 6). */
+export const extras = (data.extras as Extra[]).map((x) => ({
+  ...x,
+  price: x.price.replace(/ €/g, "\u00A0€"),
+}));
 export const faq = data.faq as FaqEntry[];
 
 export function serviceById(id: ServiceId): Service {

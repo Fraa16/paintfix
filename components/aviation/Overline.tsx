@@ -18,7 +18,7 @@ export function AvOverline({
   return (
     <p
       className={cx(
-        "flex items-center gap-4 text-[11px] tracking-[0.34em] uppercase",
+        "flex items-center gap-4 text-[11px] leading-[normal] tracking-[0.34em] uppercase",
         tone === "navy" ? "text-av-gold" : "text-av-muted",
         className,
       )}

@@ -6,7 +6,7 @@ import { cx } from "@/lib/cx";
  */
 export function AvLogo({ className }: { className?: string }) {
   return (
-    <span className={cx("flex items-center gap-3.5", className)}>
+    <span className={cx("flex items-center gap-3.5 leading-[normal]", className)}>
       <span className="font-cinzel text-[14.4px] font-normal tracking-[0.375em]">PAINTFIX</span>
       <span aria-hidden="true" className="block h-[18px] w-px bg-current opacity-40" />
       <span className="text-[10px] tracking-[0.38em]">AVIATION</span>

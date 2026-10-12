@@ -62,6 +62,7 @@
      Farben, die die Referenz verwendet, die aber nicht in README 7 stehen. Werte unverändert übernommen. */
   --car-dot-sep: #b5b8bd; /* Trennpunkt „·“ in der Statuszeile Hero */
   --car-image-bg-alt: #e4e4e0; /* Bildfläche Standort beim Laden */
+  --car-ba-haze: #e8e8e2; /* Schleier über dem Vorher-Bild (Vorher/Nachher-Regler) */
   --car-footer-av-link: #d9d2c4; /* Link „Paintfix Aviation ↗“ im Fahrzeug-Footer */
   --av-image-bg: #dfd6c5; /* Bildfläche auf Sand und Creme beim Laden */
   --av-doc-back: #d9d1c1; /* hinteres Blatt des Dokument-Covers */

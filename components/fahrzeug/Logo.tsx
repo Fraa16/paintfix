@@ -12,7 +12,7 @@ export function CarLogo({
   className?: string;
 }) {
   return (
-    <span className={cx("flex items-center gap-3", className)}>
+    <span className={cx("flex items-center gap-3 leading-[normal]", className)}>
       <span
         aria-hidden="true"
         className={cx(
