@@ -30,7 +30,7 @@ Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_mo
 - `app/(de)/aviation/` und `app/(en)/en/aviation/` mit eigenem Layout (`components/aviation/AviationShell.tsx`), Seite aus `components/aviation/AviationPage.tsx`
 - `app/global-not-found.tsx` 404 für beide Root-Layouts
 - `components/fahrzeug`, `components/aviation`, `components/shared` (Action, OpeningStatus; später Reveal, Parallax, Curtain)
-- `content/` Inhalte (`fahrzeug.ts`, `aviation.ts`, `site.ts`), Bildregister `media.ts`
+- `content/` Inhalte (`fahrzeug.ts`, `aviation.ts`, `site.ts`), Bildregister `media.ts`; `aviation-meta.ts` enthält Aviation-Daten ohne Texte (Anker, Karte, Musterbericht) für Client-Komponenten
 - `lib/` Hilfsfunktionen (Preisformat, Öffnungsstatus, Preislogik)
 - `assets/img/` Fotos (derzeit Pexels-Platzhalter)
 
@@ -56,7 +56,14 @@ Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_mo
 - Breakpoints nur `wide:` (980 px), `sec:` (1200 px), `avnav:` (1240 px), jeweils auch `max-wide:` usw. Tailwinds `sm/md/lg/xl` sind abgeschaltet.
 - Schatten und Kurven direkt über die Token-Variablen: `shadow-(--shadow-float)`, `ease-(--ease-mask)`.
 - Fokus: `:focus-visible` nutzt `--focus`. Auf dunklen Flächen `[--focus:var(--car-on-ink)]` bzw. `[--focus:var(--av-gold)]` setzen.
-- Gemeinsame Bausteine nutzen: `CarButton`, `CarTextLink`, `CarOverline`, `CarLogo`, `AvButton`, `AvTextLink`, `AvOverline`, `AvLogo`, `Action`, `OpeningStatus`/`LiveDot`. Bilder über `next/image` mit Einträgen aus `content/media.ts`.
+- Gemeinsame Bausteine nutzen: `CarButton`, `CarTextLink`, `CarOverline`, `CarLogo`, `CarH2`, `CarBreadcrumb`, `CarFacts`, `CarAviationLink` (einziger Navy/Cinzel-Link auf Fahrzeugseiten), `AvButton`, `AvTextLink`, `AvOverline`, `AvLogo`, `Action`, `OpeningStatus`/`LiveDot`, `SkipLink`. Bilder über `next/image` mit Einträgen aus `content/media.ts`.
+
+## Fallstricke (Next.js 16)
+
+- Next hält besuchte Seiten versteckt im DOM (`<Activity>`, display: none). Deshalb keine seitenabhängigen Stile über `html:has(…)`: versteckte Seiten würden mitzählen. Werte am `<html>` per Effekt setzen (`useRootVar` in `components/shared/root-scroll.ts`); React räumt Effekte versteckter Seiten auf.
+- Feste und klebende Leisten melden ihre Höhe für `scroll-padding` (`--pf-header-h`, `--pf-sticky-h`, `--pf-bar-car`, `--pf-bar-av`), damit Anker und Tastaturfokus nie dahinter landen (WCAG 2.4.11).
+- Client-Komponenten importieren nie `content/aviation.ts` (zieht beide Sprachen ins Bundle). Texte kommen als Props von der Server-Komponente, Daten aus `content/aviation-meta.ts`; Typen per `import type`.
+- `useSearchParams` nur in `<Suspense>`. Der Fallback zeigt nie einen Zustand, der falsch sein kann (z. B. Preise), sondern einen neutralen Platzhalter.
 
 ## Stand
 
