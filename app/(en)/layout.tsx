@@ -4,6 +4,8 @@ import "../globals.css";
 import { cinzel, mona } from "../fonts";
 import { siteUrl } from "@/lib/site-url";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
+import { Reveals } from "@/components/shared/motion/Reveals";
+import { bootScript } from "@/components/shared/motion/boot";
 
 /** Root-Layout für /en/aviation. Eigenes Layout, damit <html lang="en"> stimmt. */
 export const metadata: Metadata = {
@@ -13,10 +15,18 @@ export const metadata: Metadata = {
 
 export default function EnglishRootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${mona.variable} ${cinzel.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      className={`${mona.variable} ${cinzel.variable}`}
+    >
       <body>
+        {/* Vor dem ersten Paint: Bewegung erlaubt? Curtain-Übergabe? (boot.ts) */}
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         {children}
         <SmoothScroll />
+        <Reveals />
       </body>
     </html>
   );
