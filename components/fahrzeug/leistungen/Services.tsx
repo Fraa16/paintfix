@@ -9,6 +9,7 @@ const total = String(services.length).padStart(2, "0");
  * Die vier Leistungen #svc-{id} (README 8.2 Punkt 3, Referenz Zeilen 294–328): Bild links, Text
  * rechts, unter ca. 1010px untereinander. Nur die Preiszeile ist Client-Komponente.
  * Anker #svc-… landen über scroll-padding unter Header und Klassenleiste (siehe ClassBar).
+ * Reveals wie in der Referenz: jede Leistung und ihre H2 mit Fade-up (0).
  */
 export function Services() {
   return (
@@ -20,6 +21,7 @@ export function Services() {
             <article
               key={s.id}
               id={`svc-${s.id}`}
+              data-rv="0"
               aria-labelledby={`svc-${s.id}-title`}
               className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] gap-x-[clamp(32px,5vw,88px)] gap-y-8 border-b border-car-line py-[clamp(48px,6vw,88px)]"
             >
@@ -42,6 +44,7 @@ export function Services() {
                 </p>
                 <h2
                   id={`svc-${s.id}-title`}
+                  data-rv="0"
                   className="mt-[18px] text-car-h2-service leading-[1.02] font-bold tracking-[-0.015em] font-stretch-125%"
                 >
                   {s.name}

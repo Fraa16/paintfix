@@ -2,7 +2,7 @@ import { CarBreadcrumb } from "@/components/fahrzeug/Breadcrumb";
 
 /**
  * Seitenkopf Leistungen (README 8.2 Punkt 1, Referenz Zeilen 265–276): Fläche --car-surface,
- * Brotkrumen „Start / Fahrzeugaufbereitung“, H1 und Einleitung.
+ * Brotkrumen „Start / Fahrzeugaufbereitung“, H1 (Reveal 60) und Einleitung.
  */
 export function PageHead() {
   return (
@@ -12,6 +12,7 @@ export function PageHead() {
         <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] items-end gap-x-16 gap-y-7">
           <h1
             id="page-title"
+            data-rv="60"
             className="text-car-h1 leading-[0.94] font-bold tracking-[-0.0175em] text-balance font-stretch-125%"
           >
             Leistungen und Preise.

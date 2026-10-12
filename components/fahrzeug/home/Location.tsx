@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 import { CarH2 } from "@/components/fahrzeug/Heading";
 import { CarFacts, carContactRows } from "@/components/fahrzeug/Facts";
 
-/** Standort (#standort, README 8.1 Punkt 7, Referenz Zeilen 238–260). */
+/** Standort (#standort, README 8.1 Punkt 7, Referenz Zeilen 238–260). Reveal nur an der H2 (0). */
 export function Location() {
   const rows = [
     { label: "Adresse", value: `${site.street}, ${site.postalCode} ${site.city}` },
@@ -19,7 +19,7 @@ export function Location() {
       <div className="mx-auto grid max-w-car grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] items-center gap-x-[clamp(40px,6vw,96px)] gap-y-12 px-car-gutter">
         <div>
           <CarOverline className="leading-[normal]">Standort</CarOverline>
-          <CarH2>
+          <CarH2 rv={0}>
             {site.street}, {site.city}.
           </CarH2>
           <p className="mt-5 max-w-[460px] text-[17px] leading-[1.6] text-car-text">

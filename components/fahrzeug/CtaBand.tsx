@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 /**
  * CTA Fahrzeug (README 8.5, Referenz Zeilen 497–510), nur auf Startseite und Leistungsseite.
  * Schwarze Fläche über die volle Breite, die Linie unten nur so breit wie der Inhalt (max. 1360px).
- * Direkt darunter folgt der Footer aus dem Layout.
+ * Direkt darunter folgt der Footer aus dem Layout. Reveal nur an der H2 (0), wie in der Referenz.
  */
 export function CtaBand() {
   return (
@@ -16,6 +16,7 @@ export function CtaBand() {
         <div>
           <h2
             id="cta-title"
+            data-rv="0"
             className="max-w-[15ch] text-car-h2-cta leading-none font-bold tracking-[-0.0175em] text-balance font-stretch-125%"
           >
             Sagen Sie uns, was Ihr Auto braucht.

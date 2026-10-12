@@ -9,7 +9,7 @@ export function Faq() {
       <div className="mx-auto grid max-w-car grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] items-start gap-x-[clamp(40px,6vw,96px)] gap-y-10 px-car-gutter">
         <div>
           <CarOverline className="leading-[normal]">Häufige Fragen</CarOverline>
-          <CarH2 id="faq-title" className="max-w-[12ch]">
+          <CarH2 id="faq-title" rv={0} className="max-w-[12ch]">
             Fragen zu Preis und Ablauf.
           </CarH2>
         </div>

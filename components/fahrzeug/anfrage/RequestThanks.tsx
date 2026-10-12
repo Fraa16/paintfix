@@ -5,7 +5,7 @@ import type { PriceEstimate } from "@/lib/pricing";
 
 /**
  * Danke-Zustand (README 8.3 Punkt 4, Referenz Zeilen 476–493). Ersetzt Formular und
- * Zusammenfassung; „Anfrage bearbeiten“ führt zurück zum ausgefüllten Formular.
+ * Zusammenfassung; „Anfrage bearbeiten“ führt zurück zum ausgefüllten Formular. H2 mit Reveal (0).
  */
 export function RequestThanks({
   firstName,
@@ -32,6 +32,7 @@ export function RequestThanks({
         <h2
           ref={headingRef}
           tabIndex={-1}
+          data-rv="0"
           className="mt-7 text-car-h2-success leading-[1.02] font-bold tracking-[-0.015em] font-stretch-125% focus:outline-none"
         >
           Danke{firstName ? `, ${firstName}` : ""}.

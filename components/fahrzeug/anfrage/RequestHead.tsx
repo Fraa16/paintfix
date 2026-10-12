@@ -3,14 +3,17 @@ import { CarBreadcrumb } from "@/components/fahrzeug/Breadcrumb";
 
 /**
  * Kopf der Anfrageseite (README 8.3 Punkt 1, Referenz Zeilen 370–381): Brotkrumen, H1, Text und
- * Link zu Paintfix Aviation (Navy und Cinzel sind hier als Link zu Aviation erlaubt).
+ * Link zu Paintfix Aviation (Navy und Cinzel sind hier als Link zu Aviation erlaubt). Reveal: H1 (60).
  */
 export function RequestHead() {
   return (
     <>
       <CarBreadcrumb current="Termin anfragen" />
       <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] items-end gap-x-16 gap-y-6">
-        <h1 className="text-car-h1 leading-[0.94] font-bold tracking-[-0.0175em] font-stretch-125%">
+        <h1
+          data-rv="60"
+          className="text-car-h1 leading-[0.94] font-bold tracking-[-0.0175em] font-stretch-125%"
+        >
           Termin anfragen.
         </h1>
         <div className="flex flex-col gap-4">

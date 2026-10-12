@@ -14,7 +14,7 @@ export function ComboBand() {
           <CarOverline tone="onInk" className="leading-[normal]">
             Komplettaufbereitung
           </CarOverline>
-          <CarH2 id="kombi-title" className="max-w-[14ch]">
+          <CarH2 id="kombi-title" rv={0} className="max-w-[14ch]">
             Außen und innen an einem Termin.
           </CarH2>
         </div>

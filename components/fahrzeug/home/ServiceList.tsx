@@ -1,16 +1,28 @@
 import Link from "next/link";
 import { CarTextLink } from "@/components/fahrzeug/Button";
 import { CarOverline } from "@/components/fahrzeug/Overline";
-import { services } from "@/content/fahrzeug";
+import { services, type ServiceId } from "@/content/fahrzeug";
+import { media, type MediaId } from "@/content/media";
 import { eur } from "@/lib/format";
 import { CarH2 } from "@/components/fahrzeug/Heading";
+import { ServiceFollower } from "./ServiceFollower";
+
+/** Bilder, die der Cursor über der Liste mitnimmt (Referenz Zeilen 154–157). */
+const HOVER_IMAGE: Record<ServiceId, MediaId> = {
+  aussen: "carHoverAussen",
+  innen: "carHoverInnen",
+  politur: "carHoverPolitur",
+  keramik: "carHoverKeramik",
+};
 
 /**
  * Leistungen (#leistungen, README 8.1 Punkt 3, Referenz Zeilen 131–162).
  *
  * Hover ab 980px mit Zeiger (README 9.3, reines CSS): die übrigen Zeilen blenden auf 0.28 ab, der
  * Name der Zeile rückt 18px nach rechts. Tastaturfokus wirkt wie in der Referenz genauso.
- * Das dem Cursor folgende Bild kommt in Phase 4; overflow-x: clip ist dafür schon gesetzt.
+ * Das dem Cursor folgende Bild setzt ServiceFollower (nur mit Bewegung); es kann über den Rand der
+ * Liste ragen, deshalb overflow-x: clip am Abschnitt (CLAUDE.md, Regel 8).
+ * Reveals wie in der Referenz: Overline 0, H2 80, Text und Link 160.
  */
 export function ServiceList() {
   return (
@@ -21,10 +33,12 @@ export function ServiceList() {
       <div className="mx-auto max-w-car px-car-gutter">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-end gap-x-16 gap-y-6">
           <div>
-            <CarOverline className="leading-[normal]">Leistungen</CarOverline>
-            <CarH2>Was wir für Ihr Fahrzeug tun.</CarH2>
+            <CarOverline rv={0} className="leading-[normal]">
+              Leistungen
+            </CarOverline>
+            <CarH2 rv={80}>Was wir für Ihr Fahrzeug tun.</CarH2>
           </div>
-          <div className="flex flex-col items-start gap-[18px]">
+          <div data-rv="160" className="flex flex-col items-start gap-[18px]">
             <p className="max-w-[520px] text-[17px] leading-[1.6] text-pretty text-car-text">
               Vier Leistungen, einzeln oder kombiniert. Außen und innen zusammen kosten weniger als
               einzeln gebucht.
@@ -35,10 +49,14 @@ export function ServiceList() {
           </div>
         </div>
 
-        <div className="relative mt-[clamp(48px,6vw,80px)] border-t border-car-ink wide:[&:has(>a:focus-visible)>a:not(:focus-visible)]:opacity-28 wide:pointer-fine:[&:has(>a:hover)>a:not(:hover)]:opacity-28">
-          {services.map((s) => (
+        <ServiceFollower
+          images={services.map((s) => media[HOVER_IMAGE[s.id]].src)}
+          className="relative mt-[clamp(48px,6vw,80px)] border-t border-car-ink wide:[&:has(>a:focus-visible)>a:not(:focus-visible)]:opacity-28 wide:pointer-fine:[&:has(>a:hover)>a:not(:hover)]:opacity-28"
+        >
+          {services.map((s, i) => (
             <Link
               key={s.id}
+              data-row={i}
               href={`/leistungen#svc-${s.id}`}
               className="group/row flex w-full flex-wrap items-baseline gap-x-8 gap-y-2 border-b border-car-line py-[clamp(24px,2.8vw,40px)] text-left text-car-ink transition-opacity duration-400 ease-[ease]"
             >
@@ -60,7 +78,7 @@ export function ServiceList() {
               </span>
             </Link>
           ))}
-        </div>
+        </ServiceFollower>
       </div>
     </section>
   );

@@ -20,6 +20,8 @@ type FrameCallback = (f: Frame) => void;
 
 const callbacks = new Set<FrameCallback>();
 let raf = 0;
+/** Verschiebt sich Layout ohne Scrollen (Schriften, Hydration, Tabs), wird ebenfalls neu gerechnet. */
+let bodyObserver: ResizeObserver | null = null;
 
 function run() {
   raf = 0;
@@ -35,6 +37,8 @@ function subscribe(cb: FrameCallback) {
   if (callbacks.size === 0) {
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    bodyObserver = new ResizeObserver(schedule);
+    bodyObserver.observe(document.body);
   }
   callbacks.add(cb);
   schedule();
@@ -43,6 +47,8 @@ function subscribe(cb: FrameCallback) {
     if (callbacks.size === 0) {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
+      bodyObserver?.disconnect();
+      bodyObserver = null;
       cancelAnimationFrame(raf);
       raf = 0;
     }
