@@ -2,10 +2,10 @@ import type { ReactNode } from "react";
 import { cx } from "@/lib/cx";
 
 /**
- * H2 der Startseite (Referenz: calc(0.86 * clamp(36px,4.4vw,64px)) = Token --car-fs-h2):
- * Mona Sans 700, Breite 125 %, Zeilenhöhe 1.02, Laufweite -0.015em, 20px unter der Overline.
+ * H2 Fahrzeug (Referenz: calc(0.86 * clamp(36px,4.4vw,64px)) = Token --car-fs-h2): Mona Sans 700,
+ * Breite 125 %, Zeilenhöhe 1.02, Laufweite -0.015em, 20px unter der Overline.
  */
-export function HomeH2({
+export function CarH2({
   id,
   className,
   children,

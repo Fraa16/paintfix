@@ -55,13 +55,14 @@ export function DocsForm({ locale }: { locale: Locale }) {
         <p className="mt-4 text-[14px] leading-[1.6] wrap-anywhere text-av-on-navy">
           {t.docsDoneSub} {email.trim()}.
         </p>
-        <button
-          type="button"
+        <AvButton
+          variant="ghostCream"
+          size="docs"
           onClick={() => setSent(false)}
-          className="mt-6 h-12 border border-av-cream/50 px-6 text-[11px] tracking-[0.22em] text-av-cream uppercase transition-colors hover:border-av-cream"
+          className="mt-6 w-full"
         >
           {t.docsAgain}
-        </button>
+        </AvButton>
       </div>
     );
   }

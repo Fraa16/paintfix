@@ -55,3 +55,12 @@ export function openStatus(date: Date): OpenStatus {
   }
   return { open: false, text: "" };
 }
+
+/**
+ * Unsichtbarer Platzhalter vor dem ersten Client-Render, ungefähr so breit wie der echte Status
+ * (z. B. „Heute geöffnet bis 18 Uhr“), damit die Zeile beim Laden nicht springt.
+ */
+export const openStatusPlaceholder = (() => {
+  const weekday = openingHours.find((h) => h !== null);
+  return weekday ? `Heute geöffnet bis ${weekday[1]} Uhr` : "";
+})();

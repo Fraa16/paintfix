@@ -70,7 +70,8 @@ export function AvHeader({ locale, nav, cta }: { locale: Locale; nav: string[]; 
                   aria-current={l === locale ? "page" : undefined}
                   className={cx(
                     "px-0.5 py-1 tracking-normal",
-                    l === locale ? "opacity-100" : "opacity-50",
+                    // Referenz: 0.5, ergibt nur 3,2:1. 0.7 erreicht 4,5:1 auf Creme und Navy (Regel 9).
+                    l === locale ? "opacity-100" : "opacity-70",
                   )}
                 >
                   {l.toUpperCase()}
@@ -78,11 +79,7 @@ export function AvHeader({ locale, nav, cta }: { locale: Locale; nav: string[]; 
               </span>
             ))}
           </nav>
-          <AvButton
-            href="#av-contact"
-            variant="header"
-            className="tracking-[0.22em]! max-wide:hidden"
-          >
+          <AvButton href="#av-contact" variant="header" className="max-wide:hidden">
             {cta}
           </AvButton>
         </div>

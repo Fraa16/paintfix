@@ -60,9 +60,14 @@ export function ServiceTabs({
     <>
       <div className="flex flex-wrap items-end justify-between gap-8">
         {heading}
-        {/* flex-wrap: in EN passt „03 Protection“ bei 360px nicht in die Zeile (Referenz läuft
-            dort 32px über, CLAUDE.md Regel 8). Wo die Tabs passen, ändert sich nichts. */}
-        <div role="tablist" aria-label={tabsLabel} className="flex flex-wrap gap-x-8 gap-y-4">
+        {/* Wie in der Referenz dürfen die Tabs in den rechten Seitenrand ragen, bevor sie umbrechen.
+            Erst wenn auch das nicht reicht (EN bei 360px, dort läuft die Referenz 32px über),
+            bricht „03 Protection“ in eine zweite Zeile (CLAUDE.md Regel 8). */}
+        <div
+          role="tablist"
+          aria-label={tabsLabel}
+          className="flex w-max max-w-[calc(100%+var(--av-gutter))] shrink-0 flex-wrap gap-x-8 gap-y-4"
+        >
           {tabs.map((t, i) => {
             const on = i === active;
             return (

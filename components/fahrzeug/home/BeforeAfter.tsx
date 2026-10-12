@@ -2,7 +2,7 @@ import { CarOverline } from "@/components/fahrzeug/Overline";
 import { serviceById } from "@/content/fahrzeug";
 import { fromPrice } from "@/lib/format";
 import { BeforeAfterSlider } from "./BeforeAfterSlider";
-import { HomeH2 } from "./HomeH2";
+import { CarH2 } from "@/components/fahrzeug/Heading";
 
 /** Vorher/Nachher (README 8.1 Punkt 4, Referenz Zeilen 163–187). */
 export function BeforeAfter() {
@@ -15,7 +15,7 @@ export function BeforeAfter() {
             <CarOverline className="leading-[normal]">
               {politur.name} · Vorher und nachher
             </CarOverline>
-            <HomeH2>Derselbe Lack, einen Tag später.</HomeH2>
+            <CarH2>Derselbe Lack, einen Tag später.</CarH2>
           </div>
           <p className="max-w-[520px] text-[17px] leading-[1.6] text-pretty text-car-text">
             Waschanlagen hinterlassen feine Kratzer, in denen sich das Licht kreisförmig bricht. Die

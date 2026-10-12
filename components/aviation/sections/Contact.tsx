@@ -3,6 +3,7 @@ import { AvOverline } from "@/components/aviation/Overline";
 import { aviation, type Locale } from "@/content/aviation";
 import { ContactForm } from "./ContactForm";
 import { ContactFormFromQuery } from "./ContactFormFromQuery";
+import { telHref } from "../shell/ui";
 
 /**
  * Kontakt (README 8.4 Punkt 10, Referenz Zeilen 975–1044): links Einleitung und direkter Kontakt,
@@ -10,7 +11,6 @@ import { ContactFormFromQuery } from "./ContactFormFromQuery";
  */
 export function Contact({ locale }: { locale: Locale }) {
   const t = aviation[locale];
-  const tel = "tel:" + t.opsPhone.replace(/[^+\d]/g, "");
 
   return (
     <section id="av-contact" aria-labelledby="av-contact-title" className="py-av-section">
@@ -29,7 +29,7 @@ export function Contact({ locale }: { locale: Locale }) {
           <div className="mt-12 max-w-[440px] border-t border-av-navy pt-6">
             <p className="text-[10px] tracking-[0.3em] text-av-muted uppercase">{t.direct}</p>
             <p className="mt-3.5 font-cinzel text-[19.2px] leading-[1.5] font-normal">
-              <a href={tel} className="transition-colors hover:text-av-gold-text">
+              <a href={telHref(t.opsPhone)} className="transition-colors hover:text-av-gold-text">
                 {t.opsPhone}
               </a>
               <br />

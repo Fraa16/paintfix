@@ -1,8 +1,8 @@
-import Link from "next/link";
+import { CarBreadcrumb } from "@/components/fahrzeug/Breadcrumb";
 import type { ReactNode } from "react";
 import { CarOverline } from "@/components/fahrzeug/Overline";
+import { CarFacts, carContactRows } from "@/components/fahrzeug/Facts";
 import { site } from "@/content/site";
-import { cx } from "@/lib/cx";
 
 /**
  * Rechtliche Seiten im Fahrzeug-Stil. Kopf wie auf der Leistungsseite (Referenz Zeilen 265–274):
@@ -21,19 +21,7 @@ export function LegalPage({
     <main>
       <section className="bg-car-surface">
         <div className="mx-auto max-w-car px-car-gutter pt-[clamp(48px,6vw,88px)] pb-[clamp(56px,7vw,96px)]">
-          <nav aria-label="Brotkrümelnavigation">
-            <ol className="flex gap-2.5 text-[13px] leading-[normal] text-car-muted">
-              <li className="flex gap-2.5">
-                <Link href="/" className="transition-colors hover:text-car-ink">
-                  Start
-                </Link>
-                <span aria-hidden="true">/</span>
-              </li>
-              <li aria-current="page" className="text-car-ink">
-                {title}
-              </li>
-            </ol>
-          </nav>
+          <CarBreadcrumb current={title} />
           <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] items-end gap-x-16 gap-y-7">
             <h1 className="text-car-h1 leading-[0.94] font-bold tracking-[-0.0175em] text-balance font-stretch-125%">
               {title}
@@ -48,34 +36,6 @@ export function LegalPage({
         </div>
       </section>
     </main>
-  );
-}
-
-/** Datenzeilen im Raster 150px / 1fr wie die Standort-Tabelle der Startseite (README 8.1 Punkt 7). */
-export function LegalFacts({
-  rows,
-  className,
-}: {
-  rows: ReadonlyArray<{ label: string; value: ReactNode }>;
-  className?: string;
-}) {
-  return (
-    <dl
-      className={cx(
-        "flex flex-col border-b border-car-border text-[15px] leading-[normal]",
-        className,
-      )}
-    >
-      {rows.map((r) => (
-        <div
-          key={r.label}
-          className="grid grid-cols-[150px_1fr] gap-4 border-t border-car-border py-4"
-        >
-          <dt className="text-car-muted">{r.label}</dt>
-          <dd className="min-w-0 break-words">{r.value}</dd>
-        </div>
-      ))}
-    </dl>
   );
 }
 
@@ -100,26 +60,6 @@ export function LegalGrid({ children }: { children: ReactNode }) {
   );
 }
 
-/** Telefon und E-Mail als Links, für die Datenzeilen. */
-export const contactRows: ReadonlyArray<{ label: string; value: ReactNode }> = [
-  {
-    label: "Telefon",
-    value: (
-      <a href={site.phoneHref} className="transition-colors hover:text-car-red">
-        {site.phoneDisplay}
-      </a>
-    ),
-  },
-  {
-    label: "E-Mail",
-    value: (
-      <a href={`mailto:${site.email}`} className="transition-colors hover:text-car-red">
-        {site.email}
-      </a>
-    ),
-  },
-];
-
 /** Platzhalter-Hinweis mit Kontaktmöglichkeiten daneben (Datenschutz, AGB). */
 export function LegalContact({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -127,10 +67,10 @@ export function LegalContact({ title, children }: { title: string; children: Rea
       <LegalNote title={title}>{children}</LegalNote>
       <div>
         <CarOverline>Kontakt</CarOverline>
-        <LegalFacts
+        <CarFacts
           className="mt-8"
           rows={[
-            ...contactRows,
+            ...carContactRows,
             { label: "Anschrift", value: `${site.street}, ${site.postalCode}\u00A0${site.city}` },
           ]}
         />

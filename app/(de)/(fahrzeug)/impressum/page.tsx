@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import { CarOverline } from "@/components/fahrzeug/Overline";
-import {
-  contactRows,
-  LegalFacts,
-  LegalGrid,
-  LegalNote,
-  LegalPage,
-} from "@/components/fahrzeug/legal/LegalPage";
+import { CarFacts, carContactRows } from "@/components/fahrzeug/Facts";
+import { LegalGrid, LegalNote, LegalPage } from "@/components/fahrzeug/legal/LegalPage";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -24,13 +19,13 @@ export default function ImpressumPage() {
       <LegalGrid>
         <div>
           <CarOverline>Anbieter</CarOverline>
-          <LegalFacts
+          <CarFacts
             className="mt-8"
             rows={[
               { label: "Name", value: site.name },
               { label: "Inhaber", value: site.owner },
               { label: "Anschrift", value: `${site.street}, ${site.postalCode}\u00A0${site.city}` },
-              ...contactRows,
+              ...carContactRows,
             ]}
           />
         </div>

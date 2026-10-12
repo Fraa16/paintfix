@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { openStatus, type OpenStatus } from "@/lib/opening-hours";
+import { openStatus, openStatusPlaceholder, type OpenStatus } from "@/lib/opening-hours";
 import { cx } from "@/lib/cx";
 
 /** Live-Status-Punkt: grün und pulsierend, wenn geöffnet (README 9.9). */
@@ -32,16 +32,18 @@ export function useOpenStatus(): OpenStatus | null {
   return status;
 }
 
-/** Punkt + Text, z. B. „Heute geöffnet bis 18 Uhr“. */
-export function OpeningStatus({ className }: { className?: string }) {
+/**
+ * Punkt + Text, z. B. „Heute geöffnet bis 18 Uhr“, als zwei Geschwister ohne eigenen Wrapper, damit sie
+ * in der umgebenden Zeile einzeln umbrechen können (Hero-Statuszeile wie in der Referenz).
+ */
+export function OpeningStatus() {
   const status = useOpenStatus();
   return (
-    <span className={cx("inline-flex items-center gap-2.5", className)}>
+    <>
       <LiveDot open={status?.open ?? false} />
-      {/* Platzhalter mit ähnlicher Breite, damit die Zeile beim Laden nicht springt. */}
       <span className={status ? undefined : "invisible"}>
-        {status?.text ?? "Heute geöffnet bis 18 Uhr"}
+        {status?.text ?? openStatusPlaceholder}
       </span>
-    </span>
+    </>
   );
 }

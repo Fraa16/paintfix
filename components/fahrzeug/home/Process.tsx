@@ -1,6 +1,6 @@
 import { CarOverline } from "@/components/fahrzeug/Overline";
 import { cx } from "@/lib/cx";
-import { HomeH2 } from "./HomeH2";
+import { CarH2 } from "@/components/fahrzeug/Heading";
 
 /** Texte wörtlich aus README 8.1 Punkt 5 (stehen nicht in content/). */
 const STEPS = [
@@ -32,7 +32,7 @@ export function Process() {
     <section id="ablauf" className="bg-car-surface py-car-section leading-[normal]">
       <div className="mx-auto max-w-car px-car-gutter">
         <CarOverline className="leading-[normal]">Ablauf</CarOverline>
-        <HomeH2 className="max-w-[14ch]">So läuft Ihr Termin ab.</HomeH2>
+        <CarH2 className="max-w-[14ch]">So läuft Ihr Termin ab.</CarH2>
         <div className="relative mt-[clamp(48px,6vw,80px)]">
           <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-car-track" />
           <div

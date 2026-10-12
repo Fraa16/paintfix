@@ -26,6 +26,9 @@ import car6873023 from "@/assets/img/car-6873023.jpg";
  * Shooting ersetzt. Zum Tauschen: Datei in assets/img/ ablegen, Import hier umstellen, `source` auf
  * "client" setzen und `alt` anpassen.
  *
+ * Alt-Texte beschreiben, was das Foto zeigt (nicht den Zweck des Platzes) und stellen Stock-Fotos nicht
+ * als Mitarbeiter oder Halle von Paintfix dar.
+ *
  * Stock-Fotos dürfen nie als eigene Arbeit von Paintfix erscheinen (UWG § 5). Bildunterschriften wie
  * „VW Golf · Außenaufbereitung“ oder der Vorher/Nachher-Regler brauchen vor dem Launch echte Fotos.
  */
@@ -59,7 +62,7 @@ export const media = {
   },
   carHoverInnen: {
     src: car37809563,
-    alt: { de: "Reinigung des Innenraums eines Fahrzeugs" },
+    alt: { de: "Maschinenpolitur an rotem Autolack" },
     needed: "Hover-Bild Innen und Leistungsseite Innen: Innenraum",
     ...pexels,
   },
@@ -83,13 +86,13 @@ export const media = {
   },
   carStandort: {
     src: car31154217,
-    alt: { de: "Zwei Mitarbeiter bei der Arbeit an einem Fahrzeug in der Halle" },
+    alt: { de: "Zwei Personen arbeiten in einer Werkstatt an einem dunklen Fahrzeug" },
     needed: "Standort: Halle von außen oder Team",
     ...pexels,
   },
   carSvcAussen: {
     src: car6873023,
-    alt: { de: "Vorwäsche mit dem Hochdruckreiniger in der Halle" },
+    alt: { de: "Vorwäsche mit dem Hochdruckreiniger in einer Werkstatt" },
     needed: "Leistungsseite Außen: Arbeitsschritt",
     ...pexels,
   },

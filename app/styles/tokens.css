@@ -63,6 +63,8 @@
   --car-dot-sep: #b5b8bd; /* Trennpunkt „·“ in der Statuszeile Hero */
   --car-image-bg-alt: #e4e4e0; /* Bildfläche Standort beim Laden */
   --car-ba-haze: #e8e8e2; /* Schleier über dem Vorher-Bild (Vorher/Nachher-Regler) */
+  --av-white: #ffffff; /* Hover Primärbutton Aviation (Creme auf Navy) */
+  --av-fs-h2-services-tabs: clamp(35.2px, 4.48vw, 73.6px); /* H2 Leistungen, Tab-Version */
   --car-footer-av-link: #d9d2c4; /* Link „Paintfix Aviation ↗“ im Fahrzeug-Footer */
   --av-image-bg: #dfd6c5; /* Bildfläche auf Sand und Creme beim Laden */
   --av-doc-back: #d9d1c1; /* hinteres Blatt des Dokument-Covers */

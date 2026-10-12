@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CarAviationLink } from "@/components/fahrzeug/AviationLink";
 import Link from "next/link";
 import "./globals.css";
 import { cinzel, mona } from "./fonts";
@@ -46,15 +47,7 @@ export default function GlobalNotFound() {
                   Leistungen &amp; Preise
                 </CarButton>
               </div>
-              <Link
-                href="/aviation"
-                className="mt-9 flex w-fit items-baseline gap-2 leading-[normal] text-av-navy transition-colors hover:text-car-red"
-              >
-                <span className="font-cinzel text-[16px] font-normal">Paintfix Aviation</span>
-                <span aria-hidden="true" className="text-[13px]">
-                  ↗
-                </span>
-              </Link>
+              <CarAviationLink size="md" arrowClassName="text-[13px]" className="mt-9" />
             </div>
           </main>
         </div>

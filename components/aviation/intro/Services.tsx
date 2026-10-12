@@ -28,7 +28,7 @@ export function Services({ locale }: { locale: Locale }) {
           heading={
             <div>
               <AvOverline>{av.svcLabel}</AvOverline>
-              <h2 className="mt-7 font-cinzel text-[clamp(35.2px,4.48vw,73.6px)] leading-none font-normal tracking-[0.015em]">
+              <h2 className="mt-7 font-cinzel text-av-h2-services-tabs leading-none font-normal tracking-[0.015em]">
                 {av.svcTitle}
               </h2>
             </div>

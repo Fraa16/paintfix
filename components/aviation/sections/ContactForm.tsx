@@ -151,13 +151,14 @@ export function ContactForm({
           {t.sentTitle}
         </h3>
         <p className="mt-5 max-w-[420px] text-[17px] leading-[1.7] text-av-muted">{t.sentText}</p>
-        <button
-          type="button"
+        <AvButton
+          variant="outlineNavy"
+          size="again"
           onClick={() => setSent(false)}
-          className="mt-8 h-[52px] border border-av-navy px-7 text-[11px] tracking-[0.24em] text-av-navy uppercase"
+          className="mt-8"
         >
           {t.again}
-        </button>
+        </AvButton>
       </div>
     );
   }
@@ -273,13 +274,13 @@ export function ContactForm({
                 {n}
               </p>
             ))}
+            <p className="mt-2 text-[12px] leading-[1.6] text-av-muted">{est.note}</p>
           </>
         ) : (
           <p className="mt-3.5 max-w-[460px] text-[14px] leading-[1.6] text-av-muted">
             {est.empty}
           </p>
         )}
-        <p className="mt-2 text-[12px] leading-[1.6] text-av-muted">{est.note}</p>
       </div>
 
       <p id={`${id}-model`} className={cx(labelText, "mt-8")}>

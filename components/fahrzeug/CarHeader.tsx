@@ -1,5 +1,6 @@
 "use client";
 
+import { CarAviationLink } from "@/components/fahrzeug/AviationLink";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -80,15 +81,7 @@ export function CarHeader() {
         </nav>
 
         <div className="flex items-center gap-7">
-          <Link
-            href="/aviation"
-            className="flex items-baseline gap-2 leading-[normal] text-av-navy transition-colors hover:text-car-red max-wide:hidden"
-          >
-            <span className="font-cinzel text-[12.8px] font-normal">Paintfix Aviation</span>
-            <span aria-hidden="true" className="text-[12px]">
-              ↗
-            </span>
-          </Link>
+          <CarAviationLink arrowClassName="text-[12px]" className="max-wide:hidden" />
           <CarButton href="/anfrage" size="header" className="leading-[normal] max-wide:hidden">
             Termin anfragen
           </CarButton>
@@ -122,13 +115,12 @@ export function CarHeader() {
             {item.label}
           </Link>
         ))}
-        <Link
-          href="/aviation"
+        <CarAviationLink
+          size="md"
           onClick={close}
-          className="py-[18px] font-cinzel text-[16px] font-normal text-av-navy"
-        >
-          Paintfix Aviation <span aria-hidden="true">↗</span>
-        </Link>
+          arrowClassName="text-[16px]"
+          className="gap-1 py-[18px]"
+        />
       </nav>
     </header>
   );

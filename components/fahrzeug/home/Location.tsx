@@ -3,31 +3,15 @@ import { CarButton } from "@/components/fahrzeug/Button";
 import { CarOverline } from "@/components/fahrzeug/Overline";
 import { altText, media } from "@/content/media";
 import { site } from "@/content/site";
-import { HomeH2 } from "./HomeH2";
-
-const link = "transition-colors hover:text-car-red";
+import { CarH2 } from "@/components/fahrzeug/Heading";
+import { CarFacts, carContactRows } from "@/components/fahrzeug/Facts";
 
 /** Standort (#standort, README 8.1 Punkt 7, Referenz Zeilen 238–260). */
 export function Location() {
   const rows = [
     { label: "Adresse", value: `${site.street}, ${site.postalCode} ${site.city}` },
     { label: "Öffnungszeiten", value: site.hoursText },
-    {
-      label: "Telefon",
-      value: (
-        <a href={site.phoneHref} className={link}>
-          {site.phoneDisplay}
-        </a>
-      ),
-    },
-    {
-      label: "E-Mail",
-      value: (
-        <a href={`mailto:${site.email}`} className={link}>
-          {site.email}
-        </a>
-      ),
-    },
+    ...carContactRows,
   ];
 
   return (
@@ -35,29 +19,19 @@ export function Location() {
       <div className="mx-auto grid max-w-car grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] items-center gap-x-[clamp(40px,6vw,96px)] gap-y-12 px-car-gutter">
         <div>
           <CarOverline className="leading-[normal]">Standort</CarOverline>
-          <HomeH2>
+          <CarH2>
             {site.street}, {site.city}.
-          </HomeH2>
+          </CarH2>
           <p className="mt-5 max-w-[460px] text-[17px] leading-[1.6] text-car-text">
             Zwischen Münster und Warendorf, mit Parkplätzen direkt an der Halle.
           </p>
-          <dl className="mt-10 flex flex-col border-b border-car-border text-[15px]">
-            {rows.map((row) => (
-              <div
-                key={row.label}
-                className="grid grid-cols-[150px_1fr] gap-4 border-t border-car-border py-4"
-              >
-                <dt className="text-car-muted">{row.label}</dt>
-                <dd>{row.value}</dd>
-              </div>
-            ))}
-          </dl>
+          <CarFacts className="mt-10" rows={rows} />
           <div className="mt-9 flex flex-wrap gap-3">
             <CarButton className="leading-[normal]" href="/anfrage" size="combo" arrow>
               Termin anfragen
             </CarButton>
             <CarButton
-              className="leading-[normal]"
+              className="leading-[normal] hover:bg-car-bg"
               href={site.mapsUrl}
               size="combo"
               variant="secondary"

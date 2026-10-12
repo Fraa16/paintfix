@@ -6,7 +6,7 @@ import { serviceById, services } from "@/content/fahrzeug";
 import { altText, media } from "@/content/media";
 import { site } from "@/content/site";
 import { eur, fromPrice } from "@/lib/format";
-import { HeroOpenStatus } from "./HeroOpenStatus";
+import { OpeningStatus } from "@/components/shared/OpeningStatus";
 
 /**
  * Hero Startseite (README 8.1 Punkt 2, Referenz Zeilen 96–130): Text links, Bild 4:5 rechts,
@@ -45,7 +45,7 @@ export function Hero() {
             </CarButton>
           </div>
           <div className="mt-7 flex flex-wrap items-center gap-x-2.5 gap-y-2 text-[13px] text-car-text">
-            <HeroOpenStatus />
+            <OpeningStatus />
             <span aria-hidden="true" className="text-car-dot-sep">
               ·
             </span>

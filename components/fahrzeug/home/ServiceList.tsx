@@ -3,7 +3,7 @@ import { CarTextLink } from "@/components/fahrzeug/Button";
 import { CarOverline } from "@/components/fahrzeug/Overline";
 import { services } from "@/content/fahrzeug";
 import { eur } from "@/lib/format";
-import { HomeH2 } from "./HomeH2";
+import { CarH2 } from "@/components/fahrzeug/Heading";
 
 /**
  * Leistungen (#leistungen, README 8.1 Punkt 3, Referenz Zeilen 131–162).
@@ -22,7 +22,7 @@ export function ServiceList() {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-end gap-x-16 gap-y-6">
           <div>
             <CarOverline className="leading-[normal]">Leistungen</CarOverline>
-            <HomeH2>Was wir für Ihr Fahrzeug tun.</HomeH2>
+            <CarH2>Was wir für Ihr Fahrzeug tun.</CarH2>
           </div>
           <div className="flex flex-col items-start gap-[18px]">
             <p className="max-w-[520px] text-[17px] leading-[1.6] text-pretty text-car-text">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CarAviationLink } from "@/components/fahrzeug/AviationLink";
 import type { ReactNode } from "react";
 import { CarLogo } from "@/components/fahrzeug/Logo";
 import { services } from "@/content/fahrzeug";
@@ -68,13 +69,7 @@ export function CarFooter() {
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-car-ink-line pt-6 text-[13px] text-car-input-placeholder">
           {/* Jahr wie in der Referenz fest, damit beim Rendern kein Datum gelesen wird. */}
           <p>© 2026 Paintfix · Inh. {site.owner}</p>
-          <Link
-            href="/aviation"
-            className="flex items-baseline gap-2 text-car-footer-av-link transition-colors hover:text-car-bg"
-          >
-            <span className="font-cinzel text-[12.8px] font-normal">Paintfix Aviation</span>
-            <span aria-hidden="true">↗</span>
-          </Link>
+          <CarAviationLink tone="onInk" />
         </div>
       </div>
     </footer>

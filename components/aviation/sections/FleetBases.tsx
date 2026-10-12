@@ -31,8 +31,9 @@ const at = ([left, top]: readonly [number, number]): CSSProperties => ({
 
 /**
  * Einsatzradius-Karte und Standortliste (Referenz Zeilen 834–881, Logik 1455–1460 und 1518–1521).
- * Hover oder Tastaturfokus auf einer Zeile hebt den Punkt hervor (7 → 12px, EDDG 10 → 12px, Goldring
- * 26px), zeichnet die Linie ab EDDG mit Entfernung und blendet die übrigen Zeilen auf 40 % ab.
+ * Hover auf einer Zeile hebt den Punkt hervor (7 → 12px, EDDG 10 → 12px, Goldring 26px), zeichnet die
+ * Linie ab EDDG mit Entfernung und blendet die übrigen Zeilen auf 40 % ab. Das ist eine rein visuelle
+ * Ergänzung: Entfernung und Status stehen als Text in jeder Zeile, deshalb keine Tab-Stopps.
  */
 export function FleetBases({ locale }: { locale: Locale }) {
   const t = aviation[locale];
@@ -165,11 +166,8 @@ export function FleetBases({ locale }: { locale: Locale }) {
         {t.bases.map((b, i) => (
           <li
             key={b.i}
-            tabIndex={0}
             onMouseEnter={() => setActive(i)}
             onMouseLeave={() => setActive(-1)}
-            onFocus={() => setActive(i)}
-            onBlur={() => setActive(-1)}
             className={cx(
               "flex items-baseline justify-between gap-6 border-b border-av-line-strong py-[18px]",
               FADE,

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { AvOverline } from "@/components/aviation/Overline";
-import { aviation, type Locale } from "@/content/aviation";
+import { aviation, sampleReport, type Locale } from "@/content/aviation";
 import { altText, media, type MediaId } from "@/content/media";
 
 /** Berichtsfotos in der Reihenfolge der Referenz (Zeile 793–796). */
@@ -103,7 +103,9 @@ export function Standards({ locale }: { locale: Locale }) {
             <div className="mt-7 flex flex-wrap items-end justify-between gap-4 border-t border-av-navy pt-5">
               <div>
                 <p className="text-[10px] tracking-[0.24em] text-av-muted uppercase">{rep.sign}</p>
-                <p className="mt-1.5 font-cinzel text-[17.6px] font-normal">M. Becker</p>
+                <p className="mt-1.5 font-cinzel text-[17.6px] font-normal">
+                  {sampleReport.signer}
+                </p>
               </div>
               <span className="text-[12px] text-av-muted">{rep.notified}</span>
             </div>
@@ -119,7 +121,9 @@ export function Standards({ locale }: { locale: Locale }) {
                 <span className="font-cinzel text-[15.2px] leading-none font-normal">
                   {rep.sign}
                 </span>
-                <span className="text-[7.5px] tracking-[0.18em] tabular-nums">14 · 10 · 2026</span>
+                <span className="text-[7.5px] tracking-[0.18em] tabular-nums">
+                  {sampleReport.date}
+                </span>
               </span>
             </div>
           </div>

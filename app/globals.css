@@ -16,6 +16,10 @@
   --breakpoint-sec: 1200px; /* Abschnittsanzeige Aviation */
   --breakpoint-avnav: 1240px; /* Navigationspunkte Aviation */
 
+  /* Nur Token-Farben: Tailwinds Standardpalette (white, gray-…, red-…) ist abgeschaltet (Regel 1).
+     transparent und current bleiben als Schlüsselwörter verfügbar. */
+  --color-*: initial;
+
   /* Fahrzeug · Farben */
   --color-car-bg: var(--car-bg);
   --color-car-surface: var(--car-surface);
@@ -69,6 +73,7 @@
   --color-av-line-gold: var(--av-line-gold);
   --color-av-header-bg: var(--av-header-bg);
   --color-av-bar-bg: var(--av-bar-bg);
+  --color-av-white: var(--av-white);
   --color-av-image-bg: var(--av-image-bg);
   --color-av-doc-back: var(--av-doc-back);
   --color-av-navy-button-hover: var(--av-navy-button-hover);
@@ -100,6 +105,7 @@
   --text-av-hero: var(--av-fs-hero);
   --text-av-expand: var(--av-fs-expand);
   --text-av-h2-services: var(--av-fs-h2-services);
+  --text-av-h2-services-tabs: var(--av-fs-h2-services-tabs);
   --text-av-h2: var(--av-fs-h2);
   --text-av-h2-fleet: var(--av-fs-h2-fleet);
   --text-av-h2-form: var(--av-fs-h2-form);

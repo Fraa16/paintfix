@@ -1,6 +1,6 @@
 "use client";
 
-import { AvTextLink } from "@/components/aviation/Button";
+import { AvButton, AvTextLink } from "@/components/aviation/Button";
 import { setAvModel } from "./model-store";
 
 /**
@@ -33,11 +33,8 @@ export function TermsCta({
     );
   }
   return (
-    <a
-      {...props}
-      className="inline-flex h-11 flex-none items-center bg-av-navy px-[18px] text-[11px] tracking-[0.22em] whitespace-nowrap text-av-cream uppercase transition-colors hover:bg-av-navy-button-hover"
-    >
+    <AvButton {...props} variant="navy" size="compact" className="flex-none">
       {label}
-    </a>
+    </AvButton>
   );
 }

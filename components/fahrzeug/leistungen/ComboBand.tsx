@@ -1,6 +1,6 @@
 import { CarOverline } from "@/components/fahrzeug/Overline";
 import { ComboOffer } from "./ComboOffer";
-import { SectionH2 } from "./SectionH2";
+import { CarH2 } from "@/components/fahrzeug/Heading";
 
 /** Kombi-Band (README 8.2 Punkt 4, Referenz Zeilen 330–343): schwarze Fläche, Komplettpreis. */
 export function ComboBand() {
@@ -14,9 +14,9 @@ export function ComboBand() {
           <CarOverline tone="onInk" className="leading-[normal]">
             Komplettaufbereitung
           </CarOverline>
-          <SectionH2 id="kombi-title" className="max-w-[14ch]">
+          <CarH2 id="kombi-title" className="max-w-[14ch]">
             Außen und innen an einem Termin.
-          </SectionH2>
+          </CarH2>
         </div>
         <ComboOffer />
       </div>
