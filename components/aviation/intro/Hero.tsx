@@ -13,7 +13,7 @@ import { altText, media } from "@/content/media";
 export function Hero({ locale }: { locale: Locale }) {
   const av = aviation[locale];
   return (
-    <section className="sticky top-0 z-1 h-screen min-h-[640px] overflow-hidden bg-av-navy text-av-cream [--focus:var(--av-cream)]">
+    <section className="sticky top-0 z-1 h-screen min-h-[640px] overflow-hidden bg-av-navy text-av-cream [--focus:var(--av-gold)]">
       <div className="absolute inset-x-0 top-[-30%] bottom-0 bg-av-navy-deep">
         <Image
           src={media.avHero.src}
@@ -26,7 +26,7 @@ export function Hero({ locale }: { locale: Locale }) {
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(13,26,44,0.6)_0%,rgba(13,26,44,0)_24%,rgba(13,26,44,0)_40%,rgba(13,26,44,0.9)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--av-navy)_60%,transparent)_0%,transparent_24%,transparent_40%,color-mix(in_srgb,var(--av-navy)_90%,transparent)_100%)]"
       />
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 pb-[132px] wide:pb-[clamp(48px,8vh,104px)]">

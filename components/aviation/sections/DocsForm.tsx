@@ -4,13 +4,18 @@ import { useId, useRef, useState, type FormEvent } from "react";
 import { AvButton } from "@/components/aviation/Button";
 import { aviation, type Locale } from "@/content/aviation";
 import { cx } from "@/lib/cx";
+import { fieldFocus, fieldNoOutline } from "./form-styles";
 
 /** Prüfung wie in der Referenz (README 10.3). */
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const labelClass = "block text-[10px] tracking-[0.26em] text-av-on-navy-muted uppercase";
-const inputClass =
-  "h-12 w-full border-0 border-b bg-transparent p-0 text-[17px] text-av-cream focus:border-av-cream";
+const inputClass = cx(
+  "h-12 w-full border-0 border-b bg-transparent p-0 text-[17px] text-av-cream",
+  fieldNoOutline,
+);
+/** Linie rgba(244,239,230,.35), Fokus Creme; bei Fehler bleibt sie auch im Fokus --av-error. */
+const lineOk = "border-av-cream/35 focus:border-av-cream";
 
 /**
  * Lieferantenunterlagen anfordern (README 10.3, Referenz Zeilen 944–968). Phase 2: nur Oberfläche.
@@ -63,17 +68,17 @@ export function DocsForm({ locale }: { locale: Locale }) {
 
   return (
     <form noValidate onSubmit={submit}>
-      <label className="block">
+      <label className={cx("block", fieldFocus)}>
         <span className={labelClass}>{t.docsCompany}</span>
         <input
           name="company"
           autoComplete="organization"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
-          className={cx(inputClass, "border-av-cream/35")}
+          className={cx(inputClass, lineOk)}
         />
       </label>
-      <label className="mt-4 block">
+      <label className={cx("mt-4 block", fieldFocus)}>
         <span className={labelClass}>{t.docsEmail}</span>
         <input
           ref={emailRef}
@@ -88,7 +93,7 @@ export function DocsForm({ locale }: { locale: Locale }) {
             setEmail(e.target.value);
             setError(false);
           }}
-          className={cx(inputClass, error ? "border-av-error" : "border-av-cream/35")}
+          className={cx(inputClass, error ? "border-av-error" : lineOk)}
         />
       </label>
       <div aria-live="polite">

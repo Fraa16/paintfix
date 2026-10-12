@@ -12,7 +12,14 @@ import {
 import { AvButton } from "@/components/aviation/Button";
 import { aviation, type Locale } from "@/content/aviation";
 import { cx } from "@/lib/cx";
-import { aircraftFactor, aircraftGroups, avServices, estimate, type AvService } from "@/lib/estimate";
+import {
+  aircraftFactor,
+  aircraftGroups,
+  avServices,
+  estimate,
+  type AvService,
+} from "@/lib/estimate";
+import { fieldFocus, fieldNoOutline } from "./form-styles";
 import { setAvModel, useAvModel } from "./model-store";
 
 export interface ContactPrefill {
@@ -27,15 +34,7 @@ export const defaultContactPrefill: ContactPrefill = { type: "", services: [0] }
 const OTHER = "other";
 
 type FieldKey =
-  | "company"
-  | "name"
-  | "email"
-  | "phone"
-  | "typeOther"
-  | "reg"
-  | "apt"
-  | "window"
-  | "notes";
+  "company" | "name" | "email" | "phone" | "typeOther" | "reg" | "apt" | "window" | "notes";
 
 const emptyFields: Record<FieldKey, string> = {
   company: "",
@@ -50,17 +49,19 @@ const emptyFields: Record<FieldKey, string> = {
 };
 
 const labelText = "block text-[10px] tracking-[0.26em] text-av-muted uppercase";
-const lineField =
-  "w-full border-0 border-b border-av-line-input bg-transparent text-[17px] text-av-navy focus:border-av-navy";
+const lineField = cx(
+  "w-full border-0 border-b border-av-line-input bg-transparent text-[17px] text-av-navy focus:border-av-navy",
+  fieldNoOutline,
+);
 
-/** Feld Aviation (README 8.0): Label 10px Versalien, 48px hoch, nur Unterkante. */
+/** Feld Aviation (README 8.0): Label 10px Versalien, 48px hoch, nur Unterkante. 16px darüber als margin (Fokusrahmen, form-styles.ts). */
 function Field({
   label,
   className,
   ...input
 }: { label: ReactNode } & ComponentPropsWithoutRef<"input">) {
   return (
-    <label className={cx("block pt-4", className)}>
+    <label className={cx("mt-4 block", fieldFocus, className)}>
       <span className={labelText}>{label}</span>
       <input {...input} className={cx(lineField, "h-12 p-0")} />
     </label>
@@ -168,14 +169,17 @@ export function ContactForm({
         <Field label={f.name} name="name" autoComplete="name" {...bind("name")} />
         <Field label={f.email} name="email" type="email" autoComplete="email" {...bind("email")} />
         <Field label={f.phone} name="phone" type="tel" autoComplete="tel" {...bind("phone")} />
-        <label className="block pt-4">
+        <label className={cx("mt-4 block", fieldFocus)}>
           <span className={labelText}>{f.type}</span>
           <span className="relative block">
             <select
               name="type"
               value={typeSel}
               onChange={(e) => setTypeSel(e.target.value)}
-              className={cx(lineField, "h-12 cursor-pointer appearance-none rounded-none py-0 pr-7 pl-0")}
+              className={cx(
+                lineField,
+                "h-12 cursor-pointer appearance-none rounded-none py-0 pr-7 pl-0",
+              )}
             >
               <option value="">{f.typePick}</option>
               {groups.map((g) => (
@@ -198,9 +202,20 @@ export function ContactForm({
           </span>
         </label>
         {typeSel === OTHER ? (
-          <Field label={f.typeOther} name="typeOther" placeholder="Learjet 75" {...bind("typeOther")} />
+          <Field
+            label={f.typeOther}
+            name="typeOther"
+            placeholder="Learjet 75"
+            {...bind("typeOther")}
+          />
         ) : null}
-        <Field label={f.reg} name="reg" placeholder="D-B…" autoCapitalize="characters" {...bind("reg")} />
+        <Field
+          label={f.reg}
+          name="reg"
+          placeholder="D-B…"
+          autoCapitalize="characters"
+          {...bind("reg")}
+        />
         <Field
           label={f.apt}
           name="apt"
@@ -260,7 +275,9 @@ export function ContactForm({
             ))}
           </>
         ) : (
-          <p className="mt-3.5 max-w-[460px] text-[14px] leading-[1.6] text-av-muted">{est.empty}</p>
+          <p className="mt-3.5 max-w-[460px] text-[14px] leading-[1.6] text-av-muted">
+            {est.empty}
+          </p>
         )}
         <p className="mt-2 text-[12px] leading-[1.6] text-av-muted">{est.note}</p>
       </div>
@@ -276,7 +293,7 @@ export function ContactForm({
         ))}
       </div>
 
-      <label className="mt-6 block">
+      <label className={cx("mt-6 block", fieldFocus)}>
         <span className={labelText}>{f.notes}</span>
         <textarea
           name="notes"

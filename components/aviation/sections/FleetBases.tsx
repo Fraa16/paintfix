@@ -1,36 +1,15 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
-import { aviation, type Locale } from "@/content/aviation";
+import { aviation, baseMap, seatOnMap, type Locale } from "@/content/aviation";
 import { cx } from "@/lib/cx";
 
-/** Lage der Flughäfen auf der Karte in % (links, oben), Reihenfolge wie `bases` (README 8.4 Punkt 8). */
-const GEO: ReadonlyArray<readonly [number, number]> = [
-  [50, 30.51],
-  [74.5, 55.04],
-  [48.12, 59.53],
-  [25.88, 70.34],
-  [35.77, 90.3],
-];
-/** Entfernung ab EDDG (Referenz KM). */
-const KM = ["", "86 km", "69 km", "113 km", "146 km"];
-/** Gestrichelte Linie ab EDDG: Länge in % der Kartenbreite und Winkel (Referenz Zeilen 841–844). */
-const LINES: ReadonlyArray<readonly [number, number] | null> = [
-  null,
-  [33.11, 42.27],
-  [26.41, 94.09],
-  [43.46, 123.71],
-  [56.1, 104.69],
-];
-/** Ortsnamen auf der Karte wie in der Referenz (kurz, ohne Übersetzung). */
-const MAP_LABELS: ReadonlyArray<{ name: string; side: "left" | "right"; gap: string; track: string }> =
-  [
-    { name: "Münster/Osnabrück", side: "right", gap: "18px", track: "tracking-[0.14em]" },
-    { name: "Paderborn", side: "right", gap: "14px", track: "tracking-[0.12em]" },
-    { name: "Dortmund", side: "left", gap: "14px", track: "tracking-[0.14em]" },
-    { name: "Düsseldorf", side: "right", gap: "14px", track: "tracking-[0.14em]" },
-    { name: "Köln/Bonn", side: "right", gap: "14px", track: "tracking-[0.14em]" },
-  ];
+/** Darstellung der Ortsnamen auf der Karte wie in der Referenz (Abstand zum Punkt, Laufweite). */
+const LABEL_STYLE: Record<string, { gap: string; track: string }> = {
+  EDDG: { gap: "18px", track: "tracking-[0.14em]" },
+  EDLP: { gap: "14px", track: "tracking-[0.12em]" },
+};
+const DEFAULT_LABEL_STYLE = { gap: "14px", track: "tracking-[0.14em]" };
 const RINGS = [
   { size: "w-[38.46%]", color: "border-av-gold-line/55" },
   { size: "w-[76.92%]", color: "border-av-gold-line/45" },
@@ -41,7 +20,8 @@ const RING_LABELS = [
   { text: "100 KM", left: 70, top: 67.2 },
   { text: "150 KM", left: 79.6, top: 85.6 },
 ];
-const EDDG_POS = { left: "50%", top: "30.51%" } satisfies CSSProperties;
+const EDDG = baseMap[0].pos;
+const EDDG_POS = { left: `${EDDG[0]}%`, top: `${EDDG[1]}%` } satisfies CSSProperties;
 const FADE = "transition-opacity duration-300 ease-[ease]";
 
 const at = ([left, top]: readonly [number, number]): CSSProperties => ({
@@ -57,7 +37,7 @@ const at = ([left, top]: readonly [number, number]): CSSProperties => ({
 export function FleetBases({ locale }: { locale: Locale }) {
   const t = aviation[locale];
   const [active, setActive] = useState(-1);
-  const km = active > 0 ? GEO[active] : GEO[1];
+  const kmPos = active > 0 ? baseMap[active].pos : baseMap[1].pos;
 
   return (
     <>
@@ -66,7 +46,10 @@ export function FleetBases({ locale }: { locale: Locale }) {
         aria-label={t.chartLabel}
         className="relative mt-7 aspect-[260/236] overflow-hidden border border-av-navy/12 bg-av-cream text-av-navy"
       >
-        <div className="absolute inset-x-0 top-[30.51%] border-t border-dashed border-av-line" />
+        <div
+          style={{ top: EDDG_POS.top }}
+          className="absolute inset-x-0 border-t border-dashed border-av-line"
+        />
         <div className="absolute inset-y-0 left-1/2 border-l border-dashed border-av-line" />
         {RINGS.map((r) => (
           <div
@@ -89,7 +72,7 @@ export function FleetBases({ locale }: { locale: Locale }) {
           </span>
         ))}
 
-        {LINES.map((line, i) =>
+        {baseMap.map(({ line }, i) =>
           line ? (
             <div
               key={i}
@@ -103,33 +86,36 @@ export function FleetBases({ locale }: { locale: Locale }) {
           ) : null,
         )}
         <span
-          style={{ left: `${((50 + km[0]) / 2).toFixed(2)}%`, top: `${((30.51 + km[1]) / 2).toFixed(2)}%` }}
+          style={{
+            left: `${((EDDG[0] + kmPos[0]) / 2).toFixed(2)}%`,
+            top: `${((EDDG[1] + kmPos[1]) / 2).toFixed(2)}%`,
+          }}
           className={cx(
             "absolute translate-x-2.5 -translate-y-1/2 bg-av-navy px-[7px] py-[3px] text-[11px] font-medium whitespace-nowrap text-av-cream",
             FADE,
             active > 0 ? "opacity-100" : "opacity-0",
           )}
         >
-          {active > 0 ? KM[active] : ""}
+          {active > 0 ? baseMap[active].km : ""}
         </span>
 
         {/* Firmensitz Telgte */}
         <div
-          style={at([52.65, 37.75])}
+          style={at(seatOnMap.pos)}
           className="absolute size-[7px] -translate-1/2 border border-av-navy bg-av-cream"
         />
         <span
-          style={at([52.65, 37.75])}
+          style={at(seatOnMap.pos)}
           className="absolute translate-x-2.5 -translate-y-1/2 text-[9px] tracking-[0.16em] whitespace-nowrap text-av-muted uppercase"
         >
           Telgte · {t.chartSeat}
         </span>
 
-        {GEO.map((pos, i) => {
+        {baseMap.map(({ icao, pos, mapLabel, labelSide }, i) => {
           const on = active === i;
-          const label = MAP_LABELS[i];
+          const style = LABEL_STYLE[icao] ?? DEFAULT_LABEL_STYLE;
           return (
-            <div key={t.bases[i]?.i ?? i}>
+            <div key={icao}>
               <div
                 style={at(pos)}
                 className={cx(
@@ -149,20 +135,20 @@ export function FleetBases({ locale }: { locale: Locale }) {
                 style={{
                   ...at(pos),
                   transform:
-                    label.side === "left"
-                      ? `translate(calc(-100% - ${label.gap}), -62%)`
-                      : `translate(${label.gap}, -62%)`,
+                    labelSide === "left"
+                      ? `translate(calc(-100% - ${style.gap}), -62%)`
+                      : `translate(${style.gap}, -62%)`,
                 }}
                 className={cx(
                   "absolute flex flex-col gap-[3px] whitespace-nowrap",
-                  label.side === "left" && "items-end",
+                  labelSide === "left" && "items-end",
                 )}
               >
                 <span className="font-cinzel text-[clamp(12px,1.12vw,16px)] leading-none font-normal">
-                  {t.bases[i]?.i}
+                  {icao}
                 </span>
-                <span className={cx("text-[9px] text-av-muted uppercase", label.track)}>
-                  {label.name}
+                <span className={cx("text-[9px] text-av-muted uppercase", style.track)}>
+                  {mapLabel}
                 </span>
               </div>
             </div>
@@ -198,7 +184,7 @@ export function FleetBases({ locale }: { locale: Locale }) {
             </span>
             <span className="flex items-baseline gap-4 whitespace-nowrap">
               {/* Auch leer (EDDG) vorhanden wie in der Referenz: der Abstand bestimmt den Umbruch. */}
-              <span className="text-[13px] text-av-muted tabular-nums">{KM[i]}</span>
+              <span className="text-[13px] text-av-muted tabular-nums">{baseMap[i]?.km}</span>
               <span className="text-[10px] tracking-[0.26em] uppercase">{b.s}</span>
             </span>
           </li>

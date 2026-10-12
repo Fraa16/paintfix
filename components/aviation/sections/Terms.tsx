@@ -68,7 +68,7 @@ export function Terms({ locale }: { locale: Locale }) {
               <tr key={r.k}>
                 <th
                   scope="row"
-                  className="border-t border-av-line py-5 pr-4 text-left align-top text-[10px] tracking-[0.26em] text-av-muted uppercase [font-weight:inherit]"
+                  className="border-t border-av-line py-5 pr-4 text-left align-top text-[10px] [font-weight:inherit] tracking-[0.26em] text-av-muted uppercase"
                 >
                   {r.k}
                 </th>
@@ -177,8 +177,8 @@ function DocCover({ locale }: { locale: Locale }) {
   const t = aviation[locale];
   return (
     <div aria-hidden="true" className="relative mx-auto mt-3 mb-11 aspect-[3/4] w-[min(200px,56%)]">
-      <div className="absolute inset-0 bg-av-gold opacity-30 [transform:translate(18px,-14px)_rotate(5deg)]" />
-      <div className="absolute inset-0 bg-av-doc-back [transform:translate(9px,-7px)_rotate(2.5deg)]" />
+      <div className="absolute inset-0 [transform:translate(18px,-14px)_rotate(5deg)] bg-av-gold opacity-30" />
+      <div className="absolute inset-0 [transform:translate(9px,-7px)_rotate(2.5deg)] bg-av-doc-back" />
       <div className="absolute inset-0 flex flex-col justify-between bg-av-cream p-5 text-av-navy shadow-(--shadow-doc)">
         <p className="font-cinzel text-[8px] font-normal tracking-[0.335em]">
           PAINTFIX <span className="font-sans text-[7px] tracking-[0.34em]">AVIATION</span>

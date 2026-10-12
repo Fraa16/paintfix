@@ -25,7 +25,7 @@ export function AvHeader({ locale, nav, cta }: { locale: Locale; nav: string[]; 
         "fixed inset-x-0 top-0 z-50 border-b backdrop-blur-[14px] transition-[background-color,color,border-color] duration-500 ease-[ease]",
         over
           ? "border-av-navy/12 bg-av-header-bg text-av-navy"
-          : "border-av-cream/16 bg-av-navy/0 text-av-cream [--focus:var(--av-cream)]",
+          : "border-av-cream/16 bg-av-navy/0 text-av-cream [--focus:var(--av-gold)]",
       )}
     >
       <div className="mx-auto flex h-av-header max-w-av items-center justify-between gap-6 px-av-gutter">

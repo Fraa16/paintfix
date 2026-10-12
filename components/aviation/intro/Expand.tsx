@@ -20,7 +20,7 @@ export function Expand({ locale }: { locale: Locale }) {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,20,36,0.72)_0%,rgba(10,20,36,0.15)_42%,rgba(10,20,36,0)_62%,rgba(10,20,36,0.55)_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--av-navy-deep)_72%,transparent)_0%,color-mix(in_srgb,var(--av-navy-deep)_15%,transparent)_42%,transparent_62%,color-mix(in_srgb,var(--av-navy-deep)_55%,transparent)_100%)]"
         />
       </div>
       <div className="absolute inset-x-0 top-[calc(84px+7vh)] flex flex-col items-center gap-[22px] px-6 text-center text-av-cream">

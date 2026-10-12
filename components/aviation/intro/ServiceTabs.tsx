@@ -13,7 +13,8 @@ export type ServiceTab = {
 /**
  * Leistungen als Tabs (README 8.4 Punkt 4, Tab-Version der Referenz Zeilen 689–726).
  * Tabs nach WAI-ARIA: Pfeiltasten, Pos1 und Ende wechseln den Bereich.
- * Inaktive Tabs in --av-muted statt --av-tab-inactive, damit der Kontrast 4,5:1 erreicht (CLAUDE.md 9).
+ * Inaktive Tabs in --av-muted statt --av-tab-inactive (#6A7280 auf Sand 3,9:1), damit der
+ * Kontrast 4,5:1 erreicht (CLAUDE.md 9).
  */
 export function ServiceTabs({
   heading,
@@ -59,7 +60,9 @@ export function ServiceTabs({
     <>
       <div className="flex flex-wrap items-end justify-between gap-8">
         {heading}
-        <div role="tablist" aria-label={tabsLabel} className="flex gap-8">
+        {/* flex-wrap: in EN passt „03 Protection“ bei 360px nicht in die Zeile (Referenz läuft
+            dort 32px über, CLAUDE.md Regel 8). Wo die Tabs passen, ändert sich nichts. */}
+        <div role="tablist" aria-label={tabsLabel} className="flex flex-wrap gap-x-8 gap-y-4">
           {tabs.map((t, i) => {
             const on = i === active;
             return (
