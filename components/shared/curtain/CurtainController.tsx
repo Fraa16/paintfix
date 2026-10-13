@@ -82,9 +82,25 @@ function release() {
   window.dispatchEvent(new Event("pf:curtain-release"));
 }
 
+/**
+ * Fokus auf den Seiteninhalt, wenn er mit dem geklickten Link verschwunden ist (Next lässt den Fokus
+ * bei Client-Navigation stehen, der Link liegt jetzt in der versteckten alten Seite). Sonst begänne
+ * die nächste Tab-Taste irgendwo in der neuen Seite (WCAG 2.4.3).
+ */
+function focusMain() {
+  const active = document.activeElement;
+  // Versteckte Seiten (<Activity>, display: none) haben keine Boxen; feste Leisten schon.
+  if (active && active !== document.body && active.getClientRects().length > 0) return;
+  const main = Array.from(document.querySelectorAll<HTMLElement>("main#inhalt")).find(
+    (m) => m.getClientRects().length > 0,
+  );
+  main?.focus({ preventScroll: true });
+}
+
 /** Blende nach oben wegfahren, nach 980ms (2200 − 1220) ausblenden. */
 function reveal(r: Run) {
   r.el.dataset.ph = "reveal";
+  focusMain();
   release();
   later(r, () => finish(r), T_REMOVE - T_REVEAL);
 }
@@ -200,9 +216,12 @@ function onClick(e: MouseEvent) {
   const url = new URL(a.href);
   if (url.origin !== window.location.origin) return;
 
-  // Während eine Blende läuft, keine weitere Navigation (Referenz: if (s.curtain) return).
+  // Während eine Blende läuft, keine weitere Navigation (Referenz: if (s.curtain) return). Anker auf
+  // derselben Seite (z. B. der Sprunglink, sobald die neue Seite sichtbar ist) bleiben erlaubt.
   if (run) {
-    e.preventDefault();
+    const here = window.location;
+    const samePage = url.pathname === here.pathname && url.search === here.search && url.hash;
+    if (!samePage) e.preventDefault();
     return;
   }
   const to = brandOf(url.pathname);

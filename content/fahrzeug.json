@@ -78,7 +78,7 @@
         690,
         790
       ],
-      "desc": "Nach Außenaufbereitung und Lackkorrektur tragen wir eine zweischichtige Keramikversiegelung auf. Der Lack bleibt länger sauber, glänzt tiefer und ist gegen Umwelteinflüsse geschützt.",
+      "desc": "Nach Außenaufbereitung und Lackkorrektur tragen wir eine zweischichtige Keramikversiegelung von CarPro auf. Der Lack bleibt länger sauber, glänzt tiefer und ist gegen Umwelteinflüsse geschützt.",
       "incl": [
         "Außenaufbereitung inklusive",
         "Einstufige Lackkorrektur",
@@ -138,6 +138,10 @@
     {
       "q": "Lohnt sich eine Keramikversiegelung?",
       "a": "Wenn Sie Ihr Fahrzeug länger fahren und Wert auf einfache Pflege legen, ja. Der Lack verschmutzt langsamer, die Wäsche geht schneller und der Glanz hält über Jahre. Für eine Leasingrückgabe reicht meist eine Politur."
+    },
+    {
+      "q": "Mit welchen Produkten arbeiten Sie?",
+      "a": "Ausschließlich mit Produkten von CarPro, von der Vorwäsche über die Politur bis zur Keramikversiegelung. So sind alle Arbeitsschritte aufeinander abgestimmt."
     },
     {
       "q": "Arbeiten Sie auch für Autohäuser und Flotten?",
