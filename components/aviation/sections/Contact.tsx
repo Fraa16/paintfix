@@ -8,6 +8,8 @@ import { telHref } from "../shell/ui";
 /**
  * Kontakt (README 8.4 Punkt 10, Referenz Zeilen 975–1044): links Einleitung und direkter Kontakt,
  * rechts das Angebotsformular mit Richtwerten (README 10.2).
+ * Reveal wie in der Referenz nur auf der H2 (0). Das Formular selbst bleibt ohne Reveal: es ist beim
+ * Sprung auf #av-contact sofort da und wechselt nach der Hydration (Suspense, ?type=) nicht neu.
  */
 export function Contact({ locale }: { locale: Locale }) {
   const t = aviation[locale];
@@ -30,6 +32,7 @@ export function Contact({ locale }: { locale: Locale }) {
           <AvOverline>{t.formLabel}</AvOverline>
           <h2
             id="av-contact-title"
+            data-rv="0"
             className="mt-7 font-cinzel text-av-h2-form leading-none font-normal tracking-[0.015em]"
           >
             {t.formTitle}

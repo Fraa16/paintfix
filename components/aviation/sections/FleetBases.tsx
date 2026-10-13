@@ -46,9 +46,11 @@ export function FleetBases({
 
   return (
     <>
+      {/* Reveal 100ms wie in der Referenz (Zeile 836) */}
       <div
         role="img"
         aria-label={t.chartLabel}
+        data-rv="100"
         className="relative mt-7 aspect-[260/236] overflow-hidden border border-av-navy/12 bg-av-cream text-av-navy"
       >
         <div

@@ -8,7 +8,10 @@ const reportPhotos: MediaId[] = ["avExterior", "avProtection", "avCabin", "avDet
 
 /**
  * Standards (README 8.4 Punkt 7, Referenz Zeilen 757–818): links vier Nachweise, rechts sticky der
- * Arbeitsbericht mit Stempel im Endzustand (README 9.8: scale 1, rotate −8°, ohne Animation).
+ * Arbeitsbericht mit Stempel, statisch im Endzustand (README 9.8: scale 1, rotate −8°).
+ * Reveals wie in der Referenz (Zeilen 760–805): Overline 0, H2 80, Nachweise gestaffelt 110,
+ * Bericht 0, Prüfpunkte gestaffelt 320, Stempel 1500 nach seinem Auslösen. overflow-x: clip (nicht
+ * hidden, sonst klebt der Bericht nicht), weil der Stempel mit scale 1.7 über den Bericht hinausragt.
  */
 export function Standards({ locale }: { locale: Locale }) {
   const t = aviation[locale];
@@ -22,14 +25,17 @@ export function Standards({ locale }: { locale: Locale }) {
     >
       <div className="mx-auto grid max-w-av grid-cols-[repeat(auto-fit,minmax(min(100%,480px),1fr))] items-start gap-x-[clamp(40px,6vw,120px)] gap-y-16 px-av-gutter">
         <div>
-          <AvOverline>{t.stdLabel}</AvOverline>
+          <div data-rv="0">
+            <AvOverline>{t.stdLabel}</AvOverline>
+          </div>
           <h2
             id="av-standards-title"
+            data-rv="80"
             className="mt-7 max-w-[15ch] font-cinzel text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
           >
             {t.stdTitle}
           </h2>
-          <ul className="mt-[clamp(48px,6vw,72px)]">
+          <ul data-rvs="110" className="mt-[clamp(48px,6vw,72px)]">
             {t.std.map((d) => (
               <li key={d.t} className="border-t border-av-line-strong py-[26px]">
                 <h3 className="font-cinzel text-[19.2px] leading-[1.2] font-normal">{d.t}</h3>
@@ -42,7 +48,10 @@ export function Standards({ locale }: { locale: Locale }) {
         </div>
 
         <figure className="sticky top-[124px]">
-          <div className="relative border border-av-navy/12 bg-av-paper p-[clamp(24px,3vw,40px)] shadow-(--shadow-report)">
+          <div
+            data-rv="0"
+            className="relative border border-av-navy/12 bg-av-paper p-[clamp(24px,3vw,40px)] shadow-(--shadow-report)"
+          >
             <div className="flex items-start justify-between gap-4 border-b border-av-navy pb-5">
               <div>
                 <p className="font-cinzel text-[9.6px] font-normal tracking-[0.335em]">
@@ -67,7 +76,7 @@ export function Standards({ locale }: { locale: Locale }) {
             <p className="mt-7 text-[10px] tracking-[0.24em] text-av-muted uppercase">
               {rep.checksLabel}
             </p>
-            <ul className="mt-2">
+            <ul data-rvs="320" className="mt-2">
               {rep.checks.map((c) => (
                 <li
                   key={c.k}
@@ -110,10 +119,17 @@ export function Standards({ locale }: { locale: Locale }) {
               <span className="text-[12px] text-av-muted">{rep.notified}</span>
             </div>
 
-            {/* Stempel (README 9.8) im Endzustand. Animation folgt in Phase 4. */}
+            {/*
+              Stempel (README 9.8, Referenz Zeile 805): Endzustand über die Einzeleigenschaft `rotate`
+              (−8°, kein transform), die der Reveal zusammen mit `scale` animiert. Die Startzustände
+              stehen in globals.css in @layer components, Utilities gewinnen gegen sie. Deshalb setzt
+              die Variante vor dem Auslösen `rotate: revert-layer` und gibt so den Startwinkel −20° aus
+              globals.css frei. Ohne html[data-motion] (reduzierte Bewegung) gilt nur der Endzustand.
+            */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute right-[clamp(14px,2.2vw,30px)] bottom-[clamp(76px,7vw,104px)] flex size-[124px] -rotate-8 items-center justify-center rounded-full border-[1.5px] border-av-stamp text-av-stamp mix-blend-multiply"
+              data-stamp="1500"
+              className="pointer-events-none absolute right-[clamp(14px,2.2vw,30px)] bottom-[clamp(76px,7vw,104px)] flex size-[124px] -rotate-8 items-center justify-center rounded-full border-[1.5px] border-av-stamp text-av-stamp mix-blend-multiply in-data-motion:not-data-in:rotate-[revert-layer]"
             >
               <span className="absolute inset-[7px] rounded-full border-[0.75px] border-av-stamp" />
               <span className="flex flex-col items-center gap-[5px] text-center">

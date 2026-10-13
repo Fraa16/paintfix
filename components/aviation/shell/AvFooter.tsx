@@ -10,7 +10,7 @@ function ColLabel({ children }: { children: string }) {
 }
 
 /**
- * Footer Aviation (README 8.4 Punkt 11, Referenz Zeilen 1045–1077): Navy, Wortmarke mit CTA,
+ * Footer Aviation (README 8.4 Punkt 11, Referenz Zeilen 1045–1077): Navy, Wortmarke (Reveal) mit CTA,
  * vier Spalten (Kontakt, Flughäfen, Adresse, Legal), unten Copyright und Link zur Fahrzeug-Seite.
  */
 export function AvFooter({ locale }: { locale: Locale }) {
@@ -19,7 +19,7 @@ export function AvFooter({ locale }: { locale: Locale }) {
     <footer className="bg-av-navy text-av-cream [--focus:var(--av-gold)]">
       <div className="mx-auto max-w-av px-av-gutter pt-[clamp(72px,9vw,128px)] pb-10">
         <div className="flex flex-wrap items-end justify-between gap-8 border-b border-av-line-on-navy pb-[clamp(48px,6vw,80px)]">
-          <p className="flex flex-col gap-[18px]">
+          <p data-rv="0" className="flex flex-col gap-[18px]">
             <span className="font-cinzel text-av-wordmark leading-[0.9] font-normal tracking-[0.095em]">
               PAINTFIX
             </span>

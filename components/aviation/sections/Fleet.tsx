@@ -5,6 +5,7 @@ import { FleetBases } from "./FleetBases";
 /**
  * Flotte (README 8.4 Punkt 8, Referenz Zeilen 819–884): links Flugzeugmuster je Klasse, rechts
  * Einsatzradius-Karte und Standortliste (Client-Insel für den Hover-/Fokus-Zustand).
+ * Reveals wie in der Referenz: Overline 0, H2 80, Muster gestaffelt 110; rechts Overline 0, Karte 100.
  */
 export function Fleet({ locale }: { locale: Locale }) {
   const t = aviation[locale];
@@ -13,14 +14,17 @@ export function Fleet({ locale }: { locale: Locale }) {
     <section id="av-fleet" aria-labelledby="av-fleet-title" className="bg-av-sand py-av-section">
       <div className="mx-auto grid max-w-av grid-cols-[repeat(auto-fit,minmax(min(100%,480px),1fr))] items-start gap-x-[clamp(40px,6vw,120px)] gap-y-[72px] px-av-gutter">
         <div>
-          <AvOverline>{t.fleetLabel}</AvOverline>
+          <div data-rv="0">
+            <AvOverline>{t.fleetLabel}</AvOverline>
+          </div>
           <h2
             id="av-fleet-title"
+            data-rv="80"
             className="mt-7 max-w-[14ch] font-cinzel text-av-h2-fleet leading-[1.04] font-normal tracking-[0.02em] text-balance"
           >
             {t.fleetTitle}
           </h2>
-          <dl className="mt-12">
+          <dl data-rvs="110" className="mt-12">
             {t.fleet.map((m) => (
               <div
                 key={m.c}
@@ -37,7 +41,9 @@ export function Fleet({ locale }: { locale: Locale }) {
         </div>
 
         <div>
-          <AvOverline>{t.baseLabel}</AvOverline>
+          <div data-rv="0">
+            <AvOverline>{t.baseLabel}</AvOverline>
+          </div>
           <FleetBases copy={{ bases: t.bases, chartLabel: t.chartLabel, chartSeat: t.chartSeat }} />
         </div>
       </div>

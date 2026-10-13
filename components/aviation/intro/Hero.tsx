@@ -3,40 +3,63 @@ import { AvButton } from "@/components/aviation/Button";
 import { AvOverline } from "@/components/aviation/Overline";
 import { aviation, type Locale } from "@/content/aviation";
 import { altText, media } from "@/content/media";
+import { HeroScene } from "./Scenes";
 
 /**
  * Hero Aviation (README 8.4 Punkt 1, Referenz Zeilen 577–604): sticky, 100vh, min. 640px, Navy.
- * Bildfläche ab −30 % oben (Parallaxe folgt in Phase 4), Verlauf, unten Overline, H1, Untertitel
- * und ab 980px zwei Buttons. Rechts mittig der vertikale Scroll-Hinweis. Die Abschnitte im
- * Inhaltsblock schieben sich darüber.
+ * Bildfläche ab −30 % oben, Verlauf, unten Overline, H1, Untertitel und ab 980px zwei Buttons. Rechts
+ * mittig der vertikale Scroll-Hinweis. Die Abschnitte im Inhaltsblock schieben sich darüber.
+ *
+ * Bewegung (README 9.7, HeroScene): Bildfläche data-pxy 0.3, Zoom 1.12 → 1 (3.2s, --ease-out),
+ * Textblock blendet beim Scrollen aus (data-fade), Reveals: Overline 200, Zeilen-Masken 300 / 430,
+ * untere Zeile 650. Die Masken clippen nur vertikal (overflow-y: clip), damit lange Zeilen bei 360px
+ * nicht seitlich abgeschnitten werden.
  */
 export function Hero({ locale }: { locale: Locale }) {
   const av = aviation[locale];
   return (
-    <section className="sticky top-0 z-1 h-screen min-h-[640px] overflow-hidden bg-av-navy text-av-cream [--focus:var(--av-gold)]">
-      <div className="absolute inset-x-0 top-[-30%] bottom-0 bg-av-navy-deep">
-        <Image
-          src={media.avHero.src}
-          alt={altText("avHero", locale)}
-          fill
-          preload
-          sizes="(max-aspect-ratio: 39/20) 195vh, 100vw"
-          className="object-cover"
-        />
+    <HeroScene className="sticky top-0 z-1 h-screen min-h-[640px] overflow-hidden bg-av-navy text-av-cream [--focus:var(--av-gold)]">
+      <div data-pxy="0.3" className="absolute inset-x-0 top-[-30%] bottom-0 bg-av-navy-deep">
+        <div
+          data-zoom=""
+          className="absolute inset-0 transition-[scale] duration-(--dur-hero-zoom) ease-(--ease-out) motion-safe:[html[data-motion]_&:not([data-in])]:scale-[1.12]"
+        >
+          <Image
+            src={media.avHero.src}
+            alt={altText("avHero", locale)}
+            fill
+            preload
+            sizes="(max-aspect-ratio: 39/20) 195vh, 100vw"
+            className="object-cover"
+          />
+        </div>
       </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--av-navy)_60%,transparent)_0%,transparent_24%,transparent_40%,color-mix(in_srgb,var(--av-navy)_90%,transparent)_100%)]"
       />
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 pb-[132px] wide:pb-[clamp(48px,8vh,104px)]">
+      <div
+        data-fade=""
+        className="pointer-events-none absolute inset-x-0 bottom-0 pb-[132px] wide:pb-[clamp(48px,8vh,104px)]"
+      >
         <div className="mx-auto max-w-av px-av-gutter">
-          <AvOverline tone="navy">{av.heroLabel}</AvOverline>
+          <div data-rv="200">
+            <AvOverline tone="navy">{av.heroLabel}</AvOverline>
+          </div>
           <h1 className="mt-7 font-cinzel text-av-hero leading-none font-normal tracking-[0.02em]">
-            <span className="-mb-[0.1em] block pb-[0.1em]">{av.aT1}</span>
-            <span className="-mb-[0.1em] block pb-[0.1em]">{av.aT2}</span>
+            <span className="-mb-[0.1em] block overflow-y-clip pb-[0.1em]">
+              <span data-rvm="300" className="block">
+                {av.aT1}
+              </span>
+            </span>
+            <span className="-mb-[0.1em] block overflow-y-clip pb-[0.1em]">
+              <span data-rvm="430" className="block">
+                {av.aT2}
+              </span>
+            </span>
           </h1>
-          <div className="mt-10 flex flex-wrap items-end justify-between gap-8">
+          <div data-rv="650" className="mt-10 flex flex-wrap items-end justify-between gap-8">
             <p className="max-w-[520px] text-[clamp(15px,1.2vw,17px)] leading-[1.7] text-pretty text-av-on-navy-hero">
               {av.sub}
             </p>
@@ -59,6 +82,6 @@ export function Hero({ locale }: { locale: Locale }) {
         </span>
         <span className="block h-14 w-px bg-current motion-safe:animate-[pf-cue_2.6s_var(--ease-cue)_infinite]" />
       </div>
-    </section>
+    </HeroScene>
   );
 }

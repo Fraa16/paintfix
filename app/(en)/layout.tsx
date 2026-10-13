@@ -6,6 +6,7 @@ import { siteUrl } from "@/lib/site-url";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
 import { Reveals } from "@/components/shared/motion/Reveals";
 import { bootScript } from "@/components/shared/motion/boot";
+import { Curtain } from "@/components/shared/curtain/Curtain";
 
 /** Root-Layout für /en/aviation. Eigenes Layout, damit <html lang="en"> stimmt. */
 export const metadata: Metadata = {
@@ -24,6 +25,8 @@ export default function EnglishRootLayout({ children }: { children: ReactNode })
       <body>
         {/* Vor dem ersten Paint: Bewegung erlaubt? Curtain-Übergabe? (boot.ts) */}
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+        {/* Markenwechsel-Blende vor dem Inhalt: deckt beim Neuladen ab dem ersten Paint (Curtain.tsx) */}
+        <Curtain />
         {children}
         <SmoothScroll />
         <Reveals />

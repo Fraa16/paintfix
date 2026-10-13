@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @import "./styles/tokens.css";
+/* Lenis (nur Aviation, components/aviation/shell/AvSmoothScroll.tsx). Hier statt im Client-Bundle: Als
+   eigene CSS-Datei würde sie auf Fahrzeugseiten beim Prefetch von /aviation ungenutzt vorgeladen. Die
+   Regeln greifen nur bei html.lenis. */
+@import "lenis/dist/lenis.css";
 
 /*
  * Tailwind spiegelt die Tokens aus styles/tokens.css (README 7.8). Neue Werte gehören in tokens.css,

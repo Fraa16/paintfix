@@ -6,6 +6,7 @@ import { AvLogo } from "@/components/aviation/Logo";
 import { aviationPath, aviationSectionIds, type Locale } from "@/content/aviation-meta";
 import { cx } from "@/lib/cx";
 import { useAvScroll } from "./AvScrollState";
+import { getAvLenis } from "./AvSmoothScroll";
 import { avUi } from "./ui";
 
 const locales: Locale[] = ["de", "en"];
@@ -32,7 +33,12 @@ export function AvHeader({ locale, nav, cta }: { locale: Locale; nav: string[]; 
         <button
           type="button"
           aria-label={ui.toTop}
-          onClick={() => window.scrollTo({ top: 0 })}
+          onClick={() => {
+            // Mit Lenis (ab 980px, Bewegung erlaubt) gleitend, sonst nativ (weich über html[data-smooth]).
+            const lenis = getAvLenis();
+            if (lenis) lenis.scrollTo(0);
+            else window.scrollTo({ top: 0 });
+          }}
           className="flex items-center"
         >
           <AvLogo />

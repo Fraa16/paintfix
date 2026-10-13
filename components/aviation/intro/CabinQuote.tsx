@@ -1,20 +1,25 @@
 import Image from "next/image";
 import { aviation, type Locale } from "@/content/aviation";
 import { altText, media } from "@/content/media";
+import { ParallaxScene } from "./Scenes";
 
 /** Anführungszeichen je Sprache: DE „…“ wie in der Referenz, EN “…”. */
 const QUOTES: Record<Locale, [string, string]> = { de: ["„", "“"], en: ["“", "”"] };
 
 /**
  * Kabinen-Zitat (README 8.4 Punkt 5, Referenz Zeilen 728–735): Höhe clamp(480px,80vh,860px),
- * Kabinenbild auf einer um 20 % überstehenden Fläche (Parallaxe folgt in Phase 4), Zitat in Cinzel.
+ * Kabinenbild auf einer um 20 % überstehenden Fläche mit Parallaxe data-px 0.2 (ParallaxScene),
+ * Zitat in Cinzel.
  */
 export function CabinQuote({ locale }: { locale: Locale }) {
   const av = aviation[locale];
   const [open, close] = QUOTES[locale];
   return (
-    <section className="relative h-[clamp(480px,80vh,860px)] overflow-hidden bg-av-navy text-av-cream">
-      <div className="absolute inset-x-0 -top-[20%] -bottom-[20%] bg-[radial-gradient(70%_70%_at_50%_45%,var(--av-quote-glow)_0%,var(--av-quote-glow-mid)_55%,var(--av-navy-deep)_100%)]">
+    <ParallaxScene className="relative h-[clamp(480px,80vh,860px)] overflow-hidden bg-av-navy text-av-cream">
+      <div
+        data-px="0.2"
+        className="absolute inset-x-0 -top-[20%] -bottom-[20%] bg-[radial-gradient(70%_70%_at_50%_45%,var(--av-quote-glow)_0%,var(--av-quote-glow-mid)_55%,var(--av-navy-deep)_100%)]"
+      >
         <Image
           src={media.avCabinQuiet.src}
           alt={altText("avCabinQuiet", locale)}
@@ -33,6 +38,6 @@ export function CabinQuote({ locale }: { locale: Locale }) {
           </p>
         </blockquote>
       </div>
-    </section>
+    </ParallaxScene>
   );
 }

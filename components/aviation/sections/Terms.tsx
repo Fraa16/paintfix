@@ -8,6 +8,9 @@ const cellX = "px-[clamp(20px,2vw,36px)]";
 /**
  * Zusammenarbeit (README 8.4 Punkt 9, Referenz Zeilen 885–974): ab 980px Vergleichstabelle
  * (Spalten minmax(150px,.7fr) + 3 × 1fr), darunter Karten. Danach das Lieferanten-Onboarding (Navy).
+ * Reveals wie in der Referenz: Overline 0, H2 80, Einleitung 160, Tabelle 0, Onboarding-Block 0.
+ * Die Karten unter 980px haben dort keinen Reveal. Im Block liegt das Formular; er ist so hoch, dass er
+ * immer schon ausgelöst hat, wenn ein Feld sichtbar oder fokussiert ist.
  */
 export function Terms({ locale }: { locale: Locale }) {
   const t = aviation[locale];
@@ -18,21 +21,30 @@ export function Terms({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-av px-av-gutter">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,480px),1fr))] items-end gap-x-[clamp(40px,6vw,120px)] gap-y-7">
           <div>
-            <AvOverline>{t.termsLabel}</AvOverline>
+            <div data-rv="0">
+              <AvOverline>{t.termsLabel}</AvOverline>
+            </div>
             <h2
               id="av-terms-title"
+              data-rv="80"
               className="mt-7 max-w-[14ch] font-cinzel text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
             >
               {t.termsTitle}
             </h2>
           </div>
-          <p className="max-w-[480px] text-[16px] leading-[1.7] text-pretty text-av-muted">
+          <p
+            data-rv="160"
+            className="max-w-[480px] text-[16px] leading-[1.7] text-pretty text-av-muted"
+          >
             {t.termsIntro}
           </p>
         </div>
 
         {/* Ab 980px: Vergleichstabelle */}
-        <table className="mt-[clamp(64px,7vw,104px)] hidden w-full table-fixed border-separate border-spacing-0 border-t border-av-navy wide:table">
+        <table
+          data-rv="0"
+          className="mt-[clamp(64px,7vw,104px)] hidden w-full table-fixed border-separate border-spacing-0 border-t border-av-navy wide:table"
+        >
           <colgroup>
             {/* minmax(150px, .7fr) + 3 × 1fr: ab 980px ist .7fr immer breiter als 150px */}
             <col className="w-[18.92%]" />
@@ -132,7 +144,10 @@ export function Terms({ locale }: { locale: Locale }) {
         </ul>
 
         {/* Lieferanten-Onboarding */}
-        <div className="mt-[clamp(80px,10vw,144px)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] bg-av-navy text-av-cream [--focus:var(--av-gold)]">
+        <div
+          data-rv="0"
+          className="mt-[clamp(80px,10vw,144px)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] bg-av-navy text-av-cream [--focus:var(--av-gold)]"
+        >
           <div className="p-[clamp(32px,5vw,72px)]">
             <AvOverline tone="navy">{t.docsLabel}</AvOverline>
             <h3 className="mt-6 max-w-[16ch] font-cinzel text-av-h3-docs leading-[1.08] font-normal">

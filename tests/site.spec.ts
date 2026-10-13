@@ -94,6 +94,8 @@ test.describe("brand separation (CLAUDE.md rule 5)", () => {
       const red = await page.evaluate(() => {
         const hits: string[] = [];
         for (const el of document.querySelectorAll<HTMLElement>("body *")) {
+          // Die Markenwechsel-Blende zeigt beim Wechsel zur Fahrzeugseite deren Logo (README 9.4).
+          if (el.closest("[data-pf-curtain]")) continue;
           const s = getComputedStyle(el);
           for (const prop of [
             "color",

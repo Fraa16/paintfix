@@ -15,8 +15,8 @@ import { useEffect } from "react";
  *
  * Die Startzustände stehen in globals.css und gelten nur bei html[data-motion] (boot.ts setzt es vor
  * dem ersten Paint, nie bei reduzierter Bewegung). Ausgelöst wird einmalig, sobald die Oberkante unter
- * 92 % der Viewport-Höhe liegt (IntersectionObserver, rootMargin −8 % unten); dann bekommt das Element
- * data-in. Solange der Curtain die Seite bedeckt (html[data-curtain-hold]), warten Reveals und starten
+ * 92 % der Viewport-Höhe und die Unterkante unter −60px liegt, wie reveal() der Referenz
+ * (IntersectionObserver, rootMargin 60px oben, −8 % unten); dann bekommt das Element data-in. Solange der Curtain die Seite bedeckt (html[data-curtain-hold]), warten Reveals und starten
  * beim Event „pf:curtain-release“.
  *
  * Masken beobachten das clippende Elternelement: Der IntersectionObserver berücksichtigt den Clip der
@@ -132,7 +132,7 @@ export function Reveals() {
           }
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0 },
+      { rootMargin: "60px 0px -8% 0px", threshold: 0 },
     );
 
     const prepare = (el: HTMLElement) => {
