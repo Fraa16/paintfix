@@ -60,7 +60,6 @@
 
   /* ---------- Ergänzungen aus der Referenz ----------
      Farben, die die Referenz verwendet, die aber nicht in README 7 stehen. Werte unverändert übernommen. */
-  --car-dot-sep: #b5b8bd; /* Trennpunkt „·“ in der Statuszeile Hero */
   --car-image-bg-alt: #e4e4e0; /* Bildfläche Standort beim Laden */
   --car-ba-haze: #e8e8e2; /* Schleier über dem Vorher-Bild (Vorher/Nachher-Regler) */
   --av-white: #ffffff; /* Hover Primärbutton Aviation (Creme auf Navy) */

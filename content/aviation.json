@@ -10,7 +10,7 @@
     "cta": "Angebot anfordern",
     "cta2": "Leistungen ansehen",
     "scroll": "Scrollen",
-    "heroLabel": "Paintfix Aviation · Münster/Osnabrück",
+    "heroLabel": "Paintfix Aviation in Münster/Osnabrück",
     "aT1": "Jede Oberfläche,",
     "aT2": "dokumentiert.",
     "bT1": "Die Kabine,",
@@ -211,9 +211,9 @@
         }
       ],
       "checksLabel": "Checkliste",
-      "photos": "Fotodokumentation · 24 Aufnahmen",
+      "photos": "Fotodokumentation mit 24 Aufnahmen",
       "sign": "Freigegeben",
-      "notified": "Fertigmeldung an Ops · 08:42 UTC"
+      "notified": "Fertigmeldung an Ops um 08:42 UTC"
     },
     "repCaption": "Beispiel eines Arbeitsberichts. So endet jeder Auftrag.",
     "fleetLabel": "Flugzeugmuster",
@@ -221,19 +221,19 @@
     "fleet": [
       {
         "c": "Turboprop",
-        "m": "King Air 260 / 360 · Pilatus PC-12"
+        "m": "King Air 260 / 360, Pilatus PC-12"
       },
       {
         "c": "Light Jet",
-        "m": "Citation CJ3+ / CJ4 · Phenom 300E · Pilatus PC-24"
+        "m": "Citation CJ3+ / CJ4, Phenom 300E, Pilatus PC-24"
       },
       {
         "c": "Midsize",
-        "m": "Challenger 350 · Praetor 600 · Citation Latitude"
+        "m": "Challenger 350, Praetor 600, Citation Latitude"
       },
       {
         "c": "Large Cabin",
-        "m": "Global 6500 / 7500 · Gulfstream G650 · Falcon 8X"
+        "m": "Global 6500 / 7500, Gulfstream G650, Falcon 8X"
       }
     ],
     "fleetNote": "Weitere Muster und Standorte auf Anfrage.",
@@ -413,14 +413,14 @@
       }
     ],
     "docsCover": "Lieferanten­unterlagen",
-    "docsCoverMeta": "2026 · 6 Dokumente",
+    "docsCoverMeta": "6 Dokumente, Ausgabe 2026",
     "docsEmail": "Geschäftliche E-Mail",
     "docsCompany": "Unternehmen",
     "docsBtn": "Unterlagen herunterladen",
     "docsNote": "Wir verwenden Ihre Adresse nur für diese Unterlagen und Rückfragen dazu.",
     "docsErr": "Bitte eine gültige E-Mail-Adresse eingeben.",
     "docsFile": "Paintfix-Aviation_Lieferantenunterlagen.pdf",
-    "docsMeta": "PDF · 6 Dokumente · 4,8 MB",
+    "docsMeta": "PDF, 6 Dokumente, 4,8 MB",
     "docsDone": "Der Download hat begonnen.",
     "docsDoneSub": "Eine Kopie geht zusätzlich an",
     "docsAgain": "Erneut herunterladen",
@@ -522,7 +522,7 @@
     "cta": "Request a quote",
     "cta2": "View services",
     "scroll": "Scroll",
-    "heroLabel": "Paintfix Aviation · Münster Osnabrück",
+    "heroLabel": "Paintfix Aviation at Münster Osnabrück",
     "aT1": "Every surface,",
     "aT2": "accounted for.",
     "bT1": "The cabin,",
@@ -723,9 +723,9 @@
         }
       ],
       "checksLabel": "Checklist",
-      "photos": "Photo record · 24 images",
+      "photos": "Photo record with 24 images",
       "sign": "Released",
-      "notified": "Completion sent to ops · 08:42 UTC"
+      "notified": "Completion sent to ops at 08:42 UTC"
     },
     "repCaption": "A sample work report. Every job ends with one.",
     "fleetLabel": "Aircraft types",
@@ -733,19 +733,19 @@
     "fleet": [
       {
         "c": "Turboprop",
-        "m": "King Air 260 / 360 · Pilatus PC-12"
+        "m": "King Air 260 / 360, Pilatus PC-12"
       },
       {
         "c": "Light jet",
-        "m": "Citation CJ3+ / CJ4 · Phenom 300E · Pilatus PC-24"
+        "m": "Citation CJ3+ / CJ4, Phenom 300E, Pilatus PC-24"
       },
       {
         "c": "Midsize",
-        "m": "Challenger 350 · Praetor 600 · Citation Latitude"
+        "m": "Challenger 350, Praetor 600, Citation Latitude"
       },
       {
         "c": "Large cabin",
-        "m": "Global 6500 / 7500 · Gulfstream G650 · Falcon 8X"
+        "m": "Global 6500 / 7500, Gulfstream G650, Falcon 8X"
       }
     ],
     "fleetNote": "Other types and locations on request.",
@@ -925,14 +925,14 @@
       }
     ],
     "docsCover": "Vendor documents",
-    "docsCoverMeta": "2026 · 6 documents",
+    "docsCoverMeta": "6 documents, 2026 edition",
     "docsEmail": "Business email",
     "docsCompany": "Company",
     "docsBtn": "Download documents",
     "docsNote": "We only use your address for these documents and related questions.",
     "docsErr": "Please enter a valid email address.",
     "docsFile": "Paintfix-Aviation_Vendor-Documents.pdf",
-    "docsMeta": "PDF · 6 documents · 4.8 MB",
+    "docsMeta": "PDF, 6 documents, 4.8 MB",
     "docsDone": "Your download has started.",
     "docsDoneSub": "A copy is also on its way to",
     "docsAgain": "Download again",

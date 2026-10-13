@@ -23,7 +23,7 @@ export function ComboOffer() {
           </span>
         </p>
         <p className="mt-3 text-[14px] text-car-on-ink-muted">
-          {vehicleClasses[cls].label} · Sie sparen {eur(save)} gegenüber der Einzelbuchung.
+          Für {vehicleClasses[cls].label} sparen Sie {eur(save)} gegenüber der Einzelbuchung.
         </p>
       </div>
       <CarButton

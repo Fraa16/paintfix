@@ -25,7 +25,7 @@ export function Hero() {
         {/* Container für die H1: 13.4cqi hält „bis ins Detail.“ bei jeder Breite in einer Zeile. */}
         <div className="@container pb-[clamp(0px,1.5vw,24px)]">
           <CarOverline rv={0} className="leading-[normal]">
-            Fahrzeugaufbereitung · Telgte bei Münster
+            Fahrzeugaufbereitung in Telgte bei Münster
           </CarOverline>
           <h1 className="mt-7 text-car-hero leading-[0.92] font-bold tracking-[-0.02em] font-stretch-125%">
             <span className="block overflow-hidden pb-[0.07em]">
@@ -56,11 +56,10 @@ export function Hero() {
           </div>
           <div
             data-rv="560"
-            className="mt-7 flex flex-wrap items-center gap-x-2.5 gap-y-2 text-[13px] text-car-text"
+            className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-car-text"
           >
-            <OpeningStatus />
-            <span aria-hidden="true" className="text-car-dot-sep">
-              ·
+            <span className="flex items-center gap-2.5">
+              <OpeningStatus />
             </span>
             <span>
               {site.street}, {site.city}
@@ -84,7 +83,7 @@ export function Hero() {
           </ParallaxLayer>
           {/* Bildunterschrift: Platzhalterfoto, vor dem Launch durch eigenes Foto ersetzen (media.ts). */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-between gap-3 bg-linear-to-b from-car-ink/0 to-car-ink/55 px-5 pt-11 pb-[18px] text-[11px] font-medium tracking-[0.16em] text-car-bg uppercase">
-            <span>VW Golf · {serviceById("aussen").name}</span>
+            <span>{serviceById("aussen").name} am VW Golf</span>
             <span>{fromPrice(serviceById("aussen").p[0])}</span>
           </div>
         </div>

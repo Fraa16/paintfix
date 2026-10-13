@@ -16,7 +16,7 @@ export function BeforeAfter() {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-end gap-x-16 gap-y-6">
           <div>
             <CarOverline rv={0} className="leading-[normal]">
-              {politur.name} · Vorher und nachher
+              {politur.name}, vorher und nachher
             </CarOverline>
             <CarH2 rv={80}>Derselbe Lack, einen Tag später.</CarH2>
           </div>
@@ -33,7 +33,7 @@ export function BeforeAfter() {
         <div className="mt-[18px] flex flex-wrap justify-between gap-x-8 gap-y-2.5 text-[13px] text-car-muted">
           {/* Platzhalterfoto, siehe media.ts: Bildunterschrift erst mit echtem Fotopaar gültig. */}
           <span>
-            Mercedes-Benz C-Klasse · {politur.name}, {politur.dur}
+            {politur.name} an einer Mercedes-Benz C-Klasse, {politur.dur}
           </span>
           <span>
             {politur.name} {fromPrice(politur.p[0])} inkl. MwSt.

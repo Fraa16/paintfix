@@ -6,7 +6,7 @@ import { eur } from "@/lib/format";
 import { usePriceClass } from "./PriceClass";
 
 /**
- * Preiszeile einer Leistung (Referenz Zeilen 316–322): „ab {Preis der Klasse}“, „{Klasse} · inkl. MwSt.“
+ * Preiszeile einer Leistung (Referenz Zeilen 316–322): „ab {Preis der Klasse}“, „{Klasse}, inkl. MwSt.“
  * und „Anfragen →“ mit dieser Leistung und Klasse vorbelegt.
  */
 export function ServicePrice({ id }: { id: ServiceId }) {
@@ -22,7 +22,7 @@ export function ServicePrice({ id }: { id: ServiceId }) {
             {eur(service.p[cls])}
           </span>
         </p>
-        <p className="mt-2 text-[13px] text-car-muted">{vehicleClasses[cls].label} · inkl. MwSt.</p>
+        <p className="mt-2 text-[13px] text-car-muted">{vehicleClasses[cls].label}, inkl. MwSt.</p>
       </div>
       <CarButton
         href={`/anfrage?leistungen=${id}&klasse=${cls}`}

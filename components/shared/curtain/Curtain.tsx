@@ -67,8 +67,9 @@ export function Curtain() {
             <span className="text-[clamp(11px,0.95vw,14px)] tracking-[0.44em]">AVIATION</span>
           </div>
           <span className="block h-px w-14 bg-av-gold" />
-          <span className="text-[10px] tracking-[0.34em] text-av-gold uppercase">
-            Business Aviation · {baseMap[0].icao}
+          <span className="flex gap-[1.2em] text-[10px] tracking-[0.34em] text-av-gold uppercase">
+            <span>Business Aviation</span>
+            <span>{baseMap[0].icao}</span>
           </span>
         </div>
 
@@ -89,7 +90,7 @@ export function Curtain() {
             </span>
           </div>
           <span className="text-[11px] font-medium tracking-[0.2em] text-car-muted uppercase">
-            Fahrzeugaufbereitung · {site.city}
+            Fahrzeugaufbereitung in {site.city}
           </span>
         </div>
       </div>

@@ -86,7 +86,7 @@ export const seatOnMap = { pos: [52.65, 37.75] as const };
  * Nummer und Kennzeichen in aviation.json (rep). Name und Kennzeichen müssen erkennbar fiktiv sein
  * oder durch einen echten, freigegebenen Bericht ersetzt werden.
  */
-export const sampleReport = { signer: "M. Becker", date: "14 · 10 · 2026" } as const;
+export const sampleReport = { signer: "M. Becker", date: "14.10.2026" } as const;
 
 /** Koordinaten unter dem Vorfeld-Bild (Expand). Flughafen Münster/Osnabrück, Platzhalter. */
-export const rampCoordinates = "52°08′05″ N · 7°41′04″ E";
+export const rampCoordinates = "52°08′05″ N, 7°41′04″ E";

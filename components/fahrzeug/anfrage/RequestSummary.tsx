@@ -29,7 +29,7 @@ export function RequestSummary({
           id="anfrage-auswahl"
           className="text-[12px] font-semibold tracking-[0.16em] text-car-on-ink-muted uppercase"
         >
-          Ihre Auswahl · <span className={hide}>{classLabel}</span>
+          Ihre Auswahl <span className={hide}>für {classLabel}</span>
         </h2>
         <ul className="mt-5">
           {estimate.lines.map((line) => (

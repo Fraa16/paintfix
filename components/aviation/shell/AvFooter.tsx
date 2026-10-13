@@ -47,7 +47,7 @@ export function AvFooter({ locale }: { locale: Locale }) {
             <ul>
               {av.bases.map((b) => (
                 <li key={b.i}>
-                  {b.i} · {b.n}
+                  {b.n} ({b.i})
                 </li>
               ))}
             </ul>
@@ -75,7 +75,7 @@ export function AvFooter({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-av-line-on-navy pt-6 text-[12px] text-av-on-navy-muted">
-          <span>© 2026 · {av.footDiv}</span>
+          <span>{av.footDiv} © 2026</span>
           <Link
             href="/"
             hrefLang="de"

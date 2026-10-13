@@ -63,7 +63,7 @@ export function RequestThanks({
           ))}
         </ul>
         <p className="flex justify-between gap-4 py-5 text-[17px] font-semibold">
-          <span>Richtpreis · {classLabel}</span>
+          <span>Richtpreis für {classLabel}</span>
           <span>{fromPrice(estimate.sum)}</span>
         </p>
       </div>

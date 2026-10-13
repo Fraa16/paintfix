@@ -49,7 +49,7 @@ export function openStatus(date: Date): OpenStatus {
     if (h) {
       return {
         open: false,
-        text: `Geschlossen · öffnet ${k === 1 ? "morgen" : DAY_SHORT[next]} um ${h[0]} Uhr`,
+        text: `Geschlossen, öffnet ${k === 1 ? "morgen" : DAY_SHORT[next]} um ${h[0]} Uhr`,
       };
     }
   }

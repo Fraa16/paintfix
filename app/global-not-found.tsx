@@ -8,7 +8,7 @@ import { CarLogo } from "@/components/fahrzeug/Logo";
 import { CarOverline } from "@/components/fahrzeug/Overline";
 
 export const metadata: Metadata = {
-  title: "Seite nicht gefunden · Paintfix",
+  title: "Seite nicht gefunden | Paintfix",
 };
 
 /**

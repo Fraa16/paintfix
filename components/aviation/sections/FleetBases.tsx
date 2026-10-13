@@ -115,7 +115,7 @@ export function FleetBases({
           style={at(seatOnMap.pos)}
           className="absolute translate-x-2.5 -translate-y-1/2 text-[9px] tracking-[0.16em] whitespace-nowrap text-av-muted uppercase"
         >
-          Telgte · {t.chartSeat}
+          {t.chartSeat} Telgte
         </span>
 
         {baseMap.map(({ icao, pos, mapLabel, labelSide }, i) => {

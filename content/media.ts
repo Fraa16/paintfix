@@ -30,7 +30,7 @@ import car6873023 from "@/assets/img/car-6873023.jpg";
  * als Mitarbeiter oder Halle von Paintfix dar.
  *
  * Stock-Fotos dürfen nie als eigene Arbeit von Paintfix erscheinen (UWG § 5). Bildunterschriften wie
- * „VW Golf · Außenaufbereitung“ oder der Vorher/Nachher-Regler brauchen vor dem Launch echte Fotos.
+ * „Außenaufbereitung am VW Golf“ oder der Vorher/Nachher-Regler brauchen vor dem Launch echte Fotos.
  */
 export type MediaSource = "stock" | "client";
 

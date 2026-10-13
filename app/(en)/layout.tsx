@@ -12,7 +12,7 @@ import { Curtain } from "@/components/shared/curtain/Curtain";
 /** Root-Layout für /en/aviation. Eigenes Layout, damit <html lang="en"> stimmt. */
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  title: { default: "Paintfix Aviation", template: "%s · Paintfix Aviation" },
+  title: { default: "Paintfix Aviation", template: "%s | Paintfix Aviation" },
 };
 
 export default function EnglishRootLayout({ children }: { children: ReactNode }) {

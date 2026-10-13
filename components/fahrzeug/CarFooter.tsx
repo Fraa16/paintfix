@@ -68,7 +68,7 @@ export function CarFooter() {
 
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-car-ink-line pt-6 text-[13px] text-car-input-placeholder">
           {/* Jahr wie in der Referenz fest, damit beim Rendern kein Datum gelesen wird. */}
-          <p>© 2026 Paintfix · Inh. {site.owner}</p>
+          <p>© 2026 Paintfix, Inh. {site.owner}</p>
           <CarAviationLink tone="onInk" />
         </div>
       </div>
