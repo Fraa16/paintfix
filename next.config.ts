@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
   },
   images: {
+    // AVIF zuerst (deutlich kleiner als WebP, wichtig für das LCP auf Mobilgeräten), sonst WebP.
+    formats: ["image/avif", "image/webp"],
     qualities: [75, 85],
   },
   turbopack: {

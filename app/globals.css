@@ -227,7 +227,9 @@
     translate: 0 110%;
   }
 
+  /* Endwert inset(0) statt none: nur zwischen zwei inset()-Werten läuft ein Übergang. */
   html[data-motion] [data-rvc] {
+    clip-path: inset(0 0 0 0);
     transition: clip-path 1.6s var(--ease-clip) var(--rv-d, 0ms);
   }
   html[data-motion] [data-rvc]:not([data-in]) {

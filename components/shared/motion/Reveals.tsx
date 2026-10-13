@@ -22,22 +22,24 @@ import { useEffect } from "react";
  * Masken beobachten das clippende Elternelement: Der IntersectionObserver berücksichtigt den Clip der
  * Vorfahren, eine um 110 % verschobene Zeile wäre also nie sichtbar.
  *
- * Hydration: Verzögerungen kommen aus einem eigenen Stylesheet (keine Inline-Styles), und data-in wird
- * erst gesetzt, wenn React das Element hydriert hat. Sonst meldet React Abweichungen zwischen Server-
- * und Client-Markup, weil das Root-Layout vor den Seitensegmenten hydriert.
+ * Hydration: Verzögerungen kommen aus dem Stylesheet von early.ts (keine Inline-Styles), und data-in
+ * setzt dieser Controller erst, wenn React das Element hydriert hat. Sonst meldet React Abweichungen
+ * zwischen Server- und Client-Markup, weil das Root-Layout vor den Seitensegmenten hydriert. Was beim
+ * Laden schon sichtbar ist, deckt in der Produktion early.ts vor der Hydration auf.
  *
  * Achtung: Reveals setzen `translate`, `opacity`, `clip-path`, `scale`, `rotate`. Elemente mit eigenen
  * Tailwind-Utilities für dieselben Eigenschaften (z. B. -translate-y-1/2) nicht direkt markieren,
  * sondern einen Wrapper verwenden.
  */
 const SELECTOR = "[data-rv],[data-rvs],[data-rvm],[data-rvc],[data-stamp]";
-const DELAY_ATTRS = ["data-rv", "data-rvm", "data-rvc", "data-stamp"] as const;
 /** Längste Wartezeit auf die Hydration, danach wird trotzdem eingeblendet. */
 const HYDRATION_TIMEOUT = 5000;
 
 declare global {
   interface Window {
     __pfMotion?: boolean;
+    /** Verzögerungs-Stylesheet aus early.ts: ergänzt Regeln für neue Reveal-Elemente. */
+    __pfRv?: { add(el: Element): void };
   }
 }
 
@@ -46,50 +48,12 @@ function isHydrated(el: Element) {
   return Object.keys(el).some((k) => k.startsWith("__reactFiber$"));
 }
 
-/** Regeln für Verzögerungen und Staffel-Indizes, erzeugt aus den Werten im Markup. */
-function createDelaySheet() {
-  const sheet = new CSSStyleSheet();
-  document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
-  const delays = new Set<string>();
-  const steps = new Set<string>();
-  let children = 0;
-
-  return {
-    sheet,
-    add(el: Element) {
-      const step = el.getAttribute("data-rvs");
-      if (step !== null) {
-        if (!steps.has(step)) {
-          steps.add(step);
-          const ms = parseInt(step, 10) || 100;
-          sheet.insertRule(`[data-rvs="${CSS.escape(step)}"]{--rv-step:${ms}ms}`);
-        }
-        for (; children < el.children.length; children++) {
-          sheet.insertRule(`[data-rvs]>:nth-child(${children + 1}){--rv-i:${children}}`);
-        }
-        return;
-      }
-      for (const attr of DELAY_ATTRS) {
-        const value = el.getAttribute(attr);
-        if (value === null || delays.has(`${attr}=${value}`)) continue;
-        delays.add(`${attr}=${value}`);
-        const ms = parseInt(value, 10) || 0;
-        sheet.insertRule(`[${attr}="${CSS.escape(value)}"]{--rv-d:${ms}ms}`);
-      }
-    },
-    remove() {
-      document.adoptedStyleSheets = document.adoptedStyleSheets.filter((s) => s !== sheet);
-    },
-  };
-}
-
 export function Reveals() {
   useEffect(() => {
     const root = document.documentElement;
     if (!root.hasAttribute("data-motion")) return;
     window.__pfMotion = true;
 
-    const delays = createDelaySheet();
     const seen = new WeakSet<Element>();
     /** Beobachtetes Element → Reveal-Elemente (bei Masken das Elternelement). */
     const targets = new Map<Element, Element[]>();
@@ -138,7 +102,7 @@ export function Reveals() {
     const prepare = (el: HTMLElement) => {
       if (seen.has(el) || el.hasAttribute("data-in")) return;
       seen.add(el);
-      delays.add(el);
+      window.__pfRv?.add(el);
       const target = (el.hasAttribute("data-rvm") && el.parentElement) || el;
       const els = targets.get(target);
       if (els) els.push(el);
@@ -178,7 +142,6 @@ export function Reveals() {
       cancelAnimationFrame(waitFrame);
       window.removeEventListener("pf:curtain-release", release);
       reduced.removeEventListener("change", onReduced);
-      delays.remove();
     };
   }, []);
 

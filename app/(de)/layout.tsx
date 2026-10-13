@@ -6,6 +6,7 @@ import { siteUrl } from "@/lib/site-url";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
 import { Reveals } from "@/components/shared/motion/Reveals";
 import { bootScript } from "@/components/shared/motion/boot";
+import { earlyRevealScript } from "@/components/shared/motion/early";
 import { Curtain } from "@/components/shared/curtain/Curtain";
 
 /** Root-Layout für alle deutschen Seiten (Fahrzeug und /aviation). */
@@ -28,6 +29,12 @@ export default function GermanRootLayout({ children }: { children: ReactNode }) 
         {/* Markenwechsel-Blende vor dem Inhalt: deckt beim Neuladen ab dem ersten Paint (Curtain.tsx) */}
         <Curtain />
         {children}
+        {/* Nach dem Inhalt, vor der Hydration: Reveal-Verzögerungen, sichtbare Reveals starten (early.ts) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: earlyRevealScript(process.env.NODE_ENV === "production"),
+          }}
+        />
         <SmoothScroll />
         <Reveals />
       </body>
