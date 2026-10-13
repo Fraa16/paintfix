@@ -29,7 +29,7 @@ Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_mo
 - `app/(de)/(fahrzeug)/` mit eigenem Layout (Header, Footer, Aktionsleiste): `/`, `/leistungen`, `/anfrage`, `/impressum`, `/datenschutz`, `/agb`
 - `app/(de)/aviation/` und `app/(en)/en/aviation/` mit eigenem Layout (`components/aviation/AviationShell.tsx`), Seite aus `components/aviation/AviationPage.tsx`
 - `app/global-not-found.tsx` 404 für beide Root-Layouts
-- `components/fahrzeug`, `components/aviation`, `components/shared` (Action, OpeningStatus; später Reveal, Parallax, Curtain)
+- `components/fahrzeug`, `components/aviation`, `components/shared` (Action, OpeningStatus, SkipLink; `motion/` Boot-Skript, Reveals, Scroll-Takt; `curtain/` Markenwechsel)
 - `content/` Inhalte (`fahrzeug.ts`, `aviation.ts`, `site.ts`), Bildregister `media.ts`; `aviation-meta.ts` enthält Aviation-Daten ohne Texte (Anker, Karte, Musterbericht) für Client-Komponenten
 - `lib/` Hilfsfunktionen (Preisformat, Öffnungsstatus, Preislogik)
 - `assets/img/` Fotos (derzeit Pexels-Platzhalter)
@@ -63,12 +63,14 @@ Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_mo
 - Next hält besuchte Seiten versteckt im DOM (`<Activity>`, display: none). Deshalb keine seitenabhängigen Stile über `html:has(…)`: versteckte Seiten würden mitzählen. Werte am `<html>` per Effekt setzen (`useRootVar` in `components/shared/root-scroll.ts`); React räumt Effekte versteckter Seiten auf.
 - Feste und klebende Leisten melden ihre Höhe für `scroll-padding` (`--pf-header-h`, `--pf-sticky-h`, `--pf-bar-car`, `--pf-bar-av`), damit Anker und Tastaturfokus nie dahinter landen (WCAG 2.4.11).
 - Client-Komponenten importieren nie `content/aviation.ts` (zieht beide Sprachen ins Bundle). Texte kommen als Props von der Server-Komponente, Daten aus `content/aviation-meta.ts`; Typen per `import type`.
+- Reveals: Attribute `data-rv`/`data-rvs`/`data-rvm`/`data-rvc`/`data-stamp` (Wert = Verzögerung in ms) genügen, auch in Server-Komponenten. Nicht auf Elemente mit eigenen translate/scale/rotate/opacity/clip-path-Utilities setzen und nicht auf Anker-Ziele (Wrapper verwenden). Sichtbare Reveals startet `motion/early.ts` vor der Hydration (nur Produktion), den Rest `motion/Reveals.tsx`.
 - `useSearchParams` nur in `<Suspense>`. Der Fallback zeigt nie einen Zustand, der falsch sein kann (z. B. Preise), sondern einen neutralen Platzhalter.
 
 ## Stand
 
 - Phase 1 + 2 (Setup, statische Seiten mit UI-Zuständen): umgesetzt
-- Phase 3 (Formular-Versand), 4 (Bewegung), 6 (SEO, Recht, Analytics), 7 (echte Fotos, Launch): offen
+- Phase 4 (Bewegung: Reveals, Parallaxe, Curtain, Scroll-Szenen, Lenis): umgesetzt
+- Phase 3 (Formular-Versand), 6 (SEO, Recht, Analytics), 7 (echte Fotos, Launch): offen
 
 ## Vor jedem PR
 
