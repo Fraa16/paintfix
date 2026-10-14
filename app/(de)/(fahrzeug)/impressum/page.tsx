@@ -31,11 +31,10 @@ export default function ImpressumPage() {
         </div>
         <LegalNote title="Noch nicht vollständig">
           <p>
-            Die weiteren Pflichtangaben nach §&nbsp;5 DDG, etwa die
-            Umsatzsteuer-Identifikationsnummer, und die Angaben zur Verbraucherstreitbeilegung
-            ergänzen wir vor dem Start der Website.
+            Die weiteren Pflichtangaben nach §&nbsp;5 DDG und die Angaben zur
+            Verbraucherstreitbeilegung ergänzen wir vor dem Start der Website.
           </p>
-          <p>Telefonnummer, E-Mail-Adresse und Inhaberangabe werden bis dahin noch bestätigt.</p>
+          <p>E-Mail-Adresse und Inhaberangabe werden bis dahin noch bestätigt.</p>
         </LegalNote>
       </LegalGrid>
     </LegalPage>

@@ -1,3 +1,4 @@
+import { INSPECT_PRICE } from "@/content/fahrzeug";
 import { site } from "@/content/site";
 import { cx } from "@/lib/cx";
 import { eur } from "@/lib/format";
@@ -11,14 +12,18 @@ import type { PriceEstimate } from "@/lib/pricing";
  */
 export function RequestSummary({
   estimate,
+  inspect,
   classLabel,
   pending = false,
 }: {
   estimate: PriceEstimate;
+  /** Gewählte Leistungen mit Preis nach Begutachtung. */
+  inspect: string[];
   classLabel: string;
   pending?: boolean;
 }) {
   const hide = pending ? "invisible" : undefined;
+  const onlyInspect = estimate.lines.length === 0 && inspect.length > 0;
   return (
     <aside
       aria-labelledby="anfrage-auswahl"
@@ -41,7 +46,16 @@ export function RequestSummary({
               <span className={cx("whitespace-nowrap tabular-nums", hide)}>{eur(line.price)}</span>
             </li>
           ))}
-          {estimate.lines.length === 0 && (
+          {inspect.map((name) => (
+            <li
+              key={name}
+              className="flex justify-between gap-4 border-b border-car-ink-line py-3.5 text-[15px]"
+            >
+              <span>{name}</span>
+              <span className="whitespace-nowrap text-car-on-ink-muted">{INSPECT_PRICE}</span>
+            </li>
+          ))}
+          {estimate.lines.length === 0 && inspect.length === 0 && (
             <li className="border-b border-car-ink-line py-3.5 text-[15px] text-car-on-ink-muted">
               Noch keine Leistung gewählt.
             </li>
@@ -53,23 +67,31 @@ export function RequestSummary({
           className="mt-7 flex items-baseline justify-between gap-4"
         >
           <span className="text-[14px] text-car-on-ink-muted">Richtpreis</span>
-          <span className="flex items-baseline gap-2">
-            <span className="text-[15px] text-car-on-ink-muted">ab</span>
-            <span
-              className={cx(
-                "text-[48px] leading-none font-medium tracking-[-0.03em] tabular-nums",
-                hide,
-              )}
-            >
-              {eur(estimate.sum)}
+          {onlyInspect ? (
+            <span className="text-[20px] font-medium">{INSPECT_PRICE}</span>
+          ) : (
+            <span className="flex items-baseline gap-2">
+              <span className="text-[15px] text-car-on-ink-muted">ab</span>
+              <span
+                className={cx(
+                  "text-[48px] leading-none font-medium tracking-[-0.03em] tabular-nums",
+                  hide,
+                )}
+              >
+                {eur(estimate.sum)}
+              </span>
             </span>
-          </span>
+          )}
         </div>
+        {inspect.length > 0 && !onlyInspect && (
+          <p className="mt-4 text-[13px]">Zuzüglich {inspect.join(" und ")} nach Begutachtung.</p>
+        )}
         {estimate.combo && (
           <p className="mt-4 text-[13px]">Kombipreis für außen + innen berücksichtigt.</p>
         )}
         <p className="mt-4 text-[13px] leading-[1.55] text-car-on-ink-muted">
-          Inkl. MwSt. Den Festpreis nennen wir nach kurzer Sichtung, bevor wir beginnen.
+          Endpreis. {site.vatNote} Den Festpreis nennen wir nach kurzer Sichtung, bevor wir
+          beginnen.
         </p>
       </div>
       <div className="flex flex-col gap-1.5 border border-t-0 border-car-line bg-car-bg px-8 py-6 text-[14px]">

@@ -48,7 +48,7 @@
       "id": "politur",
       "img2": "img/car-14908957.jpg",
       "no": "03",
-      "name": "Politur",
+      "name": "Lackkorrektur",
       "short": "Lackreinigung, Maschinenpolitur",
       "dur": "1 Tag",
       "p": [
@@ -151,5 +151,86 @@
       "q": "Was hat Paintfix mit Flugzeugen zu tun?",
       "a": "Paintfix Aviation ist unser eigener Bereich für Business Aviation, mit eigenem Team und eigener Kalkulation. Für Ihr Auto bedeutet das: dieselbe Gründlichkeit und ein Fotoprotokoll bei jeder Übergabe. Die Preise für Fahrzeuge berechnen wir unabhängig davon."
     }
-  ]
+  ],
+  "inspect": [
+    {
+      "id": "smart-repair",
+      "name": "Smart Repair",
+      "short": "Kratzer, Dellen und Steinschläge punktuell beheben.",
+      "dur": "nach Umfang",
+      "desc": "Kleine Schäden reparieren wir dort, wo sie sind, statt ganze Bauteile neu zu lackieren. Das spart Zeit und Kosten, und Ihr Fahrzeug behält so viel Originallack wie möglich.",
+      "incl": [
+        "Kratzer und Schrammen im Lack",
+        "Kleine Dellen und Parkrempler",
+        "Steinschläge an Haube und Front",
+        "Bordsteinschäden an Felgen",
+        "Farbton passend zum Originallack",
+        "Festpreis nach Begutachtung"
+      ],
+      "media": "carSvcSmartRepair"
+    },
+    {
+      "id": "leasing",
+      "name": "Leasingrückgabe",
+      "short": "Schäden beheben, bevor sie bei der Rückgabe berechnet werden.",
+      "dur": "nach Umfang",
+      "desc": "Bei der Rückgabe wird jeder Kratzer protokolliert und oft teuer berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und bereiten es innen und außen auf. Was gemacht wird, entscheiden Sie nach der Begutachtung.",
+      "incl": [
+        "Sichtung vor dem Rückgabetermin",
+        "Smart Repair kleiner Schäden",
+        "Lackkorrektur, wo sie sich lohnt",
+        "Aufbereitung innen und außen",
+        "Fotoprotokoll vor der Übergabe",
+        "Festpreis nach Begutachtung"
+      ],
+      "media": "carSvcLeasing"
+    }
+  ],
+  "focus": [
+    {
+      "id": "smart-repair",
+      "name": "Smart Repair",
+      "short": "Kratzer, Dellen und Steinschläge punktuell beheben, ohne Komplettlackierung.",
+      "price": null
+    },
+    {
+      "id": "politur",
+      "name": "Lackkorrektur",
+      "short": "Waschkratzer, Hologramme und matter Lack, maschinell auspoliert.",
+      "price": "politur"
+    },
+    {
+      "id": "leasing",
+      "name": "Leasingrückgabe",
+      "short": "Schäden beheben, bevor sie bei der Rückgabe berechnet werden.",
+      "price": null
+    },
+    {
+      "id": "aussen",
+      "name": "Fahrzeugaufbereitung",
+      "short": "Außen, innen und Keramikversiegelung, mit Produkten von CarPro.",
+      "price": "aussen"
+    }
+  ],
+  "leasingBand": {
+    "label": "Leasingrückgabe",
+    "title": "Bevor der Gutachter kommt.",
+    "text": "Bei der Rückgabe wird jeder Kratzer protokolliert und berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und übergeben es aufbereitet und dokumentiert.",
+    "steps": [
+      {
+        "t": "Begutachtung",
+        "d": "Wir prüfen Lack, Felgen und Innenraum und nennen Ihnen einen Festpreis."
+      },
+      {
+        "t": "Smart Repair und Aufbereitung",
+        "d": "Kleine Schäden beheben, Lack korrigieren, innen und außen aufbereiten."
+      },
+      {
+        "t": "Übergabe mit Fotoprotokoll",
+        "d": "Sie geben ein gepflegtes Fahrzeug zurück, der Zustand ist dokumentiert."
+      }
+    ],
+    "cta": "Rückgabe-Check anfragen",
+    "more": "Mehr zur Leasingrückgabe"
+  }
 }

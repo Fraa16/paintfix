@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CarButton } from "@/components/fahrzeug/Button";
 import { CarOverline } from "@/components/fahrzeug/Overline";
-import { serviceById, services } from "@/content/fahrzeug";
+import { focusAreas, INSPECT_PRICE, serviceById } from "@/content/fahrzeug";
 import { altText, media } from "@/content/media";
 import { site } from "@/content/site";
 import { eur, fromPrice } from "@/lib/format";
@@ -11,7 +11,8 @@ import { ParallaxLayer } from "./ParallaxLayer";
 
 /**
  * Hero Startseite (README 8.1 Punkt 2, Referenz Zeilen 96–130): Text links, Bild 4:5 rechts,
- * darunter die Preisleiste mit den Kleinwagenpreisen.
+ * darunter die vier Schwerpunkte (Kundenwunsch 14.10.2026, statt der vier Einzelleistungen) mit
+ * Kleinwagenpreis bzw. „nach Begutachtung“.
  *
  * Bewegung (README 9.1/9.2, nur ohne reduzierte Bewegung): Reveals mit den Verzögerungen der Referenz
  * (Overline 0, H1-Zeilen als Masken 80/190, Text 360, Buttons 460, Status 560, Preisleiste gestaffelt
@@ -30,7 +31,7 @@ export function Hero() {
           <h1 className="mt-7 text-car-hero leading-[0.92] font-bold tracking-[-0.02em] font-stretch-125%">
             <span className="block overflow-hidden pb-[0.07em]">
               <span data-rvm="80" className="block">
-                Gründlich
+                Makellos
               </span>
             </span>
             <span className="block overflow-hidden pb-[0.07em]">
@@ -43,8 +44,8 @@ export function Hero() {
             data-rv="360"
             className="mt-7 max-w-[480px] text-[clamp(16px,1.3vw,19px)] leading-[1.6] text-pretty text-car-text"
           >
-            Außen, innen, Politur und Keramikversiegelung für Ihr Alltagsauto, in unserer Halle in
-            Telgte. Den Festpreis kennen Sie, bevor wir beginnen.
+            Smart Repair, Lackkorrektur, Vorbereitung auf die Leasingrückgabe und hochwertige
+            Aufbereitung, in unserer Halle in Telgte. Den Festpreis kennen Sie, bevor wir beginnen.
           </p>
           <div data-rv="460" className="mt-9 flex flex-wrap gap-3">
             <CarButton className="leading-[normal]" href="/anfrage" arrow>
@@ -94,7 +95,7 @@ export function Hero() {
   );
 }
 
-/** Preisleiste: vier Spalten (minmax 230px), 2px Linie oben, Hover rot, Klick zur Leistung. */
+/** Schwerpunkte: vier Spalten (minmax 230px), 2px Linie oben, Hover rot, Klick zur Leistung. */
 function PriceBar() {
   return (
     <div className="mx-auto max-w-car px-car-gutter pt-[clamp(48px,6vw,88px)] pb-[clamp(64px,8vw,112px)]">
@@ -102,32 +103,36 @@ function PriceBar() {
         data-rvs="90"
         className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,230px),1fr))] gap-x-6"
       >
-        {services.map((s) => (
-          <li key={s.id} className="flex">
+        {focusAreas.map((f, i) => (
+          <li key={f.id} className="flex">
             <Link
-              href={`/leistungen#svc-${s.id}`}
+              href={`/leistungen#svc-${f.id}`}
               className="flex w-full flex-col gap-[22px] border-t-2 border-car-ink pt-[22px] pb-2 hover:border-t-car-red"
             >
-              <span className="flex justify-between text-[13px] text-car-muted">
-                <span>{s.no}</span>
-                <span>{s.dur}</span>
-              </span>
+              <span className="text-[13px] text-car-muted">{String(i + 1).padStart(2, "0")}</span>
               <span className="text-[20px] font-semibold tracking-[-0.01em] font-stretch-108%">
-                {s.name}
+                {f.name}
               </span>
-              <span className="flex items-baseline gap-2">
-                <span className="text-[14px] text-car-muted">ab</span>
-                <span className="text-car-price-xl leading-none font-medium tracking-[-0.035em] tabular-nums">
-                  {eur(s.p[0])}
+              <span className="text-[15px] leading-[1.5] text-car-text">{f.short}</span>
+              {f.price ? (
+                <span className="mt-auto flex items-baseline gap-2">
+                  <span className="text-[14px] text-car-muted">ab</span>
+                  <span className="text-car-price-xl leading-none font-medium tracking-[-0.035em] tabular-nums">
+                    {eur(serviceById(f.price).p[0])}
+                  </span>
                 </span>
-              </span>
+              ) : (
+                <span className="mt-auto flex min-h-(--car-fs-price-xl) items-end text-[17px] font-medium">
+                  Preis {INSPECT_PRICE}
+                </span>
+              )}
             </Link>
           </li>
         ))}
       </ul>
       <p className="mt-5 text-[13px] text-car-muted">
-        Preise für Kleinwagen inkl. MwSt. Limousinen, Kombis, SUVs und Vans finden Sie auf der
-        Leistungsseite.
+        Endpreise für Kleinwagen. {site.vatNote} Preise für Limousinen, Kombis, SUVs und Vans finden
+        Sie auf der Leistungsseite.
       </p>
     </div>
   );

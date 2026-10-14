@@ -10,7 +10,7 @@ export type ServiceSelection = Readonly<Partial<Record<ServiceId, boolean>>>;
 
 export interface PriceLine {
   name: string;
-  /** Preis in Euro, inkl. MwSt. */
+  /** Preis in Euro, Endpreis (Kleinunternehmer, § 19 UStG). */
   price: number;
 }
 

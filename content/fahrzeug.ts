@@ -1,8 +1,14 @@
 import data from "./fahrzeug.json";
+import type { MediaId } from "./media";
 
 /**
  * Fahrzeug-Inhalte aus design/handoff/content/fahrzeug.json (Kopie in content/fahrzeug.json).
  * Preise sind Platzhalter, bis Paintfix sie bestätigt (README 3).
+ *
+ * Schwerpunkte (Kundenwunsch 14.10.2026): Smart Repair, Lackkorrektur, Leasingrückgabe und
+ * hochwertige Aufbereitung stehen auf der Startseite vorn (`focus`). Smart Repair und
+ * Leasingrückgabe (`inspect`) haben noch keinen bestätigten Umfang und keine Preise: Texte und
+ * Leistungslisten sind Platzhalter, bis Paintfix sie bestätigt; der Preis heißt „nach Begutachtung“.
  */
 
 export type ServiceId = "aussen" | "innen" | "politur" | "keramik";
@@ -17,7 +23,7 @@ export interface Service {
   name: string;
   short: string;
   dur: string;
-  /** Preise je Fahrzeugklasse in Euro, inkl. MwSt. */
+  /** Preise je Fahrzeugklasse in Euro, Endpreise (Kleinunternehmer, § 19 UStG). */
   p: [number, number, number];
   desc: string;
   incl: string[];
@@ -37,6 +43,31 @@ export interface Extra {
   price: string;
 }
 
+/** Leistung mit Preis nach Begutachtung (Smart Repair, Leasingrückgabe). */
+export type InspectId = "smart-repair" | "leasing";
+
+export interface InspectService {
+  id: InspectId;
+  name: string;
+  short: string;
+  dur: string;
+  desc: string;
+  incl: string[];
+  media: MediaId;
+}
+
+/** Schwerpunkt der Startseite. `id` ist zugleich der Anker auf /leistungen (#svc-{id}). */
+export interface FocusArea {
+  id: ServiceId | InspectId;
+  name: string;
+  short: string;
+  /** Leistung, deren Kleinwagenpreis „ab …“ zeigt; null = „nach Begutachtung“. */
+  price: ServiceId | null;
+}
+
+/** Text an Stelle des Preises für Leistungen nach Begutachtung. */
+export const INSPECT_PRICE = "nach Begutachtung";
+
 export interface FaqEntry {
   q: string;
   a: string;
@@ -52,6 +83,21 @@ export const extras = (data.extras as Extra[]).map((x) => ({
   price: x.price.replace(/ €/g, "\u00A0€"),
 }));
 export const faq = data.faq as FaqEntry[];
+export const inspectServices = data.inspect as InspectService[];
+/** Schwarzes Band zur Leasingrückgabe auf der Startseite (Kundenwunsch 14.10.2026). */
+export const leasingBand = data.leasingBand as {
+  label: string;
+  title: string;
+  text: string;
+  steps: { t: string; d: string }[];
+  cta: string;
+  more: string;
+};
+export const focusAreas = data.focus as FocusArea[];
+
+export function isInspectId(id: string): id is InspectId {
+  return inspectServices.some((s) => s.id === id);
+}
 
 export function serviceById(id: ServiceId): Service {
   const s = services.find((x) => x.id === id);

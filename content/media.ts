@@ -109,6 +109,19 @@ export const media = {
     ...pexels,
   },
 
+  carSvcSmartRepair: {
+    src: car14615262,
+    alt: { de: "Maschinenpolitur am Lack eines dunklen Fahrzeugs" },
+    needed: "Smart Repair: Spot-Reparatur eines Kratzers oder einer Delle",
+    ...pexels,
+  },
+  carSvcLeasing: {
+    src: car12397895,
+    alt: { de: "Heckpartie eines grauen Mercedes-Benz C-Klasse Coupés" },
+    needed: "Leasingrückgabe: Begutachtung oder Übergabe eines aufbereiteten Fahrzeugs",
+    ...pexels,
+  },
+
   // ---------- Aviation ----------
   avHero: {
     src: av28772726,

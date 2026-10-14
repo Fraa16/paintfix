@@ -77,7 +77,7 @@
         },
         {
           "t": "Brightwork-Politur",
-          "d": "Eintrittskanten, Triebwerkseinläufe und blanke Metallteile, poliert und versiegelt. Für blankes Aluminium setzen wir unter anderem NUVITE NuShine II ein, vor allem Grade G6 und Grade S."
+          "d": "Eintrittskanten, Triebwerkseinläufe und blanke Metallteile, poliert und versiegelt. Für blankes Aluminium setzen wir unter anderem NUVITE NuShine II ein, vor allem Grade G6 und Grade S."
         },
         {
           "t": "Lackkorrektur",
@@ -99,7 +99,7 @@
         },
         {
           "t": "Galley & Waschraum",
-          "d": "Hygienische Reinigung mit freigegebenen Desinfektionsmitteln, je Zone dokumentiert."
+          "d": "Hygienische Reinigung mit materialschonenden Desinfektionsmitteln, je Zone dokumentiert."
         }
       ],
       [
@@ -144,19 +144,19 @@
       }
     ],
     "stdLabel": "Standards",
-    "stdTitle": "Was Ihr Compliance-Team wissen möchte.",
+    "stdTitle": "So arbeiten wir an Ihrem Flugzeug.",
     "std": [
       {
-        "t": "ZÜP-geprüftes Personal",
-        "d": "Zuverlässigkeitsüberprüfung nach § 7 LuftSiG, geschult für den Vorfeldbetrieb."
+        "t": "Abgestimmt auf Ihren Betrieb",
+        "d": "Zugang, Sicherheitsregeln und Zeitfenster stimmen wir vorab mit Ihrem Betrieb, Handling oder FBO ab."
       },
       {
-        "t": "Freigegebene Mittel",
-        "d": "Reinigungs- und Pflegemittel von Aero-Sense nach Boeing D6-17487 und AMS 1526, eingesetzt gemäß Herstellervorgaben."
+        "t": "Ausgewählte Pflegemittel",
+        "d": "Produkte von Aero-Sense und für blankes Aluminium NUVITE NuShine II, eingesetzt nach Herstellervorgaben. Datenblätter auf Anfrage."
       },
       {
-        "t": "Luftfahrt-Haftpflicht",
-        "d": "Eigene Deckung für Arbeiten an Luftfahrzeugen. Versicherungsnachweis auf Anfrage."
+        "t": "Schonende Verfahren",
+        "d": "Sensoren, Sonden und Öffnungen schützen wir vor jeder Reinigung. Gearbeitet wird nach den Pflegevorgaben des Herstellers."
       },
       {
         "t": "Dokumentation als Standard",
@@ -269,7 +269,7 @@
     "formTitle": "Angebot anfordern",
     "formIntro": "Nennen Sie uns Muster, Kennzeichen, Standort und Zeitfenster. Sie erhalten einen schriftlichen Leistungsumfang mit Festpreis.",
     "direct": "Direkter Kontakt",
-    "opsPhone": "+49 2504 000 00 00",
+    "opsPhone": "+49 176 60025533",
     "opsMail": "ops@paintfix-aviation.de",
     "f": {
       "company": "Unternehmen",
@@ -307,7 +307,7 @@
     "footAddrLabel": "Anschrift",
     "footAddr": [
       "Paintfix Aviation",
-      "Marshallstraße 34",
+      "Orkotten 43",
       "48291 Telgte"
     ],
     "secs": [
@@ -388,20 +388,20 @@
     "docsIntro": "Was Einkauf und Qualitätssicherung vor der ersten Beauftragung anfordern, erhalten Sie gesammelt in einer Datei.",
     "docs": [
       {
-        "t": "Versicherungsnachweis",
-        "d": "Betriebs- und Obhutshaftpflicht für Arbeiten an Luftfahrzeugen"
+        "t": "Leistungsbeschreibung",
+        "d": "Umfang, Ablauf und Zeitbedarf je Leistung"
       },
       {
-        "t": "Zuverlässigkeitsüberprüfung",
-        "d": "Nachweise nach § 7 LuftSiG für das Vorfeld-Personal"
-      },
-      {
-        "t": "Produktfreigaben",
-        "d": "Datenblätter und Freigaben der eingesetzten Mittel"
+        "t": "Produktdatenblätter",
+        "d": "Datenblätter der eingesetzten Pflegemittel"
       },
       {
         "t": "Muster-Arbeitsbericht",
         "d": "Aufbau und Inhalt unserer Dokumentation"
+      },
+      {
+        "t": "Ablauf und Kontakt",
+        "d": "Ansprechpartner, Erreichbarkeit und Fertigmeldung"
       },
       {
         "t": "Vertraulichkeit",
@@ -409,7 +409,7 @@
       },
       {
         "t": "Firmendaten",
-        "d": "Handelsregister, USt-IdNr., Bankverbindung"
+        "d": "Anschrift, Ansprechpartner und Bankverbindung"
       }
     ],
     "docsCover": "Lieferanten­unterlagen",
@@ -589,7 +589,7 @@
         },
         {
           "t": "Brightwork polishing",
-          "d": "Leading edges, engine inlets and bare metal, polished and sealed. For bare aluminium we use NUVITE NuShine II, mainly Grade G6 and Grade S, among others."
+          "d": "Leading edges, engine inlets and bare metal, polished and sealed. For bare aluminium we use NUVITE NuShine II, mainly Grade G6 and Grade S, among others."
         },
         {
           "t": "Paint correction",
@@ -611,7 +611,7 @@
         },
         {
           "t": "Galley & lavatory",
-          "d": "Sanitation with approved disinfectants, documented by zone."
+          "d": "Sanitation with material-safe disinfectants, documented by zone."
         }
       ],
       [
@@ -656,19 +656,19 @@
       }
     ],
     "stdLabel": "Standards",
-    "stdTitle": "What your compliance team will ask.",
+    "stdTitle": "How we work on your aircraft.",
     "std": [
       {
-        "t": "Airside-cleared staff",
-        "d": "Background-checked under § 7 LuftSiG (German Aviation Security Act), trained for apron operations."
+        "t": "Coordinated with your operation",
+        "d": "Access, security rules and time windows are agreed in advance with your operator, handling agent or FBO."
       },
       {
-        "t": "Approved materials",
-        "d": "Aero-Sense cleaning and care products to Boeing D6-17487 and AMS 1526, applied to manufacturer guidance."
+        "t": "Selected care products",
+        "d": "Aero-Sense products and, for bare aluminium, NUVITE NuShine II, applied to the manufacturers' guidance. Data sheets on request."
       },
       {
-        "t": "Aviation liability cover",
-        "d": "Dedicated insurance for work on aircraft. Certificate available on request."
+        "t": "Careful methods",
+        "d": "Sensors, probes and openings are protected before every clean, and we follow the aircraft manufacturer's care guidance."
       },
       {
         "t": "Documented by default",
@@ -781,7 +781,7 @@
     "formTitle": "Request a quote",
     "formIntro": "Tell us type, registration, location and window. You will receive a written scope with a fixed price.",
     "direct": "Direct contact",
-    "opsPhone": "+49 2504 000 00 00",
+    "opsPhone": "+49 176 60025533",
     "opsMail": "ops@paintfix-aviation.de",
     "f": {
       "company": "Company",
@@ -819,7 +819,7 @@
     "footAddrLabel": "Address",
     "footAddr": [
       "Paintfix Aviation",
-      "Marshallstraße 34",
+      "Orkotten 43",
       "48291 Telgte"
     ],
     "secs": [
@@ -900,20 +900,20 @@
     "docsIntro": "The documents procurement and quality assurance ask for before the first order, collected in one file.",
     "docs": [
       {
-        "t": "Insurance certificate",
-        "d": "Liability and bailee cover for work on aircraft"
+        "t": "Service description",
+        "d": "Scope, process and time required per service"
       },
       {
-        "t": "Background checks",
-        "d": "Clearance under § 7 LuftSiG for apron staff"
-      },
-      {
-        "t": "Product approvals",
-        "d": "Data sheets and approvals for all materials used"
+        "t": "Product data sheets",
+        "d": "Data sheets for the care products we use"
       },
       {
         "t": "Sample work report",
         "d": "Structure and content of our documentation"
+      },
+      {
+        "t": "Process and contact",
+        "d": "Contact person, availability and completion notice"
       },
       {
         "t": "Confidentiality",
@@ -921,7 +921,7 @@
       },
       {
         "t": "Company details",
-        "d": "Trade register, VAT ID, bank details"
+        "d": "Address, contact person and bank details"
       }
     ],
     "docsCover": "Vendor documents",

@@ -3,8 +3,11 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { CarButton } from "@/components/fahrzeug/Button";
 import {
+  INSPECT_PRICE,
+  inspectServices,
   services,
   vehicleClasses,
+  type InspectId,
   type ServiceId,
   type VehicleClassIndex,
 } from "@/content/fahrzeug";
@@ -59,6 +62,7 @@ export function RequestForm({
   pending?: boolean;
 }) {
   const [selected, setSelected] = useState(prefill.services);
+  const [inspect, setInspect] = useState(prefill.inspect);
   const [vehicleClass, setVehicleClass] = useState<VehicleClassIndex>(prefill.vehicleClass);
   const [fields, setFields] = useState(EMPTY_FIELDS);
   const [time, setTime] = useState<TimeIndex>(2);
@@ -91,6 +95,11 @@ export function RequestForm({
   });
 
   const toggleService = (id: ServiceId) => setSelected((s) => ({ ...s, [id]: !s[id] }));
+  const toggleInspect = (id: InspectId) => setInspect((s) => ({ ...s, [id]: !s[id] }));
+  /** Gewählte Leistungen mit Preis nach Begutachtung (Smart Repair, Leasingrückgabe). */
+  const inspectNames = pending
+    ? []
+    : inspectServices.filter((s) => inspect[s.id]).map((s) => s.name);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -111,6 +120,7 @@ export function RequestForm({
       <RequestThanks
         firstName={fields.name.trim().split(/\s+/)[0]}
         estimate={estimate}
+        inspect={inspectNames}
         classLabel={classLabel}
         onEdit={onEdit}
         headingRef={thanksRef}
@@ -167,6 +177,32 @@ export function RequestForm({
                     )}
                   >
                     {fromPrice(s.p[vehicleClass])}
+                  </span>
+                </label>
+              );
+            })}
+            {inspectServices.map((s) => {
+              const on = !pending && inspect[s.id];
+              return (
+                <label
+                  key={s.id}
+                  className={cx(
+                    "relative flex cursor-pointer items-start gap-3.5 border-[1.5px] bg-car-bg p-[18px] text-left hover:border-car-ink",
+                    on ? "border-car-ink" : "border-car-line",
+                    FOCUS_WITHIN,
+                  )}
+                >
+                  <HiddenInput
+                    type="checkbox"
+                    name="leistungen"
+                    value={s.id}
+                    checked={on}
+                    onChange={() => toggleInspect(s.id)}
+                  />
+                  <CheckMark checked={on} className="mt-px" />
+                  <span className="flex flex-1 flex-col gap-1">
+                    <span className="text-[16px] font-semibold">{s.name}</span>
+                    <span className="text-[13px] text-car-muted">Preis {INSPECT_PRICE}</span>
                   </span>
                 </label>
               );
@@ -292,7 +328,12 @@ export function RequestForm({
         </Step>
       </form>
 
-      <RequestSummary estimate={estimate} classLabel={classLabel} pending={pending} />
+      <RequestSummary
+        estimate={estimate}
+        inspect={inspectNames}
+        classLabel={classLabel}
+        pending={pending}
+      />
     </div>
   );
 }

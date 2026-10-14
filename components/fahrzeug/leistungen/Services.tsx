@@ -1,13 +1,49 @@
 import Image from "next/image";
-import { services } from "@/content/fahrzeug";
-import { altText, media, mediaByRefPath } from "@/content/media";
+import { CarButton } from "@/components/fahrzeug/Button";
+import {
+  INSPECT_PRICE,
+  inspectServices,
+  serviceById,
+  type InspectId,
+  type ServiceId,
+} from "@/content/fahrzeug";
+import { altText, media, mediaByRefPath, type MediaId } from "@/content/media";
 import { ServicePrice } from "./ServicePrice";
 
-const total = String(services.length).padStart(2, "0");
+/** Reihenfolge der Seite: Schwerpunkte zuerst (Kundenwunsch 14.10.2026), dann die übrigen Leistungen. */
+const ORDER: ReadonlyArray<ServiceId | InspectId> = [
+  "smart-repair",
+  "politur",
+  "leasing",
+  "aussen",
+  "innen",
+  "keramik",
+];
+
+interface Entry {
+  id: ServiceId | InspectId;
+  name: string;
+  dur: string;
+  desc: string;
+  incl: string[];
+  img: MediaId;
+  /** Preis je Fahrzeugklasse (ServicePrice) oder „nach Begutachtung“. */
+  priced: boolean;
+}
+
+const entries: Entry[] = ORDER.map((id) => {
+  const inspect = inspectServices.find((x) => x.id === id);
+  if (inspect) return { ...inspect, img: inspect.media, priced: false };
+  const s = serviceById(id as ServiceId);
+  return { ...s, img: mediaByRefPath(s.img2), priced: true };
+});
+
+const total = String(entries.length).padStart(2, "0");
 
 /**
- * Die vier Leistungen #svc-{id} (README 8.2 Punkt 3, Referenz Zeilen 294–328): Bild links, Text
- * rechts, unter ca. 1010px untereinander. Nur die Preiszeile ist Client-Komponente.
+ * Die Leistungen #svc-{id} (README 8.2 Punkt 3, Referenz Zeilen 294–328): Bild links, Text
+ * rechts, unter ca. 1010px untereinander. Nur die Preiszeile ist Client-Komponente. Smart Repair und
+ * Leasingrückgabe haben keinen Klassenpreis, sondern „Preis nach Begutachtung“.
  * Anker #svc-… (am Wrapper ohne Reveal) landen über scroll-padding unter Header und Klassenleiste
  * (siehe ClassBar).
  * Reveals wie in der Referenz: jede Leistung und ihre H2 mit Fade-up (0).
@@ -16,8 +52,8 @@ export function Services() {
   return (
     <section aria-label="Leistungen" className="bg-car-bg pb-[clamp(64px,8vw,112px)]">
       <div className="mx-auto max-w-car px-car-gutter">
-        {services.map((s, i) => {
-          const img = mediaByRefPath(s.img2);
+        {entries.map((s, i) => {
+          const img = s.img;
           return (
             // Anker am unverschobenen Wrapper: Das Reveal (translate 32px) würde das Sprungziel sonst um
             // 32px unter die Klassenleiste schieben, sobald es abläuft.
@@ -40,7 +76,7 @@ export function Services() {
                 <div className="flex flex-col">
                   <p className="flex justify-between gap-4 text-[13px] text-car-muted">
                     <span>
-                      {s.no} / {total}
+                      {String(i + 1).padStart(2, "0")} / {total}
                     </span>
                     <span>Dauer {s.dur}</span>
                   </p>
@@ -71,7 +107,11 @@ export function Services() {
                       </li>
                     ))}
                   </ul>
-                  <ServicePrice id={s.id} />
+                  {s.priced ? (
+                    <ServicePrice id={s.id as ServiceId} />
+                  ) : (
+                    <InspectPrice id={s.id} name={s.name} />
+                  )}
                 </div>
               </article>
             </div>
@@ -79,5 +119,22 @@ export function Services() {
         })}
       </div>
     </section>
+  );
+}
+
+/** Preiszeile ohne Klassenpreis: „Preis nach Begutachtung“ und Anfrage mit dieser Leistung. */
+function InspectPrice({ id, name }: { id: string; name: string }) {
+  return (
+    <div className="mt-auto flex flex-wrap items-end justify-between gap-5 pt-9">
+      <div>
+        <p className="text-[clamp(26px,2.4vw,34px)] leading-none font-medium tracking-[-0.02em]">
+          Preis {INSPECT_PRICE}
+        </p>
+        <p className="mt-2 text-[13px] text-car-muted">Festpreis vor Beginn der Arbeiten</p>
+      </div>
+      <CarButton href={`/anfrage?leistungen=${id}`} size="combo" arrow className="leading-[normal]">
+        Anfragen<span className="sr-only">: {name}</span>
+      </CarButton>
+    </div>
   );
 }

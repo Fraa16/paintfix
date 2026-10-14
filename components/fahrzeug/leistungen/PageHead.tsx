@@ -1,4 +1,5 @@
 import { CarBreadcrumb } from "@/components/fahrzeug/Breadcrumb";
+import { site } from "@/content/site";
 
 /**
  * Seitenkopf Leistungen (README 8.2 Punkt 1, Referenz Zeilen 265–276): Fläche --car-surface,
@@ -18,8 +19,8 @@ export function PageHead() {
             Leistungen und Preise.
           </h1>
           <p className="max-w-[520px] text-[18px] leading-[1.6] text-pretty text-car-text">
-            Alle Preise inklusive Mehrwertsteuer für ein Fahrzeug in normalem Zustand. Nach einer
-            kurzen Sichtung nennen wir Ihnen den Festpreis. Ohne Ihre Zustimmung wird es nicht
+            Alle Preise sind Endpreise für ein Fahrzeug in normalem Zustand. {site.vatNote} Nach
+            einer kurzen Sichtung nennen wir Ihnen den Festpreis. Ohne Ihre Zustimmung wird es nicht
             teurer.
           </p>
         </div>

@@ -7,13 +7,10 @@ import { Faq } from "@/components/fahrzeug/leistungen/Faq";
 import { PageHead } from "@/components/fahrzeug/leistungen/PageHead";
 import { PriceClassProvider } from "@/components/fahrzeug/leistungen/PriceClass";
 import { Services } from "@/components/fahrzeug/leistungen/Services";
-import { services } from "@/content/fahrzeug";
-
-const names = services.map((s) => s.name);
-
 export const metadata: Metadata = {
   title: "Leistungen und Preise",
-  description: `${names.slice(0, -1).join(", ")} und ${names.at(-1)} in Telgte bei Münster. Alle Preise inklusive Mehrwertsteuer, je nach Fahrzeugklasse. Nach einer kurzen Sichtung nennen wir Ihnen den Festpreis.`,
+  description:
+    "Smart Repair, Lackkorrektur, Leasingrückgabe, Außen- und Innenaufbereitung und Keramikversiegelung in Telgte bei Münster. Alle Preise sind Endpreise. Nach einer kurzen Sichtung nennen wir Ihnen den Festpreis.",
 };
 
 /**

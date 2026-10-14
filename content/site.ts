@@ -1,21 +1,23 @@
 /**
- * Stammdaten Fahrzeug (Adresse, Kontakt, Öffnungszeiten). Alle Werte aus der Referenz, Platzhalter
- * bis zur Bestätigung durch Paintfix (README 3). Aviation-Kontaktdaten stehen in aviation.json
- * (opsPhone, opsMail).
+ * Stammdaten Fahrzeug (Adresse, Kontakt, Öffnungszeiten). Adresse und Telefon hat Paintfix am
+ * 14.10.2026 bestätigt; die übrigen Werte sind Platzhalter aus der Referenz (README 3), siehe
+ * `unconfirmed`. Aviation-Kontaktdaten stehen in aviation.json (opsPhone, opsMail).
  */
 export const site = {
   name: "Paintfix",
   owner: "Arian Hassanzadeh",
-  street: "Marshallstraße 34",
+  street: "Orkotten 43",
   postalCode: "48291",
   city: "Telgte",
-  phoneDisplay: "02504 000 00 00",
-  phoneHref: "tel:+4925040000000",
+  phoneDisplay: "+49 176 60025533",
+  phoneHref: "tel:+4917660025533",
   email: "hallo@paintfix.de",
   hoursText: "Mo–Fr 8–18 Uhr, Sa 9–14 Uhr",
-  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Marshallstra%C3%9Fe+34+48291+Telgte",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Orkotten+43+48291+Telgte",
+  /** Kleinunternehmerregelung: Preise sind Endpreise ohne Umsatzsteuer (bestätigt 14.10.2026). */
+  vatNote: "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.",
   /** Bis zur Bestätigung durch Paintfix offen. */
-  unconfirmed: ["phone", "email", "hours", "owner"] as const,
+  unconfirmed: ["email", "hours", "owner"] as const,
 } as const;
 
 /**

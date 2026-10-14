@@ -1,5 +1,6 @@
 import type { Ref } from "react";
 import { CarButton } from "@/components/fahrzeug/Button";
+import { INSPECT_PRICE } from "@/content/fahrzeug";
 import { eur, fromPrice } from "@/lib/format";
 import type { PriceEstimate } from "@/lib/pricing";
 
@@ -10,12 +11,14 @@ import type { PriceEstimate } from "@/lib/pricing";
 export function RequestThanks({
   firstName,
   estimate,
+  inspect,
   classLabel,
   onEdit,
   headingRef,
 }: {
   firstName: string;
   estimate: PriceEstimate;
+  inspect: string[];
   classLabel: string;
   onEdit: () => void;
   headingRef: Ref<HTMLHeadingElement>;
@@ -61,11 +64,22 @@ export function RequestThanks({
               <span className="tabular-nums">{eur(line.price)}</span>
             </li>
           ))}
+          {inspect.map((name) => (
+            <li
+              key={name}
+              className="flex justify-between gap-4 border-b border-car-line py-4 text-[15px]"
+            >
+              <span>{name}</span>
+              <span className="text-car-muted">{INSPECT_PRICE}</span>
+            </li>
+          ))}
         </ul>
-        <p className="flex justify-between gap-4 py-5 text-[17px] font-semibold">
-          <span>Richtpreis für {classLabel}</span>
-          <span>{fromPrice(estimate.sum)}</span>
-        </p>
+        {estimate.lines.length > 0 && (
+          <p className="flex justify-between gap-4 py-5 text-[17px] font-semibold">
+            <span>Richtpreis für {classLabel}</span>
+            <span>{fromPrice(estimate.sum)}</span>
+          </p>
+        )}
       </div>
     </div>
   );

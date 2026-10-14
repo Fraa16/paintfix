@@ -11,7 +11,7 @@ import { CarH2 } from "@/components/fahrzeug/Heading";
 export function BeforeAfter() {
   const politur = serviceById("politur");
   return (
-    <section className="bg-car-bg pb-car-section leading-[normal]">
+    <section className="bg-car-bg py-car-section leading-[normal]">
       <div className="mx-auto max-w-car px-car-gutter">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-end gap-x-16 gap-y-6">
           <div>
@@ -36,7 +36,7 @@ export function BeforeAfter() {
             {politur.name} an einer Mercedes-Benz C-Klasse, {politur.dur}
           </span>
           <span>
-            {politur.name} {fromPrice(politur.p[0])} inkl. MwSt.
+            {politur.name} {fromPrice(politur.p[0])}
           </span>
         </div>
       </div>
