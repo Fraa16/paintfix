@@ -319,7 +319,7 @@ export function RequestForm({
               onChange={() => setConsent((c) => !c)}
             />
             <CheckMark checked={consent} />
-            Ich bin einverstanden, dass Paintfix meine Angaben zur Bearbeitung der Anfrage
+            Ich bin einverstanden, dass PaintFix meine Angaben zur Bearbeitung der Anfrage
             verwendet.
           </label>
           <CarButton type="submit" size="submit" arrow className="mt-8">

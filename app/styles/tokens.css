@@ -1,7 +1,7 @@
-/* Paintfix Design Tokens · Stand 09.10.2026
+/* PaintFix Design Tokens · Stand 09.10.2026
    Produktionskopie von design/handoff/tokens/tokens.css. Abweichung: Schriften kommen aus next/font
    (app/fonts.ts), die Font-Variablen heißen deshalb --font-mona-face und --font-cinzel-face.
-   Quelle: README.md, Abschnitt 7. Alle Werte entsprechen der Referenz "Paintfix Website v4".
+   Quelle: README.md, Abschnitt 7. Alle Werte entsprechen der Referenz "PaintFix Website v4".
    Tailwind v4: dieselben Variablen zusätzlich in @theme spiegeln (README 7.8). */
 
 :root {
@@ -64,7 +64,7 @@
   --car-ba-haze: #e8e8e2; /* Schleier über dem Vorher-Bild (Vorher/Nachher-Regler) */
   --av-white: #ffffff; /* Hover Primärbutton Aviation (Creme auf Navy) */
   --av-fs-h2-services-tabs: clamp(35.2px, 4.48vw, 73.6px); /* H2 Leistungen, Tab-Version */
-  --car-footer-av-link: #d9d2c4; /* Link „Paintfix Aviation ↗“ im Fahrzeug-Footer */
+  --car-footer-av-link: #d9d2c4; /* Link „PaintFix Aviation ↗“ im Fahrzeug-Footer */
   --av-image-bg: #dfd6c5; /* Bildfläche auf Sand und Creme beim Laden */
   --av-doc-back: #d9d1c1; /* hinteres Blatt des Dokument-Covers */
   --av-navy-button-hover: #1c2f4a; /* Hover Navy-Button auf hellem Grund (Formular senden) */

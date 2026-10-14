@@ -8,7 +8,7 @@ import { CarLogo } from "@/components/fahrzeug/Logo";
 import { CarOverline } from "@/components/fahrzeug/Overline";
 
 export const metadata: Metadata = {
-  title: "Seite nicht gefunden | Paintfix",
+  title: "Seite nicht gefunden | PaintFix",
 };
 
 /**
@@ -25,7 +25,7 @@ export default function GlobalNotFound() {
         >
           <header className="border-b border-car-line-ui">
             <div className="mx-auto flex h-car-header max-w-car items-center px-car-gutter">
-              <Link href="/" aria-label="Paintfix Startseite" className="leading-[normal]">
+              <Link href="/" aria-label="PaintFix Startseite" className="leading-[normal]">
                 <CarLogo />
               </Link>
             </div>

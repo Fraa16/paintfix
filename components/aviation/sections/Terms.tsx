@@ -1,4 +1,5 @@
 import { AvOverline } from "@/components/aviation/Overline";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { aviation, type Locale } from "@/content/aviation";
 import { DocsForm } from "./DocsForm";
 import { TermsCta } from "./TermsCta";
@@ -208,8 +209,8 @@ function DocCover({ locale }: { locale: Locale }) {
       <div className="absolute inset-0 [transform:translate(18px,-14px)_rotate(5deg)] bg-av-gold opacity-30" />
       <div className="absolute inset-0 [transform:translate(9px,-7px)_rotate(2.5deg)] bg-av-doc-back" />
       <div className="absolute inset-0 flex flex-col justify-between bg-av-cream p-5 text-av-navy shadow-(--shadow-doc)">
-        <p className="font-cinzel text-[8px] font-normal tracking-[0.335em]">
-          PAINTFIX <span className="font-sans text-[7px] tracking-[0.34em]">AVIATION</span>
+        <p>
+          <BrandLogo division="aviation" size="xs" />
         </p>
         <div>
           <p className="font-cinzel text-[16.8px] leading-[1.1] font-normal">{t.docsCover}</p>

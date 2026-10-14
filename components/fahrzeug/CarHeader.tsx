@@ -18,7 +18,7 @@ const NAV = [
 
 /**
  * Header Fahrzeug (README 8.1 Punkt 1, Referenz Zeilen 56–91): sticky, 76px.
- * Ab 980px Navigation, „Paintfix Aviation ↗“ und „Termin anfragen“. Darunter Textbutton „Menü“,
+ * Ab 980px Navigation, „PaintFix Aviation ↗“ und „Termin anfragen“. Darunter Textbutton „Menü“,
  * der ein Panel unter dem Header öffnet. Offenes Menü setzt html[data-menu="open"], damit die
  * mobile Aktionsleiste ausblendet.
  */
@@ -51,7 +51,7 @@ export function CarHeader() {
       <div className="mx-auto flex h-car-header max-w-car items-center justify-between gap-6 px-car-gutter">
         <Link
           href="/"
-          aria-label="Paintfix Startseite"
+          aria-label="PaintFix Startseite"
           onClick={close}
           className="leading-[normal]"
         >

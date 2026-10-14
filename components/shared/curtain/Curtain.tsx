@@ -1,4 +1,5 @@
 import { baseMap } from "@/content/aviation-meta";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { site } from "@/content/site";
 import { cx } from "@/lib/cx";
 import { CurtainController } from "./CurtainController";
@@ -24,8 +25,7 @@ import { CurtainController } from "./CurtainController";
  * dauerhaft verdeckt.
  *
  * Rein dekorativ: aria-hidden, nichts Fokussierbares. Solange sie deckt, fängt sie Klicks ab wie die
- * Referenz. Logo-Größen weichen von CarLogo/AvLogo ab (Referenz: 30px-Quadrat bzw. Cinzel
- * clamp(19.2px,2.08vw,30.4px)), deshalb eigenes Markup mit denselben Tokens.
+ * Referenz. Logo: einheitliches BrandLogo in Größe lg (wie das 30px-Quadrat der Referenz).
  *
  * Texte wie README 9.4. Heimatflughafen (EDDG, Mittelpunkt der Einsatzradius-Karte) und Ort (Telgte)
  * kommen aus content/, dort als Platzhalter geführt (CLAUDE.md Regel 11).
@@ -59,13 +59,7 @@ export function Curtain() {
             "group-data-[ph=cover]/curtain:opacity-100 group-data-[ph=reveal]/curtain:opacity-100 [html[data-motion][data-curtain-in]_&]:opacity-100",
           )}
         >
-          <div className="flex items-center gap-5">
-            <span className="font-cinzel text-[clamp(19.2px,2.08vw,30.4px)] tracking-[0.375em]">
-              PAINTFIX
-            </span>
-            <span className="block h-[30px] w-px bg-av-cream/40" />
-            <span className="text-[clamp(11px,0.95vw,14px)] tracking-[0.44em]">AVIATION</span>
-          </div>
+          <BrandLogo division="aviation" size="lg" />
           <span className="block h-px w-14 bg-av-gold" />
           <span className="flex gap-[1.2em] text-[10px] tracking-[0.34em] text-av-gold uppercase">
             <span>Business Aviation</span>
@@ -81,14 +75,7 @@ export function Curtain() {
             "group-data-[ph=cover]/curtain:opacity-100 group-data-[ph=reveal]/curtain:opacity-100 [html[data-motion][data-curtain-in]_&]:opacity-100",
           )}
         >
-          <div className="flex items-center gap-3.5">
-            <span className="relative block size-[30px] bg-car-ink">
-              <span className="absolute right-0 bottom-0 size-3 bg-car-red" />
-            </span>
-            <span className="text-[24px] font-bold tracking-[0.07em] font-stretch-125%">
-              PAINTFIX
-            </span>
-          </div>
+          <BrandLogo division="automotive" size="lg" />
           <span className="text-[11px] font-medium tracking-[0.2em] text-car-muted uppercase">
             Fahrzeugaufbereitung in {site.city}
           </span>

@@ -20,7 +20,7 @@ export const aviationPath: Record<Locale, string> = { de: "/aviation", en: "/en/
 
 /**
  * Einsatzradius-Karte (README 8.4 Punkt 8), in derselben Reihenfolge wie `bases` in aviation.json.
- * Platzhalter: Flughäfen, Status und Entfernungen bestätigt Paintfix vor dem Launch (README 3).
+ * Platzhalter: Flughäfen, Status und Entfernungen bestätigt PaintFix vor dem Launch (README 3).
  * Positionen in % der Karte (links, oben) nach echten Koordinaten, Mittelpunkt EDDG.
  */
 export interface BaseOnMap {

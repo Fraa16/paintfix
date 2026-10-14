@@ -12,7 +12,7 @@ import { Curtain } from "@/components/shared/curtain/Curtain";
 /** Root-Layout für alle deutschen Seiten (Fahrzeug und /aviation). */
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  title: { default: "Paintfix | Fahrzeugaufbereitung in Telgte", template: "%s | Paintfix" },
+  title: { default: "PaintFix | Fahrzeugaufbereitung in Telgte", template: "%s | PaintFix" },
 };
 
 export default function GermanRootLayout({ children }: { children: ReactNode }) {

@@ -9,7 +9,7 @@ import { Process } from "@/components/fahrzeug/home/Process";
 import { ServiceList } from "@/components/fahrzeug/home/ServiceList";
 
 export const metadata: Metadata = {
-  title: { absolute: "Paintfix | Fahrzeugaufbereitung in Telgte bei Münster" },
+  title: { absolute: "PaintFix | Fahrzeugaufbereitung in Telgte bei Münster" },
   description:
     "Smart Repair, Lackkorrektur, Vorbereitung auf die Leasingrückgabe und hochwertige Fahrzeugaufbereitung in Telgte bei Münster. Den Festpreis kennen Sie, bevor wir beginnen.",
 };

@@ -1,15 +1,17 @@
-# CLAUDE.md · Paintfix Website
+# CLAUDE.md · PaintFix Website
 
 @AGENTS.md
 
 ## Projekt
 
-Website für Paintfix (Fahrzeugaufbereitung, Telgte) und Paintfix Aviation (Business Aviation). Zwei Marken, ein Repo.
+Website für PaintFix (Fahrzeugaufbereitung, Telgte) und PaintFix Aviation (Business Aviation). Zwei Marken, ein Repo.
+
+Schreibweise im Text: „PaintFix“ (bestätigt 14.10.2026). Das Logo zeigt „PAINTFIX“ plus Bereich (Automotive, Aviation, später Marine), siehe `components/shared/BrandLogo.tsx`.
 
 - Design-Quelle: `design/handoff/README.md` (verbindlich)
 - Tokens: `design/handoff/tokens/tokens.css`, Produktionskopie in `app/styles/tokens.css`
 - Inhalte: `design/handoff/content/*.json`, Produktionskopie in `content/` (typisiert)
-- Referenz-Prototyp: `design/handoff/reference/` (mit `npx serve design/handoff/reference` öffnen, Seite „Paintfix Website v4.dc.html“). Bei Unklarheiten gilt die Referenz. Alle exakten Werte stehen als Inline-Styles in ihrem Quelltext.
+- Referenz-Prototyp: `design/handoff/reference/` (mit `npx serve design/handoff/reference` öffnen, Seite „PaintFix Website v4.dc.html“). Bei Unklarheiten gilt die Referenz. Alle exakten Werte stehen als Inline-Styles in ihrem Quelltext.
 
 ## Stack
 
@@ -41,7 +43,7 @@ Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_mo
 3. Fahrzeug-Überschriften: Mona Sans 700, `font-stretch: 125%`. Aviation-Überschriften: Cinzel 400, nie kursiv.
 4. `border-radius: 0` überall. Ausnahmen (50 %): Status-Punkt, Regler-Griff, Stempel, Kartenpunkte.
 5. Marken getrennt halten: Signalrot nie auf Aviation-Seiten (außer im Curtain Richtung Fahrzeug). Navy und Cinzel auf Fahrzeugseiten nur im Aviation-Band, im Curtain und in Links zu Aviation.
-6. Texte wörtlich aus `content/` bzw. README übernehmen. Preise im Format „ab 89 €“ (geschütztes Leerzeichen vor €, `lib/format.ts`). Paintfix ist Kleinunternehmer: Preise sind Endpreise, nie „inkl. MwSt.“, sondern Hinweis `site.vatNote` (§ 19 UStG). Aviation zeigt keine Preise.
+6. Texte wörtlich aus `content/` bzw. README übernehmen. Preise im Format „ab 89 €“ (geschütztes Leerzeichen vor €, `lib/format.ts`). PaintFix ist Kleinunternehmer: Preise sind Endpreise, nie „inkl. MwSt.“, sondern Hinweis `site.vatNote` (§ 19 UStG). Aviation zeigt keine Preise.
 7. Jede Animation respektiert `prefers-reduced-motion`. Lenis nur auf Aviation, nur ab 980 px und nicht bei Touch-Eingabe.
 8. Kein horizontales Scrollen von 360 bis 1920 px. Abschnitte mit überstehenden transformierten Elementen bekommen `overflow-x: clip` (nicht `hidden`, sonst bricht `position: sticky`).
 9. Barrierefreiheit: sichtbarer Fokus, Tastaturbedienung (auch Vorher/Nachher-Regler), Alt-Texte, Textkontrast mindestens 4,5:1. Interaktive Elemente sind `<button>` oder Links, nie klickbare `<div>`.

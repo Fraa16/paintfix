@@ -10,7 +10,7 @@
     "cta": "Angebot anfordern",
     "cta2": "Leistungen ansehen",
     "scroll": "Scrollen",
-    "heroLabel": "Paintfix Aviation in Münster/Osnabrück",
+    "heroLabel": "PaintFix Aviation in Münster/Osnabrück",
     "aT1": "Jede Oberfläche,",
     "aT2": "dokumentiert.",
     "bT1": "Die Kabine,",
@@ -291,7 +291,7 @@
     "sentTitle": "Vielen Dank.",
     "sentText": "Ihre Anfrage ist eingegangen. Wir melden uns mit Leistungsumfang und Festpreis.",
     "again": "Neue Anfrage",
-    "footDiv": "Paintfix Aviation ist der Geschäftsbereich Luftfahrt der Paintfix, Telgte.",
+    "footDiv": "PaintFix Aviation ist der Geschäftsbereich Luftfahrt der PaintFix, Telgte.",
     "footCar": "Fahrzeugaufbereitung",
     "legal": [
       "Impressum",
@@ -306,7 +306,7 @@
     "chartSeat": "Firmensitz",
     "footAddrLabel": "Anschrift",
     "footAddr": [
-      "Paintfix Aviation",
+      "PaintFix Aviation",
       "Orkotten 43",
       "48291 Telgte"
     ],
@@ -419,7 +419,7 @@
     "docsBtn": "Unterlagen herunterladen",
     "docsNote": "Wir verwenden Ihre Adresse nur für diese Unterlagen und Rückfragen dazu.",
     "docsErr": "Bitte eine gültige E-Mail-Adresse eingeben.",
-    "docsFile": "Paintfix-Aviation_Lieferantenunterlagen.pdf",
+    "docsFile": "PaintFix-Aviation_Lieferantenunterlagen.pdf",
     "docsMeta": "PDF, 6 Dokumente, 4,8 MB",
     "docsDone": "Der Download hat begonnen.",
     "docsDoneSub": "Eine Kopie geht zusätzlich an",
@@ -522,7 +522,7 @@
     "cta": "Request a quote",
     "cta2": "View services",
     "scroll": "Scroll",
-    "heroLabel": "Paintfix Aviation at Münster Osnabrück",
+    "heroLabel": "PaintFix Aviation at Münster Osnabrück",
     "aT1": "Every surface,",
     "aT2": "accounted for.",
     "bT1": "The cabin,",
@@ -803,7 +803,7 @@
     "sentTitle": "Thank you.",
     "sentText": "Your request has been received. We will reply with a written scope and fixed price.",
     "again": "New request",
-    "footDiv": "Paintfix Aviation is the aviation division of Paintfix, Telgte.",
+    "footDiv": "PaintFix Aviation is the aviation division of PaintFix, Telgte.",
     "footCar": "Car detailing",
     "legal": [
       "Imprint",
@@ -818,7 +818,7 @@
     "chartSeat": "Head office",
     "footAddrLabel": "Address",
     "footAddr": [
-      "Paintfix Aviation",
+      "PaintFix Aviation",
       "Orkotten 43",
       "48291 Telgte"
     ],
@@ -931,7 +931,7 @@
     "docsBtn": "Download documents",
     "docsNote": "We only use your address for these documents and related questions.",
     "docsErr": "Please enter a valid email address.",
-    "docsFile": "Paintfix-Aviation_Vendor-Documents.pdf",
+    "docsFile": "PaintFix-Aviation_Vendor-Documents.pdf",
     "docsMeta": "PDF, 6 documents, 4.8 MB",
     "docsDone": "Your download has started.",
     "docsDoneSub": "A copy is also on its way to",

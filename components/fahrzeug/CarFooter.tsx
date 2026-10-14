@@ -14,7 +14,7 @@ const COLUMNS: ReadonlyArray<{
     links: focusAreas.map((f) => ({ href: `/leistungen#svc-${f.id}`, label: f.name })),
   },
   {
-    title: "Paintfix",
+    title: "PaintFix",
     links: [
       { href: "/#ablauf", label: "Ablauf" },
       { href: "/#standort", label: "Standort" },
@@ -33,7 +33,7 @@ const COLUMNS: ReadonlyArray<{
 
 /**
  * Footer Fahrzeug (README 8.5, Referenz Zeilen 511–540): schwarz, Logo mit hellem Quadrat und
- * Adresse, drei Linkspalten, unten Inhaberzeile und „Paintfix Aviation ↗“.
+ * Adresse, drei Linkspalten, unten Inhaberzeile und „PaintFix Aviation ↗“.
  */
 export function CarFooter() {
   return (
@@ -41,8 +41,8 @@ export function CarFooter() {
       <div className="mx-auto max-w-car px-car-gutter pt-[clamp(56px,6vw,80px)] pb-10">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-x-8 gap-y-10">
           <div className="flex flex-col items-start gap-5">
-            <Link href="/" aria-label="Paintfix Startseite">
-              <CarLogo tone="light" />
+            <Link href="/" aria-label="PaintFix Startseite">
+              <CarLogo />
             </Link>
             <p className="text-[14px] leading-[1.7] text-car-on-ink-muted">
               {site.street}
@@ -68,7 +68,7 @@ export function CarFooter() {
 
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-car-ink-line pt-6 text-[13px] text-car-input-placeholder">
           {/* Jahr wie in der Referenz fest, damit beim Rendern kein Datum gelesen wird. */}
-          <p>© 2026 Paintfix, Inh. {site.owner}</p>
+          <p>© 2026 PaintFix, Inh. {site.owner}</p>
           <CarAviationLink tone="onInk" />
         </div>
       </div>

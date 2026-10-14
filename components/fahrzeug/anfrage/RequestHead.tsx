@@ -3,7 +3,7 @@ import { CarBreadcrumb } from "@/components/fahrzeug/Breadcrumb";
 
 /**
  * Kopf der Anfrageseite (README 8.3 Punkt 1, Referenz Zeilen 370–381): Brotkrumen, H1, Text und
- * Link zu Paintfix Aviation (Navy und Cinzel sind hier als Link zu Aviation erlaubt). Reveal: H1 (60).
+ * Link zu PaintFix Aviation (Navy und Cinzel sind hier als Link zu Aviation erlaubt). Reveal: H1 (60).
  */
 export function RequestHead() {
   return (
@@ -23,7 +23,7 @@ export function RequestHead() {
           </p>
           <CarAviationLink
             prefix="Anfrage für ein Flugzeug?"
-            label="Zu Paintfix Aviation"
+            label="Zu PaintFix Aviation"
             className="text-[14px]"
           />
         </div>

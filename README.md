@@ -1,8 +1,8 @@
-# Paintfix Website
+# PaintFix Website
 
-Website für **Paintfix** (Fahrzeugaufbereitung, Telgte bei Münster) und **Paintfix Aviation** (Business Aviation). Zwei klar getrennte Auftritte unter einem Dach, nach dem Prinzip Mercedes-Benz und Maybach.
+Website für **PaintFix** (Fahrzeugaufbereitung, Telgte bei Münster) und **PaintFix Aviation** (Business Aviation). Zwei klar getrennte Auftritte unter einem Dach, nach dem Prinzip Mercedes-Benz und Maybach.
 
-|             | Paintfix                      | Paintfix Aviation                      |
+|             | PaintFix                      | PaintFix Aviation                      |
 | ----------- | ----------------------------- | -------------------------------------- |
 | Wirkung     | hell, direkt, Preise sichtbar | dunkel, ruhig, Konditionen auf Anfrage |
 | Farben      | Weiß, Schwarz, Signalrot      | Navy, Creme, Gold                      |
@@ -26,7 +26,7 @@ npm run typecheck
 npm run format
 ```
 
-Referenz-Prototyp ansehen: `npx serve design/handoff/reference`, dann `http://localhost:3000/Paintfix%20Website%20v4.dc.html` (Direktaufrufe in `design/handoff/README.md`, Abschnitt 2).
+Referenz-Prototyp ansehen: `npx serve design/handoff/reference`, dann `http://localhost:3000/PaintFix%20Website%20v4.dc.html` (Direktaufrufe in `design/handoff/README.md`, Abschnitt 2).
 
 ## Seiten
 
@@ -35,7 +35,7 @@ Referenz-Prototyp ansehen: `npx serve design/handoff/reference`, dann `http://lo
 | `/`                                  | Startseite Fahrzeug                                                  |
 | `/leistungen`                        | Leistungen und Preise je Fahrzeugklasse                              |
 | `/anfrage`                           | Termin anfragen, Vorbelegung per `?leistungen=aussen,innen&klasse=1` |
-| `/aviation`, `/en/aviation`          | Paintfix Aviation (DE/EN)                                            |
+| `/aviation`, `/en/aviation`          | PaintFix Aviation (DE/EN)                                            |
 | `/impressum`, `/datenschutz`, `/agb` | Pflichtseiten (Inhalte folgen)                                       |
 
 ## Inhalte ändern
@@ -48,7 +48,7 @@ Referenz-Prototyp ansehen: `npx serve design/handoff/reference`, dann `http://lo
 | Fotos                                    | `assets/img/` und `content/media.ts` |
 | Farben, Größen, Abstände                 | `app/styles/tokens.css`              |
 
-Alle Fotos sind Pexels-Platzhalter und werden durch ein eigenes Shooting ersetzt. Preise, Kontaktdaten, Nachweise und Flughäfen sind Platzhalter, bis Paintfix sie bestätigt (`design/handoff/README.md`, Abschnitt 3).
+Alle Fotos sind Pexels-Platzhalter und werden durch ein eigenes Shooting ersetzt. Preise, Kontaktdaten, Nachweise und Flughäfen sind Platzhalter, bis PaintFix sie bestätigt (`design/handoff/README.md`, Abschnitt 3).
 
 ## Stand
 

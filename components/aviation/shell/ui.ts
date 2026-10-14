@@ -17,7 +17,7 @@ export const avUi: Record<
   }
 > = {
   de: {
-    toTop: "Paintfix Aviation, zum Seitenanfang",
+    toTop: "PaintFix Aviation, zum Seitenanfang",
     nav: "Abschnitte",
     lang: "Sprache",
     langNames: { de: "Deutsch", en: "English" },
@@ -26,7 +26,7 @@ export const avUi: Record<
     skip: "Zum Inhalt springen",
   },
   en: {
-    toTop: "Paintfix Aviation, back to top",
+    toTop: "PaintFix Aviation, back to top",
     nav: "Sections",
     lang: "Language",
     langNames: { de: "Deutsch", en: "English" },

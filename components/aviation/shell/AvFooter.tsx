@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { AvButton } from "@/components/aviation/Button";
 import { aviation, type Locale } from "@/content/aviation";
 import { telHref } from "./ui";
@@ -19,11 +20,8 @@ export function AvFooter({ locale }: { locale: Locale }) {
     <footer className="bg-av-navy text-av-cream [--focus:var(--av-gold)]">
       <div className="mx-auto max-w-av px-av-gutter pt-[clamp(72px,9vw,128px)] pb-10">
         <div className="flex flex-wrap items-end justify-between gap-8 border-b border-av-line-on-navy pb-[clamp(48px,6vw,80px)]">
-          <p data-rv="0" className="flex flex-col gap-[18px]">
-            <span className="font-cinzel text-av-wordmark leading-[0.9] font-normal tracking-[0.095em]">
-              PAINTFIX
-            </span>
-            <span className="text-[clamp(11px,1vw,14px)] tracking-[0.62em]">AVIATION</span>
+          <p data-rv="0">
+            <BrandLogo division="aviation" size="xl" stacked />
           </p>
           <AvButton href="#av-contact">{av.cta}</AvButton>
         </div>

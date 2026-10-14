@@ -14,7 +14,7 @@ export function AviationBand() {
         className="block w-full transition-colors duration-500 ease-[ease] [--focus:var(--av-gold)] hover:bg-av-navy-hover focus-visible:-outline-offset-8"
       >
         <span className="mx-auto flex max-w-car flex-wrap items-center justify-between gap-x-14 gap-y-7 px-car-gutter py-[clamp(56px,7vw,104px)]">
-          <AvLogo size="sm" />
+          <AvLogo />
           <span className="max-w-[640px] flex-[1_1_420px] font-cinzel text-[clamp(16.8px,1.52vw,22.4px)] leading-[1.4] font-normal text-pretty">
             Business Aviation betreuen wir in einem eigenen Bereich, mit eigenem Team und eigener
             Kalkulation.

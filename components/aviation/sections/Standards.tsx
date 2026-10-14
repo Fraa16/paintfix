@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { AvOverline } from "@/components/aviation/Overline";
 import { aviation, sampleReport, type Locale } from "@/content/aviation";
 import { altText, media, type MediaId } from "@/content/media";
@@ -54,8 +55,8 @@ export function Standards({ locale }: { locale: Locale }) {
           >
             <div className="flex items-start justify-between gap-4 border-b border-av-navy pb-5">
               <div>
-                <p className="font-cinzel text-[9.6px] font-normal tracking-[0.335em]">
-                  PAINTFIX <span className="font-sans text-[9px] tracking-[0.34em]">AVIATION</span>
+                <p>
+                  <BrandLogo division="aviation" size="xs" />
                 </p>
                 <p className="mt-3.5 font-cinzel text-[22.4px] font-normal">{rep.title}</p>
               </div>

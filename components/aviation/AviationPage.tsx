@@ -11,7 +11,7 @@ import { Terms } from "./sections/Terms";
 import { Contact } from "./sections/Contact";
 
 /**
- * Seite Paintfix Aviation (README 8.4): Hero (sticky), darüber der Inhaltsblock (z-index 2, Creme).
+ * Seite PaintFix Aviation (README 8.4): Hero (sticky), darüber der Inhaltsblock (z-index 2, Creme).
  * data-av-content markiert den Block für den Header-Wechsel (AvScrollState).
  */
 export function AviationPage({ locale }: { locale: Locale }) {

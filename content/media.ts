@@ -27,9 +27,9 @@ import car6873023 from "@/assets/img/car-6873023.jpg";
  * "client" setzen und `alt` anpassen.
  *
  * Alt-Texte beschreiben, was das Foto zeigt (nicht den Zweck des Platzes) und stellen Stock-Fotos nicht
- * als Mitarbeiter oder Halle von Paintfix dar.
+ * als Mitarbeiter oder Halle von PaintFix dar.
  *
- * Stock-Fotos dürfen nie als eigene Arbeit von Paintfix erscheinen (UWG § 5). Bildunterschriften wie
+ * Stock-Fotos dürfen nie als eigene Arbeit von PaintFix erscheinen (UWG § 5). Bildunterschriften wie
  * „Außenaufbereitung am VW Golf“ oder der Vorher/Nachher-Regler brauchen vor dem Launch echte Fotos.
  */
 export type MediaSource = "stock" | "client";

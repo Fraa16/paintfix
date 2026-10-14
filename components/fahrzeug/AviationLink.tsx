@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { cx } from "@/lib/cx";
 
 /**
- * Link „Paintfix Aviation ↗“ auf Fahrzeugseiten. Neben dem Aviation-Band und dem Curtain die einzige
+ * Link „PaintFix Aviation ↗“ auf Fahrzeugseiten. Neben dem Aviation-Band und dem Curtain die einzige
  * Stelle, an der Navy und Cinzel auf Fahrzeugseiten erscheinen dürfen (CLAUDE.md Regel 5).
  *
  * tone   navy  auf Weiß: Text --av-navy, Hover rot (Header, Anfrage, 404, Menü)
@@ -13,7 +13,7 @@ import { cx } from "@/lib/cx";
 export function CarAviationLink({
   tone = "navy",
   size = "sm",
-  label = "Paintfix Aviation",
+  label = "PaintFix Aviation",
   prefix,
   arrowClassName,
   className,

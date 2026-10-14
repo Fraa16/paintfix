@@ -3,12 +3,12 @@ import type { MediaId } from "./media";
 
 /**
  * Fahrzeug-Inhalte aus design/handoff/content/fahrzeug.json (Kopie in content/fahrzeug.json).
- * Preise sind Platzhalter, bis Paintfix sie bestätigt (README 3).
+ * Preise sind Platzhalter, bis PaintFix sie bestätigt (README 3).
  *
  * Schwerpunkte (Kundenwunsch 14.10.2026): Smart Repair, Lackkorrektur, Leasingrückgabe und
  * hochwertige Aufbereitung stehen auf der Startseite vorn (`focus`). Smart Repair und
  * Leasingrückgabe (`inspect`) haben noch keinen bestätigten Umfang und keine Preise: Texte und
- * Leistungslisten sind Platzhalter, bis Paintfix sie bestätigt; der Preis heißt „nach Begutachtung“.
+ * Leistungslisten sind Platzhalter, bis PaintFix sie bestätigt; der Preis heißt „nach Begutachtung“.
  */
 
 export type ServiceId = "aussen" | "innen" | "politur" | "keramik";

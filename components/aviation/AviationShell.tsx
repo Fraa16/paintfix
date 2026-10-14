@@ -10,7 +10,7 @@ import { SkipLink } from "@/components/shared/SkipLink";
 import { avUi, telHref } from "./shell/ui";
 
 /**
- * Markenhülle Paintfix Aviation (README 8.4, Referenz Zeile 551): Creme, Navy-Text, Mona Sans 350,
+ * Markenhülle PaintFix Aviation (README 8.4, Referenz Zeile 551): Creme, Navy-Text, Mona Sans 350,
  * Zeilenhöhe normal wie in der Referenz. Header, Seite, Footer, Abschnittsanzeige und mobile
  * Aktionsleiste mit 76px Navy-Platzhalter am Ende. Weiches Scrollen (Lenis) nur hier.
  */
