@@ -131,8 +131,7 @@ function PriceBar() {
         ))}
       </ul>
       <p className="mt-5 text-[13px] text-car-muted">
-        Endpreise für Kleinwagen. {site.vatNote} Preise für Limousinen, Kombis, SUVs und Vans finden
-        Sie auf der Leistungsseite.
+        Preise für Kleinwagen. Alle Fahrzeugklassen auf der Leistungsseite.
       </p>
     </div>
   );
