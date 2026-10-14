@@ -12,6 +12,7 @@ import car12397895 from "@/assets/img/car-12397895.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
 import car14908957 from "@/assets/img/car-14908957.jpg";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
+import carSmartRepair from "@/assets/img/car-smart-repair.webp";
 import car29132800 from "@/assets/img/car-29132800.jpg";
 import car30787396 from "@/assets/img/car-30787396.jpg";
 import car31154217 from "@/assets/img/car-31154217.jpg";
@@ -114,10 +115,13 @@ export const media = {
   },
 
   carSvcSmartRepair: {
-    src: car14615262,
-    alt: { de: "Maschinenpolitur am Lack eines dunklen Fahrzeugs" },
+    src: carSmartRepair,
+    alt: {
+      de: "Behandschuhte Hände setzen ein Ausbeulwerkzeug mit Klebepad am Dach eines schwarzen Autos an, dahinter eine Streifenleuchte",
+    },
     needed: "Smart Repair: Spot-Reparatur eines Kratzers oder einer Delle",
-    ...pexels,
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 14.10.2026",
   },
   carSvcLeasing: {
     src: car12397895,
