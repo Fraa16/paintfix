@@ -82,10 +82,10 @@ export function Hero() {
               className="object-cover"
             />
           </ParallaxLayer>
-          {/* Bildunterschrift: Platzhalterfoto, vor dem Launch durch eigenes Foto ersetzen (media.ts). */}
+          {/* Bildunterschrift nennt nur die Leistung, keinen Auftrag: Das Bild ist ein KI-Platzhalter (media.ts). */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-between gap-3 bg-linear-to-b from-car-ink/0 to-car-ink/55 px-5 pt-11 pb-[18px] text-[11px] font-medium tracking-[0.16em] text-car-bg uppercase">
-            <span>{serviceById("aussen").name} am VW Golf</span>
-            <span>{fromPrice(serviceById("aussen").p[0])}</span>
+            <span>{serviceById("keramik").name}</span>
+            <span>{fromPrice(serviceById("keramik").p[0])}</span>
           </div>
         </div>
       </div>

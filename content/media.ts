@@ -11,7 +11,7 @@ import av32346742 from "@/assets/img/av-32346742.jpg";
 import car12397895 from "@/assets/img/car-12397895.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
 import car14908957 from "@/assets/img/car-14908957.jpg";
-import car20381587 from "@/assets/img/car-20381587.jpg";
+import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
 import car29132800 from "@/assets/img/car-29132800.jpg";
 import car30787396 from "@/assets/img/car-30787396.jpg";
 import car31154217 from "@/assets/img/car-31154217.jpg";
@@ -22,17 +22,18 @@ import car6873023 from "@/assets/img/car-6873023.jpg";
 /**
  * Bildregister. Jedes Foto der Website ist ein benannter Platz (README 12).
  *
- * Alle Fotos sind derzeit Pexels-Platzhalter (`source: "stock"`) und werden durch ein eigenes
- * Shooting ersetzt. Zum Tauschen: Datei in assets/img/ ablegen, Import hier umstellen, `source` auf
+ * Alle Fotos sind derzeit Platzhalter: Pexels-Fotos (`source: "stock"`) oder KI-Bilder
+ * (`source: "ai"`, erzeugt mit ChatGPT). Sie werden durch ein eigenes Shooting ersetzt. Zum Tauschen: Datei in assets/img/ ablegen, Import hier umstellen, `source` auf
  * "client" setzen und `alt` anpassen.
  *
  * Alt-Texte beschreiben, was das Foto zeigt (nicht den Zweck des Platzes) und stellen Stock-Fotos nicht
  * als Mitarbeiter oder Halle von PaintFix dar.
  *
- * Stock-Fotos dürfen nie als eigene Arbeit von PaintFix erscheinen (UWG § 5). Bildunterschriften wie
- * „Außenaufbereitung am VW Golf“ oder der Vorher/Nachher-Regler brauchen vor dem Launch echte Fotos.
+ * Stock- und KI-Bilder dürfen nie als eigene Arbeit von PaintFix erscheinen (UWG § 5):
+ * Bildunterschriften nennen nur die Leistung, keinen bestimmten Auftrag. Der Vorher/Nachher-Regler
+ * braucht vor dem Launch ein echtes Fotopaar.
  */
-export type MediaSource = "stock" | "client";
+export type MediaSource = "stock" | "ai" | "client";
 
 export interface Media {
   src: StaticImageData;
@@ -49,10 +50,13 @@ const pexels = { source: "stock", credit: "Pexels" } as const;
 export const media = {
   // ---------- Fahrzeug ----------
   carHero: {
-    src: car20381587,
-    alt: { de: "Scheinwerfer eines silbernen VW Golf mit Wassertropfen" },
-    needed: "Fahrzeug-Hero 4:5: Detail Scheinwerfer mit Wassertropfen, Hochformat",
-    ...pexels,
+    src: carHeroKeramik,
+    alt: {
+      de: "Behandschuhte Hand trägt mit einem Applikator eine Keramikversiegelung auf schwarzen Lack auf",
+    },
+    needed: "Fahrzeug-Hero 4:5: hochwertiges Detail, z. B. Keramikversiegelung auf schwarzem Lack",
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 14.10.2026",
   },
   carHoverAussen: {
     src: car6872176,
@@ -191,7 +195,6 @@ export function altText(id: MediaId, locale: Locale = "de"): string {
 }
 
 const byRefPath: Record<string, MediaId> = {
-  "img/car-20381587.jpg": "carHero",
   "img/car-6872176.jpg": "carHoverAussen",
   "img/car-37809563.jpg": "carHoverInnen",
   "img/car-14615262.jpg": "carHoverPolitur",
