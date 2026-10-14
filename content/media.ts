@@ -10,8 +10,8 @@ import av28776071 from "@/assets/img/av-28776071.jpg";
 import av32346742 from "@/assets/img/av-32346742.jpg";
 import car12397895 from "@/assets/img/car-12397895.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
-import car14908957 from "@/assets/img/car-14908957.jpg";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
+import carLackkorrektur from "@/assets/img/car-lackkorrektur.webp";
 import carSmartRepair from "@/assets/img/car-smart-repair.webp";
 import car29132800 from "@/assets/img/car-29132800.jpg";
 import car30787396 from "@/assets/img/car-30787396.jpg";
@@ -102,10 +102,13 @@ export const media = {
     ...pexels,
   },
   carSvcPolitur: {
-    src: car14908957,
-    alt: { de: "Kunststoffteile werden vor der Politur abgeklebt" },
-    needed: "Leistungsseite Politur: Arbeitsschritt",
-    ...pexels,
+    src: carLackkorrektur,
+    alt: {
+      de: "Behandschuhte Hände führen eine Exzenterpoliermaschine über eine schwarze Autotür",
+    },
+    needed: "Lackkorrektur: Maschinenpolitur am Lack",
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 14.10.2026, links beschnitten",
   },
   carSvcKeramik: {
     src: car29132800,
@@ -206,7 +209,7 @@ const byRefPath: Record<string, MediaId> = {
   "img/car-12397895.jpg": "carBeforeAfter",
   "img/car-31154217.jpg": "carStandort",
   "img/car-6873023.jpg": "carSvcAussen",
-  "img/car-14908957.jpg": "carSvcPolitur",
+  "img/car-lackkorrektur.webp": "carSvcPolitur",
   "img/car-29132800.jpg": "carSvcKeramik",
   "img/av-28772726.jpg": "avHero",
   "img/av-25724429.jpg": "avRamp",

@@ -10,7 +10,7 @@ import { ServiceFollower } from "./ServiceFollower";
 /** Bilder, die der Cursor über der Liste mitnimmt (Referenz Zeilen 154–157), je Schwerpunkt. */
 const HOVER_IMAGE: Record<FocusArea["id"], MediaId> = {
   "smart-repair": "carSvcSmartRepair",
-  politur: "carHoverInnen",
+  politur: "carSvcPolitur",
   leasing: "carSvcLeasing",
   aussen: "carHoverAussen",
   innen: "carHoverInnen",
