@@ -12,6 +12,7 @@ import car12397895 from "@/assets/img/car-12397895.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
 import carLackkorrektur from "@/assets/img/car-lackkorrektur.webp";
+import carLeasingCheck from "@/assets/img/car-leasing-check.webp";
 import carSmartRepair from "@/assets/img/car-smart-repair.webp";
 import car29132800 from "@/assets/img/car-29132800.jpg";
 import car30787396 from "@/assets/img/car-30787396.jpg";
@@ -127,10 +128,11 @@ export const media = {
     credit: "KI-generiert (ChatGPT), 14.10.2026",
   },
   carSvcLeasing: {
-    src: car12397895,
-    alt: { de: "Heckpartie eines grauen Mercedes-Benz C-Klasse Coupés" },
+    src: carLeasingCheck,
+    alt: { de: "Behandschuhte Hand prüft schwarzen Lack mit einer kleinen LED-Prüfleuchte" },
     needed: "Leasingrückgabe: Begutachtung oder Übergabe eines aufbereiteten Fahrzeugs",
-    ...pexels,
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 14.10.2026",
   },
 
   // ---------- Aviation ----------
