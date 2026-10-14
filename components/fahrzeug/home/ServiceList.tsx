@@ -12,7 +12,7 @@ const HOVER_IMAGE: Record<FocusArea["id"], MediaId> = {
   "smart-repair": "carSvcSmartRepair",
   politur: "carSvcPolitur",
   leasing: "carSvcLeasing",
-  aussen: "carHoverAussen",
+  aussen: "carSvcAussen",
   innen: "carHoverInnen",
   keramik: "carHoverKeramik",
 };

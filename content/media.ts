@@ -10,6 +10,7 @@ import av28776071 from "@/assets/img/av-28776071.jpg";
 import av32346742 from "@/assets/img/av-32346742.jpg";
 import car12397895 from "@/assets/img/car-12397895.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
+import carAussen from "@/assets/img/car-aussen.webp";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
 import carLackkorrektur from "@/assets/img/car-lackkorrektur.webp";
 import carLeasingCheck from "@/assets/img/car-leasing-check.webp";
@@ -18,8 +19,6 @@ import car29132800 from "@/assets/img/car-29132800.jpg";
 import car30787396 from "@/assets/img/car-30787396.jpg";
 import car31154217 from "@/assets/img/car-31154217.jpg";
 import car37809563 from "@/assets/img/car-37809563.jpg";
-import car6872176 from "@/assets/img/car-6872176.jpg";
-import car6873023 from "@/assets/img/car-6873023.jpg";
 
 /**
  * Bildregister. Jedes Foto der Website ist ein benannter Platz (README 12).
@@ -60,12 +59,6 @@ export const media = {
     source: "ai",
     credit: "KI-generiert (ChatGPT), 14.10.2026",
   },
-  carHoverAussen: {
-    src: car6872176,
-    alt: { de: "Handwäsche eines weißen Sportwagens mit Schaum" },
-    needed: "Hover-Bild Außen: Handwäsche",
-    ...pexels,
-  },
   carHoverInnen: {
     src: car37809563,
     alt: { de: "Maschinenpolitur an rotem Autolack" },
@@ -97,10 +90,13 @@ export const media = {
     ...pexels,
   },
   carSvcAussen: {
-    src: car6873023,
-    alt: { de: "Vorwäsche mit dem Hochdruckreiniger in einer Werkstatt" },
-    needed: "Leistungsseite Außen: Arbeitsschritt",
-    ...pexels,
+    src: carAussen,
+    alt: {
+      de: "Behandschuhte Hand wäscht die schaumbedeckte Motorhaube eines schwarzen Autos mit einem Waschhandschuh",
+    },
+    needed: "Außenaufbereitung: Handwäsche mit Schaum",
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 14.10.2026, aus zwei Varianten zusammengesetzt",
   },
   carSvcPolitur: {
     src: carLackkorrektur,
@@ -204,13 +200,12 @@ export function altText(id: MediaId, locale: Locale = "de"): string {
 }
 
 const byRefPath: Record<string, MediaId> = {
-  "img/car-6872176.jpg": "carHoverAussen",
   "img/car-37809563.jpg": "carHoverInnen",
   "img/car-14615262.jpg": "carHoverPolitur",
   "img/car-30787396.jpg": "carHoverKeramik",
   "img/car-12397895.jpg": "carBeforeAfter",
   "img/car-31154217.jpg": "carStandort",
-  "img/car-6873023.jpg": "carSvcAussen",
+  "img/car-aussen.webp": "carSvcAussen",
   "img/car-lackkorrektur.webp": "carSvcPolitur",
   "img/car-29132800.jpg": "carSvcKeramik",
   "img/av-28772726.jpg": "avHero",
