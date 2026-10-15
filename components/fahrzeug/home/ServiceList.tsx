@@ -14,7 +14,7 @@ const HOVER_IMAGE: Record<FocusArea["id"], MediaId> = {
   leasing: "carSvcLeasing",
   aussen: "carSvcAussen",
   innen: "carSvcInnen",
-  keramik: "carHoverKeramik",
+  keramik: "carSvcKeramik",
 };
 
 /**

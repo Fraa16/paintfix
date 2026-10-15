@@ -13,11 +13,10 @@ import car14615262 from "@/assets/img/car-14615262.jpg";
 import carAussen from "@/assets/img/car-aussen.webp";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
 import carInnen from "@/assets/img/car-innen.webp";
+import carKeramik from "@/assets/img/car-keramik.webp";
 import carLackkorrektur from "@/assets/img/car-lackkorrektur.webp";
 import carLeasingCheck from "@/assets/img/car-leasing-check.webp";
 import carSmartRepair from "@/assets/img/car-smart-repair.webp";
-import car29132800 from "@/assets/img/car-29132800.jpg";
-import car30787396 from "@/assets/img/car-30787396.jpg";
 import car31154217 from "@/assets/img/car-31154217.jpg";
 
 /**
@@ -74,12 +73,6 @@ export const media = {
     needed: "Hover-Bild Politur: Maschinenpolitur",
     ...pexels,
   },
-  carHoverKeramik: {
-    src: car30787396,
-    alt: { de: "Tiefglänzender schwarzer Lack mit Spiegelungen" },
-    needed: "Hover-Bild Keramik: Abperleffekt",
-    ...pexels,
-  },
   carBeforeAfter: {
     src: car12397895,
     alt: { de: "Heckpartie eines grauen Mercedes-Benz C-Klasse Coupés" },
@@ -111,10 +104,11 @@ export const media = {
     credit: "KI-generiert (ChatGPT), 14.10.2026, links beschnitten",
   },
   carSvcKeramik: {
-    src: car29132800,
-    alt: { de: "Schwarzer Sportwagen mit glänzendem Lack im Studio" },
-    needed: "Leistungsseite Keramik: Arbeitsschritt",
-    ...pexels,
+    src: carKeramik,
+    alt: { de: "Wasser perlt in runden Tropfen auf versiegeltem schwarzem Lack ab" },
+    needed: "Keramikversiegelung: Abperleffekt auf versiegeltem Lack",
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 15.10.2026",
   },
 
   carSvcSmartRepair: {
@@ -205,12 +199,11 @@ export function altText(id: MediaId, locale: Locale = "de"): string {
 const byRefPath: Record<string, MediaId> = {
   "img/car-innen.webp": "carSvcInnen",
   "img/car-14615262.jpg": "carHoverPolitur",
-  "img/car-30787396.jpg": "carHoverKeramik",
   "img/car-12397895.jpg": "carBeforeAfter",
   "img/car-31154217.jpg": "carStandort",
   "img/car-aussen.webp": "carSvcAussen",
   "img/car-lackkorrektur.webp": "carSvcPolitur",
-  "img/car-29132800.jpg": "carSvcKeramik",
+  "img/car-keramik.webp": "carSvcKeramik",
   "img/av-28772726.jpg": "avHero",
   "img/av-25724429.jpg": "avRamp",
   "img/av-14983522.jpg": "avExterior",
