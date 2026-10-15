@@ -1,27 +1,39 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
+/**
+ * End-to-end checks: routes, language, horizontal overflow at the handoff widths, accessibility
+ * (axe) and the main UI states. Runs against `next dev` on port 4329, or against BASE_URL if set
+ * (e.g. a Vercel preview).
+ */
 const PORT = 4329;
+const baseURL = process.env.BASE_URL ?? `http://127.0.0.1:${PORT}`;
 
 export default defineConfig({
-  testDir: 'tests',
+  testDir: "tests",
   timeout: 60_000,
   fullyParallel: true,
-  reporter: [['list']],
+  reporter: [["list"]],
   use: {
-    baseURL: `http://127.0.0.1:${PORT}`,
-    contextOptions: { reducedMotion: 'reduce' },
+    baseURL,
+    // Static state of the design (README 9: all motion off with reduced motion).
+    contextOptions: { reducedMotion: "reduce" },
   },
   projects: [
     {
-      name: 'desktop',
-      use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } },
+      name: "desktop",
+      use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } },
     },
-    { name: 'mobile', use: { ...devices['Pixel 7'] } },
+    {
+      name: "mobile",
+      use: { ...devices["Desktop Chrome"], viewport: { width: 402, height: 874 }, hasTouch: true },
+    },
   ],
-  webServer: {
-    command: `npx astro dev --port ${PORT} --host 127.0.0.1 --ignore-lock`,
-    url: `http://127.0.0.1:${PORT}`,
-    reuseExistingServer: true,
-    timeout: 120_000,
-  },
+  webServer: process.env.BASE_URL
+    ? undefined
+    : {
+        command: `npx next dev --port ${PORT} --hostname 127.0.0.1`,
+        url: baseURL,
+        reuseExistingServer: true,
+        timeout: 120_000,
+      },
 });
