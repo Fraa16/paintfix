@@ -12,13 +12,13 @@ import car12397895 from "@/assets/img/car-12397895.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
 import carAussen from "@/assets/img/car-aussen.webp";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
+import carInnen from "@/assets/img/car-innen.webp";
 import carLackkorrektur from "@/assets/img/car-lackkorrektur.webp";
 import carLeasingCheck from "@/assets/img/car-leasing-check.webp";
 import carSmartRepair from "@/assets/img/car-smart-repair.webp";
 import car29132800 from "@/assets/img/car-29132800.jpg";
 import car30787396 from "@/assets/img/car-30787396.jpg";
 import car31154217 from "@/assets/img/car-31154217.jpg";
-import car37809563 from "@/assets/img/car-37809563.jpg";
 
 /**
  * Bildregister. Jedes Foto der Website ist ein benannter Platz (README 12).
@@ -59,11 +59,14 @@ export const media = {
     source: "ai",
     credit: "KI-generiert (ChatGPT), 14.10.2026",
   },
-  carHoverInnen: {
-    src: car37809563,
-    alt: { de: "Maschinenpolitur an rotem Autolack" },
-    needed: "Hover-Bild Innen und Leistungsseite Innen: Innenraum",
-    ...pexels,
+  carSvcInnen: {
+    src: carInnen,
+    alt: {
+      de: "Gepflegter Innenraum mit schwarzem Lederlenkrad, Türverkleidung und perforiertem Ledersitz",
+    },
+    needed: "Innenaufbereitung: Innenraum, idealerweise bei der Reinigung von Leder oder Polstern",
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 15.10.2026",
   },
   carHoverPolitur: {
     src: car14615262,
@@ -200,7 +203,7 @@ export function altText(id: MediaId, locale: Locale = "de"): string {
 }
 
 const byRefPath: Record<string, MediaId> = {
-  "img/car-37809563.jpg": "carHoverInnen",
+  "img/car-innen.webp": "carSvcInnen",
   "img/car-14615262.jpg": "carHoverPolitur",
   "img/car-30787396.jpg": "carHoverKeramik",
   "img/car-12397895.jpg": "carBeforeAfter",
