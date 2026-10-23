@@ -159,20 +159,9 @@ export function Terms({ locale }: { locale: Locale }) {
             </p>
             <ul className="mt-9 grid grid-cols-[repeat(auto-fit,minmax(min(100%,230px),1fr))] gap-x-8">
               {t.docs.map((d) => (
-                <li
-                  key={d.t}
-                  className="grid grid-cols-[30px_minmax(0,1fr)] gap-2.5 border-t border-av-line-on-navy py-4"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="pt-[3px] font-cinzel text-[10.4px] font-normal text-av-gold"
-                  >
-                    —
-                  </span>
-                  <div>
-                    <p className="text-[15px] font-medium">{d.t}</p>
-                    <p className="mt-1 text-[13px] leading-[1.5] text-av-on-navy-muted">{d.d}</p>
-                  </div>
+                <li key={d.t} className="border-t border-av-line-on-navy py-4">
+                  <p className="text-[15px] font-medium">{d.t}</p>
+                  <p className="mt-1 text-[13px] leading-[1.5] text-av-on-navy-muted">{d.d}</p>
                 </li>
               ))}
             </ul>

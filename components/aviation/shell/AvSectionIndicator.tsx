@@ -18,7 +18,8 @@ export function AvSectionIndicator({ secs }: { secs: string[] }) {
     >
       <span className="block h-12 w-px bg-current opacity-60" />
       <span className="rotate-180 text-[10px] tracking-[0.32em] whitespace-nowrap uppercase [writing-mode:vertical-rl]">
-        {ROMAN[sec]} — {secs[sec]}
+        {ROMAN[sec]}
+        <span className="ms-[1.4em]">{secs[sec]}</span>
       </span>
     </div>
   );
