@@ -13,6 +13,9 @@ import { Curtain } from "@/components/shared/curtain/Curtain";
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: { default: "PaintFix | Fahrzeugaufbereitung in Telgte", template: "%s | PaintFix" },
+  // Bild je Bereich: opengraph-image.jpg in (fahrzeug)/ und aviation/.
+  openGraph: { siteName: "PaintFix", locale: "de_DE", type: "website" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function GermanRootLayout({ children }: { children: ReactNode }) {

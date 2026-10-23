@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Leistungen und Preise",
   description:
     "Smart Repair, Lackkorrektur, Leasingrückgabe, Außen- und Innenaufbereitung und Keramikversiegelung in Telgte bei Münster. Alle Preise sind Endpreise. Nach einer kurzen Sichtung nennen wir Ihnen den Festpreis.",
+  alternates: { canonical: "/leistungen" },
 };
 
 /**

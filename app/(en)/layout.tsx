@@ -13,6 +13,8 @@ import { Curtain } from "@/components/shared/curtain/Curtain";
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: { default: "PaintFix Aviation", template: "%s | PaintFix Aviation" },
+  openGraph: { siteName: "PaintFix", locale: "en_GB", type: "website" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function EnglishRootLayout({ children }: { children: ReactNode }) {

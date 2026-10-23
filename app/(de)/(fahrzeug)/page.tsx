@@ -7,11 +7,14 @@ import { LeasingBand } from "@/components/fahrzeug/home/LeasingBand";
 import { Location } from "@/components/fahrzeug/home/Location";
 import { Process } from "@/components/fahrzeug/home/Process";
 import { ServiceList } from "@/components/fahrzeug/home/ServiceList";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { carBusiness } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: { absolute: "PaintFix | Fahrzeugaufbereitung in Telgte bei Münster" },
   description:
     "Smart Repair, Lackkorrektur, Vorbereitung auf die Leasingrückgabe und hochwertige Fahrzeugaufbereitung in Telgte bei Münster. Den Festpreis kennen Sie, bevor wir beginnen.",
+  alternates: { canonical: "/" },
 };
 
 /** Startseite Fahrzeug (README 8.1). Header, Footer und Aktionsleiste kommen aus dem Layout. */
@@ -26,6 +29,7 @@ export default function HomePage() {
       <AviationBand />
       <Location />
       <CtaBand />
+      <JsonLd data={carBusiness()} />
     </main>
   );
 }
