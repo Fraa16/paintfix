@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { CarButton } from "@/components/fahrzeug/Button";
+import { focusFirstError, Honeypot, useSpamFields } from "@/components/shared/FormGuard";
 import {
   INSPECT_PRICE,
   inspectServices,
@@ -11,11 +12,26 @@ import {
   type ServiceId,
   type VehicleClassIndex,
 } from "@/content/fahrzeug";
+import { site } from "@/content/site";
 import { cx } from "@/lib/cx";
+import { sendCarRequest } from "@/lib/forms/actions";
+import {
+  REQUEST_TIMES,
+  carRequestErrors,
+  hasErrors,
+  type CarRequest,
+  type CarRequestField,
+  type ErrorCode,
+  type FieldErrors,
+  type FormResult,
+  type TimeIndex,
+} from "@/lib/forms/rules";
 import { fromPrice } from "@/lib/format";
 import { estimatePrice } from "@/lib/pricing";
 import {
   CheckMark,
+  errorProps,
+  FieldError,
   FOCUS_WITHIN,
   HiddenInput,
   LabelText,
@@ -29,9 +45,36 @@ import { defaultPrefill, type RequestPrefill } from "./query";
 import { RequestSummary } from "./RequestSummary";
 import { RequestThanks } from "./RequestThanks";
 
-/** Abgabe-Zeitfenster (Referenz `times`), Standard: Flexibel. */
-const TIMES = ["Vormittag", "Nachmittag", "Flexibel"] as const;
-type TimeIndex = 0 | 1 | 2;
+/** Fehlertexte je Code (README 10.1: unter dem Feld, Fokus aufs erste fehlerhafte Feld). */
+const ERROR_TEXT: Partial<Record<ErrorCode, string>> & { invalid: string } = {
+  services: "Bitte wählen Sie mindestens eine Leistung.",
+  past: "Bitte wählen Sie ein Datum ab heute.",
+  required: "Bitte geben Sie Ihren Namen an.",
+  contact: "Bitte geben Sie eine Telefonnummer oder E-Mail-Adresse an.",
+  email: "Bitte prüfen Sie die E-Mail-Adresse.",
+  consent: "Bitte stimmen Sie der Verarbeitung Ihrer Angaben zu.",
+  invalid: "Bitte prüfen Sie diese Angabe.",
+};
+
+/** Felder mit eigener Fehlermeldung; andere Serverfehler erscheinen als allgemeiner Hinweis. */
+const ERROR_FIELDS: readonly CarRequestField[] = [
+  "services",
+  "date",
+  "name",
+  "phone",
+  "email",
+  "consent",
+];
+
+/** Fehler eines Felds zurücksetzen, sobald es geändert wird. E-Mail erfüllt auch „Telefon oder E-Mail“. */
+const CLEARS: Record<FieldKey, CarRequestField[]> = {
+  car: [],
+  date: ["date"],
+  name: ["name"],
+  phone: ["phone"],
+  email: ["email", "phone"],
+  msg: [],
+};
 
 type FieldKey = "car" | "date" | "name" | "phone" | "email" | "msg";
 const EMPTY_FIELDS: Record<FieldKey, string> = {
@@ -47,8 +90,9 @@ const EMPTY_FIELDS: Record<FieldKey, string> = {
  * Formular „Termin anfragen“ mit Live-Zusammenfassung und Danke-Zustand (README 8.3, 10.1;
  * Referenz Zeilen 380–493, Logik 1340–1353 und 1442–1522).
  *
- * Phase 2: vollständige Oberfläche ohne Versand. Der Danke-Zustand erscheint nur in der
- * Entwicklung, damit eine Vorschau nie einen erfolgreichen Versand vortäuscht.
+ * Versand über die Server Action sendCarRequest (lib/forms/actions.ts). Der Browser prüft vorher
+ * dieselben Regeln (lib/forms/rules.ts). Der Danke-Zustand erscheint erst nach erfolgreichem Versand;
+ * scheitert er, steht über dem Button ein Hinweis mit Telefonnummer.
  *
  * `pending`: Platzhalter, solange die Vorbelegung aus der URL noch nicht gelesen ist (Suspense-
  * Fallback vor der Hydration). Keine Auswahl markiert, Preise unsichtbar, gleiches Layout. So steht
@@ -68,6 +112,13 @@ export function RequestForm({
   const [time, setTime] = useState<TimeIndex>(2);
   const [consent, setConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<FieldErrors<CarRequestField>>({});
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
+  const spamFields = useSpamFields();
+  const errId = useId();
+  /** Nach dem Setzen neuer Fehler das erste fehlerhafte Feld fokussieren (nach dem Rendern). */
+  const focusErrors = useRef(false);
 
   const formRef = useRef<HTMLFormElement>(null);
   const thanksRef = useRef<HTMLHeadingElement>(null);
@@ -85,28 +136,94 @@ export function RequestForm({
     }
   }, [submitted]);
 
+  useEffect(() => {
+    if (!focusErrors.current || !formRef.current) return;
+    focusErrors.current = false;
+    focusFirstError(formRef.current, Object.keys(errors));
+  }, [errors]);
+
+  const clearErrors = (...keys: CarRequestField[]) =>
+    setErrors((e) => {
+      if (!keys.some((k) => e[k])) return e;
+      const next = { ...e };
+      for (const k of keys) delete next[k];
+      return next;
+    });
+  const errorText = (key: CarRequestField) => {
+    const code = errors[key];
+    return code ? (ERROR_TEXT[code] ?? ERROR_TEXT.invalid) : undefined;
+  };
+
   const estimate = estimatePrice(selected, vehicleClass);
   const classLabel = vehicleClasses[vehicleClass].label;
 
   const field = (key: FieldKey) => ({
     value: fields[key],
-    onChange: (e: { target: { value: string } }) =>
-      setFields((f) => ({ ...f, [key]: e.target.value })),
+    onChange: (e: { target: { value: string } }) => {
+      setFields((f) => ({ ...f, [key]: e.target.value }));
+      clearErrors(...CLEARS[key]);
+    },
   });
 
-  const toggleService = (id: ServiceId) => setSelected((s) => ({ ...s, [id]: !s[id] }));
-  const toggleInspect = (id: InspectId) => setInspect((s) => ({ ...s, [id]: !s[id] }));
+  const toggleService = (id: ServiceId) => {
+    setSelected((s) => ({ ...s, [id]: !s[id] }));
+    clearErrors("services");
+  };
+  const toggleInspect = (id: InspectId) => {
+    setInspect((s) => ({ ...s, [id]: !s[id] }));
+    clearErrors("services");
+  };
   /** Gewählte Leistungen mit Preis nach Begutachtung (Smart Repair, Leasingrückgabe). */
   const inspectNames = pending
     ? []
     : inspectServices.filter((s) => inspect[s.id]).map((s) => s.name);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Phase 3: Versand
-    if (process.env.NODE_ENV !== "production") {
+    if (pending || sending) return;
+    const form = e.currentTarget;
+    const data: CarRequest = {
+      services: services.filter((s) => selected[s.id]).map((s) => s.id),
+      inspect: inspectServices.filter((s) => inspect[s.id]).map((s) => s.id),
+      vehicleClass,
+      car: fields.car,
+      date: fields.date,
+      time,
+      name: fields.name,
+      phone: fields.phone,
+      email: fields.email,
+      message: fields.msg,
+      consent,
+    };
+    setSendError(false);
+    const found = carRequestErrors(data);
+    if (hasErrors(found)) {
+      focusErrors.current = true;
+      setErrors(found);
+      return;
+    }
+
+    setSending(true);
+    const result: FormResult = await sendCarRequest(data, spamFields(form)).catch(() => ({
+      ok: false,
+    }));
+    setSending(false);
+    if (result.ok) {
+      setErrors({});
       switched.current = true;
       setSubmitted(true);
+      return;
+    }
+    const known = Object.fromEntries(
+      Object.entries(result.errors ?? {}).filter(([k]) =>
+        ERROR_FIELDS.includes(k as CarRequestField),
+      ),
+    ) as FieldErrors<CarRequestField>;
+    if (hasErrors(known)) {
+      focusErrors.current = true;
+      setErrors(known);
+    } else {
+      setSendError(true);
     }
   };
 
@@ -147,7 +264,7 @@ export function RequestForm({
             aria-labelledby="anfrage-leistungen"
             className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-3"
           >
-            {services.map((s) => {
+            {services.map((s, i) => {
               const on = !pending && selected[s.id];
               return (
                 <label
@@ -164,6 +281,8 @@ export function RequestForm({
                     value={s.id}
                     checked={on}
                     onChange={() => toggleService(s.id)}
+                    data-field={i === 0 ? "services" : undefined}
+                    {...errorProps(errors.services, `${errId}-services`)}
                   />
                   <CheckMark checked={on} className="mt-px" />
                   <span className="flex flex-1 flex-col gap-1">
@@ -198,6 +317,7 @@ export function RequestForm({
                     value={s.id}
                     checked={on}
                     onChange={() => toggleInspect(s.id)}
+                    {...errorProps(errors.services, `${errId}-services`)}
                   />
                   <CheckMark checked={on} className="mt-px" />
                   <span className="flex flex-1 flex-col gap-1">
@@ -208,6 +328,9 @@ export function RequestForm({
               );
             })}
           </div>
+          {errors.services ? (
+            <FieldError id={`${errId}-services`}>{errorText("services")}</FieldError>
+          ) : null}
         </Step>
 
         <Step>
@@ -236,6 +359,7 @@ export function RequestForm({
             className="mt-5"
             name="fahrzeug"
             placeholder="z. B. VW Golf Variant, 2021"
+            maxLength={120}
             {...field("car")}
           />
         </Step>
@@ -245,7 +369,14 @@ export function RequestForm({
             Wunschtermin
           </StepHeading>
           <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-4">
-            <TextField label="Datum" type="date" name="datum" {...field("date")} />
+            <TextField
+              label="Datum"
+              type="date"
+              name="datum"
+              data-field="date"
+              error={errorText("date")}
+              {...field("date")}
+            />
             <div>
               <LabelText id="anfrage-abgabe">Abgabe</LabelText>
               <Segment
@@ -254,7 +385,7 @@ export function RequestForm({
                 onChange={setTime}
                 labelledBy="anfrage-abgabe"
                 optionClassName="flex h-[54px] items-center px-1.5 text-[14px] font-semibold"
-                options={TIMES.map((label, i) => ({
+                options={REQUEST_TIMES.map((label, i) => ({
                   value: i as TimeIndex,
                   // Zentriert wie ein Button: zu langer Text läuft nach rechts über, nicht zu beiden Seiten.
                   content: <span className="w-full text-center">{label}</span>,
@@ -274,6 +405,9 @@ export function RequestForm({
               name="name"
               autoComplete="name"
               placeholder="Vor- und Nachname"
+              maxLength={100}
+              data-field="name"
+              error={errorText("name")}
               {...field("name")}
             />
             <TextField
@@ -282,6 +416,9 @@ export function RequestForm({
               name="telefon"
               autoComplete="tel"
               placeholder="Für Rückfragen"
+              maxLength={40}
+              data-field="phone"
+              error={errorText("phone")}
               {...field("phone")}
             />
           </div>
@@ -292,6 +429,9 @@ export function RequestForm({
             name="email"
             autoComplete="email"
             placeholder="name@beispiel.de"
+            maxLength={200}
+            data-field="email"
+            error={errorText("email")}
             {...field("email")}
           />
           <TextArea
@@ -304,6 +444,7 @@ export function RequestForm({
             name="nachricht"
             rows={4}
             placeholder="Besonderheiten, z. B. Tierhaare oder Kratzer an der Fahrertür"
+            maxLength={3000}
             {...field("msg")}
           />
           <label
@@ -316,14 +457,40 @@ export function RequestForm({
               type="checkbox"
               name="einwilligung"
               checked={consent}
-              onChange={() => setConsent((c) => !c)}
+              onChange={() => {
+                setConsent((c) => !c);
+                clearErrors("consent");
+              }}
+              data-field="consent"
+              {...errorProps(errors.consent, `${errId}-consent`)}
             />
             <CheckMark checked={consent} />
             Ich bin einverstanden, dass PaintFix meine Angaben zur Bearbeitung der Anfrage
             verwendet.
           </label>
-          <CarButton type="submit" size="submit" arrow className="mt-8">
-            Anfrage senden
+          {errors.consent ? (
+            <FieldError id={`${errId}-consent`}>{errorText("consent")}</FieldError>
+          ) : null}
+          <Honeypot />
+          <div aria-live="polite">
+            {sendError ? (
+              <p className="mt-6 max-w-[520px] text-[14px] leading-[1.5] text-car-red">
+                Die Anfrage konnte gerade nicht gesendet werden. Bitte versuchen Sie es noch einmal
+                oder rufen Sie uns an:{" "}
+                <a href={site.phoneHref} className="font-semibold whitespace-nowrap underline">
+                  {site.phoneDisplay}
+                </a>
+              </p>
+            ) : null}
+          </div>
+          <CarButton
+            type="submit"
+            size="submit"
+            arrow={!sending}
+            aria-disabled={sending || undefined}
+            className="mt-8"
+          >
+            {sending ? "Wird gesendet …" : "Anfrage senden"}
           </CarButton>
         </Step>
       </form>

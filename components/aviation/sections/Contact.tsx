@@ -23,6 +23,8 @@ export function Contact({ locale }: { locale: Locale }) {
     sentTitle: t.sentTitle,
     sentText: t.sentText,
     again: t.again,
+    fErr: t.fErr,
+    opsPhone: t.opsPhone,
   };
 
   return (

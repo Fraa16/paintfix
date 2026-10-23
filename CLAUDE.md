@@ -17,7 +17,7 @@ Schreibweise im Text: „PaintFix“ (bestätigt 14.10.2026). Das Logo zeigt „
 
 Next.js 16 (App Router, Cache Components) · TypeScript · Tailwind CSS v4 · next/font/local (Mona Sans, Cinzel) · GSAP + ScrollTrigger · Lenis · Zod · Vercel
 
-Offen, noch nicht einbauen: Mailversand (Resend oder IONOS SMTP) und die E-Mail-Adressen. Spam-Schutz: Honeypot + Mindest-Ausfüllzeit, kein Cloudflare Turnstile (Drittanbieter-Request, Regel 10).
+Formulare: Server Actions in `lib/forms/actions.ts`, Regeln in `lib/forms/rules.ts` (Browser und Server, ohne Zod), Zod nur auf dem Server (`lib/forms/schemas.ts`). Mailversand über die Resend-API (`lib/forms/mail.ts`, Umgebungsvariablen siehe `.env.example`); ohne Einrichtung meldet die Produktion einen Fehler mit Telefonnummer, nie einen Scheinerfolg. Spam-Schutz: Honeypot + Mindest-Ausfüllzeit (`components/shared/FormGuard.tsx`), kein Cloudflare Turnstile (Drittanbieter-Request, Regel 10).
 
 Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_modules/next/dist/docs/` lesen.
 
@@ -33,7 +33,8 @@ Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_mo
 - `app/global-not-found.tsx` 404 für beide Root-Layouts
 - `components/fahrzeug`, `components/aviation`, `components/shared` (Action, OpeningStatus, SkipLink; `motion/` Boot-Skript, Reveals, Scroll-Takt; `curtain/` Markenwechsel)
 - `content/` Inhalte (`fahrzeug.ts`, `aviation.ts`, `site.ts`), Bildregister `media.ts`; `aviation-meta.ts` enthält Aviation-Daten ohne Texte (Anker, Karte, Musterbericht) für Client-Komponenten
-- `lib/` Hilfsfunktionen (Preisformat, Öffnungsstatus, Preislogik)
+- `lib/` Hilfsfunktionen (Preisformat, Öffnungsstatus, Preislogik, `forms/`, `structured-data.ts` für JSON-LD)
+- Icons, Share-Bilder, `sitemap.ts`, `robots.ts` als Metadaten-Dateien in `app/` (Aviation mit eigenen Icons und Share-Bildern in seinen Segmenten)
 - `assets/img/` Fotos (derzeit Pexels-Platzhalter)
 
 ## Designregeln
@@ -72,7 +73,9 @@ Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_mo
 
 - Phase 1 + 2 (Setup, statische Seiten mit UI-Zuständen): umgesetzt
 - Phase 4 (Bewegung: Reveals, Parallaxe, Curtain, Scroll-Szenen, Lenis): umgesetzt
-- Phase 3 (Formular-Versand), 6 (SEO, Recht, Analytics), 7 (echte Fotos, Launch): offen
+- Phase 3 (Formular-Versand): umgesetzt, Resend-Konto und Postfächer noch einzurichten
+- Phase 6: SEO-Grundlagen umgesetzt (Icons, Share-Bilder, Sitemap, robots, Canonicals, hreflang, JSON-LD); Recht und Analytics offen
+- Phase 7 (echte Fotos, Launch): offen
 
 ## Vor jedem PR
 

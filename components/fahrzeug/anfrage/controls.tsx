@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { useId, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { cx } from "@/lib/cx";
 
 /**
@@ -47,19 +47,42 @@ export function LabelText({ children, id }: { children: ReactNode; id?: string }
   );
 }
 
-const fieldClass = "w-full border border-car-border bg-car-bg text-[16px] focus:border-car-ink";
+const fieldClass = "w-full border bg-car-bg text-[16px] focus:border-car-ink";
 
-/** Textfeld 56px mit Label darüber. */
+/** Fehler unter dem Feld (README 10.1): 13px, Signalrot (5,3:1 auf Weiß). */
+export function FieldError({ id, children }: { id: string; children: ReactNode }) {
+  return (
+    <p id={id} className="mt-2 text-[13px] leading-[1.4] text-car-red">
+      {children}
+    </p>
+  );
+}
+
+/** Attribute für ein Feld mit Fehler: aria-invalid und Verweis auf die Fehlermeldung. */
+export function errorProps(error: ReactNode | undefined, id: string) {
+  return error ? { "aria-invalid": true, "aria-describedby": id } : {};
+}
+
+/** Textfeld 56px mit Label darüber, Fehlermeldung darunter (außerhalb des Labels). */
 export function TextField({
   label,
   className,
+  error,
   ...input
-}: { label: ReactNode } & ComponentPropsWithoutRef<"input">) {
+}: { label: ReactNode; error?: ReactNode } & ComponentPropsWithoutRef<"input">) {
+  const errId = useId();
   return (
-    <label className={cx("block", className)}>
-      <LabelText>{label}</LabelText>
-      <input {...input} className={cx(fieldClass, "h-14 px-4")} />
-    </label>
+    <div className={className}>
+      <label className="block">
+        <LabelText>{label}</LabelText>
+        <input
+          {...input}
+          {...errorProps(error, errId)}
+          className={cx(fieldClass, "h-14 px-4", error ? "border-car-red" : "border-car-border")}
+        />
+      </label>
+      {error ? <FieldError id={errId}>{error}</FieldError> : null}
+    </div>
   );
 }
 
@@ -72,7 +95,10 @@ export function TextArea({
   return (
     <label className={cx("block", className)}>
       <LabelText>{label}</LabelText>
-      <textarea {...textarea} className={cx(fieldClass, "resize-y p-4 leading-[1.5]")} />
+      <textarea
+        {...textarea}
+        className={cx(fieldClass, "resize-y border-car-border p-4 leading-[1.5]")}
+      />
     </label>
   );
 }
