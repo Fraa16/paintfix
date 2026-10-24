@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { aviation, rampCoordinates, type Locale } from "@/content/aviation";
+import { aviation, type Locale } from "@/content/aviation";
 import { altText, media } from "@/content/media";
 import { ExpandScene } from "./Scenes";
 
@@ -43,8 +43,8 @@ export function Expand({ locale }: { locale: Locale }) {
           data-expand-cap=""
           className="absolute inset-x-0 bottom-0 flex flex-wrap justify-between gap-4 px-av-gutter py-6 text-[10px] tracking-[0.3em] text-av-on-navy-hero uppercase"
         >
+          {/* Ohne Ort und Uhrzeit: das Foto zeigt nicht EDDG. Mit eigenem Foto wieder Ort und Koordinaten. */}
           <span>{av.rampCaption}</span>
-          <span>{rampCoordinates}</span>
         </div>
       </div>
     </ExpandScene>

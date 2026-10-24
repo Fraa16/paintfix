@@ -4,10 +4,10 @@ import type { Locale } from "./aviation";
 import av14983522 from "@/assets/img/av-14983522.jpg";
 import av20562278 from "@/assets/img/av-20562278.jpg";
 import av20562279 from "@/assets/img/av-20562279.jpg";
-import av25724429 from "@/assets/img/av-25724429.jpg";
 import av28776071 from "@/assets/img/av-28776071.jpg";
 import av32346742 from "@/assets/img/av-32346742.jpg";
 import avHeroDusk from "@/assets/img/av-hero-dusk.jpg";
+import avRampNight from "@/assets/img/av-ramp-night.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
 import carAussen from "@/assets/img/car-aussen.webp";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
@@ -151,15 +151,16 @@ export const media = {
       en: "Business jet seen from behind on the apron at dusk",
     },
     needed: "Aviation-Hero: Business Jet auf dem Vorfeld",
-    // Platzhalter: Quelle und Lizenz des Stockfotos noch bestätigen (Regel 11).
     source: "stock",
-    credit: "Quelle offen",
+    credit: "Pexels, Himmel oben verlängert, leicht abgedunkelt",
   },
   avRamp: {
-    src: av25724429,
+    src: avRampNight,
     alt: { de: "Business Jet auf dem Vorfeld bei Nacht", en: "Business jet on the apron at night" },
     needed: "Expand: Vorfeld EDDG bei Nacht oder blauer Stunde",
-    ...pexels,
+    // Kennzeichen und Betreiber-Streifen retuschiert: kein bestimmtes Flugzeug, kein Betreiber als Kunde.
+    source: "stock",
+    credit: "Unsplash, retuschiert (Kennzeichen, Streifen in Navy, Kegel, Fahrzeug)",
   },
   avExterior: {
     src: av14983522,
@@ -220,7 +221,6 @@ const byRefPath: Record<string, MediaId> = {
   "img/car-aussen.webp": "carSvcAussen",
   "img/car-lackkorrektur.webp": "carSvcPolitur",
   "img/car-keramik.webp": "carSvcKeramik",
-  "img/av-25724429.jpg": "avRamp",
   "img/av-14983522.jpg": "avExterior",
   "img/av-20562278.jpg": "avCabin",
   "img/av-32346742.jpg": "avProtection",

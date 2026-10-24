@@ -87,6 +87,3 @@ export const seatOnMap = { pos: [52.65, 37.75] as const };
  * oder durch einen echten, freigegebenen Bericht ersetzt werden.
  */
 export const sampleReport = { signer: "M. Becker", date: "14.10.2026" } as const;
-
-/** Koordinaten unter dem Vorfeld-Bild (Expand). Flughafen Münster/Osnabrück, Platzhalter. */
-export const rampCoordinates = "52°08′05″ N, 7°41′04″ E";
