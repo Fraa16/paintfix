@@ -5,9 +5,9 @@ import av14983522 from "@/assets/img/av-14983522.jpg";
 import av20562278 from "@/assets/img/av-20562278.jpg";
 import av20562279 from "@/assets/img/av-20562279.jpg";
 import av25724429 from "@/assets/img/av-25724429.jpg";
-import av28772726 from "@/assets/img/av-28772726.jpg";
 import av28776071 from "@/assets/img/av-28776071.jpg";
 import av32346742 from "@/assets/img/av-32346742.jpg";
+import avHeroDusk from "@/assets/img/av-hero-dusk.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
 import carAussen from "@/assets/img/car-aussen.webp";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
@@ -145,13 +145,15 @@ export const media = {
 
   // ---------- Aviation ----------
   avHero: {
-    src: av28772726,
+    src: avHeroDusk,
     alt: {
-      de: "Business Jet auf dem Vorfeld bei Sonnenuntergang",
-      en: "Business jet on the apron at sunset",
+      de: "Business Jet von hinten auf dem Vorfeld in der Abenddämmerung",
+      en: "Business jet seen from behind on the apron at dusk",
     },
     needed: "Aviation-Hero: Business Jet auf dem Vorfeld",
-    ...pexels,
+    // Platzhalter: Quelle und Lizenz des Stockfotos noch bestätigen (Regel 11).
+    source: "stock",
+    credit: "Quelle offen",
   },
   avRamp: {
     src: av25724429,
@@ -218,7 +220,6 @@ const byRefPath: Record<string, MediaId> = {
   "img/car-aussen.webp": "carSvcAussen",
   "img/car-lackkorrektur.webp": "carSvcPolitur",
   "img/car-keramik.webp": "carSvcKeramik",
-  "img/av-28772726.jpg": "avHero",
   "img/av-25724429.jpg": "avRamp",
   "img/av-14983522.jpg": "avExterior",
   "img/av-20562278.jpg": "avCabin",

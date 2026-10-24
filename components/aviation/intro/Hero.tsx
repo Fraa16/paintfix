@@ -30,13 +30,18 @@ export function Hero({ locale }: { locale: Locale }) {
             fill
             preload
             sizes="(max-aspect-ratio: 39/20) 195vh, 100vw"
-            className="object-cover"
+            className="object-cover object-[78%_15%]"
           />
         </div>
       </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--av-navy)_60%,transparent)_0%,transparent_24%,transparent_40%,color-mix(in_srgb,var(--av-navy)_90%,transparent)_100%)]"
+      />
+      {/* Schatten hinter dem Text: hält die goldene Overline auch vor hellem Himmel lesbar (Regel 9). */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,color-mix(in_srgb,var(--av-navy)_78%,transparent)_0%,color-mix(in_srgb,var(--av-navy)_74%,transparent)_45%,transparent_80%)] wide:bg-[radial-gradient(ellipse_75%_85%_at_0%_100%,color-mix(in_srgb,var(--av-navy)_86%,transparent)_0%,color-mix(in_srgb,var(--av-navy)_70%,transparent)_50%,transparent_100%)]"
       />
 
       <div
