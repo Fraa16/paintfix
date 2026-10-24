@@ -12,7 +12,7 @@ import { HeroScene } from "./Scenes";
  *
  * Bewegung (README 9.7, HeroScene): Bildfläche data-pxy 0.3, Zoom 1.12 → 1 (3.2s, --ease-out),
  * Textblock blendet beim Scrollen aus (data-fade), Reveals: Overline 200, Zeilen-Masken 300 / 430,
- * untere Zeile 650. Die Masken clippen nur vertikal (overflow-y: clip), damit lange Zeilen bei 360px
+ * Buttons 650; der Untertitel ist sofort sichtbar (LCP, siehe unten). Die Masken clippen nur vertikal (overflow-y: clip), damit lange Zeilen bei 360px
  * nicht seitlich abgeschnitten werden.
  */
 export function Hero({ locale }: { locale: Locale }) {
@@ -64,11 +64,15 @@ export function Hero({ locale }: { locale: Locale }) {
               </span>
             </span>
           </h1>
-          <div data-rv="650" className="mt-10 flex flex-wrap items-end justify-between gap-8">
+          {/* Untertitel ohne Reveal: Chrome wertet das Vollbild-Foto nicht als LCP, sondern diesen
+              Text, und zählt ihn erst nach dem Einblenden (650 ms + 1,1 s). Sichtbar ab dem ersten
+              Paint liegt das LCP beim First Paint statt bei rund 3 s auf dem Handy. Die Buttons
+              blenden wie in der Referenz bei 650 ms ein. */}
+          <div className="mt-10 flex flex-wrap items-end justify-between gap-8">
             <p className="max-w-[520px] text-[clamp(15px,1.2vw,17px)] leading-[1.7] text-pretty text-av-on-navy-hero">
               {av.sub}
             </p>
-            <div className="pointer-events-auto flex flex-wrap gap-3 max-wide:hidden">
+            <div data-rv="650" className="pointer-events-auto flex flex-wrap gap-3 max-wide:hidden">
               <AvButton href="#av-contact">{av.cta}</AvButton>
               <AvButton href="#av-services" variant="outlineCream">
                 {av.cta2}
