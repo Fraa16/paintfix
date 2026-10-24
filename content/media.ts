@@ -4,7 +4,7 @@ import type { Locale } from "./aviation";
 import av20562278 from "@/assets/img/av-20562278.jpg";
 import av20562279 from "@/assets/img/av-20562279.jpg";
 import av28776071 from "@/assets/img/av-28776071.jpg";
-import av32346742 from "@/assets/img/av-32346742.jpg";
+import avCoatingBeading from "@/assets/img/av-coating-beading.webp";
 import avHeroDusk from "@/assets/img/av-hero-dusk.jpg";
 import avLeadingEdge from "@/assets/img/av-leading-edge.webp";
 import avRampNight from "@/assets/img/av-ramp-night.jpg";
@@ -182,13 +182,14 @@ export const media = {
     ...pexels,
   },
   avProtection: {
-    src: av32346742,
+    src: avCoatingBeading,
     alt: {
-      de: "Rumpf einer Beechcraft King Air mit Schriftzug",
-      en: "Fuselage of a Beechcraft King Air with lettering",
+      de: "Wassertropfen perlen auf versiegeltem weißem Lack mit dunkelblauem Streifen ab",
+      en: "Water droplets beading on coated white paint with a navy stripe",
     },
     needed: "Leistungen Schutz, Berichtsfoto: Versiegelung, Hangar",
-    ...pexels,
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 24.10.2026",
   },
   avCabinQuiet: {
     src: av20562279,
@@ -226,7 +227,6 @@ const byRefPath: Record<string, MediaId> = {
   "img/car-lackkorrektur.webp": "carSvcPolitur",
   "img/car-keramik.webp": "carSvcKeramik",
   "img/av-20562278.jpg": "avCabin",
-  "img/av-32346742.jpg": "avProtection",
   "img/av-20562279.jpg": "avCabinQuiet",
   "img/av-28776071.jpg": "avDetail",
 };
