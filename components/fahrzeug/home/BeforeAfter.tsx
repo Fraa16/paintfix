@@ -31,9 +31,9 @@ export function BeforeAfter() {
         </div>
         <BeforeAfterSlider />
         <div className="mt-[18px] flex flex-wrap justify-between gap-x-8 gap-y-2.5 text-[13px] text-car-muted">
-          {/* Platzhalterfoto, siehe media.ts: Bildunterschrift erst mit echtem Fotopaar gültig. */}
+          {/* KI-Fotopaar, siehe media.ts: als Symbolbild gekennzeichnet (UWG § 5, KI-Verordnung Art. 50). */}
           <span>
-            {politur.name} an einer Mercedes-Benz C-Klasse, {politur.dur}
+            {politur.name}, {politur.dur}. Symbolbild, KI-generiert.
           </span>
           <span>
             {politur.name} {fromPrice(politur.p[0])}

@@ -8,13 +8,14 @@ import av25724429 from "@/assets/img/av-25724429.jpg";
 import av28772726 from "@/assets/img/av-28772726.jpg";
 import av28776071 from "@/assets/img/av-28776071.jpg";
 import av32346742 from "@/assets/img/av-32346742.jpg";
-import car12397895 from "@/assets/img/car-12397895.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
 import carAussen from "@/assets/img/car-aussen.webp";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
 import carInnen from "@/assets/img/car-innen.webp";
 import carKeramik from "@/assets/img/car-keramik.webp";
 import carLackkorrektur from "@/assets/img/car-lackkorrektur.webp";
+import carLackNachher from "@/assets/img/car-lackkorrektur-nachher.webp";
+import carLackVorher from "@/assets/img/car-lackkorrektur-vorher.webp";
 import carLeasingCheck from "@/assets/img/car-leasing-check.webp";
 import carSmartRepair from "@/assets/img/car-smart-repair.webp";
 import car31154217 from "@/assets/img/car-31154217.jpg";
@@ -73,11 +74,25 @@ export const media = {
     needed: "Hover-Bild Politur: Maschinenpolitur",
     ...pexels,
   },
-  carBeforeAfter: {
-    src: car12397895,
-    alt: { de: "Heckpartie eines grauen Mercedes-Benz C-Klasse Coupés" },
-    needed: "Vorher/Nachher: echtes Fotopaar aus gleicher Perspektive",
-    ...pexels,
+  // Vorher/Nachher-Regler: KI-Paar, im Regler als „Symbolbild, KI-generiert“ gekennzeichnet.
+  carPaintAfter: {
+    src: carLackNachher,
+    alt: {
+      de: "Schwarzer Metalliclack an Motorhaube und Kotflügel nach der Politur, ohne Kratzer",
+    },
+    needed: "Vorher/Nachher: echtes Fotopaar aus gleicher Perspektive (Nachher)",
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 24.10.2026",
+  },
+  carPaintBefore: {
+    src: carLackVorher,
+    alt: {
+      de: "Schwarzer Metalliclack an Motorhaube und Kotflügel mit Waschkratzern und Hologrammen",
+    },
+    needed: "Vorher/Nachher: echtes Fotopaar aus gleicher Perspektive (Vorher)",
+    source: "ai",
+    credit:
+      "KI-generiert (ChatGPT), 24.10.2026, leicht gedreht und versetzt wie eine zweite Aufnahme",
   },
   carStandort: {
     src: car31154217,
@@ -199,7 +214,6 @@ export function altText(id: MediaId, locale: Locale = "de"): string {
 const byRefPath: Record<string, MediaId> = {
   "img/car-innen.webp": "carSvcInnen",
   "img/car-14615262.jpg": "carHoverPolitur",
-  "img/car-12397895.jpg": "carBeforeAfter",
   "img/car-31154217.jpg": "carStandort",
   "img/car-aussen.webp": "carSvcAussen",
   "img/car-lackkorrektur.webp": "carSvcPolitur",

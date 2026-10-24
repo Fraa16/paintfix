@@ -25,19 +25,15 @@ const INTRO_DELAY = 450;
 
 type IntroPhase = "idle" | "waiting" | "running" | "done";
 
-/**
- * Schleier über dem Vorher-Bild (Referenz Zeile 177): feine Kreise + heller Verlauf, Mischmodus
- * screen. Farben aus den Tokens (--car-bg, --car-ba-haze).
- */
-const HAZE =
-  "repeating-radial-gradient(circle at 46% 40%, color-mix(in srgb, var(--car-bg) 8%, transparent) 0px, color-mix(in srgb, var(--car-bg) 8%, transparent) 1px, transparent 1px, transparent 6px), " +
-  "linear-gradient(180deg, color-mix(in srgb, var(--car-ba-haze) 18%, transparent), color-mix(in srgb, var(--car-ba-haze) 10%, transparent))";
+/** Bildausschnitt beider Ebenen: Kratzer auf der Motorhaube und Kante des Kotflügels. */
+const FOCUS = "object-cover object-[50%_30%]";
 
 const valueText = (n: number) => `Vorher ${n} %, Nachher ${100 - n} %`;
 
 /**
  * Vorher/Nachher-Regler (README 9.5, Referenz Zeilen 172–186 und 1381–1405).
- * Nachher = Foto, Vorher = dasselbe Foto mit Filter, per clip-path auf den Reglerwert beschnitten.
+ * Nachher und Vorher sind zwei Fotos (content/media.ts), die Vorher-Ebene ist per clip-path auf den
+ * Reglerwert beschnitten. Die Referenz simuliert Vorher mit Filter und Schleier; das entfällt.
  * Zeiger mit setPointerCapture, touch-action: pan-y, Tastatur ← / → (auch ↑ / ↓) ± 5 %, Bild auf/ab,
  * Pos1 / Ende.
  *
@@ -194,12 +190,12 @@ export function BeforeAfterSlider() {
       className="relative mt-[clamp(40px,5vw,64px)] aspect-[21/9] min-h-[300px] w-full cursor-ew-resize touch-pan-y overflow-hidden bg-car-ba-bg select-none"
     >
       <Image
-        src={media.carBeforeAfter.src}
-        alt={altText("carBeforeAfter")}
+        src={media.carPaintAfter.src}
+        alt={altText("carPaintAfter")}
         fill
         draggable={false}
         sizes="(min-width: 1400px) 1248px, 100vw"
-        className="pointer-events-none object-cover object-[50%_58%]"
+        className={`pointer-events-none ${FOCUS}`}
       />
       <div
         ref={clipRef}
@@ -208,14 +204,13 @@ export function BeforeAfterSlider() {
         style={{ clipPath: `inset(0 ${(100 - START).toFixed(2)}% 0 0)` }}
       >
         <Image
-          src={media.carBeforeAfter.src}
+          src={media.carPaintBefore.src}
           alt=""
           fill
           draggable={false}
           sizes="(min-width: 1400px) 1248px, 100vw"
-          className="object-cover object-[50%_58%] [filter:saturate(0.45)_contrast(0.78)_brightness(0.88)_blur(0.5px)]"
+          className={FOCUS}
         />
-        <div className="absolute inset-0 mix-blend-screen" style={{ backgroundImage: HAZE }} />
         <span className="absolute top-5 left-5 bg-car-ink/78 px-3 py-2 text-[11px] font-semibold tracking-[0.16em] text-car-bg uppercase">
           Vorher
         </span>
