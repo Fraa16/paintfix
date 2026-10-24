@@ -1,12 +1,12 @@
 import type { StaticImageData } from "next/image";
 import type { Locale } from "./aviation";
 
-import av14983522 from "@/assets/img/av-14983522.jpg";
 import av20562278 from "@/assets/img/av-20562278.jpg";
 import av20562279 from "@/assets/img/av-20562279.jpg";
 import av28776071 from "@/assets/img/av-28776071.jpg";
 import av32346742 from "@/assets/img/av-32346742.jpg";
 import avHeroDusk from "@/assets/img/av-hero-dusk.jpg";
+import avLeadingEdge from "@/assets/img/av-leading-edge.webp";
 import avRampNight from "@/assets/img/av-ramp-night.jpg";
 import car14615262 from "@/assets/img/car-14615262.jpg";
 import carAussen from "@/assets/img/car-aussen.webp";
@@ -163,10 +163,14 @@ export const media = {
     credit: "Unsplash, retuschiert (Kennzeichen, Streifen in Navy, Kegel, Fahrzeug)",
   },
   avExterior: {
-    src: av14983522,
-    alt: { de: "Schwarzer Light Jet auf dem Vorfeld", en: "Black light jet on the apron" },
+    src: avLeadingEdge,
+    alt: {
+      de: "Behandschuhte Hand poliert die blanke Eintrittskante einer Tragfläche mit einem Mikrofasertuch",
+      en: "Gloved hand polishing the bare-metal leading edge of a wing with a microfibre towel",
+    },
     needed: "Leistungen Außen, Berichtsfoto: Außenreinigung am Jet",
-    ...pexels,
+    source: "ai",
+    credit: "KI-generiert (ChatGPT), 24.10.2026",
   },
   avCabin: {
     src: av20562278,
@@ -221,7 +225,6 @@ const byRefPath: Record<string, MediaId> = {
   "img/car-aussen.webp": "carSvcAussen",
   "img/car-lackkorrektur.webp": "carSvcPolitur",
   "img/car-keramik.webp": "carSvcKeramik",
-  "img/av-14983522.jpg": "avExterior",
   "img/av-20562278.jpg": "avCabin",
   "img/av-32346742.jpg": "avProtection",
   "img/av-20562279.jpg": "avCabinQuiet",
