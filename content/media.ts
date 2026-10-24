@@ -92,7 +92,7 @@ export const media = {
     needed: "Vorher/Nachher: echtes Fotopaar aus gleicher Perspektive (Vorher)",
     source: "ai",
     credit:
-      "KI-generiert (ChatGPT), 24.10.2026, leicht gedreht und versetzt wie eine zweite Aufnahme",
+      "KI-generiert (ChatGPT), 24.10.2026, auf das Nachher-Bild ausgerichtet und leicht versetzt wie eine zweite Aufnahme",
   },
   carStandort: {
     src: car31154217,
