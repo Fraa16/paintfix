@@ -5,21 +5,20 @@
       "img2": "img/car-aussen.webp",
       "no": "01",
       "name": "Außenaufbereitung",
-      "short": "Handwäsche, Felgen, Versiegelung",
-      "dur": "ca. 2–3 Std.",
+      "short": "Handwäsche, Felgen, Scheiben",
+      "dur": "ca. 1 Tag",
       "p": [
         89,
         109,
         129
       ],
-      "desc": "Schonende Handwäsche im Zwei-Eimer-Verfahren, Felgen und Reifen, Insekten- und Teerentfernung. Zum Abschluss eine Sprühversiegelung, die mehrere Wochen hält.",
+      "desc": "Schonende Handwäsche im Zwei-Eimer-Verfahren, Felgen und Reifen, Insekten- und Teerentfernung. Eine Versiegelung ist nicht enthalten, Sie bekommen sie auf Wunsch gegen Aufpreis.",
       "incl": [
         "Vorwäsche mit Aktivschaum",
         "Handwäsche, Zwei-Eimer-Verfahren",
         "Felgen, Reifen, Radkästen",
         "Insekten- und Teerentfernung",
-        "Scheiben außen",
-        "Sprühversiegelung"
+        "Scheiben außen"
       ]
     },
     {
@@ -28,7 +27,7 @@
       "no": "02",
       "name": "Innenaufbereitung",
       "short": "Polster, Kunststoffe, Scheiben",
-      "dur": "ca. 3–4 Std.",
+      "dur": "ca. 1 Tag",
       "p": [
         119,
         139,
@@ -50,19 +49,18 @@
       "no": "03",
       "name": "Lackkorrektur",
       "short": "Lackreinigung, Maschinenpolitur",
-      "dur": "1 Tag",
+      "dur": "ca. 2 Tage",
       "p": [
         249,
         299,
         349
       ],
-      "desc": "Dekontamination mit Reinigungsknete, danach maschinelle Politur. Entfernt Waschkratzer, Hologramme und matte Stellen und gibt dem Lack seine Tiefe zurück.",
+      "desc": "Dekontamination mit Reinigungsknete, danach maschinelle Politur. Entfernt Waschkratzer, Hologramme und matte Stellen und gibt dem Lack seine Tiefe zurück. Eine Versiegelung, die das Ergebnis schützt, ist nicht enthalten und kostet extra.",
       "incl": [
         "Dekontamination mit Knete",
         "Lackschichtdickenmessung",
         "Einstufige Maschinenpolitur",
         "Kunststoffe und Gummis abgeklebt",
-        "Wachsversiegelung",
         "Mehrstufige Korrektur auf Anfrage"
       ]
     },
@@ -72,7 +70,7 @@
       "no": "04",
       "name": "Keramikversiegelung",
       "short": "Lackkorrektur, Keramikschutz",
-      "dur": "2 Tage",
+      "dur": "ca. 3 Tage",
       "p": [
         590,
         690,
@@ -129,11 +127,11 @@
   "faq": [
     {
       "q": "Warum steht bei den Preisen „ab“?",
-      "a": "Der Preis hängt von Größe und Zustand ab. Die Preise gelten für ein Fahrzeug in normalem Zustand. Nach einer kurzen Sichtung nennen wir Ihnen einen Festpreis, bevor wir beginnen. Ohne Ihre Zustimmung wird es nicht teurer."
+      "a": "Der Preis hängt von Größe und Zustand ab. Die Preise gelten für ein Fahrzeug in normalem Zustand. Nach einer kostenlosen Begutachtung nennen wir Ihnen einen Festpreis, bevor wir beginnen. Ohne Ihre Zustimmung wird es nicht teurer."
     },
     {
       "q": "Wie lange dauert die Aufbereitung?",
-      "a": "Außen- und Innenaufbereitung erledigen wir in der Regel am selben Tag. Für eine Politur rechnen Sie mit einem Tag, für eine Keramikversiegelung mit zwei Tagen, weil die Beschichtung aushärten muss."
+      "a": "Rechnen Sie für die Außen- und die Innenaufbereitung mit jeweils etwa einem Tag, für eine Lackkorrektur mit zwei und für eine Keramikversiegelung mit drei Tagen, weil die Beschichtung aushärten muss. Wie lange es genau dauert, hängt davon ab, wie stark das Fahrzeug verschmutzt und wie groß es ist."
     },
     {
       "q": "Lohnt sich eine Keramikversiegelung?",
@@ -165,7 +163,7 @@
         "Steinschläge an Haube und Front",
         "Bordsteinschäden an Felgen",
         "Farbton passend zum Originallack",
-        "Festpreis nach Begutachtung"
+        "Festpreis nach kostenloser Begutachtung"
       ],
       "media": "carSvcSmartRepair"
     },
@@ -174,14 +172,14 @@
       "name": "Leasingrückgabe",
       "short": "Schäden beheben, bevor sie bei der Rückgabe berechnet werden.",
       "dur": "nach Umfang",
-      "desc": "Bei der Rückgabe wird jeder Kratzer protokolliert und oft teuer berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und bereiten es innen und außen auf. Was gemacht wird, entscheiden Sie nach der Begutachtung.",
+      "desc": "Bei der Rückgabe wird jeder Kratzer protokolliert und oft teuer berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und bereiten es innen und außen auf. Was gemacht wird, entscheiden Sie nach der kostenlosen Begutachtung.",
       "incl": [
-        "Sichtung vor dem Rückgabetermin",
+        "Begutachtung vor dem Rückgabetermin",
         "Smart Repair kleiner Schäden",
         "Lackkorrektur, wo sie sich lohnt",
         "Aufbereitung innen und außen",
         "Fotoprotokoll vor der Übergabe",
-        "Festpreis nach Begutachtung"
+        "Festpreis nach kostenloser Begutachtung"
       ],
       "media": "carSvcLeasing"
     }
@@ -218,7 +216,7 @@
     "text": "Bei der Rückgabe wird jeder Kratzer protokolliert und berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und übergeben es aufbereitet und dokumentiert.",
     "steps": [
       {
-        "t": "Begutachtung",
+        "t": "Kostenlose Begutachtung",
         "d": "Wir prüfen Lack, Felgen und Innenraum und nennen Ihnen einen Festpreis."
       },
       {

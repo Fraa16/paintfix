@@ -20,8 +20,9 @@ export function PageHead() {
           </h1>
           <p className="max-w-[520px] text-[18px] leading-[1.6] text-pretty text-car-text">
             Alle Preise sind Endpreise für ein Fahrzeug in normalem Zustand. {site.vatNote} Nach
-            einer kurzen Sichtung nennen wir Ihnen den Festpreis. Ohne Ihre Zustimmung wird es nicht
-            teurer.
+            einer kostenlosen Begutachtung nennen wir Ihnen den Festpreis. Ohne Ihre Zustimmung wird
+            es nicht teurer. Die Dauer hängt davon ab, wie stark das Fahrzeug verschmutzt und wie
+            groß es ist.
           </p>
         </div>
       </div>

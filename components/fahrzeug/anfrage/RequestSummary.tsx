@@ -90,8 +90,8 @@ export function RequestSummary({
           <p className="mt-4 text-[13px]">Kombipreis für außen + innen berücksichtigt.</p>
         )}
         <p className="mt-4 text-[13px] leading-[1.55] text-car-on-ink-muted">
-          Endpreis. {site.vatNote} Den Festpreis nennen wir nach kurzer Sichtung, bevor wir
-          beginnen.
+          Endpreis. {site.vatNote} Den Festpreis nennen wir nach einer kostenlosen Begutachtung,
+          bevor wir beginnen.
         </p>
       </div>
       <div className="flex flex-col gap-1.5 border border-t-0 border-car-line bg-car-bg px-8 py-6 text-[14px]">

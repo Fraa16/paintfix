@@ -22,7 +22,8 @@ export function CtaBand() {
             Sagen Sie uns, was Ihr Auto braucht.
           </h2>
           <p className="mt-6 max-w-[480px] text-[17px] leading-[1.6] text-car-on-ink-muted">
-            Sie erhalten innerhalb eines Werktags einen Festpreis und Terminvorschläge.
+            Sie erhalten innerhalb eines Werktags Terminvorschläge und nach einer kostenlosen
+            Begutachtung einen Festpreis.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-7 leading-[normal]">

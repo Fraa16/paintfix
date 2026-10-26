@@ -41,8 +41,8 @@ export function RequestThanks({
           Danke{firstName ? `, ${firstName}` : ""}.
         </h2>
         <p className="mt-[18px] max-w-[460px] text-[17px] leading-[1.6] text-car-text">
-          Ihre Anfrage ist bei uns. Wir melden uns innerhalb eines Werktags mit Festpreis und
-          Terminvorschlägen.
+          Ihre Anfrage ist bei uns. Wir melden uns innerhalb eines Werktags mit Terminvorschlägen.
+          Den Festpreis nennen wir Ihnen nach einer kostenlosen Begutachtung.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <CarButton href="/" size="combo" className="leading-[normal]">

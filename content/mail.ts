@@ -10,7 +10,7 @@ export const carConfirmation = {
   subject: "Ihre Anfrage bei PaintFix",
   greeting: "Guten Tag,",
   intro:
-    "vielen Dank für Ihre Anfrage. Wir melden uns innerhalb eines Werktags mit Festpreis und Terminvorschlägen.",
+    "vielen Dank für Ihre Anfrage. Wir melden uns innerhalb eines Werktags mit Terminvorschlägen. Den Festpreis nennen wir Ihnen nach einer kostenlosen Begutachtung.",
   selection: "Ihre Auswahl",
   vehicleClass: "Fahrzeugklasse",
   estimate: "Richtpreis",

@@ -18,8 +18,8 @@ export function RequestHead() {
         </h1>
         <div className="flex flex-col gap-4">
           <p className="max-w-[500px] text-[18px] leading-[1.6] text-car-text">
-            Sie erhalten innerhalb eines Werktags einen Festpreis und Terminvorschläge. Die Anfrage
-            ist unverbindlich.
+            Wir melden uns innerhalb eines Werktags mit Terminvorschlägen. Den Festpreis nennen wir
+            nach einer kostenlosen Begutachtung. Die Anfrage ist unverbindlich.
           </p>
           <CarAviationLink
             prefix="Anfrage für ein Flugzeug?"

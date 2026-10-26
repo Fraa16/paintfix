@@ -18,7 +18,7 @@ export function BeforeAfter() {
             <CarOverline rv={0} className="leading-[normal]">
               {politur.name}, vorher und nachher
             </CarOverline>
-            <CarH2 rv={80}>Derselbe Lack, einen Tag später.</CarH2>
+            <CarH2 rv={80}>Derselbe Lack, zwei Tage später.</CarH2>
           </div>
           <p
             data-rv="160"

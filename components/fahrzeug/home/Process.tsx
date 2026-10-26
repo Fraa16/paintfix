@@ -11,7 +11,7 @@ const STEPS = [
   },
   {
     title: "Festpreis",
-    text: "Nach einer kurzen Sichtung erhalten Sie einen verbindlichen Preis. Ohne Ihre Zustimmung beginnen wir nicht.",
+    text: "Nach einer kostenlosen Begutachtung erhalten Sie einen verbindlichen Festpreis. Ohne Ihre Zustimmung beginnen wir nicht.",
   },
   {
     title: "Aufbereitung",

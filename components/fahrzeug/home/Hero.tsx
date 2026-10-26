@@ -45,7 +45,8 @@ export function Hero() {
             className="mt-7 max-w-[480px] text-[clamp(16px,1.3vw,19px)] leading-[1.6] text-pretty text-car-text"
           >
             Smart Repair, Lackkorrektur, Vorbereitung auf die Leasingrückgabe und hochwertige
-            Aufbereitung, in unserer Halle in Telgte. Den Festpreis kennen Sie, bevor wir beginnen.
+            Aufbereitung, in unserer Halle in Telgte. Nach einer kostenlosen Begutachtung kennen Sie
+            den Festpreis, bevor wir beginnen.
           </p>
           <div data-rv="460" className="mt-9 flex flex-wrap gap-3">
             <CarButton className="leading-[normal]" href="/anfrage" arrow>

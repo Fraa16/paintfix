@@ -7,7 +7,7 @@ import { RequestHead } from "@/components/fahrzeug/anfrage/RequestHead";
 export const metadata: Metadata = {
   title: "Termin anfragen",
   description:
-    "Fahrzeugaufbereitung in Telgte anfragen: Leistungen und Fahrzeugklasse wählen, Richtpreis sehen. Sie erhalten innerhalb eines Werktags einen Festpreis und Terminvorschläge. Die Anfrage ist unverbindlich.",
+    "Fahrzeugaufbereitung in Telgte anfragen: Leistungen und Fahrzeugklasse wählen, Richtpreis sehen. Sie erhalten innerhalb eines Werktags Terminvorschläge und nach einer kostenlosen Begutachtung einen Festpreis. Die Anfrage ist unverbindlich.",
   alternates: { canonical: "/anfrage" },
 };
 
