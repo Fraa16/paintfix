@@ -1,0 +1,250 @@
+@import "tailwindcss";
+@import "./styles/tokens.css";
+/* Lenis (nur Aviation, components/aviation/shell/AvSmoothScroll.tsx). Hier statt im Client-Bundle: Als
+   eigene CSS-Datei würde sie auf Fahrzeugseiten beim Prefetch von /aviation ungenutzt vorgeladen. Die
+   Regeln greifen nur bei html.lenis. */
+@import "lenis/dist/lenis.css";
+
+/*
+ * Tailwind spiegelt die Tokens aus styles/tokens.css (README 7.8). Neue Werte gehören in tokens.css,
+ * nicht hierher. Schatten und Kurven haben dieselben Namen wie Tailwinds Theme-Variablen und werden
+ * deshalb direkt genutzt: shadow-(--shadow-float), ease-(--ease-mask).
+ */
+@theme inline {
+  --font-sans: var(--font-mona-face), system-ui, sans-serif;
+  --font-cinzel: var(--font-cinzel-face), serif;
+
+  /* Breakpoints der Referenz. Tailwinds Standardwerte sind abgeschaltet, damit nur diese gelten. */
+  --breakpoint-*: initial;
+  --breakpoint-wide: 980px; /* Hauptumbruch: Desktop-Navigation, Hover, Mobilleisten */
+  --breakpoint-sec: 1200px; /* Abschnittsanzeige Aviation */
+  --breakpoint-avnav: 1240px; /* Navigationspunkte Aviation */
+
+  /* Nur Token-Farben: Tailwinds Standardpalette (white, gray-…, red-…) ist abgeschaltet (Regel 1).
+     transparent und current bleiben als Schlüsselwörter verfügbar. */
+  --color-*: initial;
+
+  /* Fahrzeug · Farben */
+  --color-car-bg: var(--car-bg);
+  --color-car-surface: var(--car-surface);
+  --color-car-ink: var(--car-ink);
+  --color-car-ink-hover: var(--car-ink-hover);
+  --color-car-text: var(--car-text);
+  --color-car-muted: var(--car-muted);
+  --color-car-input-placeholder: var(--car-input-placeholder);
+  --color-car-red: var(--car-red);
+  --color-car-line: var(--car-line);
+  --color-car-line-ui: var(--car-line-ui);
+  --color-car-line-soft: var(--car-line-soft);
+  --color-car-border: var(--car-border);
+  --color-car-track: var(--car-track);
+  --color-car-image-bg: var(--car-image-bg);
+  --color-car-on-ink: var(--car-on-ink);
+  --color-car-on-ink-muted: var(--car-on-ink-muted);
+  --color-car-on-ink-soft: var(--car-on-ink-soft);
+  --color-car-ink-line: var(--car-ink-line);
+  --color-car-open: var(--car-open);
+  --color-car-closed: var(--car-closed);
+  --color-car-header-bg: var(--car-header-bg);
+  --color-car-bar-bg: var(--car-bar-bg);
+  --color-car-ba-bg: var(--car-ba-bg);
+  --color-car-image-bg-alt: var(--car-image-bg-alt);
+  --color-car-ba-haze: var(--car-ba-haze);
+  --color-car-footer-av-link: var(--car-footer-av-link);
+
+  /* Aviation · Farben */
+  --color-av-navy: var(--av-navy);
+  --color-av-navy-deep: var(--av-navy-deep);
+  --color-av-navy-hover: var(--av-navy-hover);
+  --color-av-cream: var(--av-cream);
+  --color-av-sand: var(--av-sand);
+  --color-av-paper: var(--av-paper);
+  --color-av-gold: var(--av-gold);
+  --color-av-gold-line: var(--av-gold-line);
+  --color-av-gold-text: var(--av-gold-text);
+  --color-av-stamp: var(--av-stamp);
+  --color-av-muted: var(--av-muted);
+  --color-av-tab-inactive: var(--av-tab-inactive);
+  --color-av-on-navy: var(--av-on-navy);
+  --color-av-on-navy-hero: var(--av-on-navy-hero);
+  --color-av-on-navy-muted: var(--av-on-navy-muted);
+  --color-av-error: var(--av-error);
+  --color-av-line: var(--av-line);
+  --color-av-line-strong: var(--av-line-strong);
+  --color-av-line-input: var(--av-line-input);
+  --color-av-line-on-navy: var(--av-line-on-navy);
+  --color-av-line-gold: var(--av-line-gold);
+  --color-av-header-bg: var(--av-header-bg);
+  --color-av-bar-bg: var(--av-bar-bg);
+  --color-av-white: var(--av-white);
+  --color-av-image-bg: var(--av-image-bg);
+  --color-av-doc-back: var(--av-doc-back);
+  --color-av-navy-button-hover: var(--av-navy-button-hover);
+  --color-av-quote-glow: var(--av-quote-glow);
+  --color-av-quote-glow-mid: var(--av-quote-glow-mid);
+
+  /* Layout: max-w-car, px-car-gutter, py-car-section, … */
+  --container-car: var(--car-max);
+  --container-av: var(--av-max);
+  --spacing-car-gutter: var(--car-gutter);
+  --spacing-car-section: var(--car-section);
+  --spacing-car-header: var(--car-header-h);
+  --spacing-av-gutter: var(--av-gutter);
+  --spacing-av-section: var(--av-section);
+  --spacing-av-header: var(--av-header-h);
+
+  /* Typografie Fahrzeug (Mona Sans 700, font-stretch 125 %) */
+  --text-car-hero: var(--car-fs-hero);
+  --text-car-h1: var(--car-fs-h1);
+  --text-car-h2: var(--car-fs-h2);
+  --text-car-h2-cta: var(--car-fs-h2-cta);
+  --text-car-h2-success: var(--car-fs-h2-success);
+  --text-car-h2-service: var(--car-fs-h2-service);
+  --text-car-list: var(--car-fs-list);
+  --text-car-step-title: var(--car-fs-step-title);
+  --text-car-price-xl: var(--car-fs-price-xl);
+
+  /* Typografie Aviation (Cinzel 400) */
+  --text-av-hero: var(--av-fs-hero);
+  --text-av-expand: var(--av-fs-expand);
+  --text-av-h2-services: var(--av-fs-h2-services);
+  --text-av-h2-services-tabs: var(--av-fs-h2-services-tabs);
+  --text-av-h2: var(--av-fs-h2);
+  --text-av-h2-fleet: var(--av-fs-h2-fleet);
+  --text-av-h2-form: var(--av-fs-h2-form);
+  --text-av-h3-docs: var(--av-fs-h3-docs);
+  --text-av-cat-title: var(--av-fs-cat-title);
+  --text-av-item-title: var(--av-fs-item-title);
+  --text-av-wordmark: var(--av-fs-wordmark);
+}
+
+@layer base {
+  /*
+   * Anker und Tastaturfokus landen unter festen Leisten, nie dahinter (WCAG 2.4.11). Die Variablen
+   * setzen die Komponenten selbst (components/shared/root-scroll.ts):
+   *   --pf-header-h  Aviation-Header (84px), sonst gilt der Fahrzeug-Header (76px)
+   *   --pf-sticky-h  zusätzlich klebende Leiste, z. B. die Klassenleiste auf /leistungen
+   *   --pf-bar-car / --pf-bar-av  mobile Aktionsleisten unten (nur unter 980px)
+   */
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: calc(var(--pf-header-h, var(--car-header-h)) + var(--pf-sticky-h, 0px));
+    scroll-padding-bottom: max(var(--pf-bar-car, 0px), var(--pf-bar-av, 0px));
+  }
+  @media (width >= 980px) {
+    html {
+      scroll-padding-bottom: 0;
+    }
+  }
+  /* Weiches Scrollen erst nach dem Laden (SmoothScroll.tsx), nie bei reduzierter Bewegung. */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-smooth] {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    background: var(--car-bg);
+    color: var(--car-ink);
+    font-family: var(--font-sans);
+  }
+  ::selection {
+    background: var(--car-ink);
+    color: var(--car-bg);
+  }
+  /*
+   * Platzhalter in --car-muted / --av-muted statt --car-input-placeholder (#8A8F96, nur 3,3:1 auf Weiß
+   * und 2,8:1 auf Creme). Die Platzhalter tragen Formathinweise, deshalb gilt 4,5:1 (Regel 9).
+   */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--car-muted);
+  }
+  [data-brand="av"] input::placeholder,
+  [data-brand="av"] textarea::placeholder {
+    color: var(--av-muted);
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /*
+   * Sichtbarer Fokus (README 13). --focus setzt jede dunkle Fläche auf eine helle Farbe,
+   * z. B. [--focus:var(--car-on-ink)] im schwarzen Footer oder [--focus:var(--av-gold)] auf Navy.
+   */
+  :focus-visible {
+    outline: 2px solid var(--focus, var(--car-ink));
+    outline-offset: 2px;
+  }
+  [data-brand="av"] {
+    --focus: var(--av-navy);
+  }
+  [data-brand="av"] :focus-visible {
+    outline-width: 1px;
+    outline-offset: 3px;
+  }
+}
+
+/*
+ * Reveal-Startzustände (README 9.1, components/shared/motion/Reveals.tsx). Nur bei html[data-motion]:
+ * boot.ts setzt es vor dem ersten Paint und nie bei reduzierter Bewegung, ohne JavaScript bleibt
+ * alles sichtbar. Zeiten und Kurven wie prep() der Referenz (Zeilen 1264–1272).
+ */
+@layer components {
+  html[data-motion] [data-rv] {
+    transition:
+      opacity 1.1s var(--ease-out) var(--rv-d, 0ms),
+      translate 1.2s var(--ease-out) var(--rv-d, 0ms);
+  }
+  html[data-motion] [data-rv]:not([data-in]) {
+    opacity: 0;
+    translate: 0 32px;
+  }
+
+  html[data-motion] [data-rvs] > * {
+    transition:
+      opacity 1s var(--ease-out) calc(var(--rv-i, 0) * var(--rv-step, 100ms)),
+      translate 1.1s var(--ease-out) calc(var(--rv-i, 0) * var(--rv-step, 100ms));
+  }
+  html[data-motion] [data-rvs]:not([data-in]) > * {
+    opacity: 0;
+    translate: 0 28px;
+  }
+
+  html[data-motion] [data-rvm] {
+    transition: translate 1.25s var(--ease-mask) var(--rv-d, 0ms);
+  }
+  html[data-motion] [data-rvm]:not([data-in]) {
+    translate: 0 110%;
+  }
+
+  /* Endwert inset(0) statt none: nur zwischen zwei inset()-Werten läuft ein Übergang. */
+  html[data-motion] [data-rvc] {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 1.6s var(--ease-clip) var(--rv-d, 0ms);
+  }
+  html[data-motion] [data-rvc]:not([data-in]) {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  /* Endzustand des Stempels setzt das Element selbst (scale 1, rotate −8deg über `rotate`). */
+  html[data-motion] [data-stamp] {
+    transition:
+      opacity 0.3s ease var(--rv-d, 0ms),
+      scale 0.6s var(--ease-stamp) var(--rv-d, 0ms),
+      rotate 0.6s var(--ease-stamp) var(--rv-d, 0ms);
+  }
+  html[data-motion] [data-stamp]:not([data-in]) {
+    opacity: 0;
+    scale: 1.7;
+    rotate: -20deg;
+  }
+}

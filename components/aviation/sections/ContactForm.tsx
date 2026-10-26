@@ -1,0 +1,524 @@
+"use client";
+
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ComponentPropsWithoutRef,
+  type FormEvent,
+  type ReactNode,
+} from "react";
+import { AvButton } from "@/components/aviation/Button";
+import { focusFirstError, Honeypot, useSpamFields } from "@/components/shared/FormGuard";
+import type { AviationCopy, Locale } from "@/content/aviation";
+import { cx } from "@/lib/cx";
+import { sendAviationQuote } from "@/lib/forms/actions";
+import {
+  OTHER_TYPE,
+  aviationQuoteErrors,
+  hasErrors,
+  type AviationQuote,
+  type AviationQuoteField,
+  type ErrorCode,
+  type FieldErrors,
+  type FormResult,
+} from "@/lib/forms/rules";
+import {
+  aircraftFactor,
+  aircraftGroups,
+  avServices,
+  estimate,
+  type AvService,
+} from "@/lib/estimate";
+import { fieldFocus, fieldNoOutline } from "./form-styles";
+import { setAvModel, useAvModel } from "./model-store";
+import { telHref } from "../shell/ui";
+
+/** Texte des Formulars in der aktuellen Sprache (von Contact.tsx, siehe content/aviation-meta.ts). */
+export type ContactCopy = Pick<
+  AviationCopy,
+  | "f"
+  | "fErr"
+  | "est"
+  | "tabs"
+  | "models"
+  | "types"
+  | "sentTitle"
+  | "sentText"
+  | "again"
+  | "opsPhone"
+>;
+
+export interface ContactPrefill {
+  /** Muster aus ?type=…, sonst "" */
+  type: string;
+  /** Leistungen, Standard nur Außen; ?svc=ec wählt Außen + Kabine. */
+  services: AvService[];
+}
+
+export const defaultContactPrefill: ContactPrefill = { type: "", services: [0] };
+
+const OTHER = OTHER_TYPE;
+
+/** Felder mit eigener Fehlermeldung; andere Serverfehler erscheinen als allgemeiner Hinweis. */
+const ERROR_FIELDS: readonly AviationQuoteField[] = [
+  "company",
+  "name",
+  "email",
+  "type",
+  "typeOther",
+  "apt",
+  "services",
+];
+
+type FieldKey =
+  "company" | "name" | "email" | "phone" | "typeOther" | "reg" | "apt" | "window" | "notes";
+
+const emptyFields: Record<FieldKey, string> = {
+  company: "",
+  name: "",
+  email: "",
+  phone: "",
+  typeOther: "",
+  reg: "",
+  apt: "",
+  window: "",
+  notes: "",
+};
+
+const labelText = "block text-[10px] tracking-[0.26em] text-av-muted uppercase";
+const lineField = cx(
+  "w-full border-0 border-b border-av-line-input bg-transparent text-[17px] text-av-navy focus:border-av-navy",
+  fieldNoOutline,
+);
+
+/**
+ * Fehler unter dem Feld. Auf Creme in Navy: --av-error ist nur für Navy-Flächen gedacht (2,2:1 auf
+ * Creme) und Signalrot gehört nicht auf Aviation-Seiten (CLAUDE.md, Regel 5). Die Linie wird voll deckend.
+ */
+const errorClass = "mt-2 text-[13px] leading-[1.4] font-medium text-av-navy";
+const errorLine = "border-av-navy";
+
+function errorProps(error: ReactNode | undefined, id: string) {
+  return error ? { "aria-invalid": true, "aria-describedby": id } : {};
+}
+
+/** Feld Aviation (README 8.0): Label 10px Versalien, 48px hoch, nur Unterkante. 16px darüber als margin (Fokusrahmen, form-styles.ts). */
+function Field({
+  label,
+  className,
+  error,
+  ...input
+}: { label: ReactNode; error?: ReactNode } & ComponentPropsWithoutRef<"input">) {
+  const errId = useId();
+  return (
+    <div className={cx("mt-4", className)}>
+      <label className={cx("block", fieldFocus)}>
+        <span className={labelText}>{label}</span>
+        <input
+          {...input}
+          {...errorProps(error, errId)}
+          className={cx(lineField, "h-12 p-0", error ? errorLine : undefined)}
+        />
+      </label>
+      {error ? (
+        <p id={errId} className={errorClass}>
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+/** Chip Aviation (README 8.0): 44px, 1px Navy, gewählt Navy-Fläche mit Creme-Text. */
+function Chip({
+  pressed,
+  onClick,
+  children,
+  ...rest
+}: {
+  pressed: boolean;
+  onClick: () => void;
+  children: ReactNode;
+} & Omit<ComponentPropsWithoutRef<"button">, "onClick">) {
+  return (
+    <button
+      {...rest}
+      type="button"
+      aria-pressed={pressed}
+      onClick={onClick}
+      className={cx(
+        "h-11 border border-av-navy px-[22px] text-[11px] tracking-[0.22em] uppercase",
+        pressed ? "bg-av-navy text-av-cream" : "bg-transparent text-av-navy",
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+/**
+ * Angebotsformular Aviation (README 10.2, Referenz Zeilen 984–1040) mit Richtwerten aus
+ * lib/estimate.ts. Versand über die Server Action sendAviationQuote (lib/forms/actions.ts), vorher
+ * prüft der Browser dieselben Regeln (lib/forms/rules.ts). Der Danke-Zustand erscheint erst nach
+ * erfolgreichem Versand; scheitert er, steht über dem Button ein Hinweis mit Telefonnummer.
+ */
+export function ContactForm({
+  locale,
+  copy: t,
+  prefill = defaultContactPrefill,
+}: {
+  locale: Locale;
+  copy: ContactCopy;
+  prefill?: ContactPrefill;
+}) {
+  const f = t.f;
+  const est = t.est;
+  const id = useId();
+  const groups = aircraftGroups(t.types);
+
+  const [fields, setFields] = useState(emptyFields);
+  const [typeSel, setTypeSel] = useState(prefill.type);
+  const [services, setServices] = useState<AvService[]>(prefill.services);
+  const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<FieldErrors<AviationQuoteField>>({});
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
+  const spamFields = useSpamFields();
+  /** Nach dem Setzen neuer Fehler das erste fehlerhafte Feld fokussieren (nach dem Rendern). */
+  const focusErrors = useRef(false);
+  const model = useAvModel();
+  const thanksRef = useRef<HTMLHeadingElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  /** Fokus nur nach einem Wechsel zwischen Formular und Danke-Zustand setzen, nicht beim Laden. */
+  const switched = useRef(false);
+
+  useEffect(() => {
+    if (!switched.current) return;
+    // Danke-Titel nach dem Absenden, erstes Feld nach „Neue Anfrage“ (der Button verschwindet).
+    if (sent) thanksRef.current?.focus();
+    else formRef.current?.querySelector<HTMLInputElement>("input")?.focus();
+  }, [sent]);
+
+  useEffect(() => {
+    if (!focusErrors.current || !formRef.current) return;
+    focusErrors.current = false;
+    focusFirstError(formRef.current, Object.keys(errors));
+  }, [errors]);
+
+  const clearErrors = (...keys: string[]) =>
+    setErrors((e) => {
+      if (!keys.some((k) => e[k as AviationQuoteField])) return e;
+      const next = { ...e };
+      for (const k of keys) delete next[k as AviationQuoteField];
+      return next;
+    });
+  const errorText = (key: AviationQuoteField) => {
+    const code = errors[key];
+    if (!code) return undefined;
+    return (t.fErr as Partial<Record<ErrorCode, string>>)[code] ?? t.fErr.invalid;
+  };
+
+  const bind = (key: FieldKey) => ({
+    value: fields[key],
+    onChange: (e: { target: { value: string } }) => {
+      setFields((s) => ({ ...s, [key]: e.target.value }));
+      clearErrors(key);
+    },
+    ...(ERROR_FIELDS.includes(key as AviationQuoteField) && {
+      "data-field": key,
+      error: errorText(key as AviationQuoteField),
+    }),
+  });
+
+  const toggleService = (i: AvService) => {
+    setServices((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]));
+    clearErrors("services");
+  };
+
+  const result = estimate({ locale, copy: t, type: typeSel, services });
+  const estType = aircraftFactor(typeSel, t.types) > 0 ? typeSel : "";
+
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (sending) return;
+    const form = e.currentTarget;
+    const data: AviationQuote = {
+      locale,
+      ...fields,
+      type: typeSel,
+      services,
+      model,
+    };
+    setSendError(false);
+    const found = aviationQuoteErrors(data);
+    if (hasErrors(found)) {
+      focusErrors.current = true;
+      setErrors(found);
+      return;
+    }
+
+    setSending(true);
+    const result: FormResult = await sendAviationQuote(data, spamFields(form)).catch(() => ({
+      ok: false,
+    }));
+    setSending(false);
+    if (result.ok) {
+      setErrors({});
+      switched.current = true;
+      setSent(true);
+      return;
+    }
+    const known = Object.fromEntries(
+      Object.entries(result.errors ?? {}).filter(([k]) =>
+        ERROR_FIELDS.includes(k as AviationQuoteField),
+      ),
+    ) as FieldErrors<AviationQuoteField>;
+    if (hasErrors(known)) {
+      focusErrors.current = true;
+      setErrors(known);
+    } else {
+      setSendError(true);
+    }
+  }
+
+  if (sent) {
+    return (
+      <div role="status" className="border border-av-navy p-[clamp(32px,4vw,56px)]">
+        <h3
+          ref={thanksRef}
+          tabIndex={-1}
+          className="font-cinzel text-[clamp(32px,3.2vw,51.2px)] leading-none font-normal"
+        >
+          {t.sentTitle}
+        </h3>
+        <p className="mt-5 max-w-[420px] text-[17px] leading-[1.7] text-av-muted">{t.sentText}</p>
+        <AvButton
+          variant="outlineNavy"
+          size="again"
+          onClick={() => {
+            switched.current = true;
+            setSent(false);
+          }}
+          className="mt-8"
+        >
+          {t.again}
+        </AvButton>
+      </div>
+    );
+  }
+
+  return (
+    <form ref={formRef} noValidate onSubmit={submit}>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-x-8 gap-y-2">
+        <Field
+          label={f.company}
+          name="company"
+          autoComplete="organization"
+          maxLength={120}
+          {...bind("company")}
+        />
+        <Field label={f.name} name="name" autoComplete="name" maxLength={100} {...bind("name")} />
+        <Field
+          label={f.email}
+          name="email"
+          type="email"
+          autoComplete="email"
+          maxLength={200}
+          {...bind("email")}
+        />
+        <Field
+          label={f.phone}
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          maxLength={40}
+          {...bind("phone")}
+        />
+        <div className="mt-4">
+          <label className={cx("block", fieldFocus)}>
+            <span className={labelText}>{f.type}</span>
+            <span className="relative block">
+              <select
+                name="type"
+                value={typeSel}
+                onChange={(e) => {
+                  setTypeSel(e.target.value);
+                  clearErrors("type", "typeOther");
+                }}
+                data-field="type"
+                {...errorProps(errors.type, `${id}-type-err`)}
+                className={cx(
+                  lineField,
+                  "h-12 cursor-pointer appearance-none rounded-none py-0 pr-7 pl-0",
+                  errors.type && errorLine,
+                )}
+              >
+                <option value="">{f.typePick}</option>
+                {groups.map((g) => (
+                  <optgroup key={g.group} label={g.group}>
+                    {g.items.map((it) => (
+                      <option key={it.name} value={it.name}>
+                        {it.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+                <option value={OTHER}>{f.typeOther}</option>
+              </select>
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute top-1/2 right-0.5 -translate-y-1/2 text-[12px]"
+              >
+                ▾
+              </span>
+            </span>
+          </label>
+          {errors.type ? (
+            <p id={`${id}-type-err`} className={errorClass}>
+              {errorText("type")}
+            </p>
+          ) : null}
+        </div>
+        {typeSel === OTHER ? (
+          <Field
+            label={f.typeOther}
+            name="typeOther"
+            placeholder="Learjet 75"
+            maxLength={80}
+            {...bind("typeOther")}
+          />
+        ) : null}
+        <Field
+          label={f.reg}
+          name="reg"
+          placeholder="D-B…"
+          maxLength={20}
+          autoCapitalize="characters"
+          {...bind("reg")}
+        />
+        <Field
+          label={f.apt}
+          name="apt"
+          placeholder="EDDG"
+          autoCapitalize="characters"
+          maxLength={4}
+          {...bind("apt")}
+        />
+        <Field
+          label={f.window}
+          name="window"
+          placeholder="14.10., 06:00–09:00 UTC"
+          maxLength={120}
+          {...bind("window")}
+        />
+      </div>
+
+      <p id={`${id}-svc`} className={cx(labelText, "mt-8")}>
+        {f.services}
+      </p>
+      <div
+        role="group"
+        aria-labelledby={`${id}-svc`}
+        aria-describedby={errors.services ? `${id}-svc-err` : undefined}
+        className="mt-3.5 flex flex-wrap gap-2.5"
+      >
+        {avServices.map((i) => (
+          <Chip
+            key={i}
+            pressed={services.includes(i)}
+            onClick={() => toggleService(i)}
+            data-field={i === avServices[0] ? "services" : undefined}
+          >
+            {t.tabs[i]}
+          </Chip>
+        ))}
+      </div>
+      {errors.services ? (
+        <p id={`${id}-svc-err`} className={errorClass}>
+          {errorText("services")}
+        </p>
+      ) : null}
+
+      <div aria-live="polite" className="mt-7 bg-av-sand px-[clamp(20px,2.4vw,32px)] py-6">
+        <p className="flex flex-wrap justify-between gap-x-4 gap-y-2 text-[10px] tracking-[0.26em] text-av-muted uppercase">
+          <span>{est.label}</span>
+          {estType ? <span className="text-av-navy">{estType}</span> : null}
+        </p>
+        {result ? (
+          <>
+            <ul className="mt-3.5">
+              {result.rows.map((r) => (
+                <li
+                  key={r.service}
+                  className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-4 border-t border-av-line py-3"
+                >
+                  <span className="font-cinzel text-[16px] font-normal">{r.label}</span>
+                  <span className="text-[14px] tabular-nums">{r.duration}</span>
+                  <span className="text-[13px] text-av-muted">{r.crew}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-av-navy pt-[18px]">
+              <span className="text-[10px] tracking-[0.26em] uppercase">{est.ground}</span>
+              <span className="font-cinzel text-[clamp(24px,2.24vw,32px)] leading-none font-normal">
+                {result.ground}
+              </span>
+            </p>
+            {result.notes.map((n) => (
+              <p key={n} className="mt-3 text-[13px] text-av-navy">
+                {n}
+              </p>
+            ))}
+            <p className="mt-2 text-[12px] leading-[1.6] text-av-muted">{est.note}</p>
+          </>
+        ) : (
+          <p className="mt-3.5 max-w-[460px] text-[14px] leading-[1.6] text-av-muted">
+            {est.empty}
+          </p>
+        )}
+      </div>
+
+      <p id={`${id}-model`} className={cx(labelText, "mt-8")}>
+        {f.model}
+      </p>
+      <div role="group" aria-labelledby={`${id}-model`} className="mt-3.5 flex flex-wrap gap-2.5">
+        {t.models.map((m, i) => (
+          <Chip key={m.n} pressed={model === i} onClick={() => setAvModel(model === i ? -1 : i)}>
+            {m.t}
+          </Chip>
+        ))}
+      </div>
+
+      <label className={cx("mt-6 block", fieldFocus)}>
+        <span className={labelText}>{f.notes}</span>
+        <textarea
+          name="notes"
+          rows={3}
+          maxLength={3000}
+          {...bind("notes")}
+          className={cx(lineField, "resize-y px-0 py-3 leading-[1.5]")}
+        />
+      </label>
+
+      <Honeypot />
+      <div aria-live="polite">
+        {sendError ? (
+          <p className="mt-8 max-w-[520px] text-[14px] leading-[1.6] font-medium text-av-navy">
+            {t.fErr.send}{" "}
+            <a href={telHref(t.opsPhone)} className="whitespace-nowrap underline">
+              {t.opsPhone}
+            </a>
+          </p>
+        ) : null}
+      </div>
+      <div className="mt-10 flex flex-wrap items-center justify-between gap-6">
+        <p className="max-w-[340px] text-[12px] leading-[1.6] text-av-muted">{f.privacy}</p>
+        <AvButton type="submit" variant="navy" size="lg" aria-disabled={sending || undefined}>
+          {sending ? f.sending : f.send}
+        </AvButton>
+      </div>
+    </form>
+  );
+}
