@@ -1,0 +1,234 @@
+{
+  "services": [
+    {
+      "id": "aussen",
+      "img2": "img/car-aussen.webp",
+      "no": "01",
+      "name": "Außenaufbereitung",
+      "short": "Handwäsche, Felgen, Scheiben",
+      "dur": "ca. 1 Tag",
+      "p": [
+        89,
+        109,
+        129
+      ],
+      "desc": "Schonende Handwäsche im Zwei-Eimer-Verfahren, Felgen und Reifen, Insekten- und Teerentfernung. Eine Versiegelung ist nicht enthalten, Sie bekommen sie auf Wunsch gegen Aufpreis.",
+      "incl": [
+        "Vorwäsche mit Aktivschaum",
+        "Handwäsche, Zwei-Eimer-Verfahren",
+        "Felgen, Reifen, Radkästen",
+        "Insekten- und Teerentfernung",
+        "Scheiben außen"
+      ]
+    },
+    {
+      "id": "innen",
+      "img2": "img/car-innen.webp",
+      "no": "02",
+      "name": "Innenaufbereitung",
+      "short": "Polster, Kunststoffe, Scheiben",
+      "dur": "ca. 1 Tag",
+      "p": [
+        119,
+        139,
+        169
+      ],
+      "desc": "Gründliche Reinigung des Innenraums vom Dachhimmel bis zum Kofferraum. Polster oder Leder werden je nach Material gereinigt und gepflegt, Gerüche neutralisiert.",
+      "incl": [
+        "Saugen inkl. Kofferraum",
+        "Polster- oder Lederreinigung",
+        "Kunststoff- und Zierteilpflege",
+        "Türfalze und Einstiege",
+        "Scheiben innen, streifenfrei",
+        "Geruchsneutralisation"
+      ]
+    },
+    {
+      "id": "politur",
+      "img2": "img/car-lackkorrektur.webp",
+      "no": "03",
+      "name": "Lackkorrektur",
+      "short": "Lackreinigung, Maschinenpolitur",
+      "dur": "ca. 2 Tage",
+      "p": [
+        249,
+        299,
+        349
+      ],
+      "desc": "Dekontamination mit Reinigungsknete, danach maschinelle Politur. Entfernt Waschkratzer, Hologramme und matte Stellen und gibt dem Lack seine Tiefe zurück. Eine Versiegelung, die das Ergebnis schützt, ist nicht enthalten und kostet extra.",
+      "incl": [
+        "Dekontamination mit Knete",
+        "Lackschichtdickenmessung",
+        "Einstufige Maschinenpolitur",
+        "Kunststoffe und Gummis abgeklebt",
+        "Mehrstufige Korrektur auf Anfrage"
+      ]
+    },
+    {
+      "id": "keramik",
+      "img2": "img/car-keramik.webp",
+      "no": "04",
+      "name": "Keramikversiegelung",
+      "short": "Lackkorrektur, Keramikschutz",
+      "dur": "ca. 3 Tage",
+      "p": [
+        590,
+        690,
+        790
+      ],
+      "desc": "Nach Außenaufbereitung und Lackkorrektur tragen wir eine zweischichtige Keramikversiegelung von CarPro auf. Der Lack bleibt länger sauber, glänzt tiefer und ist gegen Umwelteinflüsse geschützt.",
+      "incl": [
+        "Außenaufbereitung inklusive",
+        "Einstufige Lackkorrektur",
+        "Zwei Schichten Keramik",
+        "Felgen und Scheiben versiegelt",
+        "Aushärtung unter Infrarot",
+        "Schutz bis zu 3 Jahre"
+      ]
+    }
+  ],
+  "vehicleClasses": [
+    {
+      "label": "Kleinwagen",
+      "ex": "z. B. VW Polo, Mini"
+    },
+    {
+      "label": "Limousine & Kombi",
+      "ex": "z. B. BMW 3er, VW Passat"
+    },
+    {
+      "label": "SUV & Van",
+      "ex": "z. B. Audi Q5, VW Multivan"
+    }
+  ],
+  "comboPrice": [
+    189,
+    229,
+    269
+  ],
+  "extras": [
+    {
+      "name": "Tierhaarentfernung",
+      "price": "ab 29 €"
+    },
+    {
+      "name": "Motorraumreinigung",
+      "price": "ab 39 €"
+    },
+    {
+      "name": "Ozonbehandlung gegen Gerüche",
+      "price": "ab 49 €"
+    },
+    {
+      "name": "Scheinwerferaufbereitung",
+      "price": "ab 59 €"
+    }
+  ],
+  "faq": [
+    {
+      "q": "Warum steht bei den Preisen „ab“?",
+      "a": "Der Preis hängt von Größe und Zustand ab. Die Preise gelten für ein Fahrzeug in normalem Zustand. Nach einer kostenlosen Begutachtung nennen wir Ihnen einen Festpreis, bevor wir beginnen. Ohne Ihre Zustimmung wird es nicht teurer."
+    },
+    {
+      "q": "Wie lange dauert die Aufbereitung?",
+      "a": "Rechnen Sie für die Außen- und die Innenaufbereitung mit jeweils etwa einem Tag, für eine Lackkorrektur mit zwei und für eine Keramikversiegelung mit drei Tagen, weil die Beschichtung aushärten muss. Wie lange es genau dauert, hängt davon ab, wie stark das Fahrzeug verschmutzt und wie groß es ist."
+    },
+    {
+      "q": "Lohnt sich eine Keramikversiegelung?",
+      "a": "Wenn Sie Ihr Fahrzeug länger fahren und Wert auf einfache Pflege legen, ja. Der Lack verschmutzt langsamer, die Wäsche geht schneller und der Glanz hält über Jahre. Für eine Leasingrückgabe reicht meist eine Politur."
+    },
+    {
+      "q": "Mit welchen Produkten arbeiten Sie?",
+      "a": "Ausschließlich mit Produkten von CarPro, von der Vorwäsche über die Politur bis zur Keramikversiegelung. So sind alle Arbeitsschritte aufeinander abgestimmt."
+    },
+    {
+      "q": "Arbeiten Sie auch für Autohäuser und Flotten?",
+      "a": "Ja. Für Händler, Leasingrückläufer und Firmenflotten vereinbaren wir feste Konditionen und rechnen gesammelt ab."
+    },
+    {
+      "q": "Was hat PaintFix mit Flugzeugen zu tun?",
+      "a": "PaintFix Aviation ist unser eigener Bereich für Business Aviation, mit eigenem Team und eigener Kalkulation. Für Ihr Auto bedeutet das: dieselbe Gründlichkeit und ein Fotoprotokoll bei jeder Übergabe. Die Preise für Fahrzeuge berechnen wir unabhängig davon."
+    }
+  ],
+  "inspect": [
+    {
+      "id": "smart-repair",
+      "name": "Smart Repair",
+      "short": "Kratzer, Dellen und Steinschläge punktuell beheben.",
+      "dur": "nach Umfang",
+      "desc": "Kleine Schäden reparieren wir dort, wo sie sind, statt ganze Bauteile neu zu lackieren. Das spart Zeit und Kosten, und Ihr Fahrzeug behält so viel Originallack wie möglich.",
+      "incl": [
+        "Kratzer und Schrammen im Lack",
+        "Kleine Dellen und Parkrempler",
+        "Steinschläge an Haube und Front",
+        "Bordsteinschäden an Felgen",
+        "Farbton passend zum Originallack",
+        "Festpreis nach kostenloser Begutachtung"
+      ],
+      "media": "carSvcSmartRepair"
+    },
+    {
+      "id": "leasing",
+      "name": "Leasingrückgabe",
+      "short": "Schäden beheben, bevor sie bei der Rückgabe berechnet werden.",
+      "dur": "nach Umfang",
+      "desc": "Bei der Rückgabe wird jeder Kratzer protokolliert und oft teuer berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und bereiten es innen und außen auf. Was gemacht wird, entscheiden Sie nach der kostenlosen Begutachtung.",
+      "incl": [
+        "Begutachtung vor dem Rückgabetermin",
+        "Smart Repair kleiner Schäden",
+        "Lackkorrektur, wo sie sich lohnt",
+        "Aufbereitung innen und außen",
+        "Fotoprotokoll vor der Übergabe",
+        "Festpreis nach kostenloser Begutachtung"
+      ],
+      "media": "carSvcLeasing"
+    }
+  ],
+  "focus": [
+    {
+      "id": "smart-repair",
+      "name": "Smart Repair",
+      "short": "Kratzer, Dellen und Steinschläge punktuell beheben, ohne Komplettlackierung.",
+      "price": null
+    },
+    {
+      "id": "politur",
+      "name": "Lackkorrektur",
+      "short": "Waschkratzer, Hologramme und matter Lack, maschinell auspoliert.",
+      "price": "politur"
+    },
+    {
+      "id": "leasing",
+      "name": "Leasingrückgabe",
+      "short": "Schäden beheben, bevor sie bei der Rückgabe berechnet werden.",
+      "price": null
+    },
+    {
+      "id": "aussen",
+      "name": "Fahrzeugaufbereitung",
+      "short": "Außen, innen und Keramikversiegelung, mit Produkten von CarPro.",
+      "price": "aussen"
+    }
+  ],
+  "leasingBand": {
+    "label": "Leasingrückgabe",
+    "title": "Bevor der Gutachter kommt.",
+    "text": "Bei der Rückgabe wird jeder Kratzer protokolliert und berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und übergeben es aufbereitet und dokumentiert.",
+    "steps": [
+      {
+        "t": "Kostenlose Begutachtung",
+        "d": "Wir prüfen Lack, Felgen und Innenraum und nennen Ihnen einen Festpreis."
+      },
+      {
+        "t": "Smart Repair und Aufbereitung",
+        "d": "Kleine Schäden beheben, Lack korrigieren, innen und außen aufbereiten."
+      },
+      {
+        "t": "Übergabe mit Fotoprotokoll",
+        "d": "Sie geben ein gepflegtes Fahrzeug zurück, der Zustand ist dokumentiert."
+      }
+    ],
+    "cta": "Rückgabe-Check anfragen",
+    "more": "Mehr zur Leasingrückgabe"
+  }
+}

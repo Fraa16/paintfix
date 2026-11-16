@@ -1,0 +1,167 @@
+/* PaintFix Design Tokens · Stand 09.10.2026
+   Produktionskopie von design/handoff/tokens/tokens.css. Abweichung: Schriften kommen aus next/font
+   (app/fonts.ts), die Font-Variablen heißen deshalb --font-mona-face und --font-cinzel-face.
+   Quelle: README.md, Abschnitt 7. Alle Werte entsprechen der Referenz "PaintFix Website v4".
+   Tailwind v4: dieselben Variablen zusätzlich in @theme spiegeln (README 7.8). */
+
+:root {
+  /* ---------- Schriften ---------- */
+  /* Schriften: --font-mona-face und --font-cinzel-face setzt next/font am <html>. */
+
+  /* ---------- Fahrzeug · Farben ---------- */
+  --car-bg: #ffffff;
+  --car-surface: #f5f5f3; /* Abschnittsfläche, Hover sekundärer Button */
+  --car-ink: #0c0d0f; /* Text, Primärbutton, starke Linien, dunkle Flächen */
+  --car-ink-hover: #2a2d31; /* Hover Primärbutton */
+  --car-text: #4a4e55; /* Fließtext */
+  --car-muted: #5e636b; /* Labels, Metadaten, Overlines */
+  --car-input-placeholder: #8a8f96;
+  --car-red: #c8322a; /* Signalrot: Logo-Quadrat, Overline-Quadrat, Hover */
+  --car-line: #e1e1de; /* Zeilentrenner, Kartenrahmen */
+  --car-line-ui: #e6e6e3; /* Header-/Abschnittslinien */
+  --car-line-soft: #eeeeeb; /* Trenner innerhalb von Karten, Menü */
+  --car-border: #d6d6d2; /* Inputs, Segment-Steuerung, Tabellenlinien */
+  --car-track: #dcdcd8; /* Fortschrittslinie, Hintergrund */
+  --car-image-bg: #ededea; /* Bildfläche während des Ladens */
+  --car-on-ink: #f2f2f0; /* Text auf Schwarz */
+  --car-on-ink-muted: #b9bdc3; /* sekundärer Text auf Schwarz */
+  --car-on-ink-soft: #d3d6da; /* Links/Tertiärtext auf Schwarz */
+  --car-ink-line: #26292d; /* Linien auf Schwarz */
+  --car-open: #2f8f5b; /* Live-Status geöffnet */
+  --car-closed: #a2a6ad; /* Live-Status geschlossen */
+  --car-header-bg: rgba(255, 255, 255, 0.94);
+  --car-bar-bg: rgba(255, 255, 255, 0.96);
+  --car-ba-bg: #1a1c1f; /* Vorher/Nachher-Fläche */
+
+  /* ---------- Aviation · Farben ---------- */
+  --av-navy: #0d1a2c; /* dunkle Flächen, Text auf hell */
+  --av-navy-deep: #0a1424; /* Bildflächen, Formular-Panel */
+  --av-navy-hover: #122440; /* Hover Aviation-Band */
+  --av-cream: #f4efe6; /* helle Grundfläche, Text auf Navy, Primärbutton */
+  --av-sand: #ede6d9; /* zweite helle Fläche (Leistungen, Flotte, Richtwerte) */
+  --av-paper: #fbf8f2; /* Arbeitsbericht, mobile Karten */
+  --av-gold: #c8ae82; /* Akzent auf Navy: Overlines, Linien, Ziffern */
+  --av-gold-line: #9c7f52; /* Goldlinie auf hellem Grund */
+  --av-gold-text: #7a6340; /* Goldtext auf hellem Grund */
+  --av-stamp: #8a6e43; /* Stempel „Freigegeben“ */
+  --av-muted: #4c5666; /* sekundärer Text auf hell */
+  --av-tab-inactive: #6a7280;
+  --av-on-navy: #d2cabb; /* Fließtext auf Navy */
+  --av-on-navy-hero: #e2dbcd; /* Hero-Untertitel */
+  --av-on-navy-muted: #b8b2a6; /* Labels auf Navy */
+  --av-error: #e0907f; /* Fehler auf Navy */
+  --av-line: rgba(13, 26, 44, 0.14);
+  --av-line-strong: rgba(13, 26, 44, 0.18);
+  --av-line-input: rgba(13, 26, 44, 0.3);
+  --av-line-on-navy: rgba(244, 239, 230, 0.14);
+  --av-line-gold: rgba(200, 174, 130, 0.4);
+  --av-header-bg: rgba(244, 239, 230, 0.92);
+  --av-bar-bg: rgba(13, 26, 44, 0.94);
+
+  /* ---------- Ergänzungen aus der Referenz ----------
+     Farben, die die Referenz verwendet, die aber nicht in README 7 stehen. Werte unverändert übernommen. */
+  --car-image-bg-alt: #e4e4e0; /* Bildfläche Standort beim Laden */
+  --car-ba-haze: #e8e8e2; /* Schleier über dem Vorher-Bild (Vorher/Nachher-Regler) */
+  --av-white: #ffffff; /* Hover Primärbutton Aviation (Creme auf Navy) */
+  --av-fs-h2-services-tabs: clamp(35.2px, 4.48vw, 73.6px); /* H2 Leistungen, Tab-Version */
+  --car-footer-av-link: #d9d2c4; /* Link „PaintFix Aviation ↗“ im Fahrzeug-Footer */
+  --av-image-bg: #dfd6c5; /* Bildfläche auf Sand und Creme beim Laden */
+  --av-doc-back: #d9d1c1; /* hinteres Blatt des Dokument-Covers */
+  --av-navy-button-hover: #1c2f4a; /* Hover Navy-Button auf hellem Grund (Formular senden) */
+  --av-quote-glow: #263a55; /* Verlauf hinter dem Kabinenbild, innen */
+  --av-quote-glow-mid: #13233a; /* Verlauf hinter dem Kabinenbild, Mitte */
+
+  /* ---------- Layout ---------- */
+  --car-max: 1360px;
+  --car-gutter: clamp(20px, 4vw, 56px);
+  --car-section: clamp(88px, 11vw, 160px);
+  --car-header-h: 76px;
+  --av-max: 1440px;
+  --av-gutter: clamp(20px, 4vw, 64px);
+  --av-section: clamp(96px, 12vw, 176px);
+  --av-header-h: 84px;
+  /* Breakpoints (für Media Queries als Literal verwenden): 980px Hauptumbruch, 1200px Abschnittsanzeige, 1240px Aviation-Navigation */
+
+  /* ---------- Typografie Fahrzeug (Mona Sans) ---------- */
+  --car-display-weight: 700;
+  --car-display-stretch: 125%;
+  --car-fs-hero: clamp(40px, 13.4cqi, 112px); /* Container = Hero-Textspalte */
+  --car-fs-h1: clamp(44px, 5.4vw, 88px);
+  --car-fs-h2: clamp(30.96px, 3.784vw, 55.04px);
+  --car-fs-h2-cta: clamp(32.68px, 4.3vw, 65.36px);
+  --car-fs-h2-success: clamp(29.24px, 3.44vw, 48.16px);
+  --car-fs-h2-service: clamp(22.36px, 2.924vw, 43px);
+  --car-fs-list: clamp(22.36px, 3.268vw, 51.6px);
+  --car-fs-step-title: 20.6px;
+  --car-fs-price-xl: clamp(40px, 3.6vw, 56px);
+
+  /* ---------- Typografie Aviation (Cinzel 400 / Mona Sans 350) ---------- */
+  --av-display-weight: 400;
+  --av-text-weight: 350;
+  --av-fs-hero: clamp(41.6px, 5.92vw, 99.2px);
+  --av-fs-expand: clamp(32px, 4.32vw, 73.6px);
+  --av-fs-h2-services: clamp(38.4px, 4.32vw, 73.6px);
+  --av-fs-h2: clamp(32px, 3.84vw, 60.8px);
+  --av-fs-h2-fleet: clamp(32px, 3.52vw, 54.4px);
+  --av-fs-h2-form: clamp(35.2px, 4.48vw, 73.6px);
+  --av-fs-h3-docs: clamp(25.6px, 2.72vw, 41.6px);
+  --av-fs-cat-title: clamp(24px, 2.24vw, 35.2px);
+  --av-fs-item-title: clamp(16.8px, 1.44vw, 21.6px);
+  --av-fs-wordmark: clamp(38.4px, 6.4vw, 108.8px);
+
+  /* ---------- Schatten ---------- */
+  --shadow-float: 0 40px 80px -40px rgba(12, 13, 15, 0.5); /* Hover-Bild Leistungsliste */
+  --shadow-handle: 0 12px 32px rgba(0, 0, 0, 0.28); /* Griff Vorher/Nachher */
+  --shadow-report: 0 50px 100px -60px rgba(13, 26, 44, 0.5); /* Arbeitsbericht */
+  --shadow-doc: 0 30px 60px -28px rgba(0, 0, 0, 0.7); /* Dokument-Cover */
+
+  /* ---------- Bewegung ---------- */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1); /* Reveals, Listen-Versatz, Hero-Zoom */
+  --ease-mask: cubic-bezier(0.19, 1, 0.22, 1); /* Zeilen-Masken-Reveal */
+  --ease-clip: cubic-bezier(0.77, 0, 0.18, 1); /* Bild-Clip-Reveal */
+  --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1); /* Markenwechsel */
+  --ease-stamp: cubic-bezier(0.2, 1.6, 0.4, 1); /* Stempel mit Überschwingen */
+  --ease-cue: cubic-bezier(0.6, 0, 0.2, 1); /* Scroll-Hinweis */
+  --dur-reveal-fade: 1.1s;
+  --dur-reveal-move: 1.2s;
+  --dur-mask: 1.25s;
+  --dur-clip: 1.6s;
+  --dur-curtain: 0.85s;
+  --dur-hero-zoom: 3.2s;
+}
+
+@keyframes pf-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes pf-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

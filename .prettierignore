@@ -1,6 +1,5 @@
-dist
-.astro
-.vercel
-node_modules
+design/
+.next/
+node_modules/
 package-lock.json
-public/**/*.svg
+content/*.json
