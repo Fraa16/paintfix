@@ -1,9 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AvButton } from "@/components/aviation/Button";
 import { AvLogo } from "@/components/aviation/Logo";
-import { aviationPath, aviationSectionIds, type Locale } from "@/content/aviation-meta";
+import {
+  aviationAlternatePath,
+  aviationPath,
+  aviationSectionIds,
+  isAviationHome,
+  type Locale,
+} from "@/content/aviation-meta";
 import { cx } from "@/lib/cx";
 import { useAvScroll } from "./AvScrollState";
 import { getAvLenis } from "./AvSmoothScroll";
@@ -15,10 +22,14 @@ const locales: Locale[] = ["de", "en"];
  * Header Aviation (README 8.4 Punkt 0, Referenz Zeilen 552–575): fixed, 84px.
  * Über dem Hero transparent mit Creme-Text, sobald der Inhalt den Header erreicht
  * --av-header-bg + Blur und Navy-Text, Übergang 0.5s. Navigation ab 1240px, CTA ab 980px.
+ * Auf den Seiten je Bereich (/aviation/…) führen die Abschnittslinks zur Aviation-Startseite und der
+ * Sprachumschalter zur selben Seite in der anderen Sprache. #av-contact gibt es auf allen Seiten.
  */
 export function AvHeader({ locale, nav, cta }: { locale: Locale; nav: string[]; cta: string }) {
   const { over } = useAvScroll();
   const ui = avUi[locale];
+  const pathname = usePathname();
+  const base = isAviationHome(pathname) ? "" : aviationPath[locale];
 
   return (
     <header
@@ -48,7 +59,7 @@ export function AvHeader({ locale, nav, cta }: { locale: Locale; nav: string[]; 
           {nav.map((label, i) => (
             <Link
               key={aviationSectionIds[i]}
-              href={`#${aviationSectionIds[i]}`}
+              href={`${base}#${aviationSectionIds[i]}`}
               className="py-1.5 text-[11px] tracking-[0.22em] uppercase hover:opacity-60"
             >
               {label}
@@ -69,7 +80,7 @@ export function AvHeader({ locale, nav, cta }: { locale: Locale; nav: string[]; 
                   </span>
                 )}
                 <Link
-                  href={aviationPath[l]}
+                  href={aviationAlternatePath(pathname, l)}
                   hrefLang={l}
                   lang={l}
                   aria-label={ui.langNames[l]}

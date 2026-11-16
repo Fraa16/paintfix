@@ -5,8 +5,9 @@ import { site } from "@/content/site";
  * CTA Fahrzeug (README 8.5, Referenz Zeilen 497–510), nur auf Startseite und Leistungsseite.
  * Schwarze Fläche über die volle Breite, die Linie unten nur so breit wie der Inhalt (max. 1360px).
  * Direkt darunter folgt der Footer aus dem Layout. Reveal nur an der H2 (0), wie in der Referenz.
+ * `href` belegt die Anfrage auf den Leistungsseiten mit der Leistung vor.
  */
-export function CtaBand() {
+export function CtaBand({ href = "/anfrage" }: { href?: string }) {
   return (
     <div className="bg-car-ink text-car-on-ink [--focus:var(--car-on-ink)]">
       <section
@@ -27,7 +28,7 @@ export function CtaBand() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-7 leading-[normal]">
-          <CarButton href="/anfrage" variant="light" size="cta" arrow>
+          <CarButton href={href} variant="light" size="cta" arrow>
             Termin anfragen
           </CarButton>
           <p className="flex flex-col gap-1">

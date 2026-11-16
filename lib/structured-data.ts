@@ -1,4 +1,7 @@
 import { aviation, type Locale } from "@/content/aviation";
+import { aviationPagePath, aviationPath, type AvPageMeta } from "@/content/aviation-meta";
+import type { AvServicePageCopy } from "@/content/aviation-pages";
+import type { CarServicePage } from "@/content/leistungen";
 import { openingHours, site } from "@/content/site";
 import { siteUrl } from "@/lib/site-url";
 
@@ -66,5 +69,76 @@ export function aviationBusiness(locale: Locale) {
     telephone: t.opsPhone.replace(/\s/g, ""),
     address,
     parentOrganization: { "@id": new URL("/#betrieb", siteUrl).href },
+  };
+}
+
+/** Eintrag ohne eigenes @context, zum Einbetten in einen anderen (provider, @graph). */
+function embedded(data: object): object {
+  return Object.fromEntries(Object.entries(data).filter(([key]) => key !== "@context"));
+}
+
+/** Brotkrumen als BreadcrumbList; Pfade relativ zur Website. */
+function breadcrumbs(items: ReadonlyArray<{ name: string; path: string }>) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: new URL(it.path, siteUrl).href,
+    })),
+  };
+}
+
+/**
+ * Seite je Leistung (/leistungen/{slug}): Service mit dem Betrieb als Anbieter und Brotkrumen.
+ * Ohne offers und areaServed, solange Preise und Einzugsgebiet Platzhalter sind (Regel 11).
+ */
+export function carServiceLd(page: CarServicePage) {
+  const path = `/leistungen/${page.slug}`;
+  const url = new URL(path, siteUrl).href;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#leistung`,
+        name: page.name,
+        serviceType: page.name,
+        description: page.metaDescription,
+        url,
+        provider: embedded(carBusiness()),
+      },
+      breadcrumbs([
+        { name: "Start", path: "/" },
+        { name: "Leistungen", path: "/leistungen" },
+        { name: page.name, path },
+      ]),
+    ],
+  };
+}
+
+/** Seite je Aviation-Bereich: Service mit PaintFix Aviation als Anbieter und Brotkrumen. */
+export function aviationServiceLd(locale: Locale, meta: AvPageMeta, copy: AvServicePageCopy) {
+  const path = aviationPagePath(meta.id, locale);
+  const url = new URL(path, siteUrl).href;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#leistung`,
+        name: copy.name,
+        serviceType: copy.name,
+        description: copy.metaDescription,
+        url,
+        inLanguage: locale,
+        provider: embedded(aviationBusiness(locale)),
+      },
+      breadcrumbs([
+        { name: "PaintFix Aviation", path: aviationPath[locale] },
+        { name: copy.name, path },
+      ]),
+    ],
   };
 }

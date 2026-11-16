@@ -1,19 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { faq } from "@/content/fahrzeug";
+import { faq as defaultFaq, type FaqEntry } from "@/content/fahrzeug";
 
 /**
  * FAQ-Akkordeon (README 8.2 Punkt 6, Referenz Zeilen 352–362): erster Eintrag offen, immer nur
  * einer offen, erneuter Klick schließt. Geschlossene Antworten bleiben im HTML (hidden), damit
- * aria-controls immer auf ein Element zeigt.
+ * aria-controls immer auf ein Element zeigt. `entries` für die Leistungsseiten, sonst die
+ * allgemeinen Fragen aus fahrzeug.json.
  */
-export function FaqAccordion() {
+export function FaqAccordion({ entries = defaultFaq }: { entries?: ReadonlyArray<FaqEntry> }) {
   const [open, setOpen] = useState(0);
 
   return (
     <div className="border-t border-car-ink">
-      {faq.map((entry, i) => {
+      {entries.map((entry, i) => {
         const isOpen = open === i;
         return (
           <div key={entry.q} className="border-b border-car-line">

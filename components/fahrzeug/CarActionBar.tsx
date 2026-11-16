@@ -6,8 +6,10 @@ import { LiveDot, useOpenStatus } from "@/components/shared/OpeningStatus";
 import { useRootVar } from "@/components/shared/root-scroll";
 import { site } from "@/content/site";
 
-/** Seiten mit Aktionsleiste (Referenz: carSpace, nur Startseite und Leistungsseite). */
+/** Seiten mit Aktionsleiste (Referenz: carSpace, nur Startseite und Leistungsseite), dazu die
+ * Seiten je Leistung unter /leistungen/…. */
 const ROUTES = new Set(["/", "/leistungen"]);
+const hasBar = (path: string) => ROUTES.has(path) || path.startsWith("/leistungen/");
 
 /**
  * Mobile Aktionsleiste Fahrzeug (README 9.10, Referenz Zeilen 543–548), nur unter 980px.
@@ -17,7 +19,7 @@ const ROUTES = new Set(["/", "/leistungen"]);
  */
 export function CarActionBar() {
   const pathname = usePathname();
-  if (!ROUTES.has(pathname)) return null;
+  if (!hasBar(pathname)) return null;
   return <Bar />;
 }
 

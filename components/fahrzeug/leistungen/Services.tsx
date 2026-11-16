@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CarButton } from "@/components/fahrzeug/Button";
+import { CarButton, CarTextLink } from "@/components/fahrzeug/Button";
 import {
   INSPECT_PRICE,
   inspectServices,
@@ -7,6 +7,7 @@ import {
   type InspectId,
   type ServiceId,
 } from "@/content/fahrzeug";
+import { focusHref } from "@/content/leistungen";
 import { altText, media, mediaByRefPath, type MediaId } from "@/content/media";
 import { ServicePrice } from "./ServicePrice";
 
@@ -20,7 +21,7 @@ const ORDER: ReadonlyArray<ServiceId | InspectId> = [
   "keramik",
 ];
 
-interface Entry {
+export interface ServiceEntryData {
   id: ServiceId | InspectId;
   name: string;
   dur: string;
@@ -31,94 +32,136 @@ interface Entry {
   priced: boolean;
 }
 
-const entries: Entry[] = ORDER.map((id) => {
+/** Umfang, Bild und Preisart einer Leistung aus fahrzeug.json (services oder inspect). */
+export function serviceEntry(id: ServiceId | InspectId): ServiceEntryData {
   const inspect = inspectServices.find((x) => x.id === id);
   if (inspect) return { ...inspect, img: inspect.media, priced: false };
   const s = serviceById(id as ServiceId);
   return { ...s, img: mediaByRefPath(s.img2), priced: true };
-});
+}
 
+const entries = ORDER.map(serviceEntry);
 const total = String(entries.length).padStart(2, "0");
 
 /**
  * Die Leistungen #svc-{id} (README 8.2 Punkt 3, Referenz Zeilen 294–328): Bild links, Text
  * rechts, unter ca. 1010px untereinander. Nur die Preiszeile ist Client-Komponente. Smart Repair und
  * Leasingrückgabe haben keinen Klassenpreis, sondern „Preis nach Begutachtung“.
- * Anker #svc-… (am Wrapper ohne Reveal) landen über scroll-padding unter Header und Klassenleiste
- * (siehe ClassBar).
  * Reveals wie in der Referenz: jede Leistung und ihre H2 mit Fade-up (0).
  */
 export function Services() {
   return (
     <section aria-label="Leistungen" className="bg-car-bg pb-[clamp(64px,8vw,112px)]">
       <div className="mx-auto max-w-car px-car-gutter">
-        {entries.map((s, i) => {
-          const img = s.img;
-          return (
-            // Anker am unverschobenen Wrapper: Das Reveal (translate 32px) würde das Sprungziel sonst um
-            // 32px unter die Klassenleiste schieben, sobald es abläuft.
-            <div key={s.id} id={`svc-${s.id}`}>
-              <article
-                data-rv="0"
-                aria-labelledby={`svc-${s.id}-title`}
-                className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] gap-x-[clamp(32px,5vw,88px)] gap-y-8 border-b border-car-line py-[clamp(48px,6vw,88px)]"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-car-image-bg">
-                  <Image
-                    src={media[img].src}
-                    alt={altText(img)}
-                    fill
-                    sizes="(min-width: 1012px) min(44vw, 590px), 92vw"
-                    loading={i === 0 ? "eager" : undefined}
-                    className="object-cover"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <p className="flex justify-between gap-4 text-[13px] text-car-muted">
-                    <span>
-                      {String(i + 1).padStart(2, "0")} / {total}
-                    </span>
-                    <span>Dauer {s.dur}</span>
-                  </p>
-                  <h2
-                    id={`svc-${s.id}-title`}
-                    data-rv="0"
-                    className="mt-[18px] text-car-h2-service leading-[1.02] font-bold tracking-[-0.015em] font-stretch-125%"
-                  >
-                    {s.name}
-                  </h2>
-                  <p className="mt-[18px] max-w-[560px] text-[17px] leading-[1.6] text-pretty text-car-text">
-                    {s.desc}
-                  </p>
-                  <h3 className="mt-7 text-[12px] font-semibold tracking-[0.14em] text-car-muted uppercase">
-                    Im Preis enthalten
-                  </h3>
-                  <ul className="mt-2.5 grid grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-x-6">
-                    {s.incl.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-baseline gap-3 border-b border-car-line-soft py-2.5 text-[15px]"
-                      >
-                        <span
-                          aria-hidden="true"
-                          className="block h-[1.5px] w-2.5 flex-none -translate-y-1 bg-car-red"
-                        />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  {s.priced ? (
-                    <ServicePrice id={s.id as ServiceId} />
-                  ) : (
-                    <InspectPrice id={s.id} name={s.name} />
-                  )}
-                </div>
-              </article>
-            </div>
-          );
-        })}
+        {entries.map((s, i) => (
+          <ServiceEntry
+            key={s.id}
+            entry={s}
+            anchor={`svc-${s.id}`}
+            counter={`${String(i + 1).padStart(2, "0")} / ${total}`}
+            eager={i === 0}
+            more={focusHref(s.id)}
+          />
+        ))}
       </div>
     </section>
+  );
+}
+
+/**
+ * Eine Leistung als Artikel. Auch auf den Seiten je Leistung (/leistungen/…), dort optional mit
+ * eigener Überschrift (`title`, z. B. „Umfang und Preis“, wenn der Name schon die H1 ist).
+ * `more` verlinkt die eigene Seite der Leistung, sofern es sie gibt.
+ * Anker (#svc-… auf /leistungen) am unverschobenen Wrapper: Das Reveal (translate 32px) würde das
+ * Sprungziel sonst um 32px unter die Klassenleiste schieben, sobald es abläuft. Sie landen über
+ * scroll-padding unter Header und Klassenleiste (siehe ClassBar).
+ */
+export function ServiceEntry({
+  entry: s,
+  anchor,
+  counter,
+  title,
+  eager = false,
+  more,
+  caption,
+}: {
+  entry: ServiceEntryData;
+  anchor: string;
+  counter?: string;
+  title?: string;
+  eager?: boolean;
+  more?: string;
+  /** Bildunterschrift, z. B. „Symbolbild, KI-generiert“ (UWG § 5). */
+  caption?: string;
+}) {
+  const img = s.img;
+  const titleId = `${anchor}-title`;
+  const showMore = more && !more.includes("#");
+  return (
+    <div id={anchor}>
+      <article
+        data-rv="0"
+        aria-labelledby={titleId}
+        className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] gap-x-[clamp(32px,5vw,88px)] gap-y-8 border-b border-car-line py-[clamp(48px,6vw,88px)]"
+      >
+        <figure className="flex flex-col gap-2.5">
+          <div className="relative aspect-[4/3] overflow-hidden bg-car-image-bg">
+            <Image
+              src={media[img].src}
+              alt={altText(img)}
+              fill
+              sizes="(min-width: 1012px) min(44vw, 590px), 92vw"
+              loading={eager ? "eager" : undefined}
+              className="object-cover"
+            />
+          </div>
+          {caption && <figcaption className="text-[13px] text-car-muted">{caption}</figcaption>}
+        </figure>
+        <div className="flex flex-col">
+          <p className="flex justify-between gap-4 text-[13px] text-car-muted">
+            <span>{counter}</span>
+            <span>Dauer {s.dur}</span>
+          </p>
+          <h2
+            id={titleId}
+            data-rv="0"
+            className="mt-[18px] text-car-h2-service leading-[1.02] font-bold tracking-[-0.015em] font-stretch-125%"
+          >
+            {title ?? s.name}
+          </h2>
+          <p className="mt-[18px] max-w-[560px] text-[17px] leading-[1.6] text-pretty text-car-text">
+            {s.desc}
+          </p>
+          <h3 className="mt-7 text-[12px] font-semibold tracking-[0.14em] text-car-muted uppercase">
+            Im Preis enthalten
+          </h3>
+          <ul className="mt-2.5 grid grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-x-6">
+            {s.incl.map((item) => (
+              <li
+                key={item}
+                className="flex items-baseline gap-3 border-b border-car-line-soft py-2.5 text-[15px]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="block h-[1.5px] w-2.5 flex-none -translate-y-1 bg-car-red"
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+          {showMore && (
+            <CarTextLink href={more} className="mt-7">
+              Mehr erfahren<span className="sr-only">: {s.name}</span>
+            </CarTextLink>
+          )}
+          {s.priced ? (
+            <ServicePrice id={s.id as ServiceId} />
+          ) : (
+            <InspectPrice id={s.id} name={s.name} />
+          )}
+        </div>
+      </article>
+    </div>
   );
 }
 

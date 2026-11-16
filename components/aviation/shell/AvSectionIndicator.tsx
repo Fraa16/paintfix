@@ -1,16 +1,20 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { isAviationHome } from "@/content/aviation-meta";
 import { useAvScroll } from "./AvScrollState";
 
 const ROMAN = ["I", "II", "III", "IV", "V", "VI"];
 
 /**
  * Abschnittsanzeige (README 8.4 Punkt 12, Referenz Zeilen 605–610): ab 1200px, erst nach dem Hero.
- * Fixed links unten, vertikal, mix-blend-mode difference. Rein dekorativ.
+ * Fixed links unten, vertikal, mix-blend-mode difference. Rein dekorativ. Nur auf der
+ * Aviation-Startseite: Die Seiten je Bereich haben die nummerierten Abschnitte nicht.
  */
 export function AvSectionIndicator({ secs }: { secs: string[] }) {
   const { over, sec } = useAvScroll();
-  if (!over || sec < 0) return null;
+  const home = isAviationHome(usePathname());
+  if (!home || !over || sec < 0) return null;
   return (
     <div
       aria-hidden="true"

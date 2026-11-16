@@ -87,3 +87,42 @@ export const seatOnMap = { pos: [52.65, 37.75] as const };
  * oder durch einen echten, freigegebenen Bericht ersetzt werden.
  */
 export const sampleReport = { signer: "M. Becker", date: "14.10.2026" } as const;
+
+/**
+ * Seiten je Leistungsbereich (Auftrag 04.11.2026, lokale Suche), in der Reihenfolge von `tabs`.
+ * Slugs je Sprache; die Texte stehen in aviation-pages.ts (nur Server).
+ */
+export type AvPageId = "exterior" | "cabin" | "protection";
+
+export interface AvPageMeta {
+  id: AvPageId;
+  /** Index in tabs/svc von aviation.json und Leistung im Angebotsformular. */
+  tab: 0 | 1 | 2;
+  slug: Record<Locale, string>;
+}
+
+export const aviationPageMeta: readonly AvPageMeta[] = [
+  { id: "exterior", tab: 0, slug: { de: "aussenpflege", en: "exterior-care" } },
+  { id: "cabin", tab: 1, slug: { de: "kabinenpflege", en: "cabin-care" } },
+  { id: "protection", tab: 2, slug: { de: "oberflaechenschutz", en: "surface-protection" } },
+];
+
+export function aviationPagePath(id: AvPageId, locale: Locale): string {
+  const meta = aviationPageMeta.find((p) => p.id === id)!;
+  return `${aviationPath[locale]}/${meta.slug[locale]}`;
+}
+
+/** Dieselbe Aviation-Seite in der Sprache `to` (Sprachumschalter); sonst die Aviation-Startseite. */
+export function aviationAlternatePath(pathname: string, to: Locale): string {
+  for (const p of aviationPageMeta) {
+    for (const l of ["de", "en"] as const) {
+      if (pathname === aviationPagePath(p.id, l)) return aviationPagePath(p.id, to);
+    }
+  }
+  return aviationPath[to];
+}
+
+/** true auf /aviation und /en/aviation (nicht auf den Seiten je Bereich). */
+export function isAviationHome(pathname: string): boolean {
+  return pathname === aviationPath.de || pathname === aviationPath.en;
+}

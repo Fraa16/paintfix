@@ -4,9 +4,12 @@ import AxeBuilder from "@axe-core/playwright";
 const routes = [
   { path: "/", lang: "de", brand: "car" },
   { path: "/leistungen", lang: "de", brand: "car" },
+  { path: "/leistungen/lackkorrektur", lang: "de", brand: "car" },
   { path: "/anfrage", lang: "de", brand: "car" },
   { path: "/aviation", lang: "de", brand: "av" },
   { path: "/en/aviation", lang: "en", brand: "av" },
+  { path: "/aviation/aussenpflege", lang: "de", brand: "av" },
+  { path: "/en/aviation/exterior-care", lang: "en", brand: "av" },
   { path: "/impressum", lang: "de", brand: "car" },
   { path: "/datenschutz", lang: "de", brand: "car" },
   { path: "/agb", lang: "de", brand: "car" },
@@ -46,11 +49,13 @@ test.describe("routes", () => {
     });
   }
 
-  test("unknown paths return 404", async ({ page }) => {
-    const res = await page.goto("/gibt-es-nicht");
-    expect(res?.status()).toBe(404);
-    await expect(page.locator("h1")).toHaveCount(1);
-  });
+  for (const path of ["/gibt-es-nicht", "/leistungen/gibt-es-nicht", "/aviation/gibt-es-nicht"]) {
+    test(`unknown path ${path} returns 404`, async ({ page }) => {
+      const res = await page.goto(path);
+      expect(res?.status()).toBe(404);
+      await expect(page.locator("h1")).toHaveCount(1);
+    });
+  }
 });
 
 test.describe("no horizontal scrolling from 360 to 1920 px", () => {
@@ -88,7 +93,12 @@ test.describe("accessibility (axe)", () => {
 });
 
 test.describe("brand separation (CLAUDE.md rule 5)", () => {
-  for (const path of ["/aviation", "/en/aviation"]) {
+  for (const path of [
+    "/aviation",
+    "/en/aviation",
+    "/aviation/aussenpflege",
+    "/en/aviation/exterior-care",
+  ]) {
     test(`${path} never uses the car signal red`, async ({ page }) => {
       await page.goto(path);
       const red = await page.evaluate(() => {

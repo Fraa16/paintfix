@@ -3,8 +3,10 @@ import { cx } from "@/lib/cx";
 import { CarH2 } from "@/components/fahrzeug/Heading";
 import { ProgressSection } from "./ProgressSection";
 
+type Step = { title: string; text: string };
+
 /** Texte wörtlich aus README 8.1 Punkt 5 (stehen nicht in content/). */
-const STEPS = [
+const STEPS: ReadonlyArray<Step> = [
   {
     title: "Anfrage",
     text: "Online, telefonisch oder direkt bei uns. Sie nennen Fahrzeug und gewünschte Leistung.",
@@ -21,16 +23,23 @@ const STEPS = [
     title: "Übergabe",
     text: "Sie bekommen Ihr Fahrzeug mit Fotoprotokoll zurück und sehen genau, was gemacht wurde.",
   },
-] as const;
+];
 
 /**
  * Ablauf (#ablauf, README 8.1 Punkt 5, Referenz Zeilen 188–224).
  * Statischer Zustand = Endzustand der Fortschrittslinie (README 9.6, p = 1): Linie voll, alle
  * Schritte deckend, letzter Marker rot. Mit Bewegung steuert ProgressSection data-progbar (scaleX)
  * und data-step (opacity, Übergang 0.6s) per Scroll; bis dahin steht die Linie bei scaleX(0) wie in
- * der Referenz. Reveals: Overline 0, H2 80.
+ * der Referenz. Reveals: Overline 0, H2 80. Die Leistungsseiten geben eigene Schritte und Überschrift
+ * mit.
  */
-export function Process() {
+export function Process({
+  title = "So läuft Ihr Termin ab.",
+  steps = STEPS,
+}: {
+  title?: string;
+  steps?: ReadonlyArray<Step>;
+}) {
   return (
     <ProgressSection id="ablauf" className="bg-car-surface py-car-section leading-[normal]">
       <div className="mx-auto max-w-car px-car-gutter">
@@ -38,7 +47,7 @@ export function Process() {
           Ablauf
         </CarOverline>
         <CarH2 rv={80} className="max-w-[14ch]">
-          So läuft Ihr Termin ab.
+          {title}
         </CarH2>
         <div className="relative mt-[clamp(48px,6vw,80px)]">
           <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-car-track" />
@@ -48,7 +57,7 @@ export function Process() {
             className="absolute inset-x-0 top-0 h-0.5 origin-left bg-car-ink motion-safe:[html[data-motion]_&]:[transform:scaleX(0)]"
           />
           <ol className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-x-8 gap-y-10">
-            {STEPS.map((step, i) => (
+            {steps.map((step, i) => (
               <li
                 key={step.title}
                 data-step={i}
@@ -58,7 +67,7 @@ export function Process() {
                   aria-hidden="true"
                   className={cx(
                     "absolute -top-[5px] left-0 size-3",
-                    i === STEPS.length - 1 ? "bg-car-red" : "bg-car-ink",
+                    i === steps.length - 1 ? "bg-car-red" : "bg-car-ink",
                   )}
                 />
                 <div

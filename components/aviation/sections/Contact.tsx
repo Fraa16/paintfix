@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { AvOverline } from "@/components/aviation/Overline";
 import { aviation, type Locale } from "@/content/aviation";
-import { ContactForm, type ContactCopy } from "./ContactForm";
+import { ContactForm, defaultContactPrefill, type ContactCopy } from "./ContactForm";
 import { ContactFormFromQuery } from "./ContactFormFromQuery";
+import type { AvService } from "@/lib/estimate";
 import { telHref } from "../shell/ui";
 
 /**
@@ -10,8 +11,9 @@ import { telHref } from "../shell/ui";
  * rechts das Angebotsformular mit Richtwerten (README 10.2).
  * Reveal wie in der Referenz nur auf der H2 (0). Das Formular selbst bleibt ohne Reveal: es ist beim
  * Sprung auf #av-contact sofort da und wechselt nach der Hydration (Suspense, ?type=) nicht neu.
+ * `services` wählt die Leistungen vor (Seiten je Bereich), sonst nur Außen.
  */
-export function Contact({ locale }: { locale: Locale }) {
+export function Contact({ locale, services }: { locale: Locale; services?: AvService[] }) {
   const t = aviation[locale];
   // Nur die Texte, die das Formular braucht, und nur in dieser Sprache an den Client geben.
   const copy: ContactCopy = {
@@ -57,8 +59,16 @@ export function Contact({ locale }: { locale: Locale }) {
         </div>
 
         <div>
-          <Suspense fallback={<ContactForm locale={locale} copy={copy} />}>
-            <ContactFormFromQuery locale={locale} copy={copy} />
+          <Suspense
+            fallback={
+              <ContactForm
+                locale={locale}
+                copy={copy}
+                prefill={services && { ...defaultContactPrefill, services }}
+              />
+            }
+          >
+            <ContactFormFromQuery locale={locale} copy={copy} services={services} />
           </Suspense>
         </div>
       </div>

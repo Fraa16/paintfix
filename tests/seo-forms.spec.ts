@@ -8,7 +8,15 @@ test.describe("SEO", () => {
     const res = await request.get("/sitemap.xml");
     expect(res.ok()).toBe(true);
     const xml = await res.text();
-    for (const path of ["/leistungen", "/anfrage", "/aviation", "/en/aviation"]) {
+    for (const path of [
+      "/leistungen",
+      "/leistungen/lackkorrektur",
+      "/anfrage",
+      "/aviation",
+      "/en/aviation",
+      "/aviation/aussenpflege",
+      "/en/aviation/exterior-care",
+    ]) {
       expect(xml).toContain(`${path}</loc>`);
     }
     expect(xml).not.toContain("/impressum");
@@ -39,6 +47,91 @@ test.describe("SEO", () => {
       expect(ld.address.streetAddress).toBe("Orkotten 43");
     });
   }
+});
+
+test.describe("service pages", () => {
+  test("every page in the sitemap responds (content and page folders match)", async ({
+    request,
+  }) => {
+    const xml = await (await request.get("/sitemap.xml")).text();
+    const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+    expect(paths.length).toBeGreaterThan(5);
+    for (const path of paths) {
+      expect((await request.get(path)).status(), path).toBe(200);
+    }
+  });
+
+  const servicePages = [
+    {
+      path: "/leistungen/lackkorrektur",
+      provider: "AutoBodyShop",
+      crumbs: 3,
+      request: "/anfrage?leistungen=politur",
+    },
+    {
+      path: "/aviation/aussenpflege",
+      provider: "LocalBusiness",
+      crumbs: 2,
+      alt: "/en/aviation/exterior-care",
+    },
+    {
+      path: "/en/aviation/exterior-care",
+      provider: "LocalBusiness",
+      crumbs: 2,
+      alt: "/aviation/aussenpflege",
+    },
+  ];
+  for (const p of servicePages) {
+    test(`${p.path} has canonical, share image and Service data`, async ({ page, request }) => {
+      await page.goto(p.path);
+      const canonical = await page.locator('head link[rel="canonical"]').getAttribute("href");
+      expect(new URL(canonical!).pathname).toBe(p.path);
+      if (p.alt) {
+        const alt = page.locator(`head link[rel="alternate"][hreflang]`);
+        await expect(alt).toHaveCount(3);
+        const hrefs = await alt.evaluateAll((els) =>
+          els.map((e) => new URL(e.getAttribute("href")!).pathname),
+        );
+        expect(hrefs).toContain(p.alt);
+      }
+      const og = await page.locator('head meta[property="og:image"]').getAttribute("content");
+      const image = await request.get(new URL(og!).pathname + new URL(og!).search);
+      expect(image.headers()["content-type"]).toContain("image/jpeg");
+
+      const ld = JSON.parse(
+        (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+      );
+      const service = ld["@graph"].find((n: { "@type": string }) => n["@type"] === "Service");
+      const crumbs = ld["@graph"].find((n: { "@type": string }) => n["@type"] === "BreadcrumbList");
+      expect(service.provider["@type"]).toBe(p.provider);
+      expect(service.offers).toBeUndefined();
+      expect(crumbs.itemListElement).toHaveLength(p.crumbs);
+      if (p.request) {
+        await expect(page.locator(`main a[href="${p.request}"]`).first()).toBeVisible();
+      }
+    });
+  }
+
+  test("the language switch keeps the aviation service page", async ({ page }) => {
+    test.skip(test.info().project.name !== "desktop", "header language links are the same");
+    await page.goto("/aviation/aussenpflege");
+    await page.locator('header a[hreflang="en"]').click();
+    await expect(page).toHaveURL(/\/en\/aviation\/exterior-care$/);
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  });
+
+  test("the aviation service page preselects its area in the quote form", async ({ page }) => {
+    await page.goto("/en/aviation/exterior-care");
+    const form = page.locator("#av-contact form");
+    await expect(form.getByRole("button", { name: "Exterior" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await expect(form.getByRole("button", { name: "Cabin" })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+  });
 });
 
 test.describe("forms", () => {
