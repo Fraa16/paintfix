@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CarTextLink } from "@/components/fahrzeug/Button";
 import { CarOverline } from "@/components/fahrzeug/Overline";
 import { focusAreas, INSPECT_PRICE, serviceById, type FocusArea } from "@/content/fahrzeug";
+import { focusHref } from "@/content/leistungen";
 import { media, type MediaId } from "@/content/media";
 import { eur } from "@/lib/format";
 import { CarH2 } from "@/components/fahrzeug/Heading";
@@ -60,7 +61,7 @@ export function ServiceList() {
             <Link
               key={f.id}
               data-row={i}
-              href={`/leistungen#svc-${f.id}`}
+              href={focusHref(f.id)}
               className="group/row flex w-full flex-wrap items-baseline gap-x-8 gap-y-2 border-b border-car-line py-[clamp(24px,2.8vw,40px)] text-left text-car-ink transition-opacity duration-400 ease-[ease]"
             >
               <span className="flex-[0_0_40px] text-[13px] text-car-muted tabular-nums">

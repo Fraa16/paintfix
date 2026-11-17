@@ -3,6 +3,7 @@ import { CarAviationLink } from "@/components/fahrzeug/AviationLink";
 import type { ReactNode } from "react";
 import { CarLogo } from "@/components/fahrzeug/Logo";
 import { focusAreas } from "@/content/fahrzeug";
+import { focusHref } from "@/content/leistungen";
 import { site } from "@/content/site";
 
 const COLUMNS: ReadonlyArray<{
@@ -11,7 +12,7 @@ const COLUMNS: ReadonlyArray<{
 }> = [
   {
     title: "Leistungen",
-    links: focusAreas.map((f) => ({ href: `/leistungen#svc-${f.id}`, label: f.name })),
+    links: focusAreas.map((f) => ({ href: focusHref(f.id), label: f.name })),
   },
   {
     title: "PaintFix",

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/shared/BrandLogo";
 import { AvButton } from "@/components/aviation/Button";
-import { aviation, type Locale } from "@/content/aviation";
+import { aviation, aviationPageMeta, aviationPagePath, type Locale } from "@/content/aviation";
+import { aviationPageCopy } from "@/content/aviation-pages";
 import { telHref } from "./ui";
 
 const LEGAL_HREFS = ["/impressum", "/datenschutz", "/agb"];
@@ -12,10 +13,15 @@ function ColLabel({ children }: { children: string }) {
 
 /**
  * Footer Aviation (README 8.4 Punkt 11, Referenz Zeilen 1045–1077): Navy, Wortmarke (Reveal) mit CTA,
- * vier Spalten (Kontakt, Flughäfen, Adresse, Legal), unten Copyright und Link zur Fahrzeug-Seite.
+ * Spalten Kontakt, Leistungen (Seiten je Bereich, Auftrag 04.11.2026), Flughäfen, Adresse, Legal,
+ * unten Copyright und Link zur Fahrzeug-Seite.
  */
 export function AvFooter({ locale }: { locale: Locale }) {
   const av = aviation[locale];
+  const pages = aviationPageMeta.flatMap((p) => {
+    const copy = aviationPageCopy(p.id, locale);
+    return copy ? [{ href: aviationPagePath(p.id, locale), label: copy.name }] : [];
+  });
   return (
     <footer className="bg-av-navy text-av-cream [--focus:var(--av-gold)]">
       <div className="mx-auto max-w-av px-av-gutter pt-[clamp(72px,9vw,128px)] pb-10">
@@ -39,6 +45,18 @@ export function AvFooter({ locale }: { locale: Locale }) {
                 {av.opsMail}
               </a>
             </div>
+          </div>
+          <div>
+            <ColLabel>{av.svcLabel}</ColLabel>
+            <ul>
+              {pages.map((p) => (
+                <li key={p.href}>
+                  <Link href={p.href} className="transition-colors hover:text-av-cream">
+                    {p.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
           <div>
             <ColLabel>{av.baseLabel}</ColLabel>

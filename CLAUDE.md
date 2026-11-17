@@ -75,6 +75,7 @@ Next.js 16 weicht von älteren Versionen ab. Vor neuen APIs die Doku in `node_mo
 - Phase 1 + 2 (Setup, statische Seiten mit UI-Zuständen): umgesetzt
 - Phase 4 (Bewegung: Reveals, Parallaxe, Curtain, Scroll-Szenen, Lenis): umgesetzt
 - Phase 3 (Formular-Versand): umgesetzt, Resend-Konto und Postfächer noch einzurichten
+- Seiten je Leistung (Auftrag 04.11.2026): 4 Fahrzeug-Schwerpunkte und 3 Aviation-Bereiche (DE/EN) umgesetzt und verlinkt; Texte sind Entwürfe bis zur Freigabe durch PaintFix
 - Phase 6: SEO-Grundlagen umgesetzt (Icons, Share-Bilder, Sitemap, robots, Canonicals, hreflang, JSON-LD); Recht und Analytics offen
 - Phase 7 (echte Fotos, Launch): offen
 

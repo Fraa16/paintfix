@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CarButton } from "@/components/fahrzeug/Button";
 import { CarOverline } from "@/components/fahrzeug/Overline";
 import { focusAreas, INSPECT_PRICE, serviceById } from "@/content/fahrzeug";
+import { focusHref } from "@/content/leistungen";
 import { altText, media } from "@/content/media";
 import { site } from "@/content/site";
 import { eur, fromPrice } from "@/lib/format";
@@ -107,7 +108,7 @@ function PriceBar() {
         {focusAreas.map((f, i) => (
           <li key={f.id} className="flex">
             <Link
-              href={`/leistungen#svc-${f.id}`}
+              href={focusHref(f.id)}
               className="flex w-full flex-col gap-[22px] border-t-2 border-car-ink pt-[22px] pb-2 hover:border-t-car-red"
             >
               <span className="text-[13px] text-car-muted">{String(i + 1).padStart(2, "0")}</span>

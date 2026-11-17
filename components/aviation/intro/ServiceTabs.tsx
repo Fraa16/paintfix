@@ -2,12 +2,15 @@
 
 import Image, { type StaticImageData } from "next/image";
 import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { AvTextLink } from "@/components/aviation/Button";
 import { cx } from "@/lib/cx";
 
 export type ServiceTab = {
   label: string;
   items: { t: string; d: string }[];
   image: { src: StaticImageData; alt: string };
+  /** Link zur Seite des Bereichs (/aviation/…), sobald es sie gibt. */
+  more?: { href: string; label: string };
 };
 
 /**
@@ -133,6 +136,11 @@ export function ServiceTabs({
               </li>
             ))}
           </ul>
+          {current.more && (
+            <AvTextLink href={current.more.href} className="-mt-1 mb-7">
+              {current.more.label}
+            </AvTextLink>
+          )}
           <p className="border-t border-av-line-strong pt-7 text-[13px] tracking-[0.04em] text-av-muted">
             {note}
           </p>

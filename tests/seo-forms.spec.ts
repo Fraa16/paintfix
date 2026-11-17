@@ -112,6 +112,42 @@ test.describe("service pages", () => {
     });
   }
 
+  test("the home page focus areas link to their service pages", async ({ page }) => {
+    await page.goto("/");
+    const list = page.locator("#leistungen");
+    for (const [name, path] of [
+      ["Smart Repair", "/leistungen/smart-repair"],
+      ["Lackkorrektur", "/leistungen/lackkorrektur"],
+      ["Leasingrückgabe", "/leistungen/leasingrueckgabe"],
+      ["Fahrzeugaufbereitung", "/leistungen/fahrzeugaufbereitung"],
+    ]) {
+      await expect(
+        list.getByRole("link", { name: new RegExp(`^\\d+\\s*${name}`) }),
+      ).toHaveAttribute("href", path);
+    }
+    await list.getByRole("link", { name: /Lackkorrektur/ }).click();
+    await expect(page).toHaveURL(/\/leistungen\/lackkorrektur$/);
+    // Next hält die Startseite versteckt im DOM, deshalb die sichtbare H1.
+    await expect(page.getByRole("heading", { level: 1, name: /Lackkorrektur/ })).toBeVisible();
+  });
+
+  test("the aviation page links each service area to its page", async ({ page }) => {
+    await page.goto("/aviation");
+    const footer = page.locator("footer");
+    for (const path of [
+      "/aviation/aussenpflege",
+      "/aviation/kabinenpflege",
+      "/aviation/oberflaechenschutz",
+    ]) {
+      await expect(footer.locator(`a[href="${path}"]`)).toHaveCount(1);
+    }
+    // Tab-Version (reduzierte Bewegung): Link des gewählten Bereichs unter der Liste.
+    const services = page.locator("#av-services");
+    await services.getByRole("tab", { name: /Kabine/ }).click();
+    await services.getByRole("link", { name: "Mehr zur Kabinenpflege" }).click();
+    await expect(page).toHaveURL(/\/aviation\/kabinenpflege$/);
+  });
+
   test("the language switch keeps the aviation service page", async ({ page }) => {
     test.skip(test.info().project.name !== "desktop", "header language links are the same");
     await page.goto("/aviation/aussenpflege");

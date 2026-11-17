@@ -96,7 +96,8 @@ export function ServiceEntry({
 }) {
   const img = s.img;
   const titleId = `${anchor}-title`;
-  const showMore = more && !more.includes("#");
+  // Nur Links auf eine eigene Seite (/leistungen/…), nicht auf Anker dieser Seite.
+  const showMore = more?.startsWith("/leistungen/");
   return (
     <div id={anchor}>
       <article
@@ -149,7 +150,7 @@ export function ServiceEntry({
               </li>
             ))}
           </ul>
-          {showMore && (
+          {more && showMore && (
             <CarTextLink href={more} className="mt-7">
               Mehr erfahren<span className="sr-only">: {s.name}</span>
             </CarTextLink>

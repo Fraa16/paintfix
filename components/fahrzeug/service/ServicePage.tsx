@@ -8,6 +8,8 @@ import { CarH2 } from "@/components/fahrzeug/Heading";
 import { CarOverline } from "@/components/fahrzeug/Overline";
 import { Process } from "@/components/fahrzeug/home/Process";
 import { ClassBar } from "@/components/fahrzeug/leistungen/ClassBar";
+import { ComboBand } from "@/components/fahrzeug/leistungen/ComboBand";
+import { Extras } from "@/components/fahrzeug/leistungen/Extras";
 import { Faq } from "@/components/fahrzeug/leistungen/Faq";
 import { PriceClassProvider } from "@/components/fahrzeug/leistungen/PriceClass";
 import {
@@ -83,6 +85,12 @@ export function CarServicePageView({ page }: { page: CarServicePage }) {
         <PriceClassProvider className="leading-[normal]">
           <ClassBar />
           {offers}
+          {page.extras && (
+            <>
+              <ComboBand />
+              <Extras />
+            </>
+          )}
         </PriceClassProvider>
       ) : (
         offers
@@ -200,7 +208,7 @@ function Related({ page }: { page: CarServicePage }) {
                 href={f.href}
                 className="group flex flex-wrap items-baseline gap-x-8 gap-y-2 border-b border-car-line py-[clamp(20px,2.4vw,32px)]"
               >
-                <span className="flex-[1_1_320px] text-[clamp(28px,3vw,40px)] leading-none font-bold tracking-[-0.0175em] font-stretch-125% transition-colors group-hover:text-car-red">
+                <span className="flex-[1_1_320px] text-[clamp(25px,3vw,40px)] leading-none font-bold tracking-[-0.0175em] font-stretch-125% transition-colors group-hover:text-car-red">
                   {f.name}
                 </span>
                 <span className="flex-[1_1_260px] text-[15px] leading-[1.5] text-car-text">

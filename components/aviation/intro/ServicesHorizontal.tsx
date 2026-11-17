@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { AvTextLink } from "@/components/aviation/Button";
 import { AvOverline } from "@/components/aviation/Overline";
 import { aviation, type Locale } from "@/content/aviation";
 import { altText, media, type MediaId } from "@/content/media";
 import { HorizontalScene } from "./Scenes";
+import { tabMore } from "./Services";
 
 /**
  * Leistungen als Horizontal-Scroll (README 8.4 Punkt 4, Referenz Zeilen 647–688), nur ab 980px mit
@@ -41,9 +43,11 @@ export function ServicesHorizontal({ locale, images }: { locale: Locale; images:
           {av.tabs.map((label, i) => {
             const no = String(i + 1).padStart(2, "0");
             const img = media[images[i]].src;
+            const more = tabMore(i, locale);
             return (
               <div
                 key={label}
+                data-hs-panel=""
                 className="grid h-full w-[min(1160px,84vw)] flex-none grid-cols-2 gap-[clamp(28px,3.5vw,64px)] border-l border-av-line px-[clamp(28px,3.5vw,64px)] pt-[calc(var(--av-header-h)+6vh)] pb-[6vh]"
               >
                 <div className="relative overflow-hidden bg-av-image-bg">
@@ -71,26 +75,36 @@ export function ServicesHorizontal({ locale, images }: { locale: Locale; images:
                       {no} / {count}
                     </span>
                   </div>
-                  <ul>
-                    {av.svc[i].map((x, j) => (
-                      <li
-                        key={x.t}
-                        className="grid grid-cols-[40px_minmax(0,1fr)] gap-x-3 gap-y-1 border-t border-av-navy/16 py-[clamp(12px,2vh,22px)]"
+                  <div>
+                    <ul>
+                      {av.svc[i].map((x, j) => (
+                        <li
+                          key={x.t}
+                          className="grid grid-cols-[40px_minmax(0,1fr)] gap-x-3 gap-y-1 border-t border-av-navy/16 py-[clamp(12px,2vh,22px)]"
+                        >
+                          <span className="pt-1.5 font-cinzel text-[11.2px] font-normal text-av-gold-text">
+                            {String(j + 1).padStart(2, "0")}
+                          </span>
+                          <div>
+                            <h4 className="font-cinzel text-av-item-title leading-[1.2] font-normal">
+                              {x.t}
+                            </h4>
+                            <p className="mt-1.5 max-w-[440px] text-sm leading-[1.6] text-av-muted">
+                              {x.d}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    {more && (
+                      <AvTextLink
+                        href={more.href}
+                        className="mt-[clamp(4px,1vh,12px)] border-t border-av-navy/16 pt-[clamp(10px,1.6vh,18px)]"
                       >
-                        <span className="pt-1.5 font-cinzel text-[11.2px] font-normal text-av-gold-text">
-                          {String(j + 1).padStart(2, "0")}
-                        </span>
-                        <div>
-                          <h4 className="font-cinzel text-av-item-title leading-[1.2] font-normal">
-                            {x.t}
-                          </h4>
-                          <p className="mt-1.5 max-w-[440px] text-sm leading-[1.6] text-av-muted">
-                            {x.d}
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                        {more.label}
+                      </AvTextLink>
+                    )}
+                  </div>
                 </div>
               </div>
             );

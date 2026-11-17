@@ -4,12 +4,19 @@ import AxeBuilder from "@axe-core/playwright";
 const routes = [
   { path: "/", lang: "de", brand: "car" },
   { path: "/leistungen", lang: "de", brand: "car" },
+  { path: "/leistungen/smart-repair", lang: "de", brand: "car" },
   { path: "/leistungen/lackkorrektur", lang: "de", brand: "car" },
+  { path: "/leistungen/leasingrueckgabe", lang: "de", brand: "car" },
+  { path: "/leistungen/fahrzeugaufbereitung", lang: "de", brand: "car" },
   { path: "/anfrage", lang: "de", brand: "car" },
   { path: "/aviation", lang: "de", brand: "av" },
   { path: "/en/aviation", lang: "en", brand: "av" },
   { path: "/aviation/aussenpflege", lang: "de", brand: "av" },
   { path: "/en/aviation/exterior-care", lang: "en", brand: "av" },
+  { path: "/aviation/kabinenpflege", lang: "de", brand: "av" },
+  { path: "/aviation/oberflaechenschutz", lang: "de", brand: "av" },
+  { path: "/en/aviation/cabin-care", lang: "en", brand: "av" },
+  { path: "/en/aviation/surface-protection", lang: "en", brand: "av" },
   { path: "/impressum", lang: "de", brand: "car" },
   { path: "/datenschutz", lang: "de", brand: "car" },
   { path: "/agb", lang: "de", brand: "car" },
@@ -98,6 +105,10 @@ test.describe("brand separation (CLAUDE.md rule 5)", () => {
     "/en/aviation",
     "/aviation/aussenpflege",
     "/en/aviation/exterior-care",
+    "/aviation/kabinenpflege",
+    "/aviation/oberflaechenschutz",
+    "/en/aviation/cabin-care",
+    "/en/aviation/surface-protection",
   ]) {
     test(`${path} never uses the car signal red`, async ({ page }) => {
       await page.goto(path);

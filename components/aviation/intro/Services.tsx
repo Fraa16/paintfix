@@ -1,5 +1,6 @@
 import { AvOverline } from "@/components/aviation/Overline";
-import { aviation, type Locale } from "@/content/aviation";
+import { aviation, aviationPageMeta, aviationPagePath, type Locale } from "@/content/aviation";
+import { aviationPageCopy } from "@/content/aviation-pages";
 import { altText, media, type MediaId } from "@/content/media";
 import { avUi } from "../shell/ui";
 import { ServiceTabs, type ServiceTab } from "./ServiceTabs";
@@ -8,6 +9,15 @@ import { ServicesSwitch } from "./ServicesSwitch";
 
 /** Bild je Bereich in der Reihenfolge von tabs (Referenz CATIMG). */
 const TAB_IMAGES: MediaId[] = ["avExterior", "avCabin", "avProtection"];
+
+/** Link „Mehr zur …“ auf die Seite des Bereichs, wenn es sie gibt (auch für ServicesHorizontal). */
+export function tabMore(tab: number, locale: Locale) {
+  const meta = aviationPageMeta.find((p) => p.tab === tab);
+  const copy = meta && aviationPageCopy(meta.id, locale);
+  return meta && copy
+    ? { href: aviationPagePath(meta.id, locale), label: copy.moreLabel }
+    : undefined;
+}
 
 /**
  * Leistungen (#av-services, README 8.4 Punkt 4): Tab-Version (Referenz Zeilen 689–726) auf dem Server,
@@ -20,6 +30,7 @@ export function Services({ locale }: { locale: Locale }) {
     label,
     items: av.svc[i],
     image: { src: media[TAB_IMAGES[i]].src, alt: altText(TAB_IMAGES[i], locale) },
+    more: tabMore(i, locale),
   }));
   return (
     <ServicesSwitch

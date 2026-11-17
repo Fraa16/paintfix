@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CarButton } from "@/components/fahrzeug/Button";
 import { CarOverline } from "@/components/fahrzeug/Overline";
 import { leasingBand as t } from "@/content/fahrzeug";
+import { focusHref } from "@/content/leistungen";
 
 /**
  * Leasingrückgabe (Kundenwunsch 14.10.2026): schwarzes Band über die volle Breite nach den
@@ -38,7 +39,7 @@ export function LeasingBand() {
                 {t.cta}
               </CarButton>
               <Link
-                href="/leistungen#svc-leasing"
+                href={focusHref("leasing")}
                 className="text-[15px] font-semibold decoration-1 underline-offset-4 hover:underline"
               >
                 {t.more}

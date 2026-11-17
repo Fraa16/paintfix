@@ -15,8 +15,12 @@ import type { MediaId, MediaSource } from "./media";
 export interface AvServicePageCopy {
   /** Kurzname in Brotkrumen, Links und strukturierten Daten. */
   name: string;
+  /** Link von der Aviation-Seite (Tabs, Horizontal-Scroll), z. B. „Mehr zur Außenpflege“. */
+  moreLabel: string;
   metaTitle: string;
   metaDescription: string;
+  /** Lange Wörter in h1, servicesTitle und faqTitle mit weichem Trennstrich (\u00AD), damit sie
+   * bei 360px umbrechen (Regel 8). */
   h1: string;
   intro: string;
   servicesTitle: string;
@@ -77,6 +81,7 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
   exterior: {
     de: {
       name: "Außenpflege",
+      moreLabel: "Mehr zur Außenpflege",
       metaTitle: "Flugzeug-Außenpflege für Business Jets | PaintFix Aviation",
       metaDescription: `Trockenwäsche, Nasswäsche, Brightwork-Politur und Lackkorrektur für Business Jets. Stationiert am Flughafen ${homeDe}, mit Fotodokumentation und Fertigmeldung an Ihre Ops.`,
       h1: "Außenpflege für Business Jets.",
@@ -107,6 +112,7 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
     },
     en: {
       name: "Exterior care",
+      moreLabel: "More on exterior care",
       metaTitle: "Aircraft exterior care for business jets | PaintFix Aviation",
       metaDescription: `Dry wash, wet wash, brightwork polishing and paint correction for business jets. Based at ${homeEn} airport, with photo documentation and a release notice to your ops.`,
       h1: "Exterior care for business jets.",
@@ -134,6 +140,106 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
         },
       ],
       media: "avExterior",
+    },
+  },
+  cabin: {
+    de: {
+      name: "Kabinenpflege",
+      moreLabel: "Mehr zur Kabinenpflege",
+      metaTitle: "Kabinenreinigung und Lederpflege für Business Jets | PaintFix Aviation",
+      metaDescription: `Kabinen-Grundreinigung, Lederpflege, Teppich-Tiefenreinigung, Galley und Waschraum für Business Jets. Stationiert am Flughafen ${homeDe}, diskret und nach unterschriebener Checkliste.`,
+      h1: "Kabinen\u00ADpflege für Business Jets.",
+      intro:
+        "Sitze, Teppiche, Galley und Waschraum: Wir reinigen und pflegen die Kabine Ihres Flugzeugs nach unterschriebener Checkliste und nach den Vorgaben der Materialhersteller. Diskret und innerhalb Ihres Turnarounds.",
+      servicesTitle: "Was zur Kabinenpflege gehört.",
+      faqTitle: "Fragen zur Kabinenpflege.",
+      faq: [
+        { q: "Ist der Teppich bis zum nächsten Flug trocken?", a: de.svc[1][2].d },
+        { q: "Wie behandeln Sie Leder?", a: de.svc[1][1].d },
+        { q: "Womit reinigen Sie Galley und Waschraum?", a: de.svc[1][3].d },
+        { q: "Wie diskret arbeiten Sie?", a: de.aud[2].d },
+        {
+          q: "Können Außen und Kabine gleichzeitig laufen?",
+          a: `Ja. ${de.est.parallel} Richtwerte für Ihr Muster sehen Sie im Angebotsformular.`,
+        },
+        {
+          q: "Was kostet die Kabinenpflege?",
+          a: `${de.svcNote} Den Preis nennen wir Ihnen im schriftlichen Angebot.`,
+        },
+      ],
+      media: "avCabin",
+    },
+    en: {
+      name: "Cabin care",
+      moreLabel: "More on cabin care",
+      metaTitle: "Cabin cleaning and leather care for business jets | PaintFix Aviation",
+      metaDescription: `Deep cabin cleaning, leather care, carpet extraction, galley and lavatory for business jets. Based at ${homeEn} airport, discreet and to a signed checklist.`,
+      h1: "Cabin care for business jets.",
+      intro:
+        "Seats, carpets, galley and lavatory: we clean and care for your aircraft's cabin to a signed checklist and to the material manufacturers' guidance. Discreetly, within your turnaround.",
+      servicesTitle: "What cabin care covers.",
+      faqTitle: "Questions about cabin care.",
+      faq: [
+        { q: "Will the carpet be dry before the next flight?", a: en.svc[1][2].d },
+        { q: "How do you treat leather?", a: en.svc[1][1].d },
+        { q: "What do you use in the galley and lavatory?", a: en.svc[1][3].d },
+        { q: "How discreet are you?", a: en.aud[2].d },
+        {
+          q: "Can exterior and cabin work run at the same time?",
+          a: `Yes. ${en.est.parallel} The quote form shows indicative times for your type.`,
+        },
+        {
+          q: "What does cabin care cost?",
+          a: `${en.svcNote} The price is set out in our written quote.`,
+        },
+      ],
+      media: "avCabin",
+    },
+  },
+  protection: {
+    de: {
+      name: "Oberflächenschutz",
+      moreLabel: "Mehr zum Oberflächenschutz",
+      metaTitle: "Keramikversiegelung und Oberflächenschutz für Flugzeuge | PaintFix Aviation",
+      metaDescription: `Keramikversiegelung für den Lack, Oberflächenschutz für Leder, Stoffe und Furniere und feste Pflegeintervalle je Kennzeichen. Für Business Jets, stationiert am Flughafen ${homeDe}.`,
+      h1: "Oberflächen\u00ADschutz für Business Jets.",
+      intro:
+        "Keramikversiegelung für den Lack, Schutzbehandlung für Leder, Stoffe und Furniere und feste Pflegeintervalle je Kennzeichen: So bleibt Ihr Flugzeug zwischen den Einsätzen länger gepflegt, und die Reinigung wird leichter.",
+      servicesTitle: "Was zum Oberflächen\u00ADschutz gehört.",
+      faqTitle: "Fragen zum Oberflächen\u00ADschutz.",
+      faq: [
+        { q: "Was bringt eine Keramikversiegelung am Flugzeug?", a: de.svc[2][0].d },
+        { q: "Brauchen Sie dafür einen Hangar?", a: de.est.hangar },
+        { q: "Was gehört zum Schutz der Kabine?", a: de.svc[2][1].d },
+        { q: "Wie funktionieren die Pflegeintervalle?", a: de.svc[2][2].d },
+        {
+          q: "Was kostet der Oberflächenschutz?",
+          a: `${de.svcNote} Den Preis nennen wir Ihnen im schriftlichen Angebot.`,
+        },
+      ],
+      media: "avProtection",
+    },
+    en: {
+      name: "Surface protection",
+      moreLabel: "More on surface protection",
+      metaTitle: "Ceramic coating and surface protection for aircraft | PaintFix Aviation",
+      metaDescription: `Ceramic coating for the paint, protection for leather, fabrics and veneers, and fixed care intervals per registration. For business jets, based at ${homeEn} airport.`,
+      h1: "Surface protection for business jets.",
+      intro:
+        "Ceramic coating for the paint, protective treatment for leather, fabrics and veneers, and fixed care intervals per registration: your aircraft stays cared for longer between missions, and cleaning gets easier.",
+      servicesTitle: "What surface protection covers.",
+      faqTitle: "Questions about surface protection.",
+      faq: [
+        { q: "What does a ceramic coating do for an aircraft?", a: en.svc[2][0].d },
+        { q: "Do you need a hangar for it?", a: en.est.hangar },
+        { q: "What does cabin protection include?", a: en.svc[2][1].d },
+        { q: "How do the care intervals work?", a: en.svc[2][2].d },
+        {
+          q: "What does surface protection cost?",
+          a: `${en.svcNote} The price is set out in our written quote.`,
+        },
+      ],
+      media: "avProtection",
     },
   },
 };

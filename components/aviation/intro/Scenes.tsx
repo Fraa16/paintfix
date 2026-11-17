@@ -8,6 +8,7 @@ import {
   useMotionAllowed,
   useScrollFrame,
 } from "@/components/shared/motion/scroll";
+import { getAvLenis } from "../shell/AvSmoothScroll";
 
 /**
  * Scrollgebundene Szenen der Aviation-Seite (README 9.2, 9.6, 9.7; Referenz frame(), Zeilen 1205–1243).
@@ -303,6 +304,28 @@ export function HorizontalScene({ children, ...props }: ComponentPropsWithoutRef
       io.disconnect();
       window.removeEventListener("resize", measure);
     };
+  }, []);
+
+  // Tastatur (Regel 9, WCAG 2.4.11): Bekommt ein Link in einer Tafel außerhalb des Bildes den Fokus,
+  // scrollt die Seite so weit, dass die Spur diese Tafel zeigt. Der Browser verschiebt dabei den
+  // klebenden Rahmen (overflow: hidden) seitlich; das wird zurückgesetzt, die Spur übernimmt.
+  useEffect(() => {
+    const sec = ref.current;
+    if (!sec) return;
+    const onFocus = (e: FocusEvent) => {
+      const panel = (e.target as Element).closest<HTMLElement>("[data-hs-panel]");
+      const frame = q(sec, "[data-hs-track]")?.parentElement;
+      if (frame) frame.scrollLeft = 0;
+      if (!panel) return;
+      const x = Math.min(dist.current, panel.offsetLeft);
+      const top = window.scrollY + sec.getBoundingClientRect().top + x;
+      const lenis = getAvLenis();
+      if (lenis) lenis.scrollTo(top, { immediate: true });
+      else window.scrollTo({ top, behavior: "instant" });
+      requestFrame();
+    };
+    sec.addEventListener("focusin", onFocus);
+    return () => sec.removeEventListener("focusin", onFocus);
   }, []);
 
   useScrollFrame(() => {
