@@ -95,8 +95,11 @@ test.describe("service pages", () => {
         expect(hrefs).toContain(p.alt);
       }
       const og = await page.locator('head meta[property="og:image"]').getAttribute("content");
+      // Eigenes Share-Bild je Seite (scripts/brand-assets.py), nicht das des Bereichs.
+      expect(new URL(og!).pathname).toContain(`${p.path}/opengraph-image`);
       const image = await request.get(new URL(og!).pathname + new URL(og!).search);
       expect(image.headers()["content-type"]).toContain("image/jpeg");
+      await expect(page.locator('head meta[property="og:image:alt"]')).toHaveCount(1);
 
       const ld = JSON.parse(
         (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",

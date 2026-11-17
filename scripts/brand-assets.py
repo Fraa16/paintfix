@@ -6,8 +6,9 @@ Aufruf aus dem Repo-Wurzelverzeichnis (braucht Pillow mit FreeType/Raqm):
     python3 scripts/brand-assets.py
 
 Schreibt app/icon1.png, app/icon2.svg, app/apple-icon.png, die Aviation-Icons in app/(de)/aviation und
-app/(en)/en/aviation sowie opengraph-image.jpg/.alt.txt je Bereich. Texte der Share-Bilder unten
-anpassen, wenn sich Headline oder Basisflughafen ändern (Werte aus content/ übernehmen).
+app/(en)/en/aviation, opengraph-image.jpg/.alt.txt je Bereich und je Seite einer Leistung
+(SERVICE_PAGES unten). Texte der Share-Bilder unten anpassen, wenn sich Headline, Leistungstexte oder
+Basisflughafen ändern (Werte aus content/ übernehmen: fahrzeug.json, leistungen.ts, aviation-pages.ts).
 """
 import sys
 from pathlib import Path
@@ -120,14 +121,39 @@ def og_car(out):
     img.save(out, quality=88, optimize=True, progressive=True)
 
 
-def og_av(out, label, l1, l2):
+def fit(make, lines, max_size, width):
+    """Größte Schriftgröße bis max_size, bei der jede Zeile in width passt."""
+    size = max_size
+    while size > 24 and max(make(size).getlength(l) for l in lines) > width:
+        size -= 2
+    return make(size), size
+
+
+def og_car_page(out, lines, sub_text):
+    """Share-Bild einer Leistungsseite Fahrzeug: wie og_car, Headline = H1 der Seite."""
+    W, H, P = 1200, 630, 88
+    _bg["c"] = CAR_INK
+    img = Image.new("RGB", (W, H), CAR_INK)
+    d = ImageDraw.Draw(img)
+    logo(d, P, P + 22, 30, CAR_ON_INK, CAR_RED, "Automotive")
+    h, size = fit(lambda s: mona(s, 700, 125), lines, 112, W - 2 * P)
+    t = -0.02 * size
+    base = 471 - (len(lines) - 1) * round(0.92 * size)
+    for i, line in enumerate(lines):
+        tracked(d, (P - 4, base + i * round(0.92 * size)), line, h, CAR_ON_INK, t)
+    sub, _ = fit(lambda s: mona(s, 400, 100), [sub_text], 27, W - 2 * P)
+    d.text((P, H - P), sub_text, font=sub, fill=CAR_ON_INK_MUTED, anchor="ls")
+    img.save(out, quality=88, optimize=True, progressive=True)
+
+
+def og_av(out, label, l1, l2, max_size=84):
     W, H, P = 1200, 630, 88
     _bg["c"] = AV_NAVY
     img = Image.new("RGB", (W, H), AV_NAVY)
     d = ImageDraw.Draw(img)
     logo(d, P, P + 22, 30, AV_CREAM, AV_GOLD, "Aviation")
     tracked(d, (P, 330), label.upper(), mona(17, 500, 100), AV_GOLD, 0.26 * 17)
-    h = cinzel(84)
+    h, _ = fit(cinzel, [l1, l2], max_size, W - 2 * P)
     d.text((P - 3, 330 + 108), l1, font=h, fill=AV_CREAM, anchor="ls")
     d.text((P - 3, 330 + 108 + 92), l2, font=h, fill=AV_CREAM, anchor="ls")
     img.save(out, quality=88, optimize=True, progressive=True)
@@ -152,4 +178,29 @@ og_av(av_de / "opengraph-image.jpg", "PaintFix Aviation in Münster/Osnabrück",
 (av_de / "opengraph-image.alt.txt").write_text("PaintFix Aviation in Münster/Osnabrück: Jede Oberfläche, dokumentiert.")
 og_av(av_en / "opengraph-image.jpg", "PaintFix Aviation at Münster Osnabrück", "Every surface,", "accounted for.")
 (av_en / "opengraph-image.alt.txt").write_text("PaintFix Aviation at Münster Osnabrück: Every surface, accounted for.")
+
+# Seiten je Leistung (Auftrag 04.11.2026): Ordner, Headline (H1 der Seite), Unterzeile bzw. Overline.
+# Texte aus content/leistungen.ts (h1), fahrzeug.json (focus.short) und aviation-pages.ts (h1).
+leistungen = car / "leistungen"
+CAR_PAGES = [
+    ("smart-repair", ["Smart Repair", "in Telgte."], "Kratzer, Dellen und Steinschläge punktuell beheben, ohne Komplettlackierung."),
+    ("lackkorrektur", ["Lackkorrektur", "in Telgte."], "Waschkratzer, Hologramme und matter Lack, maschinell auspoliert."),
+    ("leasingrueckgabe", ["Gut vorbereitet zur", "Leasingrückgabe."], "Schäden beheben, bevor sie bei der Rückgabe berechnet werden."),
+    ("fahrzeugaufbereitung", ["Fahrzeugaufbereitung", "in Telgte."], "Außen, innen und Keramikversiegelung, mit Produkten von CarPro."),
+]
+for slug, lines, sub_text in CAR_PAGES:
+    og_car_page(leistungen / slug / "opengraph-image.jpg", lines, sub_text)
+    (leistungen / slug / "opengraph-image.alt.txt").write_text(f"PaintFix Automotive: {' '.join(lines)} {sub_text}")
+
+AV_PAGES = [
+    (av_de / "aussenpflege", "Leistungsbereich 01 · Außen", "Außenpflege für", "Business Jets."),
+    (av_de / "kabinenpflege", "Leistungsbereich 02 · Kabine", "Kabinenpflege für", "Business Jets."),
+    (av_de / "oberflaechenschutz", "Leistungsbereich 03 · Schutz", "Oberflächenschutz", "für Business Jets."),
+    (av_en / "exterior-care", "Service area 01 · Exterior", "Exterior care for", "business jets."),
+    (av_en / "cabin-care", "Service area 02 · Cabin", "Cabin care for", "business jets."),
+    (av_en / "surface-protection", "Service area 03 · Protection", "Surface protection", "for business jets."),
+]
+for folder, label, l1, l2 in AV_PAGES:
+    og_av(folder / "opengraph-image.jpg", label, l1, l2)
+    (folder / "opengraph-image.alt.txt").write_text(f"PaintFix Aviation, {label}: {l1} {l2}")
 print("ok")

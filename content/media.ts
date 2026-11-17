@@ -8,7 +8,6 @@ import avCoatingBeading from "@/assets/img/av-coating-beading.webp";
 import avHeroDusk from "@/assets/img/av-hero-dusk.jpg";
 import avLeadingEdge from "@/assets/img/av-leading-edge.webp";
 import avRampNight from "@/assets/img/av-ramp-night.jpg";
-import car14615262 from "@/assets/img/car-14615262.jpg";
 import carAussen from "@/assets/img/car-aussen.webp";
 import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
 import carInnen from "@/assets/img/car-innen.webp";
@@ -67,12 +66,6 @@ export const media = {
     needed: "Innenaufbereitung: Innenraum, idealerweise bei der Reinigung von Leder oder Polstern",
     source: "ai",
     credit: "KI-generiert (ChatGPT), 15.10.2026",
-  },
-  carHoverPolitur: {
-    src: car14615262,
-    alt: { de: "Maschinenpolitur am Lack eines dunklen Fahrzeugs" },
-    needed: "Hover-Bild Politur: Maschinenpolitur",
-    ...pexels,
   },
   // Vorher/Nachher-Regler: KI-Paar, im Regler als „Symbolbild, KI-generiert“ gekennzeichnet.
   carPaintAfter: {
@@ -221,7 +214,6 @@ export function altText(id: MediaId, locale: Locale = "de"): string {
 
 const byRefPath: Record<string, MediaId> = {
   "img/car-innen.webp": "carSvcInnen",
-  "img/car-14615262.jpg": "carHoverPolitur",
   "img/car-31154217.jpg": "carStandort",
   "img/car-aussen.webp": "carSvcAussen",
   "img/car-lackkorrektur.webp": "carSvcPolitur",

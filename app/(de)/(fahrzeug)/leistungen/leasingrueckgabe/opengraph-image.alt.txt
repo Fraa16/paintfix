@@ -1,0 +1,1 @@
+PaintFix Automotive: Gut vorbereitet zur Leasingrückgabe. Schäden beheben, bevor sie bei der Rückgabe berechnet werden.
