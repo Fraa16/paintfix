@@ -22,8 +22,8 @@ const NAV = [
  * der ein Panel unter dem Header öffnet. Offenes Menü setzt html[data-menu="open"], damit die
  * mobile Aktionsleiste ausblendet.
  *
- * KONZEPT (Branch claude/concept-redesign): Auf der Startseite liegt der Header fest und transparent
- * mit hellem Text über dem Hero und wird nach dem ersten Scrollen zu dunklem Glas.
+ * KONZEPT (Branch claude/concept-redesign): dunkles Glas mit hellem Text auf allen Fahrzeugseiten. Auf
+ * der Startseite liegt er fest und transparent über dem Hero und wird nach dem ersten Scrollen dunkel.
  */
 export function CarHeader() {
   const pathname = usePathname();
@@ -70,7 +70,7 @@ export function CarHeader() {
                 ? "border-car-ink-line bg-car-ink/85 backdrop-blur-[16px]"
                 : "border-transparent bg-transparent",
             )
-          : "sticky border-car-line-ui bg-car-header-bg backdrop-blur-[16px] backdrop-saturate-160",
+          : "sticky border-car-ink-line bg-car-ink/92 text-car-on-ink backdrop-blur-[16px] [--focus:var(--car-on-ink)]",
       )}
     >
       <div className="mx-auto flex h-car-header max-w-car items-center justify-between gap-6 px-car-gutter">
@@ -106,15 +106,11 @@ export function CarHeader() {
         </nav>
 
         <div className="flex items-center gap-7">
-          <CarAviationLink
-            tone={home ? "onInk" : "navy"}
-            arrowClassName="text-[12px]"
-            className="max-wide:hidden"
-          />
+          <CarAviationLink tone="onInk" arrowClassName="text-[12px]" className="max-wide:hidden" />
           <CarButton
             href="/anfrage"
             size="header"
-            variant={home ? "light" : "primary"}
+            variant="light"
             className="leading-[normal] max-wide:hidden"
           >
             Termin anfragen

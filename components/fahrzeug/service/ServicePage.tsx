@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { CarButton, CarTextLink } from "@/components/fahrzeug/Button";
-import { CarBreadcrumb } from "@/components/fahrzeug/Breadcrumb";
+import { CarButton } from "@/components/fahrzeug/Button";
 import { CtaBand } from "@/components/fahrzeug/CtaBand";
-import { CarFacts } from "@/components/fahrzeug/Facts";
-import { CarH2 } from "@/components/fahrzeug/Heading";
-import { CarOverline } from "@/components/fahrzeug/Overline";
-import { Process } from "@/components/fahrzeug/home/Process";
+import {
+  FocusTile,
+  LineLink,
+  Mono,
+  PageStage,
+  ProcessRows,
+  SectionHead,
+} from "@/components/fahrzeug/concept/ui";
 import { ClassBar } from "@/components/fahrzeug/leistungen/ClassBar";
 import { ComboBand } from "@/components/fahrzeug/leistungen/ComboBand";
 import { Extras } from "@/components/fahrzeug/leistungen/Extras";
@@ -19,17 +21,17 @@ import {
 } from "@/components/fahrzeug/leistungen/Services";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { INSPECT_PRICE, serviceById, type ServiceId } from "@/content/fahrzeug";
-import { focusHref, focusTeaser, type CarServicePage } from "@/content/leistungen";
-import { media } from "@/content/media";
+import { focusHref, type CarServicePage } from "@/content/leistungen";
+import { media, type MediaId } from "@/content/media";
 import { site } from "@/content/site";
 import { eur } from "@/lib/format";
 import { carServiceLd } from "@/lib/structured-data";
 
 /** Bildunterschrift für Platzhalterbilder (UWG § 5, KI-Verordnung Art. 50; siehe media.ts). */
-function caption(entry: ServiceEntryData): string | undefined {
-  const source = media[entry.img].source;
-  if (source === "ai") return "Symbolbild, KI-generiert.";
-  if (source === "stock") return "Symbolbild.";
+function captionFor(img: MediaId): string | undefined {
+  const source = media[img].source;
+  if (source === "ai") return "Symbolbild, KI-generiert";
+  if (source === "stock") return "Symbolbild";
   return undefined;
 }
 
@@ -51,9 +53,10 @@ export function carServiceMetadata(page: CarServicePage): Metadata {
 }
 
 /**
- * Seite je Schwerpunkt (/leistungen/{slug}, Auftrag 04.11.2026). Nur Bausteine der Fahrzeugseiten:
- * Seitenkopf wie /leistungen, Leistung(en) mit Klassenleiste, Anlässe, Ablauf, FAQ, weitere
- * Schwerpunkte und die CTA mit vorbelegter Anfrage. Texte aus content/leistungen.ts.
+ * Seite je Schwerpunkt (/leistungen/{slug}, Auftrag 04.11.2026). Texte aus content/leistungen.ts.
+ * KONZEPT „Licht auf Lack“: Seitenkopf mit Bild über die ganze Breite und großer H1, Leistung(en)
+ * als editoriale Zeilen mit Klassenleiste, Anlässe auf Schwarz, Ablauf als große Zeilen, FAQ,
+ * weitere Schwerpunkte als Bildkacheln und die CTA mit vorbelegter Anfrage.
  */
 export function CarServicePageView({ page }: { page: CarServicePage }) {
   const entries = page.offers.map(serviceEntry);
@@ -63,7 +66,7 @@ export function CarServicePageView({ page }: { page: CarServicePage }) {
 
   const offers = (
     <section aria-label="Umfang und Preis" className="bg-car-bg">
-      <div className="mx-auto max-w-car px-car-gutter">
+      <div className="mx-auto max-w-car px-car-gutter pb-[clamp(48px,6vw,96px)]">
         {entries.map((e, i) => (
           <ServiceEntry
             key={e.id}
@@ -71,7 +74,8 @@ export function CarServicePageView({ page }: { page: CarServicePage }) {
             anchor={`svc-${e.id}`}
             title={single ? page.offerTitle : undefined}
             eager={i === 0}
-            caption={caption(e)}
+            caption={captionFor(e.img)}
+            flip={i % 2 === 1}
           />
         ))}
       </div>
@@ -80,7 +84,7 @@ export function CarServicePageView({ page }: { page: CarServicePage }) {
 
   return (
     <main id="inhalt" tabIndex={-1} className="focus:outline-none">
-      <Head page={page} entries={entries} request={request} />
+      <Stage page={page} entries={entries} request={request} />
       {priced ? (
         <PriceClassProvider className="leading-[normal]">
           <ClassBar />
@@ -96,7 +100,12 @@ export function CarServicePageView({ page }: { page: CarServicePage }) {
         offers
       )}
       <Reasons page={page} />
-      <Process title={page.steps.title} steps={page.steps.items} />
+      <section aria-labelledby="ablauf-title" className="bg-car-bg py-car-section">
+        <div className="mx-auto max-w-car px-car-gutter">
+          <SectionHead tone="light" label="Ablauf" id="ablauf-title" title={page.steps.title} />
+          <ProcessRows steps={page.steps.items} />
+        </div>
+      </section>
       <Faq title={page.faq.title} entries={page.faq.items} />
       <Related page={page} />
       <CtaBand href={request} />
@@ -105,8 +114,8 @@ export function CarServicePageView({ page }: { page: CarServicePage }) {
   );
 }
 
-/** Seitenkopf: Brotkrumen, H1 (Reveal 60), Einleitung, Eckdaten und Anfrage. */
-function Head({
+/** Seitenkopf: Bild der Leistung über die ganze Breite, H1, Einleitung, Eckdaten in Mono, Anfrage. */
+function Stage({
   page,
   entries,
   request,
@@ -115,31 +124,39 @@ function Head({
   entries: ServiceEntryData[];
   request: string;
 }) {
-  const dur = page.dur ?? entries[0].dur;
+  const facts: Array<[string, string]> = [
+    ["Dauer", page.dur ?? entries[0].dur],
+    ["Preis", priceFact(entries)],
+    ["Begutachtung", "Kostenlos, Festpreis vor Beginn"],
+  ];
   return (
-    <section aria-labelledby="page-title" className="bg-car-surface">
-      <div className="mx-auto max-w-car px-car-gutter pt-[clamp(48px,6vw,88px)] pb-[clamp(56px,7vw,96px)]">
-        <CarBreadcrumb trail={[{ href: "/leistungen", label: "Leistungen" }]} current={page.name} />
-        <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] items-end gap-x-16 gap-y-10">
-          <h1
-            id="page-title"
-            data-rv="60"
-            className="text-car-h1 leading-[0.94] font-bold tracking-[-0.0175em] text-balance font-stretch-125%"
-          >
-            {page.h1}
-          </h1>
-          <div className="max-w-[560px]">
-            <p className="text-[18px] leading-[1.6] text-pretty text-car-text">{page.intro}</p>
-            <CarFacts
-              className="mt-8"
-              rows={[
-                { label: "Dauer", value: dur },
-                { label: "Preis", value: priceFact(entries) },
-                { label: "Begutachtung", value: "Kostenlos, Festpreis vor Beginn" },
-              ]}
-            />
-            <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <CarButton href={request} arrow>
+    <PageStage
+      trail={[{ href: "/leistungen", label: "Leistungen" }]}
+      current={page.name}
+      title={page.h1}
+      image={page.media}
+      caption={captionFor(page.media)}
+      aside={
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] items-end gap-x-[clamp(40px,6vw,120px)] gap-y-10">
+          <p className="max-w-[560px] text-[17px] leading-[1.6] text-pretty text-car-on-ink-soft">
+            {page.intro}
+          </p>
+          <div>
+            <dl className="border-t border-car-on-ink/20">
+              {facts.map(([k, v]) => (
+                <div
+                  key={k}
+                  className="grid grid-cols-[130px_1fr] gap-4 border-b border-car-on-ink/20 py-3.5"
+                >
+                  <dt>
+                    <Mono className="text-car-on-ink-muted">{k}</Mono>
+                  </dt>
+                  <dd className="text-[15px] text-car-on-ink">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <CarButton href={request} variant="light" size="cta" arrow>
                 Termin anfragen
               </CarButton>
               <a
@@ -151,36 +168,37 @@ function Head({
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      }
+    />
   );
 }
 
-/** Wann sich die Leistung lohnt, dazu ihre Grenze mit Verweis (Reveals: Overline 0, H2 80). */
+/** Wann sich die Leistung lohnt, auf Schwarz; dazu ihre Grenze mit Verweis. */
 function Reasons({ page }: { page: CarServicePage }) {
   return (
-    <section aria-labelledby="anlaesse-title" className="bg-car-bg py-car-section leading-[normal]">
+    <section
+      aria-labelledby="anlaesse-title"
+      className="bg-car-ink py-car-section text-car-on-ink [--focus:var(--car-on-ink)]"
+    >
       <div className="mx-auto max-w-car px-car-gutter">
-        <CarOverline rv={0}>Anlässe</CarOverline>
-        <CarH2 id="anlaesse-title" rv={80} className="max-w-[16ch]">
-          {page.reasons.title}
-        </CarH2>
-        <ul className="mt-[clamp(40px,5vw,64px)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-x-8 gap-y-10">
-          {page.reasons.items.map((r) => (
-            <li key={r.t} data-rv="0" className="border-t border-car-ink pt-6">
-              <h3 className="text-[20px] font-semibold font-stretch-108%">{r.t}</h3>
-              <p className="mt-2.5 text-[15px] leading-[1.6] text-car-text">{r.d}</p>
+        <SectionHead label="Anlässe" id="anlaesse-title" title={page.reasons.title} />
+        <ol className="mt-[clamp(48px,6vw,96px)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-x-8 gap-y-12">
+          {page.reasons.items.map((r, i) => (
+            <li key={r.t} className="pf-lit border-t border-car-ink-line pt-6">
+              <Mono className="text-car-on-ink-muted">{String(i + 1).padStart(2, "0")}</Mono>
+              <h3 className="mt-5 text-[clamp(22px,1.9vw,28px)] leading-[1.1] font-semibold tracking-[-0.02em]">
+                {r.t}
+              </h3>
+              <p className="mt-3 text-[15px] leading-[1.6] text-car-on-ink-muted">{r.d}</p>
             </li>
           ))}
-        </ul>
+        </ol>
         {page.limit && (
-          <div className="mt-[clamp(40px,5vw,64px)] flex flex-wrap items-center justify-between gap-x-10 gap-y-5 bg-car-surface px-[clamp(24px,3vw,40px)] py-7">
-            <p className="max-w-[640px] text-[16px] leading-[1.6] text-pretty text-car-text">
+          <div className="mt-[clamp(56px,7vw,112px)] flex flex-wrap items-center justify-between gap-x-10 gap-y-5 border border-car-ink-line px-[clamp(24px,3vw,40px)] py-7">
+            <p className="max-w-[640px] text-[17px] leading-[1.6] text-pretty text-car-on-ink-soft">
               {page.limit.text}
             </p>
-            <CarTextLink href={focusHref(page.limit.link.focus)}>
-              {page.limit.link.label}
-            </CarTextLink>
+            <LineLink href={focusHref(page.limit.link.focus)}>{page.limit.link.label} →</LineLink>
           </div>
         )}
       </div>
@@ -188,36 +206,19 @@ function Reasons({ page }: { page: CarServicePage }) {
   );
 }
 
-/** Weitere Schwerpunkte als Zeilen wie auf der Startseite (ohne Hover-Bild). */
+/** Weitere Schwerpunkte als Bildkacheln auf Schwarz. */
 function Related({ page }: { page: CarServicePage }) {
-  const items = page.related.map(focusTeaser);
   return (
     <section
       aria-labelledby="weitere-title"
-      className="border-t border-car-line-ui bg-car-bg py-car-section leading-[normal]"
+      className="border-t border-car-ink-line bg-car-ink py-car-section text-car-on-ink [--focus:var(--car-on-ink)]"
     >
       <div className="mx-auto max-w-car px-car-gutter">
-        <CarOverline rv={0}>Weitere Schwerpunkte</CarOverline>
-        <CarH2 id="weitere-title" rv={80} className="max-w-[16ch]">
-          Was oft dazu passt.
-        </CarH2>
-        <ul className="mt-[clamp(40px,5vw,64px)] border-t border-car-ink">
-          {items.map((f) => (
-            <li key={f.id}>
-              <Link
-                href={f.href}
-                className="group flex flex-wrap items-baseline gap-x-8 gap-y-2 border-b border-car-line py-[clamp(20px,2.4vw,32px)]"
-              >
-                <span className="flex-[1_1_320px] text-[clamp(25px,3vw,40px)] leading-none font-bold tracking-[-0.0175em] font-stretch-125% transition-colors group-hover:text-car-red">
-                  {f.name}
-                </span>
-                <span className="flex-[1_1_260px] text-[15px] leading-[1.5] text-car-text">
-                  {f.short}
-                </span>
-                <span className="flex flex-[0_0_170px] justify-end text-[15px] whitespace-nowrap text-car-muted">
-                  {f.price}
-                </span>
-              </Link>
+        <SectionHead label="Weitere Schwerpunkte" id="weitere-title" title="Was oft dazu passt." />
+        <ul className="mt-[clamp(48px,6vw,96px)] grid gap-x-[clamp(16px,2vw,32px)] gap-y-14 wide:grid-cols-3">
+          {page.related.map((id, i) => (
+            <li key={id} data-rv={i * 90}>
+              <FocusTile id={id} no={String(i + 1).padStart(2, "0")} size="md" />
             </li>
           ))}
         </ul>

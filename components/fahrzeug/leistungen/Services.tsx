@@ -9,6 +9,7 @@ import {
 } from "@/content/fahrzeug";
 import { focusHref } from "@/content/leistungen";
 import { altText, media, mediaByRefPath, type MediaId } from "@/content/media";
+import { cx } from "@/lib/cx";
 import { ServicePrice } from "./ServicePrice";
 
 /** Reihenfolge der Seite: Schwerpunkte zuerst (Kundenwunsch 14.10.2026), dann die übrigen Leistungen. */
@@ -41,13 +42,15 @@ export function serviceEntry(id: ServiceId | InspectId): ServiceEntryData {
 }
 
 const entries = ORDER.map(serviceEntry);
+
+/** Reihenfolge und Daten der Leistungen auf /leistungen (auch für das Verzeichnis im Seitenkopf). */
+export const overviewEntries: ReadonlyArray<ServiceEntryData> = entries;
 const total = String(entries.length).padStart(2, "0");
 
 /**
- * Die Leistungen #svc-{id} (README 8.2 Punkt 3, Referenz Zeilen 294–328): Bild links, Text
- * rechts, unter ca. 1010px untereinander. Nur die Preiszeile ist Client-Komponente. Smart Repair und
- * Leasingrückgabe haben keinen Klassenpreis, sondern „Preis nach Begutachtung“.
- * Reveals wie in der Referenz: jede Leistung und ihre H2 mit Fade-up (0).
+ * Die Leistungen #svc-{id} (README 8.2 Punkt 3). Nur die Preiszeile ist Client-Komponente. Smart Repair
+ * und Leasingrückgabe haben keinen Klassenpreis, sondern „Preis nach Begutachtung“.
+ * KONZEPT: editoriale Zeilen, Bild abwechselnd links und rechts (7 von 12 Spalten).
  */
 export function Services() {
   return (
@@ -61,6 +64,7 @@ export function Services() {
             counter={`${String(i + 1).padStart(2, "0")} / ${total}`}
             eager={i === 0}
             more={focusHref(s.id)}
+            flip={i % 2 === 1}
           />
         ))}
       </div>
@@ -68,10 +72,12 @@ export function Services() {
   );
 }
 
+const mono = "font-mono text-[11px] leading-[1.4] tracking-[0.06em] uppercase";
+
 /**
  * Eine Leistung als Artikel. Auch auf den Seiten je Leistung (/leistungen/…), dort optional mit
  * eigener Überschrift (`title`, z. B. „Umfang und Preis“, wenn der Name schon die H1 ist).
- * `more` verlinkt die eigene Seite der Leistung, sofern es sie gibt.
+ * `more` verlinkt die eigene Seite der Leistung, sofern es sie gibt; `flip` setzt das Bild nach rechts.
  * Anker (#svc-… auf /leistungen) am unverschobenen Wrapper: Das Reveal (translate 32px) würde das
  * Sprungziel sonst um 32px unter die Klassenleiste schieben, sobald es abläuft. Sie landen über
  * scroll-padding unter Header und Klassenleiste (siehe ClassBar).
@@ -84,6 +90,7 @@ export function ServiceEntry({
   eager = false,
   more,
   caption,
+  flip = false,
 }: {
   entry: ServiceEntryData;
   anchor: string;
@@ -93,6 +100,7 @@ export function ServiceEntry({
   more?: string;
   /** Bildunterschrift, z. B. „Symbolbild, KI-generiert“ (UWG § 5). */
   caption?: string;
+  flip?: boolean;
 }) {
   const img = s.img;
   const titleId = `${anchor}-title`;
@@ -103,40 +111,38 @@ export function ServiceEntry({
       <article
         data-rv="0"
         aria-labelledby={titleId}
-        className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] gap-x-[clamp(32px,5vw,88px)] gap-y-8 border-b border-car-line py-[clamp(48px,6vw,88px)]"
+        className="grid gap-x-[clamp(32px,5vw,96px)] gap-y-8 border-t border-car-ink py-[clamp(48px,6vw,96px)] wide:grid-cols-12"
       >
-        <figure className="flex flex-col gap-2.5">
-          <div className="relative aspect-[4/3] overflow-hidden bg-car-image-bg">
+        <figure className={cx("flex flex-col gap-3 wide:col-span-7", flip && "wide:order-2")}>
+          <div className="relative aspect-[4/3] overflow-hidden bg-car-ba-bg">
             <Image
               src={media[img].src}
               alt={altText(img)}
               fill
-              sizes="(min-width: 1012px) min(44vw, 590px), 92vw"
+              sizes="(min-width: 980px) min(54vw, 760px), 92vw"
               loading={eager ? "eager" : undefined}
               className="object-cover"
             />
           </div>
-          {caption && <figcaption className="text-[13px] text-car-muted">{caption}</figcaption>}
+          {caption && <figcaption className={cx(mono, "text-car-muted")}>{caption}</figcaption>}
         </figure>
-        <div className="flex flex-col">
-          <p className="flex justify-between gap-4 text-[13px] text-car-muted">
+        <div className="flex flex-col wide:col-span-5">
+          <p className={cx(mono, "flex justify-between gap-4 text-car-muted")}>
             <span>{counter}</span>
             <span>Dauer {s.dur}</span>
           </p>
           <h2
             id={titleId}
             data-rv="0"
-            className="mt-[18px] text-car-h2-service leading-[1.02] font-bold tracking-[-0.015em] font-stretch-125%"
+            className="mt-6 text-[clamp(32px,3.6vw,58px)] leading-[0.95] font-semibold tracking-[-0.035em] text-balance"
           >
             {title ?? s.name}
           </h2>
-          <p className="mt-[18px] max-w-[560px] text-[17px] leading-[1.6] text-pretty text-car-text">
+          <p className="mt-6 max-w-[560px] text-[17px] leading-[1.6] text-pretty text-car-text">
             {s.desc}
           </p>
-          <h3 className="mt-7 text-[12px] font-semibold tracking-[0.14em] text-car-muted uppercase">
-            Im Preis enthalten
-          </h3>
-          <ul className="mt-2.5 grid grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-x-6">
+          <h3 className={cx(mono, "mt-8 text-car-muted")}>Im Preis enthalten</h3>
+          <ul className="mt-3 border-t border-car-line">
             {s.incl.map((item) => (
               <li
                 key={item}
@@ -144,7 +150,7 @@ export function ServiceEntry({
               >
                 <span
                   aria-hidden="true"
-                  className="block h-[1.5px] w-2.5 flex-none -translate-y-1 bg-car-red"
+                  className="block size-1.5 flex-none -translate-y-0.5 bg-car-ink"
                 />
                 {item}
               </li>
@@ -169,12 +175,12 @@ export function ServiceEntry({
 /** Preiszeile ohne Klassenpreis: „Preis nach Begutachtung“ und Anfrage mit dieser Leistung. */
 function InspectPrice({ id, name }: { id: string; name: string }) {
   return (
-    <div className="mt-auto flex flex-wrap items-end justify-between gap-5 pt-9">
+    <div className="mt-auto flex flex-wrap items-end justify-between gap-5 pt-10">
       <div>
-        <p className="text-[clamp(26px,2.4vw,34px)] leading-none font-medium tracking-[-0.02em]">
+        <p className="text-[clamp(26px,2.4vw,36px)] leading-none font-semibold tracking-[-0.03em]">
           Preis {INSPECT_PRICE}
         </p>
-        <p className="mt-2 text-[13px] text-car-muted">Festpreis vor Beginn der Arbeiten</p>
+        <p className={cx(mono, "mt-3 text-car-muted")}>Festpreis vor Beginn der Arbeiten</p>
       </div>
       <CarButton href={`/anfrage?leistungen=${id}`} size="combo" arrow className="leading-[normal]">
         Anfragen<span className="sr-only">: {name}</span>

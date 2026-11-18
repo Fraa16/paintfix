@@ -5,13 +5,13 @@ import { AvLogo } from "@/components/aviation/Logo";
 import { CarButton } from "@/components/fahrzeug/Button";
 import { STEPS } from "@/components/fahrzeug/home/Process";
 import { OpeningStatus } from "@/components/shared/OpeningStatus";
-import { focusAreas, INSPECT_PRICE, leasingBand, serviceById } from "@/content/fahrzeug";
+import { focusAreas, leasingBand } from "@/content/fahrzeug";
 import { focusHref } from "@/content/leistungen";
-import { altText, media, type MediaId } from "@/content/media";
+import { altText, media } from "@/content/media";
 import { site } from "@/content/site";
 import { cx } from "@/lib/cx";
-import { eur } from "@/lib/format";
 import { LightSweep } from "./LightSweep";
+import { conceptH2 as h2, FocusTile, Mono, ProcessRows, SectionHead } from "./ui";
 
 /*
  * KONZEPT „Licht auf Lack“ (Branch claude/concept-redesign): Startseite Fahrzeug.
@@ -19,53 +19,6 @@ import { LightSweep } from "./LightSweep";
  * Wiederkehrendes Motiv: Licht auf schwarzem Lack (Lichtkante im Hero, Text leuchtet beim Scrollen auf).
  * Texte aus content/ und README wie bisher; neu sind nur Etiketten (Vorher/Nachher, Abschnittsnummern).
  */
-
-/** Etikett in Geist Mono: Abschnittsnummern, Daten, Bildhinweise. */
-export function Mono({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <span
-      className={cx("font-mono text-[11px] leading-[1.4] tracking-[0.06em] uppercase", className)}
-    >
-      {children}
-    </span>
-  );
-}
-
-const h2 = "text-car-section leading-[0.95] font-semibold tracking-[-0.035em] text-balance";
-
-/** Abschnittskopf: Nummer und Name in Mono über einer großen H2 (kein Overline-Quadrat mehr). */
-function SectionHead({
-  no,
-  label,
-  title,
-  id,
-  tone = "ink",
-}: {
-  no: string;
-  label: string;
-  title: ReactNode;
-  id: string;
-  tone?: "ink" | "light";
-}) {
-  return (
-    <div>
-      <p
-        className={cx(
-          "flex gap-6 border-t pt-4",
-          tone === "ink"
-            ? "border-car-ink-line text-car-on-ink-muted"
-            : "border-car-ink text-car-muted",
-        )}
-      >
-        <Mono>{no}</Mono>
-        <Mono>{label}</Mono>
-      </p>
-      <h2 id={id} data-rv="0" className={cx(h2, "mt-[clamp(28px,4vw,56px)] max-w-[16ch]")}>
-        {title}
-      </h2>
-    </div>
-  );
-}
 
 /** Hero: Lichtkante über das ganze Bild, H1 unten über die volle Breite. */
 export function ConceptHero() {
@@ -182,13 +135,6 @@ export function Statement() {
   );
 }
 
-const TILE_IMAGE: Record<string, MediaId> = {
-  "smart-repair": "carSvcSmartRepair",
-  politur: "carSvcPolitur",
-  leasing: "carSvcLeasing",
-  aussen: "carSvcAussen",
-};
-
 /**
  * Schwerpunkte (#leistungen) als große Bildkacheln, zweite Spalte versetzt (editorial). Die Kachel
  * ist ein Link auf die Seite der Leistung; ihr Name beginnt mit der Nummer (Test „focus areas link“).
@@ -217,48 +163,13 @@ export function FocusTiles() {
           </Link>
         </div>
         <ul className="mt-[clamp(48px,6vw,96px)] grid gap-x-[clamp(16px,2vw,32px)] gap-y-[clamp(40px,5vw,72px)] wide:grid-cols-2">
-          {focusAreas.map((f, i) => {
-            const img = TILE_IMAGE[f.id];
-            const price = f.price
-              ? `ab ${eur(serviceById(f.price).p[0])}`
-              : `Preis ${INSPECT_PRICE}`;
-            return (
-              <li key={f.id} className="wide:even:translate-y-[clamp(0px,8vw,140px)]">
-                <div data-rv={i % 2 ? 120 : 0}>
-                  <Link href={focusHref(f.id)} className="group block">
-                    <span className="flex items-baseline gap-4">
-                      <Mono className="text-car-on-ink-muted">
-                        {String(i + 1).padStart(2, "0")}
-                      </Mono>
-                      <span className="text-car-tile leading-none font-semibold tracking-[-0.03em]">
-                        {f.name}
-                      </span>
-                    </span>
-                    <span className="relative mt-5 block aspect-[5/4] overflow-hidden bg-car-ba-bg">
-                      <Image
-                        src={media[img].src}
-                        alt={altText(img)}
-                        fill
-                        sizes="(min-width: 980px) min(46vw, 660px), 92vw"
-                        className="object-cover transition-[scale,filter] duration-[1.4s] ease-(--ease-out) group-hover:scale-[1.035] motion-reduce:transition-none"
-                      />
-                      {/* Lichtstreif beim Hover: wandert einmal über das Bild (nur mit Bewegung). */}
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-[linear-gradient(90deg,transparent,color-mix(in_srgb,var(--car-on-ink)_22%,transparent),transparent)] opacity-0 transition-[translate,opacity] duration-[1.2s] ease-(--ease-out) group-hover:translate-x-[420%] group-hover:opacity-100 motion-reduce:hidden"
-                      />
-                    </span>
-                    <span className="mt-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-car-ink-line pt-4">
-                      <span className="max-w-[420px] text-[15px] leading-[1.5] text-car-on-ink-soft">
-                        {f.short}
-                      </span>
-                      <Mono className="text-car-on-ink">{price}</Mono>
-                    </span>
-                  </Link>
-                </div>
-              </li>
-            );
-          })}
+          {focusAreas.map((f, i) => (
+            <li key={f.id} className="wide:even:translate-y-[clamp(0px,8vw,140px)]">
+              <div data-rv={i % 2 ? 120 : 0}>
+                <FocusTile id={f.id} no={String(i + 1).padStart(2, "0")} />
+              </div>
+            </li>
+          ))}
         </ul>
         <p className="mt-[clamp(40px,5vw,64px)] text-car-on-ink-muted">
           <Mono>Bilder: Symbolbilder, KI-generiert</Mono>
@@ -280,22 +191,7 @@ export function ProcessLines() {
           title="So läuft Ihr Termin ab."
           tone="light"
         />
-        <ol className="mt-[clamp(48px,6vw,96px)] border-t border-car-ink">
-          {STEPS.map((s, i) => (
-            <li
-              key={s.title}
-              className="pf-lit grid grid-cols-[48px_1fr] gap-x-6 gap-y-3 border-b border-car-line py-[clamp(24px,3.2vw,44px)] wide:grid-cols-[120px_minmax(0,1.1fr)_minmax(0,1fr)] wide:items-baseline"
-            >
-              <Mono className="pt-2 text-car-muted">{String(i + 1).padStart(2, "0")}</Mono>
-              <h3 className="text-car-step leading-none font-semibold tracking-[-0.035em]">
-                {s.title}
-              </h3>
-              <p className="col-start-2 max-w-[460px] text-[16px] leading-[1.6] text-car-text wide:col-start-3">
-                {s.text}
-              </p>
-            </li>
-          ))}
-        </ol>
+        <ProcessRows steps={STEPS} />
       </div>
     </section>
   );

@@ -25,9 +25,12 @@ export function FaqAccordion({ entries = defaultFaq }: { entries?: ReadonlyArray
                 aria-expanded={isOpen}
                 aria-controls={`faq-a-${i}`}
                 onClick={() => setOpen(isOpen ? -1 : i)}
-                className="flex w-full items-center justify-between gap-6 py-6 text-left text-[19px] font-semibold font-stretch-[106%] hover:text-car-red"
+                className="flex w-full items-baseline gap-5 py-6 text-left text-[clamp(18px,1.6vw,22px)] leading-[1.25] font-semibold tracking-[-0.015em] transition-colors hover:text-car-red"
               >
-                <span>{entry.q}</span>
+                <span className="w-7 flex-none font-mono text-[11px] font-normal tracking-[0.06em] text-car-muted">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="flex-1">{entry.q}</span>
                 <span
                   aria-hidden="true"
                   className="w-6 flex-none text-center text-[24px] font-light"
@@ -37,7 +40,7 @@ export function FaqAccordion({ entries = defaultFaq }: { entries?: ReadonlyArray
               </button>
             </h3>
             <div id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} hidden={!isOpen}>
-              <p className="pr-12 pb-7 text-[16px] leading-[1.65] text-pretty text-car-text">
+              <p className="pr-12 pb-7 pl-12 text-[16px] leading-[1.65] text-pretty text-car-text">
                 {entry.a}
               </p>
             </div>

@@ -1,8 +1,7 @@
-import { CarOverline } from "@/components/fahrzeug/Overline";
+import { conceptH2, SectionRule } from "@/components/fahrzeug/concept/ui";
 import { ComboOffer } from "./ComboOffer";
-import { CarH2 } from "@/components/fahrzeug/Heading";
 
-/** Kombi-Band (README 8.2 Punkt 4, Referenz Zeilen 330–343): schwarze Fläche, Komplettpreis. */
+/** Kombi-Band (README 8.2 Punkt 4): schwarze Fläche, Komplettpreis. KONZEPT: Kopf wie die Abschnitte. */
 export function ComboBand() {
   return (
     <section
@@ -11,12 +10,14 @@ export function ComboBand() {
     >
       <div className="mx-auto grid max-w-car grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] items-end gap-x-16 gap-y-10 px-car-gutter py-[clamp(64px,8vw,112px)]">
         <div>
-          <CarOverline tone="onInk" className="leading-[normal]">
-            Komplettaufbereitung
-          </CarOverline>
-          <CarH2 id="kombi-title" rv={0} className="max-w-[14ch]">
+          <SectionRule label="Komplettaufbereitung" />
+          <h2
+            id="kombi-title"
+            data-rv="0"
+            className={`${conceptH2} mt-[clamp(28px,4vw,56px)] max-w-[14ch]`}
+          >
             Außen und innen an einem Termin.
-          </CarH2>
+          </h2>
         </div>
         <ComboOffer />
       </div>

@@ -14,15 +14,19 @@ export function ServicePrice({ id }: { id: ServiceId }) {
   const service = serviceById(id);
 
   return (
-    <div className="mt-auto flex flex-wrap items-end justify-between gap-5 pt-9">
+    <div className="mt-auto flex flex-wrap items-end justify-between gap-5 pt-10">
       <div>
-        <p className="flex items-baseline gap-2.5">
-          <span className="text-[15px] text-car-muted">ab</span>
-          <span className="text-[clamp(44px,4vw,60px)] leading-none font-medium tracking-[-0.035em] tabular-nums">
+        <p className="flex items-baseline gap-3">
+          <span className="font-mono text-[12px] tracking-[0.06em] text-car-muted uppercase">
+            ab
+          </span>
+          <span className="text-[clamp(48px,4.6vw,72px)] leading-none font-semibold tracking-[-0.045em] tabular-nums">
             {eur(service.p[cls])}
           </span>
         </p>
-        <p className="mt-2 text-[13px] text-car-muted">{vehicleClasses[cls].label}, Endpreis</p>
+        <p className="mt-3 font-mono text-[11px] tracking-[0.06em] text-car-muted uppercase">
+          {vehicleClasses[cls].label}, Endpreis
+        </p>
       </div>
       <CarButton
         href={`/anfrage?leistungen=${id}&klasse=${cls}`}

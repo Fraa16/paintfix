@@ -26,6 +26,12 @@ import { AvFaqAccordion } from "./AvFaqAccordion";
 
 const h2 = "mt-7 font-cinzel text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance";
 
+/** „Außenpflege für Business Jets.“ → ["Außenpflege", "für Business Jets."] (KONZEPT: Akzentzeile). */
+function splitTitle(title: string): string[] {
+  const m = title.match(/^(.*?)\s+((?:für|for)\s.*)$/i);
+  return m ? [m[1], m[2]] : [title];
+}
+
 /**
  * Route einer Seite je Aviation-Bereich: Metadaten mit hreflang und die Seite. Jede Seite hat einen
  * eigenen Ordner (app/(de)/aviation/{slug}, app/(en)/en/aviation/{slug}), damit unbekannte Pfade
@@ -77,7 +83,7 @@ export function AvServicePage({
         <div className="mx-auto grid max-w-av grid-cols-[repeat(auto-fit,minmax(min(100%,440px),1fr))] items-end gap-x-[clamp(40px,6vw,112px)] gap-y-12 px-av-gutter pt-[calc(var(--av-header-h)+clamp(40px,5vw,72px))] pb-[clamp(64px,8vw,112px)]">
           <div>
             <nav aria-label={locale === "de" ? "Brotkrümelnavigation" : "Breadcrumb"}>
-              <ol className="flex flex-wrap gap-2.5 text-[12px] tracking-[0.12em] text-av-on-navy uppercase">
+              <ol className="flex flex-wrap gap-2.5 font-mono text-[11px] tracking-[0.08em] text-av-on-navy uppercase">
                 <li className="flex gap-2.5">
                   <Link
                     href={aviationPath[locale]}
@@ -93,15 +99,21 @@ export function AvServicePage({
               </ol>
             </nav>
             <div data-rv="0" className="mt-[clamp(40px,5vw,64px)]">
-              <AvOverline tone="navy">
+              <p className="flex items-center gap-4 font-mono text-[11px] tracking-[0.08em] text-av-gold uppercase">
+                <span aria-hidden="true" className="block h-px w-10 bg-av-gold" />
                 {ui.overline} 0{meta.tab + 1} · {av.tabs[meta.tab]}
-              </AvOverline>
+              </p>
             </div>
+            {/* KONZEPT: Instrument Serif groß, der Teil ab „für/for“ kursiv in eigener Zeile. */}
             <h1
               id="page-title"
-              className="mt-7 font-cinzel text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
+              className="mt-7 font-cinzel text-[clamp(48px,6.4vw,108px)] leading-[0.95] font-normal tracking-[-0.02em] text-balance"
             >
-              {copy.h1}
+              {splitTitle(copy.h1).map((part, i) => (
+                <span key={i} className={i === 1 ? "block italic" : "block"}>
+                  {part}
+                </span>
+              ))}
             </h1>
             <p className="mt-8 max-w-[520px] text-[17px] leading-[1.7] text-pretty text-av-on-navy-hero">
               {copy.intro}

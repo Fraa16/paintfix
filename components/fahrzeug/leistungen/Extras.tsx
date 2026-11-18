@@ -1,4 +1,3 @@
-import { CarOverline } from "@/components/fahrzeug/Overline";
 import { extras } from "@/content/fahrzeug";
 
 /**
@@ -9,17 +8,22 @@ export function Extras() {
   return (
     <section aria-labelledby="extras-title" className="bg-car-bg pt-[clamp(72px,9vw,128px)]">
       <div className="mx-auto max-w-car px-car-gutter">
-        <CarOverline as="h2" id="extras-title">
+        <h2
+          id="extras-title"
+          className="border-t border-car-ink pt-4 font-mono text-[11px] tracking-[0.06em] text-car-muted uppercase"
+        >
           Zusatzleistungen
-        </CarOverline>
+        </h2>
         <ul className="mt-7 grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-x-6">
           {extras.map((x) => (
             <li
               key={x.name}
-              className="flex items-baseline justify-between gap-4 border-t border-car-ink py-[22px] text-[16px]"
+              className="flex items-baseline justify-between gap-4 border-b border-car-line py-[22px] text-[17px]"
             >
-              <span className="font-medium">{x.name}</span>
-              <span className="whitespace-nowrap text-car-text tabular-nums">{x.price}</span>
+              <span className="font-semibold tracking-[-0.01em]">{x.name}</span>
+              <span className="font-mono text-[11px] tracking-[0.06em] whitespace-nowrap text-car-text uppercase">
+                {x.price}
+              </span>
             </li>
           ))}
         </ul>

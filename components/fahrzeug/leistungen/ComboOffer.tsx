@@ -17,8 +17,10 @@ export function ComboOffer() {
     <div className="flex flex-wrap items-end justify-between gap-7">
       <div>
         <p className="flex items-baseline gap-2.5">
-          <span className="text-[16px] text-car-on-ink-muted">ab</span>
-          <span className="text-[clamp(56px,5.6vw,84px)] leading-none font-medium tracking-[-0.04em] tabular-nums">
+          <span className="font-mono text-[11px] text-[12px] tracking-[0.06em] text-car-on-ink-muted uppercase">
+            ab
+          </span>
+          <span className="text-[clamp(56px,6vw,96px)] leading-none font-semibold tracking-[-0.045em] tabular-nums">
             {eur(comboPrice[cls])}
           </span>
         </p>

@@ -45,7 +45,7 @@ export function ClassBar() {
       className="sticky top-car-header z-30 scroll-mt-[calc(var(--pf-sticky-h,0px)*-1)] border-b border-car-line-ui bg-car-header-bg backdrop-blur-[14px]"
     >
       <div className="mx-auto flex max-w-car flex-wrap items-center gap-x-6 gap-y-3 px-car-gutter py-3.5">
-        <span id="preise-label" className="text-[13px] font-semibold tracking-[0.14em] uppercase">
+        <span id="preise-label" className="font-mono text-[11px] tracking-[0.06em] uppercase">
           Preise für
         </span>
         <div
@@ -77,7 +77,9 @@ export function ClassBar() {
             );
           })}
         </div>
-        <span className="text-[13px] text-car-muted">{vehicleClasses[cls].ex}</span>
+        <span className="font-mono text-[11px] tracking-[0.06em] text-car-muted uppercase">
+          {vehicleClasses[cls].ex}
+        </span>
       </div>
     </div>
   );
