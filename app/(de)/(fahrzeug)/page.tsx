@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { CtaBand } from "@/components/fahrzeug/CtaBand";
-import { AviationBand } from "@/components/fahrzeug/home/AviationBand";
-import { BeforeAfter } from "@/components/fahrzeug/home/BeforeAfter";
-import { Hero } from "@/components/fahrzeug/home/Hero";
-import { LeasingBand } from "@/components/fahrzeug/home/LeasingBand";
-import { Location } from "@/components/fahrzeug/home/Location";
-import { Process } from "@/components/fahrzeug/home/Process";
-import { ServiceList } from "@/components/fahrzeug/home/ServiceList";
+import {
+  AviationTeaser,
+  ConceptHero,
+  FocusTiles,
+  LeasingStatement,
+  ProcessLines,
+  Statement,
+  Visit,
+} from "@/components/fahrzeug/concept/Home";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { carBusiness } from "@/lib/structured-data";
 
@@ -17,18 +18,22 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-/** Startseite Fahrzeug (README 8.1). Header, Footer und Aktionsleiste kommen aus dem Layout. */
+/**
+ * Startseite Fahrzeug, KONZEPT „Licht auf Lack“ (Branch claude/concept-redesign). Die bisherige
+ * Startseite (README 8.1) liegt unverändert auf main; ihre Bausteine in components/fahrzeug/home/.
+ * Header, Footer und Aktionsleiste kommen aus dem Layout; der Header liegt hier transparent über dem
+ * Hero (CarHeader).
+ */
 export default function HomePage() {
   return (
     <main id="inhalt" tabIndex={-1} className="focus:outline-none">
-      <Hero />
-      <ServiceList />
-      <LeasingBand />
-      <BeforeAfter />
-      <Process />
-      <AviationBand />
-      <Location />
-      <CtaBand />
+      <ConceptHero />
+      <Statement />
+      <FocusTiles />
+      <ProcessLines />
+      <LeasingStatement />
+      <AviationTeaser />
+      <Visit />
       <JsonLd data={carBusiness()} />
     </main>
   );

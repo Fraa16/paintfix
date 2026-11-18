@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CarAviationLink } from "@/components/fahrzeug/AviationLink";
 import Link from "next/link";
 import "./globals.css";
-import { cinzel, mona } from "./fonts";
+import { mona, mono, serif } from "./fonts";
 import { CarButton } from "@/components/fahrzeug/Button";
 import { CarLogo } from "@/components/fahrzeug/Logo";
 import { CarOverline } from "@/components/fahrzeug/Overline";
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
  */
 export default function GlobalNotFound() {
   return (
-    <html lang="de" className={`${mona.variable} ${cinzel.variable}`}>
+    <html lang="de" className={`${mona.variable} ${serif.variable} ${mono.variable}`}>
       <body>
         <div
           data-brand="car"

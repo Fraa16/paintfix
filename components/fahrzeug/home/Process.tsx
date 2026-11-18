@@ -6,7 +6,7 @@ import { ProgressSection } from "./ProgressSection";
 type Step = { title: string; text: string };
 
 /** Texte wörtlich aus README 8.1 Punkt 5 (stehen nicht in content/). */
-const STEPS: ReadonlyArray<Step> = [
+export const STEPS: ReadonlyArray<Step> = [
   {
     title: "Anfrage",
     text: "Online, telefonisch oder direkt bei uns. Sie nennen Fahrzeug und gewünschte Leistung.",

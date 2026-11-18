@@ -48,43 +48,45 @@ export function Hero({ locale }: { locale: Locale }) {
         data-fade=""
         className="pointer-events-none absolute inset-x-0 bottom-0 pb-[132px] wide:pb-[clamp(48px,8vh,104px)]"
       >
-        <div className="mx-auto max-w-av px-av-gutter">
-          <div data-rv="200">
-            <AvOverline tone="navy">{av.heroLabel}</AvOverline>
-          </div>
-          <h1 className="mt-7 font-cinzel text-av-hero leading-none font-normal tracking-[0.02em]">
-            <span className="-mb-[0.1em] block overflow-y-clip pb-[0.1em]">
-              <span data-rvm="300" className="block">
-                {av.aT1}
+        <div className="mx-auto flex max-w-av flex-wrap items-end justify-between gap-x-16 gap-y-10 px-av-gutter">
+          <div className="min-w-0 flex-[1_1_560px]">
+            <div data-rv="200">
+              <AvOverline tone="navy">{av.heroLabel}</AvOverline>
+            </div>
+            {/* KONZEPT: Instrument Serif statt Cinzel, zweite Zeile kursiv als Akzent. */}
+            <h1 className="mt-7 font-cinzel text-av-hero-serif leading-[0.9] font-normal tracking-[-0.02em]">
+              <span className="-mb-[0.12em] block overflow-y-clip pb-[0.12em]">
+                <span data-rvm="300" className="block">
+                  {av.aT1}
+                </span>
               </span>
-            </span>
-            <span className="-mb-[0.1em] block overflow-y-clip pb-[0.1em]">
-              <span data-rvm="430" className="block">
-                {av.aT2}
+              <span className="-mb-[0.12em] block overflow-y-clip pb-[0.12em]">
+                <span data-rvm="430" className="block italic">
+                  {av.aT2}
+                </span>
               </span>
-            </span>
-          </h1>
-          {/* Untertitel ohne Reveal: Chrome wertet das Vollbild-Foto nicht als LCP, sondern diesen
-              Text, und zählt ihn erst nach dem Einblenden (650 ms + 1,1 s). Sichtbar ab dem ersten
-              Paint liegt das LCP beim First Paint statt bei rund 3 s auf dem Handy. Die Buttons
-              blenden wie in der Referenz bei 650 ms ein. */}
-          <div className="mt-10 flex flex-wrap items-end justify-between gap-8">
-            <p className="max-w-[520px] text-[clamp(15px,1.2vw,17px)] leading-[1.7] text-pretty text-av-on-navy-hero">
+            </h1>
+            {/* Untertitel ohne Reveal (LCP, siehe Kommentar im Verlauf von main). */}
+            <p className="mt-8 max-w-[520px] text-[clamp(15px,1.2vw,17px)] leading-[1.7] text-pretty text-av-on-navy-hero">
               {av.sub}
             </p>
-            <div data-rv="650" className="pointer-events-auto flex flex-wrap gap-3 max-wide:hidden">
+            <div
+              data-rv="650"
+              className="pointer-events-auto mt-9 flex flex-wrap gap-3 max-wide:hidden"
+            >
               <AvButton href="#av-contact">{av.cta}</AvButton>
               <AvButton href="#av-services" variant="outlineCream">
                 {av.cta2}
               </AvButton>
             </div>
           </div>
+          <ReportTicker locale={locale} />
         </div>
       </div>
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 right-av-gutter flex -translate-y-1/2 flex-col items-center gap-4 text-av-gold"
+        className="pointer-events-none absolute top-1/2 right-av-gutter flex -translate-y-1/2 flex-col items-center gap-4 text-av-gold sec:hidden"
       >
         <span className="text-[10px] tracking-[0.34em] uppercase [writing-mode:vertical-rl]">
           {av.scroll}
@@ -92,5 +94,53 @@ export function Hero({ locale }: { locale: Locale }) {
         <span className="block h-14 w-px bg-current motion-safe:animate-[pf-cue_2.6s_var(--ease-cue)_infinite]" />
       </div>
     </HeroScene>
+  );
+}
+
+/** Beschriftung „Beispiel“ am Bericht im Hero (der Bericht ist ein Muster, aviation-meta.ts). */
+const SAMPLE: Record<Locale, string> = { de: "Beispiel", en: "Sample" };
+
+/**
+ * KONZEPT „Protokoll“: der Musterbericht als laufendes Protokoll im Hero (ab 980px). Die Punkte der
+ * Checkliste erscheinen nacheinander wie Zeitstempel (pf-tick); bei reduzierter Bewegung stehen alle
+ * sofort da (globale Regel in tokens.css). Daten aus aviation.json (rep), als Beispiel beschriftet.
+ */
+function ReportTicker({ locale }: { locale: Locale }) {
+  const rep = aviation[locale].rep;
+  return (
+    <div
+      aria-label={`${rep.title}, ${SAMPLE[locale]}`}
+      role="group"
+      className="w-[min(100%,360px)] border border-av-cream/18 bg-av-navy/55 p-5 backdrop-blur-[10px] max-sec:hidden"
+    >
+      <p className="flex justify-between gap-4 font-mono text-[10.5px] tracking-[0.08em] text-av-on-navy-muted uppercase">
+        <span>
+          {rep.title} · {SAMPLE[locale]}
+        </span>
+        <span>{rep.no}</span>
+      </p>
+      <p className="mt-2 font-mono text-[11px] tracking-[0.04em] text-av-on-navy uppercase">
+        {rep.rows[0].v} · {rep.rows[2].v}
+      </p>
+      <ol className="mt-4 border-t border-av-cream/14">
+        {rep.checks.map((c, i) => (
+          <li
+            key={c.k}
+            style={{ animationDelay: `${1400 + i * 650}ms` }}
+            className="flex items-center gap-3 border-b border-av-cream/10 py-2.5 font-mono text-[11px] tracking-[0.02em] text-av-cream motion-safe:animate-[pf-tick_0.7s_var(--ease-out)_both]"
+          >
+            <span aria-hidden="true" className="block size-1.5 flex-none bg-av-gold" />
+            <span className="min-w-0 flex-1 truncate">{c.k}</span>
+            <span className="text-av-on-navy-muted">{c.v} UTC</span>
+          </li>
+        ))}
+      </ol>
+      <p
+        style={{ animationDelay: `${1400 + rep.checks.length * 650}ms` }}
+        className="mt-3 font-mono text-[10.5px] tracking-[0.06em] text-av-gold uppercase motion-safe:animate-[pf-tick_0.7s_var(--ease-out)_both]"
+      >
+        {rep.notified}
+      </p>
+    </div>
   );
 }

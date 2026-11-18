@@ -14,10 +14,24 @@ export const mona = localFont({
   declarations: [{ prop: "font-stretch", value: "100% 125%" }],
 });
 
-/** Cinzel: Aviation-Überschriften, Wortmarke, Ziffern. Nur Gewicht 400, nie kursiv. */
-export const cinzel = localFont({
-  src: "./fonts/cinzel-latin-wght-normal.woff2",
-  variable: "--font-cinzel-face",
-  weight: "400 900",
+/**
+ * KONZEPT (Branch claude/concept-redesign): Instrument Serif ersetzt Cinzel als Aviation-Schrift
+ * (Überschriften, Zitate; Kursiv für Akzentwörter). Die Utility heißt weiter `font-cinzel`, damit die
+ * Aviation-Komponenten unverändert bleiben (globals.css).
+ */
+export const serif = localFont({
+  src: [
+    { path: "./fonts/instrument-serif-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/instrument-serif-latin-400-italic.woff2", weight: "400", style: "italic" },
+  ],
+  variable: "--font-serif-face",
+  display: "swap",
+});
+
+/** KONZEPT: Geist Mono für Daten und Etiketten (Preise, Dauer, Zeiten, ICAO), beide Marken. */
+export const mono = localFont({
+  src: "./fonts/geist-mono-latin-wght-normal.woff2",
+  variable: "--font-mono-face",
+  weight: "100 900",
   display: "swap",
 });

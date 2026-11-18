@@ -21,6 +21,9 @@ const NAV = [
  * Ab 980px Navigation, „PaintFix Aviation ↗“ und „Termin anfragen“. Darunter Textbutton „Menü“,
  * der ein Panel unter dem Header öffnet. Offenes Menü setzt html[data-menu="open"], damit die
  * mobile Aktionsleiste ausblendet.
+ *
+ * KONZEPT (Branch claude/concept-redesign): Auf der Startseite liegt der Header fest und transparent
+ * mit hellem Text über dem Hero und wird nach dem ersten Scrollen zu dunklem Glas.
  */
 export function CarHeader() {
   const pathname = usePathname();
@@ -29,6 +32,16 @@ export function CarHeader() {
   const open = openOn === pathname;
   const toggleRef = useRef<HTMLButtonElement>(null);
   const close = () => setOpenOn(null);
+  const home = pathname === "/";
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!home) return;
+    const update = () => setScrolled(window.scrollY > 24);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [home]);
 
   useEffect(() => {
     if (!open) return;
@@ -47,7 +60,19 @@ export function CarHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-car-line-ui bg-car-header-bg backdrop-blur-[16px] backdrop-saturate-160">
+    <header
+      className={cx(
+        "top-0 z-40 border-b",
+        home
+          ? cx(
+              "fixed inset-x-0 text-car-on-ink transition-[background-color,border-color] duration-500 [--focus:var(--car-on-ink)]",
+              scrolled || open
+                ? "border-car-ink-line bg-car-ink/85 backdrop-blur-[16px]"
+                : "border-transparent bg-transparent",
+            )
+          : "sticky border-car-line-ui bg-car-header-bg backdrop-blur-[16px] backdrop-saturate-160",
+      )}
+    >
       <div className="mx-auto flex h-car-header max-w-car items-center justify-between gap-6 px-car-gutter">
         <Link
           href="/"
@@ -71,7 +96,7 @@ export function CarHeader() {
                 aria-current={active ? "page" : undefined}
                 className={cx(
                   "border-b-[1.5px] py-1.5 transition-colors hover:text-car-red",
-                  active ? "border-car-ink" : "border-transparent",
+                  active ? "border-current" : "border-transparent",
                 )}
               >
                 {item.label}
@@ -81,8 +106,17 @@ export function CarHeader() {
         </nav>
 
         <div className="flex items-center gap-7">
-          <CarAviationLink arrowClassName="text-[12px]" className="max-wide:hidden" />
-          <CarButton href="/anfrage" size="header" className="leading-[normal] max-wide:hidden">
+          <CarAviationLink
+            tone={home ? "onInk" : "navy"}
+            arrowClassName="text-[12px]"
+            className="max-wide:hidden"
+          />
+          <CarButton
+            href="/anfrage"
+            size="header"
+            variant={home ? "light" : "primary"}
+            className="leading-[normal] max-wide:hidden"
+          >
             Termin anfragen
           </CarButton>
           <button
@@ -102,7 +136,7 @@ export function CarHeader() {
         id={MENU_ID}
         aria-label="Hauptnavigation"
         hidden={!open}
-        className="flex flex-col border-t border-car-line-ui bg-car-bg px-car-gutter pt-2 pb-6 leading-[normal] wide:hidden"
+        className="flex flex-col border-t border-car-line-ui bg-car-bg px-car-gutter pt-2 pb-6 leading-[normal] text-car-ink [--focus:var(--car-ink)] wide:hidden"
       >
         {NAV.map((item) => (
           <Link

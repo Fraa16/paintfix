@@ -12,7 +12,10 @@
  */
 @theme inline {
   --font-sans: var(--font-mona-face), system-ui, sans-serif;
-  --font-cinzel: var(--font-cinzel-face), serif;
+  /* KONZEPT: Aviation-Schrift ist Instrument Serif (app/fonts.ts); der Utility-Name bleibt. */
+  --font-cinzel: var(--font-serif-face), serif;
+  --font-serif: var(--font-serif-face), serif;
+  --font-mono: var(--font-mono-face), ui-monospace, monospace;
 
   /* Breakpoints der Referenz. Tailwinds Standardwerte sind abgeschaltet, damit nur diese gelten. */
   --breakpoint-*: initial;
@@ -103,6 +106,14 @@
   --text-car-list: var(--car-fs-list);
   --text-car-step-title: var(--car-fs-step-title);
   --text-car-price-xl: var(--car-fs-price-xl);
+  /* KONZEPT */
+  --text-car-display: var(--car-fs-display);
+  --text-car-statement: var(--car-fs-statement);
+  --text-car-section: var(--car-fs-section);
+  --text-car-tile: var(--car-fs-tile);
+  --text-car-step: var(--car-fs-step);
+  --text-car-address: var(--car-fs-address);
+  --text-av-hero-serif: var(--av-fs-hero-serif);
 
   /* Typografie Aviation (Cinzel 400) */
   --text-av-hero: var(--av-fs-hero);
@@ -246,5 +257,25 @@
     opacity: 0;
     scale: 1.7;
     rotate: -20deg;
+  }
+}
+
+/*
+ * KONZEPT: .pf-lit lässt Text beim Scrollen aufleuchten (Keyframes pf-lit in tokens.css). Nur mit
+ * Scroll-Timelines und erlaubter Bewegung; sonst ist der Text sofort voll sichtbar (Regel 7).
+ */
+@layer utilities {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .pf-lit {
+        animation: pf-lit linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 42%;
+      }
+    }
+  }
+  /* KONZEPT: Instrument Serif braucht keine Sperrung; die Laufweiten der Komponenten stammen von Cinzel. */
+  .font-cinzel {
+    letter-spacing: -0.012em;
   }
 }

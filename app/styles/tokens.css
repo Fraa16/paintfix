@@ -63,7 +63,7 @@
   --car-image-bg-alt: #e4e4e0; /* Bildfläche Standort beim Laden */
   --car-ba-haze: #e8e8e2; /* Schleier über dem Vorher-Bild (Vorher/Nachher-Regler) */
   --av-white: #ffffff; /* Hover Primärbutton Aviation (Creme auf Navy) */
-  --av-fs-h2-services-tabs: clamp(35.2px, 4.48vw, 73.6px); /* H2 Leistungen, Tab-Version */
+  --av-fs-h2-services-tabs: clamp(44px, 6vw, 100px); /* H2 Leistungen, Tab-Version */
   --car-footer-av-link: #d9d2c4; /* Link „PaintFix Aviation ↗“ im Fahrzeug-Footer */
   --av-image-bg: #dfd6c5; /* Bildfläche auf Sand und Creme beim Laden */
   --av-doc-back: #d9d1c1; /* hinteres Blatt des Dokument-Covers */
@@ -99,15 +99,29 @@
   --av-display-weight: 400;
   --av-text-weight: 350;
   --av-fs-hero: clamp(41.6px, 5.92vw, 99.2px);
-  --av-fs-expand: clamp(32px, 4.32vw, 73.6px);
-  --av-fs-h2-services: clamp(38.4px, 4.32vw, 73.6px);
-  --av-fs-h2: clamp(32px, 3.84vw, 60.8px);
-  --av-fs-h2-fleet: clamp(32px, 3.52vw, 54.4px);
-  --av-fs-h2-form: clamp(35.2px, 4.48vw, 73.6px);
-  --av-fs-h3-docs: clamp(25.6px, 2.72vw, 41.6px);
-  --av-fs-cat-title: clamp(24px, 2.24vw, 35.2px);
-  --av-fs-item-title: clamp(16.8px, 1.44vw, 21.6px);
+  --av-fs-expand: clamp(40px, 5.8vw, 100px); /* KONZEPT: größer für Instrument Serif */
+  --av-fs-h2-services: clamp(44px, 6vw, 104px);
+  --av-fs-h2: clamp(40px, 5.2vw, 88px);
+  --av-fs-h2-fleet: clamp(40px, 4.8vw, 80px);
+  --av-fs-h2-form: clamp(44px, 6vw, 100px);
+  --av-fs-h3-docs: clamp(30px, 3.6vw, 56px);
+  --av-fs-cat-title: clamp(30px, 3vw, 48px);
+  --av-fs-item-title: clamp(20px, 1.8vw, 27px);
   --av-fs-wordmark: clamp(38.4px, 6.4vw, 108.8px);
+
+  /* ---------- KONZEPT (Branch claude/concept-redesign) ----------
+     Neue Typo-Rollen für die Startseiten im Konzept: Mona Sans 600 bei Breite 100 statt 700/125,
+     große Größenkontraste, Geist Mono für Daten. Farben bleiben die bestehenden Tokens. */
+  --car-fs-display: clamp(40px, 16.2cqi, 232px); /* Hero-H1, Container = Hero-Textblock */
+  --car-fs-statement: clamp(26px, 3.4vw, 56px);
+  --car-fs-section: clamp(36px, 5.4vw, 92px);
+  --car-fs-tile: clamp(28px, 2.9vw, 46px);
+  --car-fs-step: clamp(30px, 4.4vw, 72px);
+  --car-fs-address: clamp(48px, 8.6vw, 148px);
+  --av-fs-hero-serif: clamp(52px, 8.4vw, 150px); /* Aviation-H1 in Instrument Serif */
+  --shadow-light:
+    0 0 14px 1px color-mix(in srgb, var(--car-on-ink) 70%, transparent),
+    0 0 72px 14px color-mix(in srgb, var(--car-on-ink) 20%, transparent); /* Lichtkante im Hero */
 
   /* ---------- Schatten ---------- */
   --shadow-float: 0 40px 80px -40px rgba(12, 13, 15, 0.5); /* Hover-Bild Leistungsliste */
@@ -130,6 +144,25 @@
   --dur-hero-zoom: 3.2s;
 }
 
+/* KONZEPT: Text „leuchtet auf“, während er durch den Viewport scrollt (animation-timeline: view()). */
+@keyframes pf-lit {
+  from {
+    opacity: 0.18;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pf-tick {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 @keyframes pf-dot {
   0%,
   100% {

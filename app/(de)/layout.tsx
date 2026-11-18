@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "../globals.css";
-import { cinzel, mona } from "../fonts";
+import { mona, mono, serif } from "../fonts";
 import { siteUrl } from "@/lib/site-url";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
 import { Reveals } from "@/components/shared/motion/Reveals";
@@ -24,7 +24,7 @@ export default function GermanRootLayout({ children }: { children: ReactNode }) 
       lang="de"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${mona.variable} ${cinzel.variable}`}
+      className={`${mona.variable} ${serif.variable} ${mono.variable}`}
     >
       <body>
         {/* Vor dem ersten Paint: Bewegung erlaubt? Curtain-Übergabe? (boot.ts) */}
