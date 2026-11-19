@@ -126,7 +126,7 @@ export function ServiceEntry({
           </div>
           {caption && <figcaption className={cx(mono, "text-car-muted")}>{caption}</figcaption>}
         </figure>
-        <div className="flex flex-col wide:col-span-5">
+        <div className="@container flex flex-col wide:col-span-5">
           <p className={cx(mono, "flex justify-between gap-4 text-car-muted")}>
             <span>{counter}</span>
             <span>Dauer {s.dur}</span>
@@ -134,7 +134,7 @@ export function ServiceEntry({
           <h2
             id={titleId}
             data-rv="0"
-            className="mt-6 text-[clamp(32px,3.6vw,58px)] leading-[0.95] font-semibold tracking-[-0.035em] text-balance"
+            className="mt-6 text-[clamp(28px,10cqi,56px)] leading-[0.95] font-semibold tracking-[-0.035em] text-balance"
           >
             {title ?? s.name}
           </h2>

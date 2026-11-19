@@ -66,6 +66,7 @@ export function SectionHead({
   title,
   id,
   tone = "ink",
+  size = "lg",
   className,
 }: {
   no?: string;
@@ -73,12 +74,23 @@ export function SectionHead({
   title: ReactNode;
   id: string;
   tone?: Tone;
+  /** lg: Abschnitt über die volle Breite; md: Kopf einer halben Spalte (z. B. FAQ). */
+  size?: "lg" | "md";
   className?: string;
 }) {
   return (
     <div className={className}>
       <SectionRule no={no} label={label} tone={tone} />
-      <h2 id={id} data-rv="0" className={cx(conceptH2, "mt-[clamp(28px,4vw,56px)] max-w-[16ch]")}>
+      <h2
+        id={id}
+        data-rv="0"
+        className={cx(
+          size === "lg"
+            ? conceptH2
+            : "text-[clamp(34px,4.4vw,64px)] leading-[0.98] font-semibold tracking-[-0.03em] text-balance",
+          "mt-[clamp(28px,4vw,56px)] max-w-[16ch]",
+        )}
+      >
         {title}
       </h2>
     </div>

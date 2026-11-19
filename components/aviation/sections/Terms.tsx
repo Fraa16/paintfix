@@ -129,7 +129,7 @@ export function Terms({ locale }: { locale: Locale }) {
                     key={r.k}
                     className="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-3 border-t border-av-navy/12 py-3"
                   >
-                    <dt className="pt-[3px] text-[10px] tracking-[0.2em] text-av-muted uppercase">
+                    <dt className="pt-[3px] text-[10px] tracking-[0.12em] [overflow-wrap:anywhere] text-av-muted uppercase wide:tracking-[0.2em]">
                       {r.k}
                     </dt>
                     <dd className="text-[14px] leading-[1.5]">{r.v[i]}</dd>

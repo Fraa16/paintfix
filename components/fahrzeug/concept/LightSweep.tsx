@@ -154,11 +154,11 @@ export function LightSweep() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-y-0 left-(--x) w-px -translate-x-1/2 bg-car-on-ink shadow-(--shadow-light)"
       >
-        <span className="absolute top-[42%] left-1/2 block size-3 -translate-x-1/2 bg-car-on-ink outline-offset-4 group-has-[input:focus-visible]/sweep:outline-2 group-has-[input:focus-visible]/sweep:outline-car-on-ink" />
-        <span className="absolute top-[calc(42%-28px)] right-3 font-mono text-[11px] leading-none tracking-[0.06em] whitespace-nowrap text-car-on-ink uppercase">
+        <span className="absolute top-[28%] left-1/2 block size-3 -translate-x-1/2 bg-car-on-ink outline-offset-4 group-has-[input:focus-visible]/sweep:outline-2 group-has-[input:focus-visible]/sweep:outline-car-on-ink wide:top-[42%]" />
+        <span className="absolute top-[calc(28%-28px)] right-3 font-mono text-[11px] leading-none tracking-[0.06em] whitespace-nowrap text-car-on-ink uppercase wide:top-[calc(42%-28px)]">
           Nachher
         </span>
-        <span className="absolute top-[calc(42%-28px)] left-3 font-mono text-[11px] leading-none tracking-[0.06em] whitespace-nowrap text-car-on-ink uppercase">
+        <span className="absolute top-[calc(28%-28px)] left-3 font-mono text-[11px] leading-none tracking-[0.06em] whitespace-nowrap text-car-on-ink uppercase wide:top-[calc(42%-28px)]">
           Vorher
         </span>
       </div>

@@ -40,7 +40,7 @@ export function CarFooter() {
   return (
     <footer className="bg-car-ink leading-[normal] text-car-on-ink [--focus:var(--car-on-ink)]">
       <div className="mx-auto max-w-car px-car-gutter pt-[clamp(56px,6vw,80px)] pb-10">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-x-8 gap-y-10">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-x-8 gap-y-10">
           <div className="flex flex-col items-start gap-5">
             <Link href="/" aria-label="PaintFix Startseite">
               <CarLogo />

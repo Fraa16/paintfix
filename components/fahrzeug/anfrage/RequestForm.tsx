@@ -387,8 +387,13 @@ export function RequestForm({
                 optionClassName="flex h-[54px] items-center px-1.5 text-[14px] font-semibold"
                 options={REQUEST_TIMES.map((label, i) => ({
                   value: i as TimeIndex,
-                  // Zentriert wie ein Button: zu langer Text läuft nach rechts über, nicht zu beiden Seiten.
-                  content: <span className="w-full text-center">{label}</span>,
+                  // Zentriert wie ein Button. Weicher Trennstrich vor „mittag“: in schmalen Feldern
+                  // (ca. 1024px) bricht „Nach-mittag“ um, statt überzulaufen.
+                  content: (
+                    <span className="w-full text-center">
+                      {label.replace(/mittag$/, "\u00ADmittag")}
+                    </span>
+                  ),
                 }))}
               />
             </div>
