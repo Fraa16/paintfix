@@ -5,7 +5,8 @@ import { useEffect, useRef, type ChangeEvent, type CSSProperties } from "react";
 import { altText, media } from "@/content/media";
 import { useMotionAllowed } from "@/components/shared/motion/scroll";
 
-const START = 50;
+/** Startposition der Kante: 70 % des Bildes zeigen den polierten Lack (Nachher). */
+const START = 70;
 const valueText = (n: number) => `Nachher ${n} %, Vorher ${100 - n} %`;
 
 type Sweep = { x: number; y: number; tx: number; ty: number; touched: boolean; raf: number };
@@ -37,8 +38,8 @@ function sync(range: HTMLInputElement | null, value: number) {
  *   Maus (pointer: fine)  die Kante folgt dem Zeiger über den ganzen Abschnitt, weich nachgezogen
  *   Touch                 waagerecht ziehen (senkrechtes Scrollen bleibt frei, touch-action: pan-y)
  *   Tastatur              natives <input type="range"> (←/→, Bild auf/ab, Pos1/Ende), Fokus sichtbar
- *   ohne Eingabe          langsames Hin- und Herschwenken, nur mit erlaubter Bewegung
- *   reduzierte Bewegung   steht bei 50 %, folgt Eingaben ohne Nachziehen (Regel 7)
+ *   ohne Eingabe          langsames Schwenken zwischen 58 und 82 %, nur mit erlaubter Bewegung
+ *   reduzierte Bewegung   steht bei 70 %, folgt Eingaben ohne Nachziehen (Regel 7)
  * Geschrieben werden nur CSS-Variablen am Wurzelelement (--x, --y) und der Wert des Reglers.
  * Platzhalter: KI-Bildpaar (media.ts), vor dem Launch durch ein echtes Fotopaar ersetzen (UWG § 5).
  */
@@ -65,7 +66,7 @@ export function LightSweep() {
     const frame = (now: number) => {
       if (!t0) t0 = now;
       if (!s.touched) {
-        s.tx = START + 15 * Math.sin((now - t0) / 2600);
+        s.tx = START + 12 * Math.sin((now - t0) / 2600);
         s.ty = 40;
       }
       s.x += (s.tx - s.x) * 0.09;

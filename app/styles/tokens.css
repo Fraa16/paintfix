@@ -112,7 +112,7 @@
   /* ---------- Redesign 11/2026 „Licht auf Lack“ ----------
      Typo-Rollen der Seiten: Mona Sans 600 bei Breite 100 statt 700/125,
      große Größenkontraste, Geist Mono für Daten. Farben bleiben die bestehenden Tokens. */
-  --car-fs-display: clamp(40px, 16.2cqi, 232px); /* Hero-H1, Container = Hero-Textblock */
+  --car-fs-display: clamp(44px, 9.6cqi, 150px); /* Hero-H1, Container = Hero-Textblock */
   --car-fs-statement: clamp(26px, 3.4vw, 56px);
   --car-fs-section: clamp(36px, 5.4vw, 92px);
   --car-fs-tile: clamp(28px, 2.9vw, 46px);

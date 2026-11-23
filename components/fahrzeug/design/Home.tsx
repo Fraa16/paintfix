@@ -41,7 +41,10 @@ export const STEPS: ReadonlyArray<Step> = [
   },
 ];
 
-/** Hero: Lichtkante über das ganze Bild, H1 unten über die volle Breite. */
+/**
+ * Hero: Lichtkante über das ganze Bild. Text unten links auf etwa halber Breite, damit das Bild
+ * wirkt (Kundenwunsch 11/2026); Verläufe nur oben für den Header und hinter dem Text.
+ */
 export function ConceptHero() {
   return (
     <section
@@ -51,7 +54,12 @@ export function ConceptHero() {
       <LightSweep />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--car-ink)_72%,transparent)_0%,transparent_24%,transparent_42%,color-mix(in_srgb,var(--car-ink)_92%,transparent)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--car-ink)_55%,transparent)_0%,transparent_16%,transparent_52%,color-mix(in_srgb,var(--car-ink)_82%,transparent)_100%)]"
+      />
+      {/* Auf breiten Bildschirmen zusätzlich ein weicher Schatten links unten hinter dem Text. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 max-wide:hidden bg-[radial-gradient(ellipse_60%_55%_at_0%_100%,color-mix(in_srgb,var(--car-ink)_70%,transparent)_0%,transparent_100%)]"
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-0">
         <div className="mx-auto max-w-car px-car-gutter pb-[clamp(24px,4.5vh,56px)]">
@@ -79,9 +87,9 @@ export function ConceptHero() {
           </div>
           <div
             data-rv="360"
-            className="mt-[clamp(20px,3vh,36px)] flex flex-wrap items-end justify-between gap-x-10 gap-y-6 border-t border-car-on-ink/20 pt-6"
+            className="mt-[clamp(20px,3vh,32px)] flex flex-wrap items-end justify-between gap-x-10 gap-y-6"
           >
-            <p className="max-w-[520px] text-[clamp(15px,1.15vw,17px)] leading-[1.6] text-pretty text-car-on-ink-soft">
+            <p className="max-w-[460px] text-[clamp(15px,1.1vw,17px)] leading-[1.6] text-pretty text-car-on-ink-soft">
               Smart Repair, Lackkorrektur, Vorbereitung auf die Leasingrückgabe und hochwertige
               Aufbereitung, in unserer Halle in Telgte. Nach einer kostenlosen Begutachtung kennen
               Sie den Festpreis, bevor wir beginnen.
