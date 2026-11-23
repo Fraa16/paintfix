@@ -9,7 +9,7 @@ import { cx } from "@/lib/cx";
 import { eur } from "@/lib/format";
 
 /*
- * KONZEPT „Licht auf Lack“ (Branch claude/concept-redesign): gemeinsame Bausteine der Fahrzeugseiten.
+ * Design „Licht auf Lack“ (Redesign 11/2026): gemeinsame Bausteine der Fahrzeugseiten.
  * Dunkle Bühnen (Hero, Aussagen, Bilder) im Wechsel mit hellen Informationsflächen (Preise, Ablauf,
  * FAQ). Überschriften Mona Sans 600 bei Breite 100, Daten und Abschnittsnummern in Geist Mono.
  */
@@ -26,7 +26,7 @@ export function Mono({ children, className }: { children: ReactNode; className?:
 }
 
 /** Große Abschnitts-H2 (Mona Sans 600, Breite 100). */
-export const conceptH2 =
+export const sectionH2 =
   "text-car-section leading-[0.95] font-semibold tracking-[-0.035em] text-balance";
 
 export type Tone = "ink" | "light";
@@ -86,7 +86,7 @@ export function SectionHead({
         data-rv="0"
         className={cx(
           size === "lg"
-            ? conceptH2
+            ? sectionH2
             : "text-[clamp(34px,4.4vw,64px)] leading-[0.98] font-semibold tracking-[-0.03em] text-balance",
           "mt-[clamp(28px,4vw,56px)] max-w-[16ch]",
         )}
@@ -196,10 +196,10 @@ export function ProcessRows({ steps }: { steps: ReadonlyArray<{ title: string; t
       {steps.map((s, i) => (
         <li
           key={s.title}
-          className="pf-lit grid grid-cols-[48px_1fr] gap-x-6 gap-y-3 border-b border-car-line py-[clamp(24px,3.2vw,44px)] wide:grid-cols-[120px_minmax(0,1.1fr)_minmax(0,1fr)] wide:items-baseline"
+          className="grid grid-cols-[48px_1fr] gap-x-6 gap-y-3 border-b border-car-line py-[clamp(24px,3.2vw,44px)] wide:grid-cols-[120px_minmax(0,1.1fr)_minmax(0,1fr)] wide:items-baseline"
         >
           <Mono className="pt-2 text-car-muted">{String(i + 1).padStart(2, "0")}</Mono>
-          <h3 className="text-car-step leading-none font-semibold tracking-[-0.035em]">
+          <h3 className="pf-lit text-car-step leading-none font-semibold tracking-[-0.035em]">
             {s.title}
           </h3>
           <p className="col-start-2 max-w-[460px] text-[16px] leading-[1.6] text-car-text wide:col-start-3">

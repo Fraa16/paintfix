@@ -1,12 +1,11 @@
-import { CarBreadcrumb } from "@/components/fahrzeug/Breadcrumb";
 import type { ReactNode } from "react";
-import { CarOverline } from "@/components/fahrzeug/Overline";
+import { PageStage, SectionRule } from "@/components/fahrzeug/design/ui";
 import { CarFacts, carContactRows } from "@/components/fahrzeug/Facts";
 import { site } from "@/content/site";
 
 /**
- * Rechtliche Seiten im Fahrzeug-Stil. Kopf wie auf der Leistungsseite (Referenz Zeilen 265–274):
- * Fläche --car-surface, Brotkrumen „Start / Titel“, H1 und Einleitung zweispaltig.
+ * Rechtliche Seiten im Fahrzeug-Stil: Seitenkopf auf Schwarz wie die übrigen Seiten (PageStage),
+ * darunter der Inhalt auf Weiß.
  */
 export function LegalPage({
   title,
@@ -19,17 +18,15 @@ export function LegalPage({
 }) {
   return (
     <main id="inhalt" tabIndex={-1} className="focus:outline-none">
-      <section className="bg-car-surface">
-        <div className="mx-auto max-w-car px-car-gutter pt-[clamp(48px,6vw,88px)] pb-[clamp(56px,7vw,96px)]">
-          <CarBreadcrumb current={title} />
-          <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] items-end gap-x-16 gap-y-7">
-            <h1 className="text-car-h1 leading-[0.94] font-bold tracking-[-0.0175em] text-balance font-stretch-125%">
-              {title}
-            </h1>
-            <p className="max-w-[520px] text-lg leading-[1.6] text-pretty text-car-text">{lead}</p>
-          </div>
-        </div>
-      </section>
+      <PageStage
+        current={title}
+        title={title}
+        aside={
+          <p className="max-w-[520px] text-[17px] leading-[1.6] text-pretty text-car-on-ink-soft">
+            {lead}
+          </p>
+        }
+      />
       <section className="bg-car-bg">
         <div className="mx-auto max-w-car px-car-gutter pt-[clamp(48px,6vw,88px)] pb-[clamp(64px,8vw,112px)]">
           {children}
@@ -43,7 +40,7 @@ export function LegalPage({
 export function LegalNote({ title, children }: { title: string; children: ReactNode }) {
   return (
     <aside className="border border-car-line p-[clamp(24px,3vw,40px)]">
-      <CarOverline>{title}</CarOverline>
+      <p className="font-mono text-[11px] tracking-[0.06em] text-car-muted uppercase">{title}</p>
       <div className="mt-5 flex max-w-[560px] flex-col gap-4 text-base leading-[1.6] text-car-text">
         {children}
       </div>
@@ -66,7 +63,7 @@ export function LegalContact({ title, children }: { title: string; children: Rea
     <LegalGrid>
       <LegalNote title={title}>{children}</LegalNote>
       <div>
-        <CarOverline>Kontakt</CarOverline>
+        <SectionRule tone="light" label="Kontakt" />
         <CarFacts
           className="mt-8"
           rows={[

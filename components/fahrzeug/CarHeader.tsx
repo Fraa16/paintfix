@@ -22,7 +22,7 @@ const NAV = [
  * der ein Panel unter dem Header öffnet. Offenes Menü setzt html[data-menu="open"], damit die
  * mobile Aktionsleiste ausblendet.
  *
- * KONZEPT (Branch claude/concept-redesign): dunkles Glas mit hellem Text auf allen Fahrzeugseiten. Auf
+ * Dunkles Glas mit hellem Text auf allen Fahrzeugseiten. Auf
  * der Startseite liegt er fest und transparent über dem Hero und wird nach dem ersten Scrollen dunkel.
  */
 export function CarHeader() {
@@ -140,7 +140,7 @@ export function CarHeader() {
             href={item.href}
             aria-current={item.href === pathname ? "page" : undefined}
             onClick={close}
-            className="border-b border-car-line-soft py-[18px] text-[20px] font-semibold font-stretch-110%"
+            className="border-b border-car-line-soft py-[18px] text-[22px] font-semibold tracking-[-0.02em]"
           >
             {item.label}
           </Link>

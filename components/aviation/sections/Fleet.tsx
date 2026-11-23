@@ -20,7 +20,7 @@ export function Fleet({ locale }: { locale: Locale }) {
           <h2
             id="av-fleet-title"
             data-rv="80"
-            className="mt-7 max-w-[14ch] font-cinzel text-av-h2-fleet leading-[1.04] font-normal tracking-[0.02em] text-balance"
+            className="mt-7 max-w-[14ch] font-serif text-av-h2-fleet leading-[1.04] font-normal tracking-[0.02em] text-balance"
           >
             {t.fleetTitle}
           </h2>
@@ -31,7 +31,7 @@ export function Fleet({ locale }: { locale: Locale }) {
                 className="grid grid-cols-[minmax(120px,0.4fr)_1fr] gap-x-6 gap-y-2 border-t border-av-line-strong py-[22px]"
               >
                 <dt className="pt-1 text-[11px] tracking-[0.24em] uppercase">{m.c}</dt>
-                <dd className="font-cinzel text-[15.2px] leading-[1.45] font-normal">{m.m}</dd>
+                <dd className="font-mono text-[13px] leading-[1.6] tracking-[0.01em]">{m.m}</dd>
               </div>
             ))}
           </dl>

@@ -24,7 +24,7 @@ export function AvFaqAccordion({ entries }: { entries: ReadonlyArray<FaqEntry> }
                 aria-expanded={isOpen}
                 aria-controls={`${id}-a-${i}`}
                 onClick={() => setOpen(isOpen ? -1 : i)}
-                className="flex w-full items-center justify-between gap-6 py-6 text-left font-cinzel text-[clamp(18px,1.6vw,21px)] leading-[1.3] font-normal transition-colors hover:text-av-gold-text"
+                className="flex w-full items-center justify-between gap-6 py-6 text-left font-serif text-[clamp(18px,1.6vw,21px)] leading-[1.3] font-normal transition-colors hover:text-av-gold-text"
               >
                 <span>{entry.q}</span>
                 <span

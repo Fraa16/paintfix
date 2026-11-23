@@ -6,7 +6,7 @@ export type Crumb = { href: string; label: string };
 /**
  * Brotkrumen „Start / … / {current}“ im Seitenkopf (README 8.2 und 8.3, Referenz Zeilen 266 und 371).
  * `trail` sind die Ebenen zwischen Start und der aktuellen Seite (z. B. Leistungen).
- * KONZEPT: in Geist Mono; `tone="onInk"` auf den dunklen Seitenköpfen.
+ * In Geist Mono; `tone="onInk"` auf den dunklen Seitenköpfen.
  */
 export function CarBreadcrumb({
   current,

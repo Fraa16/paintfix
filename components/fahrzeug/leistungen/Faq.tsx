@@ -1,5 +1,5 @@
 import type { FaqEntry } from "@/content/fahrzeug";
-import { SectionHead } from "@/components/fahrzeug/concept/ui";
+import { SectionHead } from "@/components/fahrzeug/design/ui";
 import { FaqAccordion } from "./FaqAccordion";
 
 /**

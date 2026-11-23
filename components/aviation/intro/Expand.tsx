@@ -33,7 +33,7 @@ export function Expand({ locale }: { locale: Locale }) {
           className="absolute inset-x-0 top-[calc(var(--av-header-h)+7vh)] flex flex-col items-center gap-[22px] px-6 text-center text-av-cream"
         >
           <p className="text-[11px] tracking-[0.34em] text-av-gold uppercase">{av.expLabel}</p>
-          <p className="font-cinzel text-av-expand leading-[1.04] font-normal tracking-[0.02em]">
+          <p className="font-serif text-av-expand leading-[1.04] font-normal tracking-[0.02em]">
             {av.expT1}
             <br />
             {av.expT2}

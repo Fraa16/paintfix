@@ -36,7 +36,7 @@ export function RequestThanks({
           ref={headingRef}
           tabIndex={-1}
           data-rv="0"
-          className="mt-7 text-car-h2-success leading-[1.02] font-bold tracking-[-0.015em] font-stretch-125% focus:outline-none"
+          className="mt-7 text-car-h2-success leading-[1.02] font-semibold tracking-[-0.035em] focus:outline-none"
         >
           Danke{firstName ? `, ${firstName}` : ""}.
         </h2>

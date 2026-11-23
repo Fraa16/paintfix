@@ -2,6 +2,12 @@
 
 Stand: 9. Oktober 2026 · Referenz: `reference/Paintfix Website v4.dc.html`
 
+> **Hinweis (November 2026):** Das Redesign „Licht auf Lack“ ersetzt Typografie, Seitenköpfe und
+> Layout dieses Handoffs (Fahrzeug: Mona Sans 600 bei Breite 100, dunkle Seitenköpfe, Lichtkante im
+> Hero; Aviation: Instrument Serif statt Cinzel; Daten in Geist Mono). Maßgeblich dafür sind
+> `CLAUDE.md` und `components/fahrzeug/design/`. Farben, Inhalte, Verhalten, Formulare und
+> Barrierefreiheit aus diesem Dokument gelten weiter, soweit das Redesign nichts anderes festlegt.
+
 ---
 
 ## 1. Überblick

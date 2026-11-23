@@ -6,7 +6,7 @@ import { eur } from "@/lib/format";
 import { Mono, PageStage } from "./ui";
 
 /**
- * KONZEPT: Seitenkopf /leistungen auf Schwarz. Links die Einleitung (README 8.2 Punkt 1), rechts ein
+ * Seitenkopf /leistungen auf Schwarz. Links die Einleitung (README 8.2 Punkt 1), rechts ein
  * Verzeichnis aller Leistungen mit Kleinwagenpreis, als Sprungmarken zu #svc-{id}.
  */
 export function LeistungenStage() {

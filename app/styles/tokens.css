@@ -1,12 +1,12 @@
 /* PaintFix Design Tokens · Stand 09.10.2026
    Produktionskopie von design/handoff/tokens/tokens.css. Abweichung: Schriften kommen aus next/font
-   (app/fonts.ts), die Font-Variablen heißen deshalb --font-mona-face und --font-cinzel-face.
+   (app/fonts.ts), die Font-Variablen heißen deshalb --font-mona-face und --font-serif-face.
    Quelle: README.md, Abschnitt 7. Alle Werte entsprechen der Referenz "PaintFix Website v4".
    Tailwind v4: dieselben Variablen zusätzlich in @theme spiegeln (README 7.8). */
 
 :root {
   /* ---------- Schriften ---------- */
-  /* Schriften: --font-mona-face und --font-cinzel-face setzt next/font am <html>. */
+  /* Schriften: --font-mona-face und --font-serif-face setzt next/font am <html>. */
 
   /* ---------- Fahrzeug · Farben ---------- */
   --car-bg: #ffffff;
@@ -99,7 +99,7 @@
   --av-display-weight: 400;
   --av-text-weight: 350;
   --av-fs-hero: clamp(41.6px, 5.92vw, 99.2px);
-  --av-fs-expand: clamp(40px, 5.8vw, 100px); /* KONZEPT: größer für Instrument Serif */
+  --av-fs-expand: clamp(40px, 5.8vw, 100px); /* größer für Instrument Serif (Redesign 11/2026) */
   --av-fs-h2-services: clamp(44px, 6vw, 104px);
   --av-fs-h2: clamp(40px, 5.2vw, 88px);
   --av-fs-h2-fleet: clamp(40px, 4.8vw, 80px);
@@ -109,8 +109,8 @@
   --av-fs-item-title: clamp(20px, 1.8vw, 27px);
   --av-fs-wordmark: clamp(38.4px, 6.4vw, 108.8px);
 
-  /* ---------- KONZEPT (Branch claude/concept-redesign) ----------
-     Neue Typo-Rollen für die Startseiten im Konzept: Mona Sans 600 bei Breite 100 statt 700/125,
+  /* ---------- Redesign 11/2026 „Licht auf Lack“ ----------
+     Typo-Rollen der Seiten: Mona Sans 600 bei Breite 100 statt 700/125,
      große Größenkontraste, Geist Mono für Daten. Farben bleiben die bestehenden Tokens. */
   --car-fs-display: clamp(40px, 16.2cqi, 232px); /* Hero-H1, Container = Hero-Textblock */
   --car-fs-statement: clamp(26px, 3.4vw, 56px);
@@ -144,10 +144,12 @@
   --dur-hero-zoom: 3.2s;
 }
 
-/* KONZEPT: Text „leuchtet auf“, während er durch den Viewport scrollt (animation-timeline: view()). */
+/* Große Überschriften „leuchten auf“, während sie durch den Viewport scrollen (animation-timeline:
+   view()). Start bei 50 %: große Schrift erreicht so mindestens 3:1 (WCAG 1.4.3), auf Weiß 3,7:1,
+   auf Schwarz 4,9:1. Nur für Text ab 24px verwenden, Fließtext nie abdunkeln (Regel 9). */
 @keyframes pf-lit {
   from {
-    opacity: 0.18;
+    opacity: 0.5;
   }
   to {
     opacity: 1;

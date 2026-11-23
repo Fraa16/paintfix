@@ -15,8 +15,8 @@ export const mona = localFont({
 });
 
 /**
- * KONZEPT (Branch claude/concept-redesign): Instrument Serif ersetzt Cinzel als Aviation-Schrift
- * (Überschriften, Zitate; Kursiv für Akzentwörter). Die Utility heißt weiter `font-cinzel`, damit die
+ * Instrument Serif: Aviation-Überschriften (Redesign 11/2026, ersetzt Cinzel)
+ * (Überschriften, Zitate; Kursiv für Akzentwörter). Die Utility heißt weiter `font-serif`, damit die
  * Aviation-Komponenten unverändert bleiben (globals.css).
  */
 export const serif = localFont({
@@ -28,7 +28,7 @@ export const serif = localFont({
   display: "swap",
 });
 
-/** KONZEPT: Geist Mono für Daten und Etiketten (Preise, Dauer, Zeiten, ICAO), beide Marken. */
+/** Geist Mono für Daten und Etiketten (Preise, Dauer, Zeiten, ICAO), beide Marken. */
 export const mono = localFont({
   src: "./fonts/geist-mono-latin-wght-normal.woff2",
   variable: "--font-mono-face",

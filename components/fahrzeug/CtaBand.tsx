@@ -1,11 +1,11 @@
 import { CarButton } from "@/components/fahrzeug/Button";
-import { Mono, SectionRule } from "@/components/fahrzeug/concept/ui";
+import { Mono, SectionRule } from "@/components/fahrzeug/design/ui";
 import { site } from "@/content/site";
 
 /**
  * CTA Fahrzeug (README 8.5), auf der Leistungsseite und den Seiten je Leistung. Schwarze Fläche über
  * die volle Breite, direkt darunter der Footer. `href` belegt die Anfrage mit der Leistung vor.
- * KONZEPT: H2 als große Typografie über die Breite, Daten in Mono.
+ * H2 als große Typografie über die Breite, Daten in Mono.
  */
 export function CtaBand({ href = "/anfrage" }: { href?: string }) {
   return (

@@ -92,7 +92,7 @@ export function ServiceTabs({
                   on ? "border-av-navy text-av-navy" : "border-transparent text-av-muted",
                 )}
               >
-                <span className="font-cinzel text-[11.2px] font-normal">0{i + 1}</span>
+                <span className="font-serif text-[11.2px] font-normal">0{i + 1}</span>
                 <span className="text-[12px] tracking-[0.24em] uppercase">{t.label}</span>
               </button>
             );
@@ -124,11 +124,11 @@ export function ServiceTabs({
                 key={x.t}
                 className="grid grid-cols-[56px_1fr] gap-x-4 gap-y-2 border-t border-av-line-strong py-8"
               >
-                <span className="pt-2 font-cinzel text-[12.8px] font-normal text-av-gold-text">
+                <span className="pt-2 font-serif text-[12.8px] font-normal text-av-gold-text">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="font-cinzel text-[clamp(20.8px,1.92vw,27.2px)] leading-[1.15] font-normal">
+                  <h3 className="font-serif text-[clamp(20.8px,1.92vw,27.2px)] leading-[1.15] font-normal">
                     {x.t}
                   </h3>
                   <p className="mt-3 max-w-[480px] text-base leading-[1.7] text-av-muted">{x.d}</p>

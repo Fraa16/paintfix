@@ -94,7 +94,7 @@ export function DocsForm({ locale, copy: t }: { locale: Locale; copy: DocsCopy }
         <p
           ref={doneRef}
           tabIndex={-1}
-          className="font-cinzel text-[clamp(22.4px,2.08vw,30.4px)] leading-[1.1] font-normal"
+          className="font-serif text-[clamp(22.4px,2.08vw,30.4px)] leading-[1.1] font-normal"
         >
           {t.docsDone}
         </p>

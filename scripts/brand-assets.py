@@ -17,7 +17,9 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent.parent
 FONTS = ROOT / "app/fonts"
 MONA = str(FONTS / "mona-sans-latin-wdth-normal.woff2")
-CINZEL = str(FONTS / "cinzel-latin-wght-normal.woff2")
+SERIF = str(FONTS / "instrument-serif-latin-400-normal.woff2")
+SERIF_ITALIC = str(FONTS / "instrument-serif-latin-400-italic.woff2")
+MONO = str(FONTS / "geist-mono-latin-wght-normal.woff2")
 
 # Tokens (app/styles/tokens.css)
 CAR_BG, CAR_INK, CAR_RED = "#ffffff", "#0c0d0f", "#c8322a"
@@ -33,9 +35,13 @@ def mona(size, wght=700, wdth=125):
     return f
 
 
-def cinzel(size):
-    f = ImageFont.truetype(CINZEL, size)
-    f.set_variation_by_axes([400])
+def serif(size, italic=False):
+    return ImageFont.truetype(SERIF_ITALIC if italic else SERIF, size)
+
+
+def mono(size, wght=400):
+    f = ImageFont.truetype(MONO, size)
+    f.set_variation_by_axes([wght])
     return f
 
 
@@ -106,16 +112,23 @@ def logo(draw, x, base, size, color, accent, division):
     tracked(draw, (x, base - 0.5 * (cap - 0.59 * cap)), division.upper(), mona(round(0.59 * size), 500, 100), color, 0.3 * 0.59 * size)
 
 
+def headline_car(d, lines, max_size, W, P):
+    """Headline Fahrzeug wie auf der Website: Mona Sans 600, Breite 100, Laufweite -0.045em."""
+    h, size = fit(lambda s: mona(s, 600, 100), lines, max_size, W - 2 * P)
+    t = -0.045 * size
+    step = round(0.9 * size)
+    base = 471 - (len(lines) - 1) * step
+    for i, line in enumerate(lines):
+        tracked(d, (P - 4, base + i * step), line, h, CAR_ON_INK, t)
+
+
 def og_car(out):
     W, H, P = 1200, 630, 88
     _bg["c"] = CAR_INK
     img = Image.new("RGB", (W, H), CAR_INK)
     d = ImageDraw.Draw(img)
     logo(d, P, P + 22, 30, CAR_ON_INK, CAR_RED, "Automotive")
-    h = mona(112, 700, 125)
-    t = -0.02 * 112
-    tracked(d, (P - 4, 368), "Makellos", h, CAR_ON_INK, t)
-    tracked(d, (P - 4, 368 + 103), "bis ins Detail.", h, CAR_ON_INK, t)
+    headline_car(d, ["Makellos", "bis ins Detail."], 128, W, P)
     sub = mona(27, 400, 100)
     d.text((P, H - P), "Smart Repair, Lackkorrektur, Leasingrückgabe und Aufbereitung in Telgte", font=sub, fill=CAR_ON_INK_MUTED, anchor="ls")
     img.save(out, quality=88, optimize=True, progressive=True)
@@ -136,26 +149,24 @@ def og_car_page(out, lines, sub_text):
     img = Image.new("RGB", (W, H), CAR_INK)
     d = ImageDraw.Draw(img)
     logo(d, P, P + 22, 30, CAR_ON_INK, CAR_RED, "Automotive")
-    h, size = fit(lambda s: mona(s, 700, 125), lines, 112, W - 2 * P)
-    t = -0.02 * size
-    base = 471 - (len(lines) - 1) * round(0.92 * size)
-    for i, line in enumerate(lines):
-        tracked(d, (P - 4, base + i * round(0.92 * size)), line, h, CAR_ON_INK, t)
+    headline_car(d, lines, 120, W, P)
     sub, _ = fit(lambda s: mona(s, 400, 100), [sub_text], 27, W - 2 * P)
     d.text((P, H - P), sub_text, font=sub, fill=CAR_ON_INK_MUTED, anchor="ls")
     img.save(out, quality=88, optimize=True, progressive=True)
 
 
-def og_av(out, label, l1, l2, max_size=84):
+def og_av(out, label, l1, l2, max_size=104):
     W, H, P = 1200, 630, 88
     _bg["c"] = AV_NAVY
     img = Image.new("RGB", (W, H), AV_NAVY)
     d = ImageDraw.Draw(img)
     logo(d, P, P + 22, 30, AV_CREAM, AV_GOLD, "Aviation")
-    tracked(d, (P, 330), label.upper(), mona(17, 500, 100), AV_GOLD, 0.26 * 17)
-    h, _ = fit(cinzel, [l1, l2], max_size, W - 2 * P)
-    d.text((P - 3, 330 + 108), l1, font=h, fill=AV_CREAM, anchor="ls")
-    d.text((P - 3, 330 + 108 + 92), l2, font=h, fill=AV_CREAM, anchor="ls")
+    # Etikett in Geist Mono, Headline in Instrument Serif, zweite Zeile kursiv (wie im Aviation-Hero).
+    tracked(d, (P, 318), label.upper(), mono(17), AV_GOLD, 0.08 * 17)
+    h, size = fit(serif, [l1, l2], max_size, W - 2 * P)
+    hi = serif(size, italic=True)
+    d.text((P - 3, 318 + 112), l1, font=h, fill=AV_CREAM, anchor="ls")
+    d.text((P - 3, 318 + 112 + round(0.95 * size)), l2, font=hi, fill=AV_CREAM, anchor="ls")
     img.save(out, quality=88, optimize=True, progressive=True)
 
 

@@ -32,14 +32,14 @@ export function Standards({ locale }: { locale: Locale }) {
           <h2
             id="av-standards-title"
             data-rv="80"
-            className="mt-7 max-w-[15ch] font-cinzel text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
+            className="mt-7 max-w-[15ch] font-serif text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
           >
             {t.stdTitle}
           </h2>
           <ul data-rvs="110" className="mt-[clamp(48px,6vw,72px)]">
             {t.std.map((d) => (
               <li key={d.t} className="border-t border-av-line-strong py-[26px]">
-                <h3 className="font-cinzel text-[19.2px] leading-[1.2] font-normal">{d.t}</h3>
+                <h3 className="font-serif text-[19.2px] leading-[1.2] font-normal">{d.t}</h3>
                 <p className="mt-2.5 max-w-[500px] text-[15px] leading-[1.7] text-av-muted">
                   {d.d}
                 </p>
@@ -58,7 +58,7 @@ export function Standards({ locale }: { locale: Locale }) {
                 <p>
                   <BrandLogo division="aviation" size="xs" />
                 </p>
-                <p className="mt-3.5 font-cinzel text-[22.4px] font-normal">{rep.title}</p>
+                <p className="mt-3.5 font-serif text-[22.4px] font-normal">{rep.title}</p>
               </div>
               <span className="text-[12px] tracking-[0.08em] text-av-muted tabular-nums">
                 {rep.no}
@@ -113,9 +113,7 @@ export function Standards({ locale }: { locale: Locale }) {
             <div className="mt-7 flex flex-wrap items-end justify-between gap-4 border-t border-av-navy pt-5">
               <div>
                 <p className="text-[10px] tracking-[0.24em] text-av-muted uppercase">{rep.sign}</p>
-                <p className="mt-1.5 font-cinzel text-[17.6px] font-normal">
-                  {sampleReport.signer}
-                </p>
+                <p className="mt-1.5 font-serif text-[17.6px] font-normal">{sampleReport.signer}</p>
               </div>
               <span className="text-[12px] text-av-muted">{rep.notified}</span>
             </div>
@@ -135,7 +133,7 @@ export function Standards({ locale }: { locale: Locale }) {
               <span className="absolute inset-[7px] rounded-full border-[0.75px] border-av-stamp" />
               <span className="flex flex-col items-center gap-[5px] text-center">
                 <span className="text-[7px] tracking-[0.3em]">PAINTFIX AVIATION</span>
-                <span className="font-cinzel text-[15.2px] leading-none font-normal">
+                <span className="font-serif text-[15.2px] leading-none font-normal">
                   {rep.sign}
                 </span>
                 <span className="text-[7.5px] tracking-[0.18em] tabular-nums">

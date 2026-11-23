@@ -50,7 +50,7 @@ const total = String(entries.length).padStart(2, "0");
 /**
  * Die Leistungen #svc-{id} (README 8.2 Punkt 3). Nur die Preiszeile ist Client-Komponente. Smart Repair
  * und Leasingrückgabe haben keinen Klassenpreis, sondern „Preis nach Begutachtung“.
- * KONZEPT: editoriale Zeilen, Bild abwechselnd links und rechts (7 von 12 Spalten).
+ * Editoriale Zeilen, Bild abwechselnd links und rechts (7 von 12 Spalten).
  */
 export function Services() {
   return (

@@ -12,8 +12,7 @@
  */
 @theme inline {
   --font-sans: var(--font-mona-face), system-ui, sans-serif;
-  /* KONZEPT: Aviation-Schrift ist Instrument Serif (app/fonts.ts); der Utility-Name bleibt. */
-  --font-cinzel: var(--font-serif-face), serif;
+  /* Aviation-Überschriften: Instrument Serif. Daten und Etiketten beider Marken: Geist Mono. */
   --font-serif: var(--font-serif-face), serif;
   --font-mono: var(--font-mono-face), ui-monospace, monospace;
 
@@ -106,7 +105,7 @@
   --text-car-list: var(--car-fs-list);
   --text-car-step-title: var(--car-fs-step-title);
   --text-car-price-xl: var(--car-fs-price-xl);
-  /* KONZEPT */
+  /* Redesign 11/2026: Display-Rollen */
   --text-car-display: var(--car-fs-display);
   --text-car-statement: var(--car-fs-statement);
   --text-car-section: var(--car-fs-section);
@@ -261,7 +260,7 @@
 }
 
 /*
- * KONZEPT: .pf-lit lässt Text beim Scrollen aufleuchten (Keyframes pf-lit in tokens.css). Nur mit
+ * .pf-lit lässt große Überschriften beim Scrollen aufleuchten (Keyframes pf-lit in tokens.css). Nur mit
  * Scroll-Timelines und erlaubter Bewegung; sonst ist der Text sofort voll sichtbar (Regel 7).
  */
 @layer utilities {
@@ -274,8 +273,9 @@
       }
     }
   }
-  /* KONZEPT: Instrument Serif braucht keine Sperrung; die Laufweiten der Komponenten stammen von Cinzel. */
-  .font-cinzel {
+  /* Instrument Serif läuft ohne Sperrung; positive Laufweiten in Aviation-Komponenten stammen noch von
+     Cinzel und werden hier neutralisiert. */
+  .font-serif {
     letter-spacing: -0.012em;
   }
 }

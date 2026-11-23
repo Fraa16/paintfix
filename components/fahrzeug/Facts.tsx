@@ -27,7 +27,9 @@ export function CarFacts({
           key={r.label}
           className="grid grid-cols-[150px_1fr] gap-4 border-t border-car-border py-4"
         >
-          <dt className="text-car-muted">{r.label}</dt>
+          <dt className="pt-0.5 font-mono text-[11px] tracking-[0.06em] text-car-muted uppercase">
+            {r.label}
+          </dt>
           <dd className="min-w-0 break-words">{r.value}</dd>
         </div>
       ))}

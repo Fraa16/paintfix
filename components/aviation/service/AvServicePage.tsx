@@ -24,9 +24,9 @@ import { altText, media } from "@/content/media";
 import { aviationServiceLd } from "@/lib/structured-data";
 import { AvFaqAccordion } from "./AvFaqAccordion";
 
-const h2 = "mt-7 font-cinzel text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance";
+const h2 = "mt-7 font-serif text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance";
 
-/** „Außenpflege für Business Jets.“ → ["Außenpflege", "für Business Jets."] (KONZEPT: Akzentzeile). */
+/** „Außenpflege für Business Jets.“ → ["Außenpflege", "für Business Jets."] (Akzentzeile). */
 function splitTitle(title: string): string[] {
   const m = title.match(/^(.*?)\s+((?:für|for)\s.*)$/i);
   return m ? [m[1], m[2]] : [title];
@@ -104,10 +104,10 @@ export function AvServicePage({
                 {ui.overline} 0{meta.tab + 1} · {av.tabs[meta.tab]}
               </p>
             </div>
-            {/* KONZEPT: Instrument Serif groß, der Teil ab „für/for“ kursiv in eigener Zeile. */}
+            {/* Instrument Serif groß, der Teil ab „für/for“ kursiv in eigener Zeile. */}
             <h1
               id="page-title"
-              className="mt-7 font-cinzel text-[clamp(48px,6.4vw,108px)] leading-[0.95] font-normal tracking-[-0.02em] text-balance"
+              className="mt-7 font-serif text-[clamp(48px,6.4vw,108px)] leading-[0.95] font-normal tracking-[-0.02em] text-balance"
             >
               {splitTitle(copy.h1).map((part, i) => (
                 <span key={i} className={i === 1 ? "block italic" : "block"}>
@@ -200,11 +200,11 @@ function Services({
                 key={x.t}
                 className="grid grid-cols-[56px_1fr] gap-x-4 gap-y-2 border-t border-av-line-strong py-8"
               >
-                <span className="pt-2 font-cinzel text-[12.8px] font-normal text-av-gold-text">
+                <span className="pt-2 font-serif text-[12.8px] font-normal text-av-gold-text">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="font-cinzel text-[clamp(20.8px,1.92vw,27.2px)] leading-[1.15] font-normal">
+                  <h3 className="font-serif text-[clamp(20.8px,1.92vw,27.2px)] leading-[1.15] font-normal">
                     {x.t}
                   </h3>
                   <p className="mt-3 max-w-[480px] text-base leading-[1.7] text-av-muted">{x.d}</p>
@@ -234,7 +234,7 @@ function Standards({ locale }: { locale: Locale }) {
         <ul className="mt-[clamp(48px,6vw,80px)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-x-[clamp(24px,3vw,48px)] gap-y-10">
           {av.std.map((s) => (
             <li key={s.t} className="border-t border-av-navy pt-7">
-              <h3 className="font-cinzel text-[20.8px] leading-[1.2] font-normal">{s.t}</h3>
+              <h3 className="font-serif text-[20.8px] leading-[1.2] font-normal">{s.t}</h3>
               <p className="mt-3.5 text-[15px] leading-[1.7] text-av-muted">{s.d}</p>
             </li>
           ))}
@@ -266,8 +266,8 @@ function Related({ locale, meta }: { locale: Locale; meta: AvPageMeta }) {
               : `${aviationPath[locale]}#av-services`;
             return (
               <li key={p.id} className="flex flex-col border-t border-av-navy pt-7">
-                <p className="font-cinzel text-[12.8px] text-av-gold-text">0{p.tab + 1}</p>
-                <h3 className="mt-3 font-cinzel text-[clamp(24px,2.4vw,32px)] leading-[1.15] font-normal">
+                <p className="font-serif text-[12.8px] text-av-gold-text">0{p.tab + 1}</p>
+                <h3 className="mt-3 font-serif text-[clamp(24px,2.4vw,32px)] leading-[1.15] font-normal">
                   {av.tabs[p.tab]}
                 </h3>
                 <p className="mt-3.5 max-w-[440px] text-[15px] leading-[1.7] text-av-muted">

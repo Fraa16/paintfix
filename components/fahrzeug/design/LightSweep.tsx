@@ -29,7 +29,7 @@ function sync(range: HTMLInputElement | null, value: number) {
 }
 
 /**
- * KONZEPT „Licht auf Lack“: Vorher/Nachher als Hero über die ganze Fläche. Eine Lichtkante (wie eine
+ * „Licht auf Lack“: Vorher/Nachher als Hero über die ganze Fläche. Eine Lichtkante (wie eine
  * LED-Prüflampe) trennt links den polierten Lack (Nachher) von rechts dem Lack mit Waschkratzern
  * (Vorher).
  *
@@ -47,6 +47,8 @@ export function LightSweep() {
   const input = useRef<HTMLInputElement>(null);
   const motion = useMotionAllowed();
   const state = useRef<Sweep>({ x: START, y: 40, tx: START, ty: 40, touched: false, raf: 0 });
+  // Startet die Bewegungsschleife sofort (gesetzt im Effekt), z. B. bei Tastatureingabe.
+  const startLoop = useRef<() => void>(() => {});
 
   useEffect(() => {
     const el = ref.current;
@@ -55,6 +57,35 @@ export function LightSweep() {
     const s = state.current;
     const fine = window.matchMedia("(pointer: fine)").matches;
     let dragging = false;
+    // Bewegungsschleife: startet erst 2,5 s nach dem Laden oder bei der ersten Eingabe, damit sie
+    // das erste Rendern (LCP) auf schwachen Geräten nicht bremst, und pausiert außerhalb des Bildes.
+    let running = false;
+    let visible = true;
+    let t0 = 0;
+    const frame = (now: number) => {
+      if (!t0) t0 = now;
+      if (!s.touched) {
+        s.tx = START + 15 * Math.sin((now - t0) / 2600);
+        s.ty = 40;
+      }
+      s.x += (s.tx - s.x) * 0.09;
+      s.y += (s.ty - s.y) * 0.09;
+      paint(el, s);
+      s.raf = visible ? requestAnimationFrame(frame) : 0;
+    };
+    const start = () => {
+      if (!motion || running) return;
+      running = true;
+      el.dataset.live = "";
+      s.raf = requestAnimationFrame(frame);
+    };
+    startLoop.current = start;
+    const timer = motion ? window.setTimeout(start, 2500) : 0;
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && running && !s.raf) s.raf = requestAnimationFrame(frame);
+    });
+    io.observe(el);
 
     const target = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
@@ -63,6 +94,7 @@ export function LightSweep() {
       s.ty = Math.min(100, Math.max(0, ((e.clientY - r.top) / r.height) * 100));
       s.touched = true;
       sync(input.current, s.tx);
+      start();
       if (!motion) {
         s.x = s.tx;
         s.y = s.ty;
@@ -85,24 +117,11 @@ export function LightSweep() {
     window.addEventListener("pointerup", onUp);
     window.addEventListener("pointercancel", onUp);
 
-    // Mit Bewegung: weich nachziehen; ohne Eingabe langsam schwenken (35–65 %).
-    if (motion) {
-      const t0 = performance.now();
-      const frame = (now: number) => {
-        if (!s.touched) {
-          s.tx = START + 15 * Math.sin((now - t0) / 2600);
-          s.ty = 40;
-        }
-        s.x += (s.tx - s.x) * 0.09;
-        s.y += (s.ty - s.y) * 0.09;
-        paint(el, s);
-        s.raf = requestAnimationFrame(frame);
-      };
-      s.raf = requestAnimationFrame(frame);
-    }
-
     return () => {
+      window.clearTimeout(timer);
+      io.disconnect();
       cancelAnimationFrame(s.raf);
+      s.raf = 0;
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);
@@ -116,6 +135,7 @@ export function LightSweep() {
     s.touched = true;
     s.tx = Number(e.target.value);
     if (!motion) s.x = s.tx;
+    startLoop.current();
     e.target.setAttribute("aria-valuetext", valueText(s.tx));
     paint(ref.current, s);
   };
@@ -130,7 +150,7 @@ export function LightSweep() {
         src={media.carPaintBefore.src}
         alt={altText("carPaintBefore")}
         fill
-        preload
+        loading="eager"
         sizes="100vw"
         className="object-cover object-[50%_35%]"
       />
@@ -139,15 +159,18 @@ export function LightSweep() {
           src={media.carPaintAfter.src}
           alt={altText("carPaintAfter")}
           fill
+          // LCP-Element: nur dieses Bild vorladen, mit hoher Priorität; Vorher lädt sofort, aber danach.
           preload
+          fetchPriority="high"
           sizes="100vw"
           className="object-cover object-[50%_35%]"
         />
       </div>
-      {/* Lichtkegel der Lampe: weiches Licht am Zeiger, nur auf der Bildfläche. */}
+      {/* Lichtkegel der Lampe: weiches Licht am Zeiger. Erst sichtbar, wenn die Bewegung läuft
+          (data-live): Die Mischfläche über dem ganzen Bild würde sonst das erste Rendern bremsen. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(520px_circle_at_var(--x)_var(--y),color-mix(in_srgb,var(--car-on-ink)_16%,transparent),transparent_65%)] mix-blend-soft-light"
+        className="pointer-events-none absolute inset-0 hidden bg-[radial-gradient(520px_circle_at_var(--x)_var(--y),color-mix(in_srgb,var(--car-on-ink)_16%,transparent),transparent_65%)] mix-blend-soft-light group-data-live/sweep:block"
       />
       {/* Lichtkante mit Griff; der Fokus des Reglers zeigt sich am Griff (Regel 9). */}
       <div

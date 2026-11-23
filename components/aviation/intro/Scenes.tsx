@@ -212,7 +212,8 @@ export function ParallaxScene({ children, ...props }: ComponentPropsWithoutRef<"
 /**
  * Fortschrittslinie Ablauf (README 9.6, Referenz frame() 1237–1241):
  * p = clamp((0.78 · vh − top) / (0.55 · Höhe)), Linie [data-progbar] scaleX(p), Schritt [data-step=i]
- * opacity 1 ab p ≥ (i + 0.35) / 4, sonst 0.3 (Übergang 0.7s am Element).
+ * opacity 1 ab p ≥ (i + 0.35) / 4, sonst 0.65 (Übergang 0.7s am Element). 0.65 statt 0.3 der Referenz:
+ * so bleibt der Text über 4,5:1 (Regel 9).
  */
 export function ProgressScene({ children, ...props }: ComponentPropsWithoutRef<"section">) {
   const ref = useRef<HTMLElement>(null);
@@ -231,7 +232,7 @@ export function ProgressScene({ children, ...props }: ComponentPropsWithoutRef<"
     const list = steps();
     for (const st of list) {
       const i = parseInt(st.dataset.step ?? "", 10) || 0;
-      put(st, "opacity", p >= (i + 0.35) / list.length ? "" : "0.3");
+      put(st, "opacity", p >= (i + 0.35) / list.length ? "" : "0.65");
     }
   }, motion);
 

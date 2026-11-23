@@ -1,7 +1,7 @@
-import { conceptH2, SectionRule } from "@/components/fahrzeug/concept/ui";
+import { sectionH2, SectionRule } from "@/components/fahrzeug/design/ui";
 import { ComboOffer } from "./ComboOffer";
 
-/** Kombi-Band (README 8.2 Punkt 4): schwarze Fläche, Komplettpreis. KONZEPT: Kopf wie die Abschnitte. */
+/** Kombi-Band (README 8.2 Punkt 4): schwarze Fläche, Komplettpreis. Kopf wie die übrigen Abschnitte. */
 export function ComboBand() {
   return (
     <section
@@ -14,7 +14,7 @@ export function ComboBand() {
           <h2
             id="kombi-title"
             data-rv="0"
-            className={`${conceptH2} mt-[clamp(28px,4vw,56px)] max-w-[14ch]`}
+            className={`${sectionH2} mt-[clamp(28px,4vw,56px)] max-w-[14ch]`}
           >
             Außen und innen an einem Termin.
           </h2>

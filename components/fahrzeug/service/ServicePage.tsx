@@ -8,7 +8,7 @@ import {
   PageStage,
   ProcessRows,
   SectionHead,
-} from "@/components/fahrzeug/concept/ui";
+} from "@/components/fahrzeug/design/ui";
 import { ClassBar } from "@/components/fahrzeug/leistungen/ClassBar";
 import { ComboBand } from "@/components/fahrzeug/leistungen/ComboBand";
 import { Extras } from "@/components/fahrzeug/leistungen/Extras";
@@ -54,7 +54,7 @@ export function carServiceMetadata(page: CarServicePage): Metadata {
 
 /**
  * Seite je Schwerpunkt (/leistungen/{slug}, Auftrag 04.11.2026). Texte aus content/leistungen.ts.
- * KONZEPT „Licht auf Lack“: Seitenkopf mit Bild über die ganze Breite und großer H1, Leistung(en)
+ * Seitenkopf mit Bild über die ganze Breite und großer H1, Leistung(en)
  * als editoriale Zeilen mit Klassenleiste, Anlässe auf Schwarz, Ablauf als große Zeilen, FAQ,
  * weitere Schwerpunkte als Bildkacheln und die CTA mit vorbelegter Anfrage.
  */
@@ -184,9 +184,9 @@ function Reasons({ page }: { page: CarServicePage }) {
         <SectionHead label="Anlässe" id="anlaesse-title" title={page.reasons.title} />
         <ol className="mt-[clamp(48px,6vw,96px)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-x-8 gap-y-12">
           {page.reasons.items.map((r, i) => (
-            <li key={r.t} className="pf-lit border-t border-car-ink-line pt-6">
+            <li key={r.t} className="border-t border-car-ink-line pt-6">
               <Mono className="text-car-on-ink-muted">{String(i + 1).padStart(2, "0")}</Mono>
-              <h3 className="mt-5 text-[clamp(22px,1.9vw,28px)] leading-[1.1] font-semibold tracking-[-0.02em]">
+              <h3 className="pf-lit mt-5 text-[clamp(24px,1.9vw,28px)] leading-[1.1] font-semibold tracking-[-0.02em]">
                 {r.t}
               </h3>
               <p className="mt-3 text-[15px] leading-[1.6] text-car-on-ink-muted">{r.d}</p>

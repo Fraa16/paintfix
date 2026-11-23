@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { AvLogo } from "@/components/aviation/Logo";
 import { CarButton } from "@/components/fahrzeug/Button";
-import { STEPS } from "@/components/fahrzeug/home/Process";
 import { OpeningStatus } from "@/components/shared/OpeningStatus";
 import { focusAreas, leasingBand } from "@/content/fahrzeug";
 import { focusHref } from "@/content/leistungen";
@@ -11,14 +10,36 @@ import { altText, media } from "@/content/media";
 import { site } from "@/content/site";
 import { cx } from "@/lib/cx";
 import { LightSweep } from "./LightSweep";
-import { conceptH2 as h2, FocusTile, Mono, ProcessRows, SectionHead } from "./ui";
+import { sectionH2 as h2, FocusTile, Mono, ProcessRows, SectionHead } from "./ui";
 
 /*
- * KONZEPT „Licht auf Lack“ (Branch claude/concept-redesign): Startseite Fahrzeug.
+ * Startseite Fahrzeug, Design „Licht auf Lack“ (Redesign 11/2026).
  * Dunkel und bildgeführt, große Größenkontraste (Mona Sans 600, Breite 100), Daten in Geist Mono.
  * Wiederkehrendes Motiv: Licht auf schwarzem Lack (Lichtkante im Hero, Text leuchtet beim Scrollen auf).
  * Texte aus content/ und README wie bisher; neu sind nur Etiketten (Vorher/Nachher, Abschnittsnummern).
  */
+
+type Step = { title: string; text: string };
+
+/** Ablauf: Texte wörtlich aus README 8.1 Punkt 5 (stehen nicht in content/). */
+export const STEPS: ReadonlyArray<Step> = [
+  {
+    title: "Anfrage",
+    text: "Online, telefonisch oder direkt bei uns. Sie nennen Fahrzeug und gewünschte Leistung.",
+  },
+  {
+    title: "Festpreis",
+    text: "Nach einer kostenlosen Begutachtung erhalten Sie einen verbindlichen Festpreis. Ohne Ihre Zustimmung beginnen wir nicht.",
+  },
+  {
+    title: "Aufbereitung",
+    text: "In unserer Halle in Telgte, mit Produkten, die wir für jedes Material passend auswählen.",
+  },
+  {
+    title: "Übergabe",
+    text: "Sie bekommen Ihr Fahrzeug mit Fotoprotokoll zurück und sehen genau, was gemacht wurde.",
+  },
+];
 
 /** Hero: Lichtkante über das ganze Bild, H1 unten über die volle Breite. */
 export function ConceptHero() {
@@ -292,7 +313,7 @@ export function AviationTeaser() {
             <Mono className="text-av-on-navy-muted">04 · Business Aviation</Mono>
           </span>
           <span className="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
-            <span className="max-w-[22ch] font-cinzel text-[clamp(32px,4.4vw,72px)] leading-[1.04] font-normal tracking-[-0.01em] text-balance">
+            <span className="max-w-[22ch] font-serif text-[clamp(32px,4.4vw,72px)] leading-[1.04] font-normal tracking-[-0.01em] text-balance">
               Business Aviation betreuen wir in einem eigenen Bereich, mit eigenem Team und eigener
               Kalkulation.
             </span>

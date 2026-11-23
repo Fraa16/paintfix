@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CarOverline } from "@/components/fahrzeug/Overline";
+import { SectionRule } from "@/components/fahrzeug/design/ui";
 import { CarFacts, carContactRows } from "@/components/fahrzeug/Facts";
 import { LegalGrid, LegalNote, LegalPage } from "@/components/fahrzeug/legal/LegalPage";
 import { site } from "@/content/site";
@@ -18,7 +18,7 @@ export default function ImpressumPage() {
     <LegalPage title="Impressum" lead="Angaben zum Anbieter dieser Website.">
       <LegalGrid>
         <div>
-          <CarOverline>Anbieter</CarOverline>
+          <SectionRule tone="light" label="Anbieter" />
           <CarFacts
             className="mt-8"
             rows={[

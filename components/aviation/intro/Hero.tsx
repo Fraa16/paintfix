@@ -53,8 +53,8 @@ export function Hero({ locale }: { locale: Locale }) {
             <div data-rv="200">
               <AvOverline tone="navy">{av.heroLabel}</AvOverline>
             </div>
-            {/* KONZEPT: Instrument Serif statt Cinzel, zweite Zeile kursiv als Akzent. */}
-            <h1 className="mt-7 font-cinzel text-av-hero-serif leading-[0.9] font-normal tracking-[-0.02em]">
+            {/* Instrument Serif, zweite Zeile kursiv als Akzent. */}
+            <h1 className="mt-7 font-serif text-av-hero-serif leading-[0.9] font-normal tracking-[-0.02em]">
               <span className="-mb-[0.12em] block overflow-y-clip pb-[0.12em]">
                 <span data-rvm="300" className="block">
                   {av.aT1}
@@ -101,7 +101,7 @@ export function Hero({ locale }: { locale: Locale }) {
 const SAMPLE: Record<Locale, string> = { de: "Beispiel", en: "Sample" };
 
 /**
- * KONZEPT „Protokoll“: der Musterbericht als laufendes Protokoll im Hero (ab 980px). Die Punkte der
+ * „Protokoll“: der Musterbericht als laufendes Protokoll im Hero (ab 980px). Die Punkte der
  * Checkliste erscheinen nacheinander wie Zeitstempel (pf-tick); bei reduzierter Bewegung stehen alle
  * sofort da (globale Regel in tokens.css). Daten aus aviation.json (rep), als Beispiel beschriftet.
  */

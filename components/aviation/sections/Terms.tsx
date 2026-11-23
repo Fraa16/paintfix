@@ -28,7 +28,7 @@ export function Terms({ locale }: { locale: Locale }) {
             <h2
               id="av-terms-title"
               data-rv="80"
-              className="mt-7 max-w-[14ch] font-cinzel text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
+              className="mt-7 max-w-[14ch] font-serif text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
             >
               {t.termsTitle}
             </h2>
@@ -63,10 +63,10 @@ export function Terms({ locale }: { locale: Locale }) {
                   scope="col"
                   className={`border-l border-av-line pt-8 pb-9 text-left align-top [font-weight:inherit] ${cellX}`}
                 >
-                  <span className="block font-cinzel text-[17.6px] font-normal text-av-gold-text">
+                  <span className="block font-serif text-[17.6px] font-normal text-av-gold-text">
                     {m.n}
                   </span>
-                  <span className="mt-5 block font-cinzel text-[clamp(20.8px,1.76vw,27.2px)] leading-[1.1] font-normal">
+                  <span className="mt-5 block font-serif text-[clamp(20.8px,1.76vw,27.2px)] leading-[1.1] font-normal">
                     {m.t}
                   </span>
                   <span className="mt-3.5 block max-w-[300px] text-[14px] leading-[1.6] text-av-muted">
@@ -105,7 +105,7 @@ export function Terms({ locale }: { locale: Locale }) {
                   className={`border-t border-l border-av-navy border-l-av-line py-6 align-middle ${cellX}`}
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <span className="font-cinzel text-[12.8px] font-normal">{t.termsPrice}</span>
+                    <span className="font-serif text-[12.8px] font-normal">{t.termsPrice}</span>
                     <TermsCta index={i} label={t.termsCta} modelTitle={m.t} variant="link" />
                   </div>
                 </td>
@@ -118,7 +118,7 @@ export function Terms({ locale }: { locale: Locale }) {
         <ul className="mt-12 flex flex-col gap-5 wide:hidden">
           {models.map((m, i) => (
             <li key={m.n} className="border border-av-navy/12 bg-av-paper px-[22px] py-7">
-              <h3 className="flex items-baseline gap-3.5 font-cinzel font-normal">
+              <h3 className="flex items-baseline gap-3.5 font-serif font-normal">
                 <span className="text-[14.4px] text-av-gold-text">{m.n}</span>
                 <span className="text-[22.4px] leading-[1.1]">{m.t}</span>
               </h3>
@@ -137,7 +137,7 @@ export function Terms({ locale }: { locale: Locale }) {
                 ))}
               </dl>
               <div className="mt-1 flex items-center justify-between gap-3 border-t border-av-navy pt-4">
-                <span className="font-cinzel text-[12px] font-normal">{t.termsPrice}</span>
+                <span className="font-serif text-[12px] font-normal">{t.termsPrice}</span>
                 <TermsCta index={i} label={t.termsCta} modelTitle={m.t} variant="button" />
               </div>
             </li>
@@ -151,7 +151,7 @@ export function Terms({ locale }: { locale: Locale }) {
         >
           <div className="p-[clamp(32px,5vw,72px)]">
             <AvOverline tone="navy">{t.docsLabel}</AvOverline>
-            <h3 className="mt-6 max-w-[16ch] font-cinzel text-av-h3-docs leading-[1.08] font-normal">
+            <h3 className="mt-6 max-w-[16ch] font-serif text-av-h3-docs leading-[1.08] font-normal">
               {t.docsTitle}
             </h3>
             <p className="mt-5 max-w-[460px] text-[15px] leading-[1.7] text-av-on-navy">
@@ -202,7 +202,7 @@ function DocCover({ locale }: { locale: Locale }) {
           <BrandLogo division="aviation" size="xs" />
         </p>
         <div>
-          <p className="font-cinzel text-[16.8px] leading-[1.1] font-normal">{t.docsCover}</p>
+          <p className="font-serif text-[16.8px] leading-[1.1] font-normal">{t.docsCover}</p>
           <p className="mt-2.5 text-[8px] tracking-[0.24em] text-av-muted uppercase">
             {t.docsCoverMeta}
           </p>

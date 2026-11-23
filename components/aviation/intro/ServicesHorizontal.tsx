@@ -25,7 +25,7 @@ export function ServicesHorizontal({ locale, images }: { locale: Locale; images:
               </div>
               <h2
                 data-rv="80"
-                className="mt-7 font-cinzel text-av-h2-services leading-none font-normal tracking-[0.015em]"
+                className="mt-7 font-serif text-av-h2-services leading-none font-normal tracking-[0.015em]"
               >
                 {av.svcTitle}
               </h2>
@@ -61,14 +61,14 @@ export function ServicesHorizontal({ locale, images }: { locale: Locale; images:
                   />
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute bottom-3 left-6 font-cinzel text-[clamp(57.6px,5.6vw,102.4px)] leading-none font-normal text-av-cream [text-shadow:0_2px_24px_color-mix(in_srgb,var(--av-navy)_35%,transparent)]"
+                    className="pointer-events-none absolute bottom-3 left-6 font-serif text-[clamp(57.6px,5.6vw,102.4px)] leading-none font-normal text-av-cream [text-shadow:0_2px_24px_color-mix(in_srgb,var(--av-navy)_35%,transparent)]"
                   >
                     {no}
                   </span>
                 </div>
                 <div className="flex min-h-0 flex-col justify-between">
                   <div className="flex items-baseline justify-between gap-4 border-b border-av-navy pb-5">
-                    <h3 className="font-cinzel text-av-cat-title leading-none font-normal">
+                    <h3 className="font-serif text-av-cat-title leading-none font-normal">
                       {label}
                     </h3>
                     <span className="text-[10px] tracking-[0.3em] text-av-muted tabular-nums">
@@ -82,11 +82,11 @@ export function ServicesHorizontal({ locale, images }: { locale: Locale; images:
                           key={x.t}
                           className="grid grid-cols-[40px_minmax(0,1fr)] gap-x-3 gap-y-1 border-t border-av-navy/16 py-[clamp(12px,2vh,22px)]"
                         >
-                          <span className="pt-1.5 font-cinzel text-[11.2px] font-normal text-av-gold-text">
+                          <span className="pt-1.5 font-serif text-[11.2px] font-normal text-av-gold-text">
                             {String(j + 1).padStart(2, "0")}
                           </span>
                           <div>
-                            <h4 className="font-cinzel text-av-item-title leading-[1.2] font-normal">
+                            <h4 className="font-serif text-av-item-title leading-[1.2] font-normal">
                               {x.t}
                             </h4>
                             <p className="mt-1.5 max-w-[440px] text-sm leading-[1.6] text-av-muted">

@@ -289,7 +289,7 @@ export function ContactForm({
         <h3
           ref={thanksRef}
           tabIndex={-1}
-          className="font-cinzel text-[clamp(32px,3.2vw,51.2px)] leading-none font-normal"
+          className="font-serif text-[clamp(32px,3.2vw,51.2px)] leading-none font-normal"
         >
           {t.sentTitle}
         </h3>
@@ -454,7 +454,7 @@ export function ContactForm({
                   key={r.service}
                   className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-4 border-t border-av-line py-3"
                 >
-                  <span className="font-cinzel text-[16px] font-normal">{r.label}</span>
+                  <span className="font-serif text-[16px] font-normal">{r.label}</span>
                   <span className="text-[14px] tabular-nums">{r.duration}</span>
                   <span className="text-[13px] text-av-muted">{r.crew}</span>
                 </li>
@@ -462,7 +462,7 @@ export function ContactForm({
             </ul>
             <p className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-av-navy pt-[18px]">
               <span className="text-[10px] tracking-[0.26em] uppercase">{est.ground}</span>
-              <span className="font-cinzel text-[clamp(24px,2.24vw,32px)] leading-none font-normal">
+              <span className="font-serif text-[clamp(24px,2.24vw,32px)] leading-none font-normal">
                 {result.ground}
               </span>
             </p>

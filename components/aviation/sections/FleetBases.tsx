@@ -151,7 +151,7 @@ export function FleetBases({
                   labelSide === "left" && "items-end",
                 )}
               >
-                <span className="font-cinzel text-[clamp(12px,1.12vw,16px)] leading-none font-normal">
+                <span className="font-mono text-[clamp(11px,0.9vw,13px)] leading-none tracking-[0.04em]">
                   {icao}
                 </span>
                 <span className={cx("text-[9px] text-av-muted uppercase", style.track)}>
@@ -165,7 +165,7 @@ export function FleetBases({
         <span className="absolute top-3.5 left-4 text-[10px] tracking-[0.28em] text-av-muted uppercase">
           {t.chartLabel}
         </span>
-        <span className="absolute top-3 right-[18px] font-cinzel text-[12px] font-normal">N ↑</span>
+        <span className="absolute top-3 right-[18px] font-serif text-[12px] font-normal">N ↑</span>
       </div>
 
       <ul className="mt-2">
@@ -181,7 +181,7 @@ export function FleetBases({
             )}
           >
             <span className="flex flex-wrap items-baseline gap-5">
-              <span className="font-cinzel text-[clamp(24px,2.24vw,33.6px)] leading-none font-normal tracking-[0.055em]">
+              <span className="font-mono text-[clamp(18px,1.6vw,24px)] leading-none tracking-[0.04em]">
                 {b.i}
               </span>
               <span className="text-[15px] text-av-muted">{b.n}</span>

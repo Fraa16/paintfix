@@ -14,7 +14,7 @@ export function Audience({ locale }: { locale: Locale }) {
         <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(min(100%,480px),1fr))] items-end gap-x-[clamp(40px,6vw,120px)] gap-y-8">
           <h2
             data-rv="0"
-            className="max-w-[16ch] font-cinzel text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
+            className="max-w-[16ch] font-serif text-av-h2 leading-[1.04] font-normal tracking-[0.02em] text-balance"
           >
             {av.audTitle}
           </h2>
@@ -28,7 +28,7 @@ export function Audience({ locale }: { locale: Locale }) {
         >
           {av.aud.map((a) => (
             <li key={a.t} className="border-t border-av-gold-line pt-7">
-              <h3 className="font-cinzel text-2xl leading-[1.15] font-normal">{a.t}</h3>
+              <h3 className="font-serif text-2xl leading-[1.15] font-normal">{a.t}</h3>
               <p className="mt-4 max-w-[380px] text-base leading-[1.7] text-av-muted">{a.d}</p>
             </li>
           ))}

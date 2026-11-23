@@ -30,7 +30,7 @@ export function CabinQuote({ locale }: { locale: Locale }) {
       </div>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-av-navy/35" />
       <div className="absolute inset-0 flex items-center justify-center px-[clamp(20px,6vw,96px)]">
-        <blockquote className="max-w-[20ch] text-center font-cinzel text-[clamp(27.2px,3.52vw,57.6px)] leading-[1.12] font-normal text-balance">
+        <blockquote className="max-w-[20ch] text-center font-serif text-[clamp(27.2px,3.52vw,57.6px)] leading-[1.12] font-normal text-balance">
           <p>
             {open}
             {av.quote}

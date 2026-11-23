@@ -7,7 +7,7 @@ import {
   ProcessLines,
   Statement,
   Visit,
-} from "@/components/fahrzeug/concept/Home";
+} from "@/components/fahrzeug/design/Home";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { carBusiness } from "@/lib/structured-data";
 
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Startseite Fahrzeug, KONZEPT „Licht auf Lack“ (Branch claude/concept-redesign). Die bisherige
+ * Startseite Fahrzeug im Design „Licht auf Lack“ (Redesign 11/2026). Die vorherige
  * Startseite (README 8.1) liegt unverändert auf main; ihre Bausteine in components/fahrzeug/home/.
  * Header, Footer und Aktionsleiste kommen aus dem Layout; der Header liegt hier transparent über dem
  * Hero (CarHeader).

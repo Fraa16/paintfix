@@ -37,7 +37,7 @@ export function Contact({ locale, services }: { locale: Locale; services?: AvSer
           <h2
             id="av-contact-title"
             data-rv="0"
-            className="mt-7 font-cinzel text-av-h2-form leading-none font-normal tracking-[0.015em]"
+            className="mt-7 font-serif text-av-h2-form leading-none font-normal tracking-[0.015em]"
           >
             {t.formTitle}
           </h2>
@@ -46,7 +46,7 @@ export function Contact({ locale, services }: { locale: Locale; services?: AvSer
           </p>
           <div className="mt-12 max-w-[440px] border-t border-av-navy pt-6">
             <p className="text-[10px] tracking-[0.3em] text-av-muted uppercase">{t.direct}</p>
-            <p className="mt-3.5 font-cinzel text-[19.2px] leading-[1.5] font-normal">
+            <p className="mt-3.5 font-serif text-[19.2px] leading-[1.5] font-normal">
               <a href={telHref(t.opsPhone)} className="transition-colors hover:text-av-gold-text">
                 {t.opsPhone}
               </a>

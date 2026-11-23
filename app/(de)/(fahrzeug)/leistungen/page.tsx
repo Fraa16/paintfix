@@ -4,7 +4,7 @@ import { ClassBar } from "@/components/fahrzeug/leistungen/ClassBar";
 import { ComboBand } from "@/components/fahrzeug/leistungen/ComboBand";
 import { Extras } from "@/components/fahrzeug/leistungen/Extras";
 import { Faq } from "@/components/fahrzeug/leistungen/Faq";
-import { LeistungenStage } from "@/components/fahrzeug/concept/LeistungenStage";
+import { LeistungenStage } from "@/components/fahrzeug/design/LeistungenStage";
 import { PriceClassProvider } from "@/components/fahrzeug/leistungen/PriceClass";
 import { Services } from "@/components/fahrzeug/leistungen/Services";
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 /**
  * Leistungen & Preise (README 8.2). Die Klassenleiste klebt bis zum Ende der FAQ (wie <main> in der
- * Referenz), die CTA liegt außerhalb dieses Blocks. KONZEPT: dunkler Seitenkopf mit Verzeichnis
+ * Referenz), die CTA liegt außerhalb dieses Blocks. Dunkler Seitenkopf mit Verzeichnis
  * (LeistungenStage) statt PageHead; die Klassenleiste beginnt darunter. Header, Footer und Aktionsleiste kommen aus dem
  * Layout.
  */

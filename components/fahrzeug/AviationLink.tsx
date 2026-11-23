@@ -42,7 +42,7 @@ export function CarAviationLink({
     >
       {prefix}
       <span
-        className={cx("font-cinzel font-normal", size === "md" ? "text-[16px]" : "text-[12.8px]")}
+        className={cx("font-serif font-normal", size === "md" ? "text-[16px]" : "text-[12.8px]")}
       >
         {label}
       </span>

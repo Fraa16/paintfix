@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 export default function RequestPage() {
   return (
     <main id="inhalt" tabIndex={-1} className="bg-car-surface leading-[normal] focus:outline-none">
-      <div className="mx-auto max-w-car px-car-gutter pt-[clamp(48px,6vw,88px)] pb-[clamp(88px,10vw,144px)]">
-        <RequestHead />
+      <RequestHead />
+      <div className="mx-auto max-w-car px-car-gutter pb-[clamp(88px,10vw,144px)]">
         <Suspense fallback={<RequestForm pending />}>
           <RequestFormFromQuery />
         </Suspense>

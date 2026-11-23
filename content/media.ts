@@ -9,7 +9,6 @@ import avHeroDusk from "@/assets/img/av-hero-dusk.jpg";
 import avLeadingEdge from "@/assets/img/av-leading-edge.webp";
 import avRampNight from "@/assets/img/av-ramp-night.jpg";
 import carAussen from "@/assets/img/car-aussen.webp";
-import carHeroKeramik from "@/assets/img/car-hero-keramik.webp";
 import carInnen from "@/assets/img/car-innen.webp";
 import carKeramik from "@/assets/img/car-keramik.webp";
 import carLackkorrektur from "@/assets/img/car-lackkorrektur.webp";
@@ -17,7 +16,6 @@ import carLackNachher from "@/assets/img/car-lackkorrektur-nachher.webp";
 import carLackVorher from "@/assets/img/car-lackkorrektur-vorher.webp";
 import carLeasingCheck from "@/assets/img/car-leasing-check.webp";
 import carSmartRepair from "@/assets/img/car-smart-repair.webp";
-import car31154217 from "@/assets/img/car-31154217.jpg";
 
 /**
  * Bildregister. Jedes Foto der Website ist ein benannter Platz (README 12).
@@ -49,15 +47,6 @@ const pexels = { source: "stock", credit: "Pexels" } as const;
 
 export const media = {
   // ---------- Fahrzeug ----------
-  carHero: {
-    src: carHeroKeramik,
-    alt: {
-      de: "Behandschuhte Hand trägt mit einem Applikator eine Keramikversiegelung auf schwarzen Lack auf",
-    },
-    needed: "Fahrzeug-Hero 4:5: hochwertiges Detail, z. B. Keramikversiegelung auf schwarzem Lack",
-    source: "ai",
-    credit: "KI-generiert (ChatGPT), 14.10.2026",
-  },
   carSvcInnen: {
     src: carInnen,
     alt: {
@@ -86,12 +75,6 @@ export const media = {
     source: "ai",
     credit:
       "KI-generiert (ChatGPT), 24.10.2026, auf das Nachher-Bild ausgerichtet und leicht versetzt wie eine zweite Aufnahme",
-  },
-  carStandort: {
-    src: car31154217,
-    alt: { de: "Zwei Personen arbeiten in einer Werkstatt an einem dunklen Fahrzeug" },
-    needed: "Standort: Halle von außen oder Team",
-    ...pexels,
   },
   carSvcAussen: {
     src: carAussen,
@@ -214,7 +197,6 @@ export function altText(id: MediaId, locale: Locale = "de"): string {
 
 const byRefPath: Record<string, MediaId> = {
   "img/car-innen.webp": "carSvcInnen",
-  "img/car-31154217.jpg": "carStandort",
   "img/car-aussen.webp": "carSvcAussen",
   "img/car-lackkorrektur.webp": "carSvcPolitur",
   "img/car-keramik.webp": "carSvcKeramik",

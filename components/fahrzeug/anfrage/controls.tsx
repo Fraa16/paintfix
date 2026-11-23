@@ -11,17 +11,20 @@ import { cx } from "@/lib/cx";
 export const FOCUS_WITHIN =
   "has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-car-ink";
 
-/** Kopf eines Schritts: Nummer 13px + H2 20.6px (Mona Sans 700, Breite 125 %), H2 mit Reveal (0). */
+/** Kopf eines Schritts: Nummer in Mono + H2 (Mona Sans 600), H2 mit Reveal (0). */
 export function StepHeading({ no, id, children }: { no: string; id: string; children: ReactNode }) {
   return (
     <div className="flex items-baseline gap-3.5">
-      <span aria-hidden="true" className="text-[13px] text-car-muted">
+      <span
+        aria-hidden="true"
+        className="font-mono text-[11px] tracking-[0.06em] text-car-muted uppercase"
+      >
         {no}
       </span>
       <h2
         id={id}
         data-rv="0"
-        className="text-car-step-title font-bold tracking-[-0.005em] font-stretch-125%"
+        className="text-[clamp(22px,1.9vw,26px)] font-semibold tracking-[-0.02em]"
       >
         {children}
       </h2>
