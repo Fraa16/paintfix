@@ -21,7 +21,7 @@ import { sectionH2 as h2, FocusTile, Mono, ProcessRows, SectionHead } from "./ui
 
 type Step = { title: string; text: string };
 
-/** Ablauf: Texte wörtlich aus README 8.1 Punkt 5 (stehen nicht in content/). */
+/** Ablauf: Texte nach README 8.1 Punkt 5, überarbeitet 11/2026 (stehen nicht in content/). */
 export const STEPS: ReadonlyArray<Step> = [
   {
     title: "Anfrage",
@@ -29,7 +29,7 @@ export const STEPS: ReadonlyArray<Step> = [
   },
   {
     title: "Festpreis",
-    text: "Nach einer kostenlosen Begutachtung erhalten Sie einen verbindlichen Festpreis. Ohne Ihre Zustimmung beginnen wir nicht.",
+    text: "Nach einer kostenlosen Begutachtung erhalten Sie einen verbindlichen Festpreis. Wir fangen erst an, wenn Sie zugesagt haben.",
   },
   {
     title: "Aufbereitung",

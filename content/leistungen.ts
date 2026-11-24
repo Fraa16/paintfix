@@ -80,7 +80,7 @@ const [faqAb, faqDauer, faqKeramik, faqProdukte, faqFlotten] = faq;
 /** Begutachtung und Festpreis: die ersten beiden Schritte jeder Leistung. */
 const festpreis = {
   title: "Festpreis",
-  text: "Sie erhalten einen verbindlichen Festpreis. Ohne Ihre Zustimmung beginnen wir nicht.",
+  text: "Sie erhalten einen verbindlichen Festpreis. Wir fangen erst an, wenn Sie zugesagt haben.",
 };
 
 export const carServicePages: ReadonlyArray<CarServicePage> = [
@@ -329,7 +329,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
         },
         {
           q: "Was kostet die Vorbereitung?",
-          a: "Das hängt vom Zustand des Fahrzeugs ab. Nach der kostenlosen Begutachtung nennen wir Ihnen einen Festpreis. Ohne Ihre Zustimmung wird es nicht teurer.",
+          a: "Das hängt davon ab, welche Schäden behoben werden sollen. Nach der kostenlosen Begutachtung bekommen Sie einen Festpreis für genau diese Arbeiten.",
         },
         faqFlotten,
       ],
@@ -397,7 +397,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
       items: [
         {
           q: "Was kostet eine Autoaufbereitung?",
-          a: `Außen ab ${eur(aussen.p[0])}, innen ab ${eur(innen.p[0])}, beides an einem Termin ab ${eur(comboPrice[0])}, jeweils für einen Kleinwagen in normalem Zustand. Den Festpreis für Ihr Fahrzeug nennen wir nach der kostenlosen Begutachtung. Ohne Ihre Zustimmung wird es nicht teurer.`,
+          a: `Außen ab ${eur(aussen.p[0])}, innen ab ${eur(innen.p[0])}, beides an einem Termin ab ${eur(comboPrice[0])}, jeweils für einen Kleinwagen in normalem Zustand. Den Festpreis für Ihr Fahrzeug nennen wir nach der kostenlosen Begutachtung.`,
         },
         faqDauer,
         {
