@@ -12,13 +12,13 @@
         109,
         129
       ],
-      "desc": "Schonende Handwäsche im Zwei-Eimer-Verfahren, Felgen und Reifen, Insekten- und Teerentfernung. Eine Versiegelung ist nicht enthalten, Sie bekommen sie auf Wunsch gegen Aufpreis.",
+      "desc": "Professionelle Vorwäsche mit Reinigungsschaum, lackschonende Handwäsche, Felgen- und Reifenreinigung, Entfernung von Flugrost, Teer und Insektenrückständen sowie Reinigung und Pflege sämtlicher zugänglicher Außenflächen. Eine Versiegelung ist nicht enthalten, Sie bekommen sie auf Wunsch gegen Aufpreis.",
       "incl": [
-        "Vorwäsche mit Aktivschaum",
-        "Handwäsche, Zwei-Eimer-Verfahren",
-        "Felgen, Reifen, Radkästen",
-        "Insekten- und Teerentfernung",
-        "Scheiben außen"
+        "Vorwäsche mit Reinigungsschaum",
+        "Lackschonende Handwäsche",
+        "Felgen- und Reifenreinigung",
+        "Flugrost-, Teer- und Insektenentfernung",
+        "Pflege aller zugänglichen Außenflächen"
       ]
     },
     {
@@ -33,14 +33,14 @@
         139,
         169
       ],
-      "desc": "Gründliche Reinigung des Innenraums vom Dachhimmel bis zum Kofferraum. Polster oder Leder werden je nach Material gereinigt und gepflegt, Gerüche neutralisiert.",
+      "desc": "Gründliches Aussaugen, Tiefenreinigung von Polstern und Teppichen, Lederreinigung und Lederpflege, Fleckenentfernung sowie Reinigung und Pflege von Armaturen, Kunststoffen, Türverkleidungen, Scheiben und schwer zugänglichen Bereichen.",
       "incl": [
-        "Saugen inkl. Kofferraum",
-        "Polster- oder Lederreinigung",
-        "Kunststoff- und Zierteilpflege",
-        "Türfalze und Einstiege",
-        "Scheiben innen, streifenfrei",
-        "Geruchsneutralisation"
+        "Gründliches Aussaugen",
+        "Tiefenreinigung von Polstern und Teppichen",
+        "Lederreinigung und Lederpflege",
+        "Fleckenentfernung",
+        "Armaturen, Kunststoffe, Türverkleidungen",
+        "Scheiben und schwer zugängliche Bereiche"
       ]
     },
     {
@@ -55,13 +55,13 @@
         299,
         349
       ],
-      "desc": "Dekontamination mit Reinigungsknete, danach maschinelle Politur. Entfernt Waschkratzer, Hologramme und matte Stellen und gibt dem Lack seine Tiefe zurück. Eine Versiegelung, die das Ergebnis schützt, ist nicht enthalten und kostet extra.",
+      "desc": "Ein-, zwei- oder dreistufige Fahrzeugpolitur zur Reduzierung von Kratzern, Hologrammen, Waschspuren und matten Lackstellen sowie zur Wiederherstellung von Tiefenglanz und Farbtiefe. Eine Versiegelung, die das Ergebnis schützt, ist nicht enthalten und kostet extra.",
       "incl": [
-        "Dekontamination mit Knete",
-        "Lackschichtdickenmessung",
-        "Einstufige Maschinenpolitur",
-        "Kunststoffe und Gummis abgeklebt",
-        "Mehrstufige Korrektur auf Anfrage"
+        "Ein-, zwei- oder dreistufige Politur",
+        "Einstufig im Grundpreis, mehrstufig auf Anfrage",
+        "Weniger Kratzer und Hologramme",
+        "Weniger Waschspuren und matte Stellen",
+        "Tiefenglanz und Farbtiefe"
       ]
     },
     {
@@ -76,14 +76,13 @@
         690,
         790
       ],
-      "desc": "Nach Außenaufbereitung und Lackkorrektur tragen wir eine zweischichtige Keramikversiegelung von CarPro auf. Der Lack bleibt länger sauber, glänzt tiefer und ist gegen Umwelteinflüsse geschützt.",
+      "desc": "Gründliche Vorbereitung und Entfettung der Lackoberfläche, bedarfsgerechte Lackkorrektur und professionelles Auftragen einer keramischen Schutzbeschichtung mit einer produktabhängigen Standzeit von bis zu einem, zwei oder drei Jahren für intensiven Tiefenglanz, wasserabweisende Eigenschaften und langfristigen Lackschutz.",
       "incl": [
-        "Außenaufbereitung inklusive",
-        "Einstufige Lackkorrektur",
-        "Zwei Schichten Keramik",
-        "Felgen und Scheiben versiegelt",
-        "Aushärtung unter Infrarot",
-        "Schutz bis zu 3 Jahre"
+        "Vorbereitung und Entfettung des Lacks",
+        "Lackkorrektur nach Bedarf",
+        "Keramische Schutzbeschichtung",
+        "Standzeit je nach Produkt 1, 2 oder 3 Jahre",
+        "Tiefenglanz, wasserabweisender Lack"
       ]
     }
   ],
@@ -156,13 +155,13 @@
       "name": "Smart Repair",
       "short": "Kratzer, Dellen und Steinschläge punktuell beheben.",
       "dur": "nach Umfang",
-      "desc": "Kleine Schäden reparieren wir dort, wo sie sind, statt ganze Bauteile neu zu lackieren. Das spart Zeit und Kosten, und Ihr Fahrzeug behält so viel Originallack wie möglich.",
+      "desc": "Gezielte Reparatur von Kratzern, Steinschlägen, kleineren Lackbeschädigungen und Parkschäden durch fachgerechtes Schleifen, Spachteln, Grundieren, Lackieren und anschließendes Polieren der betroffenen Stellen.",
       "incl": [
-        "Kratzer und Schrammen im Lack",
-        "Kleine Dellen und Parkrempler",
-        "Steinschläge an Haube und Front",
-        "Bordsteinschäden an Felgen",
-        "Farbton passend zum Originallack",
+        "Kratzer und Steinschläge",
+        "Kleinere Lackbeschädigungen",
+        "Parkschäden",
+        "Schleifen, Spachteln, Grundieren",
+        "Lackieren und Polieren der Stelle",
         "Festpreis nach kostenloser Begutachtung"
       ],
       "media": "carSvcSmartRepair"
@@ -172,11 +171,11 @@
       "name": "Leasingrückgabe",
       "short": "Schäden beheben, bevor sie bei der Rückgabe berechnet werden.",
       "dur": "nach Umfang",
-      "desc": "Bei der Rückgabe wird jeder Kratzer protokolliert und oft teuer berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und bereiten es innen und außen auf. Was gemacht wird, entscheiden Sie nach der kostenlosen Begutachtung.",
+      "desc": "Detaillierte Überprüfung des Fahrzeugzustands auf Kratzer, Dellen, Lackbeschädigungen und Gebrauchsspuren sowie gezielte Instandsetzung und Aufbereitung zur möglichen Reduzierung der Leasingrückgabekosten.",
       "incl": [
-        "Begutachtung vor dem Rückgabetermin",
-        "Smart Repair kleiner Schäden",
-        "Lackkorrektur, wo sie sich lohnt",
+        "Prüfung auf Kratzer, Dellen und Lackschäden",
+        "Erfassung von Gebrauchsspuren",
+        "Gezielte Instandsetzung",
         "Aufbereitung innen und außen",
         "Fotoprotokoll vor der Übergabe",
         "Festpreis nach kostenloser Begutachtung"
@@ -188,7 +187,7 @@
     {
       "id": "smart-repair",
       "name": "Smart Repair",
-      "short": "Kratzer, Dellen und Steinschläge punktuell beheben, ohne Komplettlackierung.",
+      "short": "Kratzer, Steinschläge und Parkschäden punktuell beheben, ohne Komplettlackierung.",
       "price": null
     },
     {

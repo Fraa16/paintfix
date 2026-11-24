@@ -194,7 +194,7 @@ og_av(av_en / "opengraph-image.jpg", "PaintFix Aviation at Münster Osnabrück",
 # Texte aus content/leistungen.ts (h1), fahrzeug.json (focus.short) und aviation-pages.ts (h1).
 leistungen = car / "leistungen"
 CAR_PAGES = [
-    ("smart-repair", ["Smart Repair", "in Telgte."], "Kratzer, Dellen und Steinschläge punktuell beheben, ohne Komplettlackierung."),
+    ("smart-repair", ["Smart Repair", "in Telgte."], "Kratzer, Steinschläge und Parkschäden punktuell beheben, ohne Komplettlackierung."),
     ("lackkorrektur", ["Lackkorrektur", "in Telgte."], "Waschkratzer, Hologramme und matter Lack, maschinell auspoliert."),
     ("leasingrueckgabe", ["Gut vorbereitet zur", "Leasingrückgabe."], "Schäden beheben, bevor sie bei der Rückgabe berechnet werden."),
     ("fahrzeugaufbereitung", ["Fahrzeugaufbereitung", "in Telgte."], "Außen, innen und Keramikversiegelung, mit Produkten von CarPro."),

@@ -6,9 +6,9 @@ import type { MediaId } from "./media";
  * Preise sind Platzhalter, bis PaintFix sie bestätigt (README 3).
  *
  * Schwerpunkte (Kundenwunsch 14.10.2026): Smart Repair, Lackkorrektur, Leasingrückgabe und
- * hochwertige Aufbereitung stehen auf der Startseite vorn (`focus`). Smart Repair und
- * Leasingrückgabe (`inspect`) haben noch keinen bestätigten Umfang und keine Preise: Texte und
- * Leistungslisten sind Platzhalter, bis PaintFix sie bestätigt; der Preis heißt „nach Begutachtung“.
+ * hochwertige Aufbereitung stehen auf der Startseite vorn (`focus`). Die Beschreibungen (`desc`) aller
+ * Leistungen stammen wörtlich von PaintFix (24.11.2026), die Listen (`incl`) fassen sie zusammen.
+ * Smart Repair und Leasingrückgabe (`inspect`) haben keinen Listenpreis: „nach Begutachtung“.
  */
 
 export type ServiceId = "aussen" | "innen" | "politur" | "keramik";

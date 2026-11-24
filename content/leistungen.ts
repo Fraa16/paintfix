@@ -17,10 +17,11 @@ import { eur } from "@/lib/format";
  * Preise und Dauer kommen aus fahrzeug.json (services, inspect), damit jeder Wert nur einmal
  * existiert.
  *
- * PLATZHALTER: Alle Texte dieser Datei sind Entwürfe von Chatifa auf Grundlage der bestehenden
- * Leistungstexte, bis PaintFix die Beschreibungen je Leistung schickt und freigibt. Sie enthalten
- * nur Angaben, die bereits auf der Website stehen; neue Fakten (Einzugsgebiet, Garantien,
- * Zertifikate) kommen erst nach Bestätigung hinzu.
+ * Fakten: Die Leistungsbeschreibungen hat PaintFix am 24.11.2026 geschickt (wörtlich als `desc` in
+ * fahrzeug.json). Die Texte dieser Datei (Einleitung, Anlässe, Ablauf, FAQ) sind Entwürfe von
+ * Chatifa auf dieser Grundlage, bis PaintFix sie freigibt. Sie enthalten keine Angaben über die
+ * Beschreibungen hinaus; neue Fakten (Einzugsgebiet, Garantien, Zertifikate, Lackschichtdicken-
+ * messung) kommen erst nach Bestätigung hinzu.
  */
 
 export type CarPageSlug =
@@ -86,10 +87,10 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
     name: "Smart Repair",
     metaTitle: "Smart Repair in Telgte bei Münster",
     metaDescription:
-      "Smart Repair in Telgte bei Münster: Kratzer, kleine Dellen, Steinschläge und Bordsteinschäden an Felgen punktuell beheben, ohne Komplettlackierung. Festpreis nach kostenloser Begutachtung.",
+      "Smart Repair in Telgte bei Münster: Kratzer, Steinschläge, kleinere Lackschäden und Parkschäden gezielt reparieren, ohne Komplettlackierung. Festpreis nach kostenloser Begutachtung.",
     h1: "Smart Repair in Telgte.",
     intro:
-      "Ein Kratzer in der Tür, eine Delle vom Parkplatz, ein Steinschlag auf der Haube: Kleine Schäden reparieren wir dort, wo sie sind, statt ganze Bauteile neu zu lackieren. Das spart Zeit und Kosten, und Ihr Fahrzeug behält so viel Originallack wie möglich.",
+      "Ein Kratzer in der Tür, ein Parkschaden an der Stoßstange, ein Steinschlag auf der Haube: Kleine Schäden reparieren wir dort, wo sie sind, statt ganze Bauteile neu zu lackieren. Das spart Zeit und Kosten, und Ihr Fahrzeug behält so viel Originallack wie möglich.",
     offers: ["smart-repair"],
     offerTitle: "Umfang und Preis",
     reasons: {
@@ -100,16 +101,16 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
           d: "Einzelne Kratzer im Lack, die mit einer Politur allein nicht verschwinden.",
         },
         {
-          t: "Kleine Dellen",
-          d: "Parkrempler und Dellen, bei denen der Lack nicht großflächig beschädigt ist.",
+          t: "Parkschäden",
+          d: "Schrammen und kleine Beschädigungen vom Parkplatz, etwa an Stoßstange oder Tür.",
         },
         {
           t: "Steinschläge",
           d: "Abplatzer an Haube und Front, bevor Feuchtigkeit darunter gelangt.",
         },
         {
-          t: "Bordsteinschäden an Felgen",
-          d: "Schrammen an der Felge, die bei jedem Blick auf das Rad auffallen.",
+          t: "Kleinere Lackschäden",
+          d: "Macken und Abplatzer, bei denen eine Lackierung des ganzen Bauteils übertrieben wäre.",
         },
       ],
     },
@@ -127,7 +128,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
         festpreis,
         {
           title: "Reparatur",
-          text: "Wir bearbeiten nur die beschädigte Stelle und passen den Farbton an den Originallack an.",
+          text: "Nur die beschädigte Stelle: fachgerecht schleifen, spachteln, grundieren, lackieren und anschließend polieren.",
         },
         {
           title: "Übergabe",
@@ -151,8 +152,8 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
           a: "Das hängt vom Umfang ab. Termin und Dauer nennen wir Ihnen zusammen mit dem Festpreis.",
         },
         {
-          q: "Reparieren Sie auch Felgen?",
-          a: "Ja, Bordsteinschäden an Felgen gehören zu Smart Repair.",
+          q: "Wie wird repariert?",
+          a: "Die betroffene Stelle wird fachgerecht geschliffen, gespachtelt, grundiert, lackiert und anschließend poliert. Der Rest des Bauteils bleibt im Originallack.",
         },
         {
           q: "Lohnt sich Smart Repair vor der Leasingrückgabe?",
@@ -168,10 +169,10 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
     focus: "politur",
     name: "Lackkorrektur",
     metaTitle: "Lackkorrektur in Telgte bei Münster",
-    metaDescription: `Maschinelle Lackkorrektur in Telgte bei Münster: entfernt Waschkratzer, Hologramme und matte Stellen. ${politur.dur.replace(/^ca\./, "Etwa")}, ab ${eur(politur.p[0])} Endpreis. Den Festpreis nennen wir nach einer kostenlosen Begutachtung.`,
+    metaDescription: `Lackkorrektur in Telgte bei Münster: ein-, zwei- oder dreistufige Politur gegen Kratzer, Hologramme, Waschspuren und matte Stellen, für Tiefenglanz und Farbtiefe. ${politur.dur.replace(/^ca\./, "Etwa")}, ab ${eur(politur.p[0])} Endpreis. Den Festpreis nennen wir nach einer kostenlosen Begutachtung.`,
     h1: "Lack\u00ADkorrektur in Telgte.",
     intro:
-      "Waschanlagen, falsche Tücher und Jahre auf der Straße hinterlassen feine Kratzer, die in der Sonne als Kreise und Schlieren sichtbar werden. Bei der Lackkorrektur reinigen wir den Lack gründlich und polieren ihn danach maschinell. So verschwinden die Kratzer, und der Lack bekommt seine Tiefe zurück.",
+      "Waschanlagen, falsche Tücher und Jahre auf der Straße hinterlassen feine Kratzer, die in der Sonne als Kreise und Schlieren sichtbar werden. Bei der Lackkorrektur polieren wir den Lack je nach Zustand ein-, zwei- oder dreistufig. So werden Kratzer, Hologramme und Waschspuren deutlich reduziert, und der Lack bekommt Tiefenglanz und Farbtiefe zurück.",
     offers: ["politur"],
     offerTitle: "Umfang und Preis",
     reasons: {
@@ -204,12 +205,12 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
       items: [
         {
           title: "Begutachtung",
-          text: "Wir sehen uns den Lack unter Licht an, messen die Lackschichtdicke und sagen Ihnen, was die Politur erreichen kann. Kostenlos.",
+          text: "Wir sehen uns den Lack unter Licht an und sagen Ihnen, wie viele Stufen er braucht und was die Politur erreichen kann. Kostenlos.",
         },
         festpreis,
         {
           title: "Reinigung und Politur",
-          text: "Wäsche und Dekontamination mit Reinigungsknete, Kunststoffe und Gummis abkleben, dann die maschinelle Politur.",
+          text: "Gründliche Reinigung, dann die ein-, zwei- oder dreistufige Politur, je nach Zustand des Lacks.",
         },
         {
           title: "Übergabe",
@@ -222,19 +223,19 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
       items: [
         {
           q: "Schadet eine Politur dem Lack?",
-          a: "Beim Polieren wird eine sehr dünne Schicht Klarlack abgetragen. Deshalb messen wir vorher die Lackschichtdicke und polieren nur so viel wie nötig.",
+          a: "Beim Polieren wird eine sehr dünne Schicht Klarlack abgetragen. Deshalb wählen wir die Stufe nach dem Zustand des Lacks und polieren nur so viel wie nötig.",
         },
         {
           q: "Was ist der Unterschied zwischen ein- und mehrstufiger Korrektur?",
-          a: "Die einstufige Maschinenpolitur ist im Preis enthalten und entfernt die meisten Waschkratzer und Hologramme. Bei tieferen Spuren polieren wir in mehreren Durchgängen. Das bieten wir auf Anfrage an.",
+          a: "Die einstufige Politur ist im Grundpreis enthalten und reduziert die meisten Waschspuren und Hologramme. Bei tieferen Kratzern polieren wir zwei- oder dreistufig. Das bieten wir auf Anfrage an.",
         },
         {
           q: "Brauche ich danach eine Versiegelung?",
-          a: "Nicht zwingend, aber sie schützt das Ergebnis länger vor neuen Kratzern und Umwelteinflüssen. Die Versiegelung ist nicht im Preis enthalten und kostet extra. Den längsten Schutz bietet die Keramikversiegelung, die eine Lackkorrektur bereits enthält.",
+          a: "Nicht zwingend, aber sie schützt das Ergebnis länger vor neuen Kratzern und Umwelteinflüssen. Die Versiegelung ist nicht im Preis enthalten und kostet extra. Den längsten Schutz bietet die Keramikversiegelung, zu der eine Lackkorrektur nach Bedarf gehört.",
         },
         {
           q: "Wie lange hält das Ergebnis?",
-          a: "Auspolierte Kratzer sind weg. Wie lange der Lack so bleibt, hängt von der Pflege ab: Jede Fahrt durch die Waschanlage kann neue Kratzer verursachen. Eine Handwäsche und eine Versiegelung halten das Ergebnis am längsten.",
+          a: "Was die Politur reduziert hat, kommt nicht von selbst zurück. Wie lange der Lack so bleibt, hängt von der Pflege ab: Jede Fahrt durch die Waschanlage kann neue Kratzer verursachen. Eine Handwäsche und eine Versiegelung halten das Ergebnis am längsten.",
         },
         faqAb,
       ],
@@ -280,7 +281,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
       items: [
         {
           title: "Begutachtung",
-          text: "Wir prüfen Lack, Felgen und Innenraum vor Ihrem Rückgabetermin. Kostenlos.",
+          text: "Wir prüfen Ihr Fahrzeug vor dem Rückgabetermin auf Kratzer, Dellen, Lackschäden und Gebrauchsspuren. Kostenlos.",
         },
         {
           title: "Festpreis",
@@ -343,7 +344,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
         },
         {
           t: "Innenaufbereitung",
-          d: "Wenn Polster, Kunststoffe und Kofferraum gründlich gereinigt und Gerüche beseitigt werden sollen.",
+          d: "Wenn Polster, Teppiche, Leder und Kunststoffe gründlich gereinigt und Flecken entfernt werden sollen.",
         },
         {
           t: "Komplettaufbereitung",
