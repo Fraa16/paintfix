@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { aviation, type Locale } from "@/content/aviation";
 import { AvActionBar } from "./shell/AvActionBar";
 import { AvFooter } from "./shell/AvFooter";
+import { avMenu } from "./shell/av-menu";
 import { AvHeader } from "./shell/AvHeader";
 import { AvScrollState } from "./shell/AvScrollState";
 import { AvSectionIndicator } from "./shell/AvSectionIndicator";
@@ -26,7 +27,7 @@ export function AviationShell({ locale, children }: { locale: Locale; children: 
         className="focus:bg-av-cream focus:text-av-navy focus:outline-av-navy"
       />
       <AvScrollState>
-        <AvHeader locale={locale} nav={av.nav} cta={av.cta} />
+        <AvHeader locale={locale} nav={av.nav} cta={av.cta} menu={avMenu(locale)} />
         {children}
         <AvFooter locale={locale} />
         <div aria-hidden="true" className="h-[76px] bg-av-navy wide:hidden" />

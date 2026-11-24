@@ -154,7 +154,8 @@ test.describe("service pages", () => {
   test("the language switch keeps the aviation service page", async ({ page }) => {
     test.skip(test.info().project.name !== "desktop", "header language links are the same");
     await page.goto("/aviation/aussenpflege");
-    await page.locator('header a[hreflang="en"]').click();
+    // Sichtbarer Umschalter in der Leiste (der zweite steht im geschlossenen mobilen Menü).
+    await page.locator('header a[hreflang="en"]:visible').click();
     await expect(page).toHaveURL(/\/en\/aviation\/exterior-care$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
   });

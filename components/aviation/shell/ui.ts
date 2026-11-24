@@ -9,6 +9,8 @@ export const avUi: Record<
   {
     toTop: string;
     nav: string;
+    /** Hauptnavigation mit Mega-Menü bzw. mobilem Menü. */
+    main: string;
     lang: string;
     langNames: Record<Locale, string>;
     quickContact: string;
@@ -19,6 +21,7 @@ export const avUi: Record<
   de: {
     toTop: "PaintFix Aviation, zum Seitenanfang",
     nav: "Abschnitte",
+    main: "Hauptnavigation",
     lang: "Sprache",
     langNames: { de: "Deutsch", en: "English" },
     quickContact: "Schnellkontakt",
@@ -28,6 +31,7 @@ export const avUi: Record<
   en: {
     toTop: "PaintFix Aviation, back to top",
     nav: "Sections",
+    main: "Main navigation",
     lang: "Language",
     langNames: { de: "Deutsch", en: "English" },
     quickContact: "Quick contact",

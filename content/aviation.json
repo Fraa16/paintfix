@@ -517,7 +517,10 @@
           ]
         ]
       }
-    ]
+    ],
+    "menuOpen": "Menü",
+    "menuClose": "Schließen",
+    "menuAll": "Alle Leistungen"
   },
   "en": {
     "nav": [
@@ -1037,6 +1040,9 @@
           ]
         ]
       }
-    ]
+    ],
+    "menuOpen": "Menu",
+    "menuClose": "Close",
+    "menuAll": "All services"
   }
 }
