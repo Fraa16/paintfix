@@ -120,7 +120,7 @@ export async function sendCarRequest(input: unknown, spam: unknown): Promise<For
         `${t.selection}:`,
         ...names.map((n) => `- ${n}`),
         `${t.vehicleClass}: ${classLabel}`,
-        ...(price.lines.length ? [`${t.estimate}: ${fromPrice(price.sum)}. ${site.vatNote}`] : []),
+        ...(price.lines.length ? [`${t.estimate}: ${fromPrice(price.sum)}.`] : []),
         "",
         `${t.questions} ${site.phoneDisplay}.`,
         "",

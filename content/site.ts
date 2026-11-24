@@ -1,6 +1,8 @@
 /**
  * Stammdaten Fahrzeug (Adresse, Kontakt, Öffnungszeiten). Adresse und Telefon hat PaintFix am
- * 14.10.2026 bestätigt; die übrigen Werte sind Platzhalter aus der Referenz (README 3), siehe
+ * 14.10.2026 bestätigt. Kleinunternehmer (§ 19 UStG, bestätigt 14.10.2026): Preise sind Endpreise;
+ * auf der Website steht dazu kein Hinweis (Entscheidung 24.11.2026), Pflicht ist er nur auf
+ * Rechnungen. Die übrigen Werte sind Platzhalter aus der Referenz (README 3), siehe
  * `unconfirmed`. Aviation-Kontaktdaten stehen in aviation.json (opsPhone, opsMail).
  */
 export const site = {
@@ -14,8 +16,6 @@ export const site = {
   email: "hallo@paintfix.de",
   hoursText: "Mo–Fr 8–18 Uhr, Sa 9–14 Uhr",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Orkotten+43+48291+Telgte",
-  /** Kleinunternehmerregelung: Preise sind Endpreise ohne Umsatzsteuer (bestätigt 14.10.2026). */
-  vatNote: "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.",
   /** Bis zur Bestätigung durch PaintFix offen. */
   unconfirmed: ["email", "hours", "owner"] as const,
 } as const;

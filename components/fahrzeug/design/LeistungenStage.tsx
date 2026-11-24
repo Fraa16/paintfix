@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { overviewEntries } from "@/components/fahrzeug/leistungen/Services";
 import { INSPECT_PRICE, serviceById, type ServiceId } from "@/content/fahrzeug";
-import { site } from "@/content/site";
 import { eur } from "@/lib/format";
 import { Mono, PageStage } from "./ui";
 
@@ -16,14 +15,10 @@ export function LeistungenStage() {
       title="Leistungen und Preise."
       aside={
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] gap-x-[clamp(40px,6vw,120px)] gap-y-10">
-          <div className="max-w-[520px]">
-            <p className="text-[17px] leading-[1.6] text-pretty text-car-on-ink-soft">
-              Umfang und Endpreis jeder Leistung, nach Fahrzeugklasse. Den verbindlichen Festpreis
-              für Ihr Fahrzeug nennen wir nach einer kostenlosen Begutachtung, bevor wir anfangen.
-            </p>
-            {/* Pflichthinweis Kleinunternehmer (Regel 6) als Fußnote, nicht im Fließtext. */}
-            <p className="mt-6 text-[13px] leading-[1.5] text-car-on-ink-muted">{site.vatNote}</p>
-          </div>
+          <p className="max-w-[520px] text-[17px] leading-[1.6] text-pretty text-car-on-ink-soft">
+            Umfang und Endpreis jeder Leistung, nach Fahrzeugklasse. Den verbindlichen Festpreis für
+            Ihr Fahrzeug nennen wir nach einer kostenlosen Begutachtung, bevor wir anfangen.
+          </p>
           <nav aria-label="Leistungen auf dieser Seite">
             <ol className="border-t border-car-ink-line">
               {overviewEntries.map((e, i) => (
