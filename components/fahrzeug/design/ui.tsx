@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CarBreadcrumb, type Crumb } from "@/components/fahrzeug/Breadcrumb";
-import { focusAreas, INSPECT_PRICE, serviceById, type FocusArea } from "@/content/fahrzeug";
+import { allFocusAreas, INSPECT_PRICE, serviceById, type FocusArea } from "@/content/fahrzeug";
 import { focusHref } from "@/content/leistungen";
 import { altText, media, type MediaId } from "@/content/media";
 import { cx } from "@/lib/cx";
@@ -148,7 +148,7 @@ export function FocusTile({
   /** lg: zwei Spalten (Startseite), md: drei Spalten (Seiten je Leistung). */
   size?: "lg" | "md";
 }) {
-  const f = focusAreas.find((x) => x.id === id);
+  const f = allFocusAreas.find((x) => x.id === id);
   if (!f) return null;
   const img = TILE_IMAGE[f.id];
   const price = f.price ? `ab ${eur(serviceById(f.price).p[0])}` : `Preis ${INSPECT_PRICE}`;

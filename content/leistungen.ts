@@ -1,7 +1,8 @@
 import {
+  allFocusAreas,
   comboPrice,
+  extras,
   faq,
-  focusAreas,
   INSPECT_PRICE,
   serviceById,
   type FaqEntry,
@@ -13,8 +14,10 @@ import type { MediaId } from "./media";
 import { eur } from "@/lib/format";
 
 /**
- * Eigene Seiten je Schwerpunkt unter /leistungen/{slug} (Auftrag 04.11.2026, lokale Suche).
- * Die vier Seiten entsprechen den Schwerpunkten der Startseite (`focus` in fahrzeug.json).
+ * Eigene Seiten je Leistung unter /leistungen/{slug} (Auftrag 04.11.2026, lokale Suche).
+ * Vier Seiten entsprechen den Schwerpunkten der Startseite (`focus` in fahrzeug.json), zwei weitere
+ * (Innenaufbereitung, Keramikversiegelung, 24.11.2026) stehen in `focusMore` und nicht auf der
+ * Startseite.
  * Preise und Dauer kommen aus fahrzeug.json (services, inspect), damit jeder Wert nur einmal
  * existiert.
  *
@@ -26,7 +29,12 @@ import { eur } from "@/lib/format";
  */
 
 export type CarPageSlug =
-  "smart-repair" | "lackkorrektur" | "leasingrueckgabe" | "fahrzeugaufbereitung";
+  | "smart-repair"
+  | "lackkorrektur"
+  | "leasingrueckgabe"
+  | "fahrzeugaufbereitung"
+  | "innenaufbereitung"
+  | "keramikversiegelung";
 
 /** Schwerpunkt (focus-ID) → Slug der eigenen Seite. */
 export const carPageSlugByFocus: Record<FocusArea["id"], CarPageSlug | undefined> = {
@@ -34,8 +42,8 @@ export const carPageSlugByFocus: Record<FocusArea["id"], CarPageSlug | undefined
   politur: "lackkorrektur",
   leasing: "leasingrueckgabe",
   aussen: "fahrzeugaufbereitung",
-  innen: undefined,
-  keramik: undefined,
+  innen: "innenaufbereitung",
+  keramik: "keramikversiegelung",
 };
 
 export interface CarServicePage {
@@ -73,6 +81,27 @@ const aussen = serviceById("aussen");
 const innen = serviceById("innen");
 const politur = serviceById("politur");
 const keramik = serviceById("keramik");
+
+/** „Nach etwa 2 Tagen“ / „Nach etwa einem Tag“ aus der Dauer in fahrzeug.json („ca. 2 Tage“). */
+function nachDauer(dur: string): string {
+  const d = dur
+    .replace(/^ca\.\s*/, "etwa ")
+    .replace(/\b1 Tag$/, "einem Tag")
+    .replace(/Tage$/, "Tagen");
+  return `Nach ${d}`;
+}
+
+/** Preise je Fahrzeugklasse als Satz: „ab 119 € für einen Kleinwagen, …“. */
+function classPrices(p: ReadonlyArray<number>): string {
+  return `ab ${eur(p[0])} für einen Kleinwagen, ab ${eur(p[1])} für Limousine und Kombi, ab ${eur(p[2])} für SUV und Van`;
+}
+
+/** Preis einer Zusatzleistung („ab 29 €“) aus fahrzeug.json. */
+function extraPrice(name: string): string {
+  const x = extras.find((e) => e.name === name);
+  if (!x) throw new Error(`Unbekannte Zusatzleistung: ${name}`);
+  return x.price;
+}
 
 /** Allgemeine FAQ (fahrzeug.json): „ab“-Preise, Dauer, Keramik, Produkte, Flotten. */
 const [faqAb, faqDauer, faqKeramik, faqProdukte, faqFlotten] = faq;
@@ -221,7 +250,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
         },
         {
           title: "Übergabe",
-          text: `Nach ${politur.dur.replace(/^ca\./, "etwa")} holen Sie Ihr Fahrzeug mit Fotoprotokoll ab. Eine Versiegelung bekommen Sie auf Wunsch gegen Aufpreis.`,
+          text: `${nachDauer(politur.dur)} holen Sie Ihr Fahrzeug mit Fotoprotokoll ab. Eine Versiegelung bekommen Sie auf Wunsch gegen Aufpreis.`,
         },
       ],
     },
@@ -251,7 +280,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
         faqAb,
       ],
     },
-    related: ["smart-repair", "leasing", "aussen"],
+    related: ["keramik", "smart-repair", "leasing"],
     media: "carSvcPolitur",
   },
   {
@@ -342,12 +371,12 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
     focus: "aussen",
     name: "Fahrzeugaufbereitung",
     metaTitle: "Autoaufbereitung innen und außen in Telgte bei Münster",
-    metaDescription: `Autoaufbereitung in Telgte bei Münster: Handwäsche, Innenreinigung von Polstern und Leder, Keramikversiegelung. Endpreise ab ${eur(aussen.p[0])}, Festpreis nach Begutachtung.`,
+    metaDescription: `Autoaufbereitung in Telgte bei Münster: lackschonende Handwäsche, Felgen, Innenraum, außen und innen an einem Termin. Ab ${eur(aussen.p[0])}, Festpreis nach Begutachtung.`,
     h1: "Fahrzeug\u00ADaufbereitung in Telgte.",
     intro:
       "Autoaufbereitung von Hand: außen mit Vorwäsche und lackschonender Handwäsche, innen mit Tiefenreinigung von Polstern, Teppichen und Leder. Wenn Sie den Lack länger schützen wollen, kommt eine Keramikversiegelung dazu. Wir arbeiten ausschließlich mit Produkten von CarPro. Außen und innen lassen sich an einem Termin kombinieren, zum Komplettpreis.",
-    offers: ["aussen", "innen", "keramik"],
-    dur: `${aussen.dur.replace(" Tag", "")} bis ${keramik.dur.replace(/^ca\. /, "")}`,
+    offers: ["aussen", "innen"],
+    dur: `${aussen.dur} je Leistung`,
     extras: true,
     reasons: {
       title: "Welche Aufbereitung zu Ihnen passt.",
@@ -365,8 +394,8 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
           d: "Außen und innen an einem Termin, zum Komplettpreis.",
         },
         {
-          t: "Keramikversiegelung",
-          d: "Wenn Sie Ihr Fahrzeug länger fahren und Wert auf einfache Pflege und langen Schutz legen.",
+          t: "Vor dem Verkauf",
+          d: "Käufer schauen zuerst auf Lack und Innenraum. Beides sollte bei der Besichtigung sauber sein.",
         },
       ],
     },
@@ -404,16 +433,175 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
           q: "Ist eine Versiegelung enthalten?",
           a: "Bei der Außenaufbereitung nicht. Sie bekommen sie auf Wunsch gegen Aufpreis. Den längsten Schutz bietet die Keramikversiegelung.",
         },
+        faqProdukte,
+        faqFlotten,
+      ],
+    },
+    related: ["keramik", "politur", "leasing"],
+    media: "carSvcAussen",
+  },
+  {
+    slug: "innenaufbereitung",
+    focus: "innen",
+    name: "Innenaufbereitung",
+    metaTitle: "Auto-Innenreinigung in Telgte bei Münster",
+    metaDescription: `Auto-Innenreinigung in Telgte bei Münster: Polster und Teppiche tiefengereinigt, Leder gereinigt und gepflegt, Flecken entfernt. Ab ${eur(innen.p[0])}, ${innen.dur.replace(/^ca\./, "etwa")}.`,
+    h1: "Innen\u00ADaufbereitung in Telgte.",
+    intro:
+      "Krümel in den Ritzen, Flecken im Sitz, ein Lenkrad, das sich speckig anfühlt: Bei der Innenaufbereitung reinigen wir den ganzen Innenraum gründlich, von Polstern und Teppichen bis zu Armaturen, Türverkleidungen und Scheiben. Leder wird gereinigt und gepflegt, Flecken behandeln wir gezielt.",
+    offers: ["innen"],
+    offerTitle: "Umfang und Preis",
+    extras: true,
+    reasons: {
+      title: "Wann sich eine Innen\u00ADaufbereitung lohnt.",
+      items: [
         {
-          q: "Wie lange hält eine Keramikversiegelung?",
-          a: "Je nach Produkt bis zu einem, zwei oder drei Jahre. Welche Standzeit zu Ihnen passt, besprechen wir vor Beginn. Wie lange der Schutz tatsächlich hält, hängt auch von der Pflege ab: Handwäsche schont die Beschichtung, Bürstenwaschanlagen setzen ihr zu.",
+          t: "Flecken in Sitz und Teppich",
+          d: "Kaffee, Saft oder Matsch aus dem Winter: Polster und Teppiche werden in der Tiefe gereinigt, nicht nur abgesaugt.",
         },
-        faqKeramik,
+        {
+          t: "Kinder und Hund an Bord",
+          d: "In Ritzen und Polstern sammelt sich einiges an. Tierhaare entfernen wir auf Wunsch als Zusatzleistung.",
+        },
+        {
+          t: "Ledersitze",
+          d: "Leder wird gereinigt und anschließend gepflegt, damit es geschmeidig bleibt.",
+        },
+        {
+          t: "Vor Verkauf oder Leasingrückgabe",
+          d: "Flecken im Polster fallen Käufern sofort auf und werden bei der Rückgabe berechnet.",
+        },
+      ],
+    },
+    limit: {
+      text: "Die Innenaufbereitung umfasst nur den Innenraum. Außen und innen zusammen bekommen Sie an einem Termin zum Komplettpreis.",
+      link: { focus: "aussen", label: "Mehr zur Fahrzeugaufbereitung" },
+    },
+    steps: {
+      title: "So läuft die Innen\u00ADaufbereitung ab.",
+      items: [
+        {
+          title: "Begutachtung",
+          text: "Wir sehen uns Polster, Leder und Flecken an und sagen Ihnen, was die Reinigung erreichen kann. Kostenlos.",
+        },
+        festpreis,
+        {
+          title: "Reinigung",
+          text: "Aussaugen, Polster und Teppiche tiefenreinigen, Leder reinigen und pflegen, Armaturen, Kunststoffe, Türverkleidungen und Scheiben reinigen.",
+        },
+        {
+          title: "Übergabe",
+          text: `${nachDauer(innen.dur)} holen Sie Ihr Fahrzeug mit Fotoprotokoll ab und sehen genau, was gemacht wurde.`,
+        },
+      ],
+    },
+    faq: {
+      title: "Fragen zur Innen\u00ADaufbereitung.",
+      items: [
+        {
+          q: "Was kostet eine Innenreinigung?",
+          a: `Die Innenaufbereitung kostet ${classPrices(innen.p)}, jeweils in normalem Zustand. Den Festpreis für Ihr Fahrzeug nennen wir nach der kostenlosen Begutachtung.`,
+        },
+        {
+          q: "Gehen alle Flecken raus?",
+          a: "Viele, aber nicht alle. Ältere Flecken, die das Material schon verfärbt haben, lassen sich oft nur aufhellen. Was möglich ist, sagen wir Ihnen bei der Begutachtung, bevor wir anfangen.",
+        },
+        {
+          q: "Wie lange dauert die Innenaufbereitung?",
+          a: "Rechnen Sie mit etwa einem Tag. Die genaue Dauer nennen wir Ihnen zusammen mit dem Festpreis.",
+        },
+        {
+          q: "Was ist mit Tierhaaren und Gerüchen?",
+          a: `Tierhaare entfernen wir als Zusatzleistung ${extraPrice("Tierhaarentfernung")}, gegen Gerüche gibt es eine Ozonbehandlung ${extraPrice("Ozonbehandlung gegen Gerüche")}. Beides kommt auf Wunsch dazu.`,
+        },
         faqProdukte,
       ],
     },
-    related: ["politur", "smart-repair", "leasing"],
-    media: "carSvcAussen",
+    related: ["aussen", "keramik", "leasing"],
+    media: "carSvcInnen",
+  },
+  {
+    slug: "keramikversiegelung",
+    focus: "keramik",
+    name: "Keramikversiegelung",
+    metaTitle: "Keramikversiegelung in Telgte bei Münster",
+    metaDescription: `Keramikversiegelung in Telgte bei Münster: Lack vorbereiten, nach Bedarf korrigieren, keramisch versiegeln. Bis zu drei Jahre Standzeit, ab ${eur(keramik.p[0])}.`,
+    h1: "Keramik\u00ADversiegelung in Telgte.",
+    intro:
+      "Eine Keramikversiegelung ist eine Schutzschicht auf dem Lack, die je nach Produkt bis zu drei Jahre hält. Wasser perlt ab, der Lack verschmutzt langsamer und bekommt einen tiefen Glanz. Vorher bereiten wir die Oberfläche gründlich vor und korrigieren den Lack, wo es nötig ist. Denn was unter der Versiegelung liegt, bleibt sichtbar.",
+    offers: ["keramik"],
+    offerTitle: "Umfang und Preis",
+    reasons: {
+      title: "Wann sich eine Keramik\u00ADversiegelung lohnt.",
+      items: [
+        {
+          t: "Sie fahren das Auto länger",
+          d: "Bei bis zu drei Jahren Standzeit rechnet sich der Schutz vor allem, wenn das Fahrzeug so lange bei Ihnen bleibt.",
+        },
+        {
+          t: "Neuer oder frisch polierter Lack",
+          d: "Der Lack ist in gutem Zustand, und so soll er bleiben.",
+        },
+        {
+          t: "Weniger Aufwand beim Waschen",
+          d: "Wasser perlt ab, Schmutz lässt sich leichter abwaschen, die Wäsche geht schneller.",
+        },
+        {
+          t: "Nach einer Lackkorrektur",
+          d: "Die Versiegelung schützt das Ergebnis der Politur länger.",
+        },
+      ],
+    },
+    limit: {
+      text: "Eine Keramikversiegelung ist kein Panzer: Steinschläge und tiefe Kratzer verhindert sie nicht. Solche Schäden beheben wir punktuell mit Smart Repair.",
+      link: { focus: "smart-repair", label: "Mehr zu Smart Repair" },
+    },
+    steps: {
+      title: "So läuft die Versiegelung ab.",
+      items: [
+        {
+          title: "Begutachtung",
+          text: "Wir sehen uns den Lack unter Licht an und sagen Ihnen, ob er vorher korrigiert werden muss und welche Standzeit zu Ihnen passt. Kostenlos.",
+        },
+        festpreis,
+        {
+          title: "Vorbereitung",
+          text: "Gründliche Reinigung und Entfettung des Lacks, danach die Lackkorrektur, so weit sie nötig ist.",
+        },
+        {
+          title: "Versiegelung und Übergabe",
+          text: `Die keramische Beschichtung wird aufgetragen und härtet aus. ${nachDauer(keramik.dur)} holen Sie Ihr Fahrzeug mit Fotoprotokoll ab.`,
+        },
+      ],
+    },
+    faq: {
+      title: "Fragen zur Keramik\u00ADversiegelung.",
+      items: [
+        {
+          q: "Wie lange hält eine Keramikversiegelung?",
+          a: "Je nach Produkt bis zu einem, zwei oder drei Jahre. Welche Standzeit zu Ihnen passt, besprechen wir vor Beginn. Wie lange der Schutz tatsächlich hält, hängt auch von der Pflege ab.",
+        },
+        faqKeramik,
+        {
+          q: "Was kostet eine Keramikversiegelung?",
+          a: `Die Keramikversiegelung kostet ${classPrices(keramik.p)}. Wie viel Lackkorrektur Ihr Lack vorher braucht, sehen wir bei der Begutachtung. Danach nennen wir Ihnen den Festpreis.`,
+        },
+        {
+          q: "Muss der Lack vorher poliert werden?",
+          a: "Wenn er Kratzer oder Hologramme hat, ja. Die Versiegelung konserviert den Zustand des Lacks, Kratzer darunter bleiben sichtbar. Deshalb gehört eine Lackkorrektur nach Bedarf dazu.",
+        },
+        {
+          q: "Was ist der Unterschied zu Wachs oder Sprühversiegelung?",
+          a: "Wachs und Sprühversiegelungen sind schnell aufgetragen, halten aber deutlich kürzer. Eine Keramikversiegelung hält je nach Produkt bis zu drei Jahre.",
+        },
+        {
+          q: "Wie pflege ich den Lack danach?",
+          a: "Am besten mit der Hand und einem pH-neutralen Shampoo. Bürstenwaschanlagen setzen der Beschichtung zu und verkürzen die Standzeit.",
+        },
+      ],
+    },
+    related: ["politur", "aussen", "innen"],
+    media: "carSvcKeramik",
   },
 ];
 
@@ -428,28 +616,17 @@ export function requireCarServicePage(slug: CarPageSlug): CarServicePage {
   return page;
 }
 
-/** Leistungen ohne eigene Seite stehen als Abschnitt auf der Seite Fahrzeugaufbereitung. */
-const sectionOf: Partial<Record<FocusArea["id"], CarPageSlug>> = {
-  innen: "fahrzeugaufbereitung",
-  keramik: "fahrzeugaufbereitung",
-};
-
-/**
- * Ziel für einen Schwerpunkt oder eine Leistung: die eigene Seite, Innen und Keramik als Abschnitt
- * der Seite Fahrzeugaufbereitung. Gibt es die Seite (noch) nicht, der Anker auf /leistungen.
- */
+/** Ziel für eine Leistung: ihre eigene Seite, sonst der Anker auf /leistungen. */
 export function focusHref(id: FocusArea["id"]): string {
   const slug = carPageSlugByFocus[id];
   if (slug && carServicePage(slug)) return `/leistungen/${slug}`;
-  const section = sectionOf[id];
-  if (section && carServicePage(section)) return `/leistungen/${section}#svc-${id}`;
   return `/leistungen#svc-${id}`;
 }
 
-/** Schwerpunkt mit Name, Kurztext und Preis für Verweise („Weitere Leistungen“). */
+/** Leistung mit Name, Kurztext und Preis für Verweise („Weitere Leistungen“). */
 export function focusTeaser(id: FocusArea["id"]) {
-  const f = focusAreas.find((x) => x.id === id);
-  if (!f) throw new Error(`Unbekannter Schwerpunkt: ${id}`);
+  const f = allFocusAreas.find((x) => x.id === id);
+  if (!f) throw new Error(`Unbekannte Leistung: ${id}`);
   const price = f.price ? `ab ${eur(serviceById(f.price).p[0])}` : `Preis ${INSPECT_PRICE}`;
   return { ...f, href: focusHref(id), price };
 }

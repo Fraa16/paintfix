@@ -197,7 +197,9 @@ CAR_PAGES = [
     ("smart-repair", ["Smart Repair", "in Telgte."], "Kratzer, Steinschläge und Parkschäden punktuell beheben, ohne Komplettlackierung."),
     ("lackkorrektur", ["Lackkorrektur", "in Telgte."], "Waschkratzer, Hologramme und matter Lack, maschinell auspoliert."),
     ("leasingrueckgabe", ["Gut vorbereitet zur", "Leasingrückgabe."], "Schäden beheben, bevor sie bei der Rückgabe berechnet werden."),
-    ("fahrzeugaufbereitung", ["Fahrzeugaufbereitung", "in Telgte."], "Außen, innen und Keramikversiegelung, mit Produkten von CarPro."),
+    ("fahrzeugaufbereitung", ["Fahrzeugaufbereitung", "in Telgte."], "Außen und innen von Hand, mit Produkten von CarPro."),
+    ("innenaufbereitung", ["Innenaufbereitung", "in Telgte."], "Polster, Teppiche und Leder gründlich gereinigt, Flecken entfernt."),
+    ("keramikversiegelung", ["Keramikversiegelung", "in Telgte."], "Keramischer Lackschutz mit bis zu drei Jahren Standzeit."),
 ]
 for slug, lines, sub_text in CAR_PAGES:
     og_car_page(leistungen / slug / "opengraph-image.jpg", lines, sub_text)

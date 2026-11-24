@@ -205,8 +205,22 @@
     {
       "id": "aussen",
       "name": "Fahrzeugaufbereitung",
-      "short": "Außen, innen und Keramikversiegelung, mit Produkten von CarPro.",
+      "short": "Außen und innen von Hand, mit Produkten von CarPro.",
       "price": "aussen"
+    }
+  ],
+  "focusMore": [
+    {
+      "id": "innen",
+      "name": "Innenaufbereitung",
+      "short": "Polster, Teppiche und Leder gründlich gereinigt, Flecken entfernt.",
+      "price": "innen"
+    },
+    {
+      "id": "keramik",
+      "name": "Keramikversiegelung",
+      "short": "Keramischer Lackschutz mit bis zu drei Jahren Standzeit.",
+      "price": "keramik"
     }
   ],
   "leasingBand": {

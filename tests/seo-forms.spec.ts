@@ -176,6 +176,8 @@ test.describe("service pages", () => {
 test.describe("forms", () => {
   test("request form shows errors under the fields and focuses the first one", async ({ page }) => {
     await page.goto("/anfrage");
+    // Erst nach der Hydration absenden, sonst prüft der Browser statt des Formulars.
+    await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: "Anfrage senden" }).click();
     const name = page.getByRole("textbox", { name: "Name" });
     await expect(name).toBeFocused();

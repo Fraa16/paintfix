@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CarAviationLink } from "@/components/fahrzeug/AviationLink";
 import type { ReactNode } from "react";
 import { CarLogo } from "@/components/fahrzeug/Logo";
-import { focusAreas } from "@/content/fahrzeug";
+import { allFocusAreas } from "@/content/fahrzeug";
 import { focusHref } from "@/content/leistungen";
 import { site } from "@/content/site";
 
@@ -12,7 +12,7 @@ const COLUMNS: ReadonlyArray<{
 }> = [
   {
     title: "Leistungen",
-    links: focusAreas.map((f) => ({ href: focusHref(f.id), label: f.name })),
+    links: allFocusAreas.map((f) => ({ href: focusHref(f.id), label: f.name })),
   },
   {
     title: "PaintFix",

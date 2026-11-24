@@ -35,6 +35,13 @@ function captionFor(img: MediaId): string | undefined {
   return undefined;
 }
 
+/** Eigene Seite einer Leistung, wenn es nicht diese Seite ist (z. B. Innenaufbereitung auf
+ * /leistungen/fahrzeugaufbereitung). */
+function otherPage(id: ServiceEntryData["id"], slug: string): string | undefined {
+  const href = focusHref(id);
+  return href.startsWith(`/leistungen/${slug}`) ? undefined : href;
+}
+
 /** „ab 249 €“ der günstigsten Leistung (Kleinwagen) oder „nach Begutachtung“. */
 function priceFact(entries: ServiceEntryData[]): string {
   const priced = entries.filter((e) => e.priced);
@@ -74,6 +81,7 @@ export function CarServicePageView({ page }: { page: CarServicePage }) {
             anchor={`svc-${e.id}`}
             title={single ? page.offerTitle : undefined}
             eager={i === 0}
+            more={otherPage(e.id, page.slug)}
             caption={captionFor(e.img)}
             flip={i % 2 === 1}
           />

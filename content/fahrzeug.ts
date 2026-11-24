@@ -94,6 +94,10 @@ export const leasingBand = data.leasingBand as {
   more: string;
 };
 export const focusAreas = data.focus as FocusArea[];
+/** Weitere Leistungen mit eigener Seite, nicht auf der Startseite (Innenaufbereitung, Keramik). */
+export const moreFocusAreas = data.focusMore as FocusArea[];
+/** Alle Leistungen mit eigener Seite: Startseite zuerst, dann die übrigen (Footer, Kacheln). */
+export const allFocusAreas: ReadonlyArray<FocusArea> = [...focusAreas, ...moreFocusAreas];
 
 export function isInspectId(id: string): id is InspectId {
   return inspectServices.some((s) => s.id === id);

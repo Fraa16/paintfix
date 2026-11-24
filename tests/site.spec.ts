@@ -8,6 +8,8 @@ const routes = [
   { path: "/leistungen/lackkorrektur", lang: "de", brand: "car" },
   { path: "/leistungen/leasingrueckgabe", lang: "de", brand: "car" },
   { path: "/leistungen/fahrzeugaufbereitung", lang: "de", brand: "car" },
+  { path: "/leistungen/innenaufbereitung", lang: "de", brand: "car" },
+  { path: "/leistungen/keramikversiegelung", lang: "de", brand: "car" },
   { path: "/anfrage", lang: "de", brand: "car" },
   { path: "/aviation", lang: "de", brand: "av" },
   { path: "/en/aviation", lang: "en", brand: "av" },
