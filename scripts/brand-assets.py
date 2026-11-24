@@ -128,9 +128,9 @@ def og_car(out):
     img = Image.new("RGB", (W, H), CAR_INK)
     d = ImageDraw.Draw(img)
     logo(d, P, P + 22, 30, CAR_ON_INK, CAR_RED, "Automotive")
-    headline_car(d, ["Makellos", "bis ins Detail."], 128, W, P)
+    headline_car(d, ["Licht", "zeigt alles."], 128, W, P)
     sub = mona(27, 400, 100)
-    d.text((P, H - P), "Smart Repair, Lackkorrektur, Leasingrückgabe und Aufbereitung in Telgte", font=sub, fill=CAR_ON_INK_MUTED, anchor="ls")
+    d.text((P, H - P), "Smart Repair, Lackkorrektur, Leasingrückgabe und Autoaufbereitung in Telgte", font=sub, fill=CAR_ON_INK_MUTED, anchor="ls")
     img.save(out, quality=88, optimize=True, progressive=True)
 
 
@@ -184,7 +184,7 @@ for seg in (av_de, av_en):
     apple_icon(AV_CREAM, AV_NAVY, AV_GOLD, seg / "apple-icon.png")
 
 og_car(car / "opengraph-image.jpg")
-(car / "opengraph-image.alt.txt").write_text("PaintFix Automotive: Makellos bis ins Detail. Smart Repair, Lackkorrektur, Leasingrückgabe und Aufbereitung in Telgte.")
+(car / "opengraph-image.alt.txt").write_text("PaintFix Automotive: Licht zeigt alles. Smart Repair, Lackkorrektur, Leasingrückgabe und Autoaufbereitung in Telgte bei Münster.")
 og_av(av_de / "opengraph-image.jpg", "PaintFix Aviation in Münster/Osnabrück", "Jede Oberfläche,", "dokumentiert.")
 (av_de / "opengraph-image.alt.txt").write_text("PaintFix Aviation in Münster/Osnabrück: Jede Oberfläche, dokumentiert.")
 og_av(av_en / "opengraph-image.jpg", "PaintFix Aviation at Münster Osnabrück", "Every surface,", "accounted for.")

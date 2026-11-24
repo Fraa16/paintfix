@@ -196,6 +196,8 @@ test.describe("forms", () => {
     page,
   }) => {
     await page.goto("/anfrage");
+    // Erst nach der Hydration tippen, sonst setzt React die Felder zurück.
+    await page.waitForLoadState("networkidle");
     await page.getByRole("textbox", { name: "Name" }).fill("Erika Mustermann");
     await page.getByRole("textbox", { name: "Telefon" }).fill("0151 2345678");
     await page.getByText("Ich bin einverstanden").click();

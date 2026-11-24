@@ -5,7 +5,7 @@ import { aviation } from "@/content/aviation";
 import { aviationBusiness } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: { absolute: "PaintFix Aviation | Aircraft detailing for business aviation" },
+  title: { absolute: "Aircraft detailing for business aviation | PaintFix Aviation" },
   description: aviation.en.sub,
   alternates: {
     canonical: "/en/aviation",

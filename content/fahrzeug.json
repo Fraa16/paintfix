@@ -26,7 +26,7 @@
       "img2": "img/car-innen.webp",
       "no": "02",
       "name": "Innenaufbereitung",
-      "short": "Polster, Kunststoffe, Scheiben",
+      "short": "Innenreinigung, Polster, Leder",
       "dur": "ca. 1 Tag",
       "p": [
         119,
@@ -134,7 +134,7 @@
     },
     {
       "q": "Lohnt sich eine Keramikversiegelung?",
-      "a": "Wenn Sie Ihr Fahrzeug länger fahren und Wert auf einfache Pflege legen, ja. Der Lack verschmutzt langsamer, die Wäsche geht schneller und der Glanz hält über Jahre. Für eine Leasingrückgabe reicht meist eine Politur."
+      "a": "Wenn Sie Ihr Fahrzeug länger fahren und Wert auf einfache Pflege legen, ja. Wasser perlt ab, der Lack verschmutzt langsamer und die Wäsche geht schneller, je nach Produkt bis zu drei Jahre lang. Für eine Leasingrückgabe reicht meist eine Politur."
     },
     {
       "q": "Mit welchen Produkten arbeiten Sie?",
@@ -153,7 +153,7 @@
     {
       "id": "smart-repair",
       "name": "Smart Repair",
-      "short": "Kratzer, Dellen und Steinschläge punktuell beheben.",
+      "short": "Kratzer, Steinschläge und Parkschäden punktuell beheben.",
       "dur": "nach Umfang",
       "desc": "Gezielte Reparatur von Kratzern, Steinschlägen, kleineren Lackbeschädigungen und Parkschäden durch fachgerechtes Schleifen, Spachteln, Grundieren, Lackieren und anschließendes Polieren der betroffenen Stellen.",
       "incl": [
@@ -212,11 +212,11 @@
   "leasingBand": {
     "label": "Leasingrückgabe",
     "title": "Bevor der Gutachter kommt.",
-    "text": "Bei der Rückgabe wird jeder Kratzer protokolliert und berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und übergeben es aufbereitet und dokumentiert.",
+    "text": "Was über normale Gebrauchsspuren hinausgeht, berechnet der Leasinggeber bei der Rückgabe nach. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich rechnet, und geben es aufbereitet und dokumentiert zurück.",
     "steps": [
       {
         "t": "Kostenlose Begutachtung",
-        "d": "Wir prüfen Lack, Felgen und Innenraum und nennen Ihnen einen Festpreis."
+        "d": "Wir prüfen auf Kratzer, Dellen, Lackschäden und Gebrauchsspuren und nennen Ihnen einen Festpreis."
       },
       {
         "t": "Smart Repair und Aufbereitung",

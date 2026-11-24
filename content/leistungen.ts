@@ -1,4 +1,5 @@
 import {
+  comboPrice,
   faq,
   focusAreas,
   INSPECT_PRICE,
@@ -68,6 +69,8 @@ export interface CarServicePage {
   media: MediaId;
 }
 
+const aussen = serviceById("aussen");
+const innen = serviceById("innen");
 const politur = serviceById("politur");
 const keramik = serviceById("keramik");
 
@@ -87,7 +90,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
     name: "Smart Repair",
     metaTitle: "Smart Repair in Telgte bei Münster",
     metaDescription:
-      "Smart Repair in Telgte bei Münster: Kratzer, Steinschläge, kleinere Lackschäden und Parkschäden gezielt reparieren, ohne Komplettlackierung. Festpreis nach kostenloser Begutachtung.",
+      "Smart Repair in Telgte bei Münster: Kratzer, Steinschläge und Parkschäden ausbessern, ohne das ganze Bauteil zu lackieren. Festpreis nach Begutachtung.",
     h1: "Smart Repair in Telgte.",
     intro:
       "Ein Kratzer in der Tür, ein Parkschaden an der Stoßstange, ein Steinschlag auf der Haube: Kleine Schäden reparieren wir dort, wo sie sind, statt ganze Bauteile neu zu lackieren. Das spart Zeit und Kosten, und Ihr Fahrzeug behält so viel Originallack wie möglich.",
@@ -106,7 +109,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
         },
         {
           t: "Steinschläge",
-          d: "Abplatzer an Haube und Front, bevor Feuchtigkeit darunter gelangt.",
+          d: "Abplatzer an Haube und Front, bevor darunter Rost ansetzt.",
         },
         {
           t: "Kleinere Lackschäden",
@@ -156,6 +159,10 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
           a: "Die betroffene Stelle wird fachgerecht geschliffen, gespachtelt, grundiert, lackiert und anschließend poliert. Der Rest des Bauteils bleibt im Originallack.",
         },
         {
+          q: "Wann reicht Smart Repair nicht?",
+          a: "Wenn große Flächen oder ganze Bauteile beschädigt sind, ist eine Lackierung des Bauteils die sauberere Lösung. Ob sich Ihr Schaden punktuell reparieren lässt, sagen wir Ihnen bei der Begutachtung.",
+        },
+        {
           q: "Lohnt sich Smart Repair vor der Leasingrückgabe?",
           a: "Oft ja, denn kleine Schäden werden bei der Rückgabe protokolliert und berechnet. Welche Reparatur sich rechnet, sehen wir bei der Begutachtung.",
         },
@@ -168,8 +175,8 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
     slug: "lackkorrektur",
     focus: "politur",
     name: "Lackkorrektur",
-    metaTitle: "Lackkorrektur in Telgte bei Münster",
-    metaDescription: `Lackkorrektur in Telgte bei Münster: ein-, zwei- oder dreistufige Politur gegen Kratzer, Hologramme, Waschspuren und matte Stellen, für Tiefenglanz und Farbtiefe. ${politur.dur.replace(/^ca\./, "Etwa")}, ab ${eur(politur.p[0])} Endpreis. Den Festpreis nennen wir nach einer kostenlosen Begutachtung.`,
+    metaTitle: "Lackkorrektur und Politur in Telgte bei Münster",
+    metaDescription: `Auto polieren lassen in Telgte bei Münster: Lackkorrektur gegen Waschkratzer, Hologramme und matten Lack. Ein- bis dreistufig, ab ${eur(politur.p[0])}, ${politur.dur.replace(/^ca\./, "etwa")}.`,
     h1: "Lack\u00ADkorrektur in Telgte.",
     intro:
       "Waschanlagen, falsche Tücher und Jahre auf der Straße hinterlassen feine Kratzer, die in der Sonne als Kreise und Schlieren sichtbar werden. Bei der Lackkorrektur polieren wir den Lack je nach Zustand ein-, zwei- oder dreistufig. So werden Kratzer, Hologramme und Waschspuren deutlich reduziert, und der Lack bekommt Tiefenglanz und Farbtiefe zurück.",
@@ -180,7 +187,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
       items: [
         {
           t: "Waschkratzer und Hologramme",
-          d: "Kreise und Schlieren, die in der Sonne oder unter hellem Licht sichtbar werden, meist von der Waschanlage.",
+          d: "Feine Kreise (Swirls) und Schlieren, die in der Sonne sichtbar werden, meist von der Waschanlage.",
         },
         {
           t: "Matter, stumpfer Lack",
@@ -222,6 +229,10 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
       title: "Fragen zur Lackkorrektur.",
       items: [
         {
+          q: "Lässt sich mein Kratzer auspolieren?",
+          a: "Eine Faustregel: Fahren Sie mit dem Fingernagel quer über den Kratzer. Bleibt er nicht hängen, sitzt der Kratzer meist nur im Klarlack und lässt sich oft auspolieren. Bleibt er hängen, reicht er tiefer, dann hilft Smart Repair. Sicher sagen wir es Ihnen bei der Begutachtung.",
+        },
+        {
           q: "Schadet eine Politur dem Lack?",
           a: "Beim Polieren wird eine sehr dünne Schicht Klarlack abgetragen. Deshalb wählen wir die Stufe nach dem Zustand des Lacks und polieren nur so viel wie nötig.",
         },
@@ -249,18 +260,18 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
     name: "Leasingrückgabe",
     metaTitle: "Leasingrückgabe vorbereiten in Telgte bei Münster",
     metaDescription:
-      "Vorbereitung auf die Leasingrückgabe in Telgte bei Münster: Begutachtung vor dem Rückgabetermin, Smart Repair, Lackkorrektur und Aufbereitung, Fotoprotokoll vor der Übergabe. Festpreis nach kostenloser Begutachtung.",
+      "Leasingrückgabe vorbereiten in Telgte bei Münster: Wir prüfen Ihr Auto vor dem Termin und beheben, was sich lohnt. Fotoprotokoll, Festpreis nach Begutachtung.",
     h1: "Gut vorbereitet zur Leasing\u00ADrückgabe.",
     intro:
-      "Bei der Rückgabe wird jeder Kratzer protokolliert und oft teuer berechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben, was sich lohnt, und bereiten es innen und außen auf. Was gemacht wird, entscheiden Sie nach der kostenlosen Begutachtung.",
+      "Bei der Rückgabe prüft ein Gutachter Ihr Fahrzeug nach dem Schadenkatalog des Leasinggebers. Was über normale Gebrauchsspuren hinausgeht, wird nachberechnet. Wir sehen uns Ihr Fahrzeug vorher an, beheben die Schäden, bei denen sich die Reparatur rechnet, und bereiten es innen und außen auf. Was gemacht wird, entscheiden Sie nach der kostenlosen Begutachtung.",
     offers: ["leasing"],
     offerTitle: "Umfang und Preis",
     reasons: {
       title: "Wann sich die Vorbereitung lohnt.",
       items: [
         {
-          t: "Kratzer, Dellen, Steinschläge",
-          d: "Kleine Schäden, die beim Rückgabegutachten protokolliert und berechnet würden.",
+          t: "Kratzer, Steinschläge, Lackschäden",
+          d: "Kleine Schäden, die bei der Rückgabe sonst nachberechnet würden.",
         },
         {
           t: "Stumpfer Lack, verschmutzter Innenraum",
@@ -301,12 +312,16 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
       title: "Fragen zur Leasing\u00ADrückgabe.",
       items: [
         {
+          q: "Welche Schäden werden bei der Rückgabe berechnet?",
+          a: "Das regelt der Schadenkatalog Ihres Leasinggebers. Normale Gebrauchsspuren sind in der Regel akzeptiert. Berechnet wird, was darüber hinausgeht, etwa Kratzer bis in die Grundierung, Steinschläge mit Abplatzern oder Flecken im Polster. Bringen Sie den Katalog zur Begutachtung mit, dann gehen wir ihn gemeinsam durch.",
+        },
+        {
           q: "Wann sollte ich zu Ihnen kommen?",
           a: "Am besten einige Wochen vor dem Rückgabetermin. Dann bleibt Zeit für die Begutachtung und die Arbeiten.",
         },
         {
           q: "Muss ich alle Schäden beheben lassen?",
-          a: "Nein. Nach der kostenlosen Begutachtung sagen wir Ihnen, was sich lohnt, und Sie entscheiden, was gemacht wird.",
+          a: "Nein. Nach der kostenlosen Begutachtung sagen wir Ihnen, bei welchen Schäden die Reparatur günstiger ist als die Nachzahlung. Was gemacht wird, entscheiden Sie.",
         },
         {
           q: "Bekomme ich einen Nachweis über den Zustand?",
@@ -326,14 +341,13 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
     slug: "fahrzeugaufbereitung",
     focus: "aussen",
     name: "Fahrzeugaufbereitung",
-    metaTitle: "Fahrzeugaufbereitung in Telgte bei Münster",
-    metaDescription:
-      "Fahrzeugaufbereitung in Telgte bei Münster: Außen- und Innenaufbereitung, Komplettaufbereitung und Keramikversiegelung mit Produkten von CarPro. Endpreise je Fahrzeugklasse, Festpreis nach kostenloser Begutachtung.",
+    metaTitle: "Autoaufbereitung innen und außen in Telgte bei Münster",
+    metaDescription: `Autoaufbereitung in Telgte bei Münster: Handwäsche, Innenreinigung von Polstern und Leder, Keramikversiegelung. Endpreise ab ${eur(aussen.p[0])}, Festpreis nach Begutachtung.`,
     h1: "Fahrzeug\u00ADaufbereitung in Telgte.",
     intro:
-      "Außen, innen oder mit Keramikversiegelung: Wir bereiten Ihr Fahrzeug von Hand auf, ausschließlich mit Produkten von CarPro. Wählen Sie die Leistung, die zu Ihrem Fahrzeug passt, oder kombinieren Sie Außen und Innen an einem Termin.",
+      "Autoaufbereitung von Hand: außen mit Vorwäsche und lackschonender Handwäsche, innen mit Tiefenreinigung von Polstern, Teppichen und Leder. Wenn Sie den Lack länger schützen wollen, kommt eine Keramikversiegelung dazu. Wir arbeiten ausschließlich mit Produkten von CarPro. Außen und innen lassen sich an einem Termin kombinieren, zum Komplettpreis.",
     offers: ["aussen", "innen", "keramik"],
-    dur: `${serviceById("aussen").dur.replace(" Tag", "")} bis ${keramik.dur.replace(/^ca\. /, "")}`,
+    dur: `${aussen.dur.replace(" Tag", "")} bis ${keramik.dur.replace(/^ca\. /, "")}`,
     extras: true,
     reasons: {
       title: "Welche Aufbereitung zu Ihnen passt.",
@@ -344,7 +358,7 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
         },
         {
           t: "Innenaufbereitung",
-          d: "Wenn Polster, Teppiche, Leder und Kunststoffe gründlich gereinigt und Flecken entfernt werden sollen.",
+          d: "Wenn der Innenraum gründlich gereinigt werden soll: Polster, Teppiche, Leder, Kunststoffe und Flecken.",
         },
         {
           t: "Komplettaufbereitung",
@@ -381,14 +395,21 @@ export const carServicePages: ReadonlyArray<CarServicePage> = [
     faq: {
       title: "Fragen zur Aufbereitung.",
       items: [
+        {
+          q: "Was kostet eine Autoaufbereitung?",
+          a: `Außen ab ${eur(aussen.p[0])}, innen ab ${eur(innen.p[0])}, beides an einem Termin ab ${eur(comboPrice[0])}, jeweils für einen Kleinwagen in normalem Zustand. Den Festpreis für Ihr Fahrzeug nennen wir nach der kostenlosen Begutachtung. Ohne Ihre Zustimmung wird es nicht teurer.`,
+        },
         faqDauer,
         {
           q: "Ist eine Versiegelung enthalten?",
           a: "Bei der Außenaufbereitung nicht. Sie bekommen sie auf Wunsch gegen Aufpreis. Den längsten Schutz bietet die Keramikversiegelung.",
         },
+        {
+          q: "Wie lange hält eine Keramikversiegelung?",
+          a: "Je nach Produkt bis zu einem, zwei oder drei Jahre. Welche Standzeit zu Ihnen passt, besprechen wir vor Beginn. Wie lange der Schutz tatsächlich hält, hängt auch von der Pflege ab: Handwäsche schont die Beschichtung, Bürstenwaschanlagen setzen ihr zu.",
+        },
         faqKeramik,
         faqProdukte,
-        faqAb,
       ],
     },
     related: ["politur", "smart-repair", "leasing"],

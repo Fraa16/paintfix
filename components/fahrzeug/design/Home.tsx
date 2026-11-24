@@ -75,12 +75,12 @@ export function ConceptHero() {
             >
               <span className="block overflow-hidden pb-[0.06em]">
                 <span data-rvm="80" className="block">
-                  Makellos
+                  Licht
                 </span>
               </span>
               <span className="block overflow-hidden pb-[0.06em]">
                 <span data-rvm="190" className="block">
-                  bis ins Detail.
+                  zeigt alles.
                 </span>
               </span>
             </h1>
@@ -90,9 +90,9 @@ export function ConceptHero() {
             className="mt-[clamp(20px,3vh,32px)] flex flex-wrap items-end justify-between gap-x-10 gap-y-6"
           >
             <p className="max-w-[460px] text-[clamp(15px,1.1vw,17px)] leading-[1.6] text-pretty text-car-on-ink-soft">
-              Smart Repair, Lackkorrektur, Vorbereitung auf die Leasingrückgabe und hochwertige
-              Aufbereitung, in unserer Halle in Telgte. Nach einer kostenlosen Begutachtung kennen
-              Sie den Festpreis, bevor wir beginnen.
+              Smart Repair, Lackkorrektur, Leasingrückgabe und Autoaufbereitung innen wie außen, in
+              unserer Halle in Telgte bei Münster. Erst sehen wir uns Ihr Fahrzeug an, kostenlos.
+              Dann nennen wir einen Festpreis, bevor wir anfangen.
             </p>
             <div className="pointer-events-auto flex flex-wrap items-center gap-x-8 gap-y-4">
               <CarButton href="/anfrage" variant="light" size="cta" arrow>
@@ -115,11 +115,11 @@ export function ConceptHero() {
 /** Haltung: großer Satz, der beim Scrollen Zeile für Zeile aufleuchtet, daneben Eckdaten. */
 export function Statement() {
   const lines = [
-    "Von der Reparatur kleiner Schäden",
-    "bis zur Keramikversiegelung,",
-    "alles in einer Halle.",
-    "Einzeln oder kombiniert,",
-    "mit Festpreis vor Beginn.",
+    "Steinschlag auf der Haube,",
+    "Kratzer von der Waschanlage,",
+    "Flecken im Polster.",
+    "Wir sehen es uns an und nennen",
+    "den Preis, bevor wir anfangen.",
   ];
   const facts: Array<[string, ReactNode]> = [
     ["Halle", `${site.street}, ${site.postalCode} ${site.city}`],

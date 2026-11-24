@@ -82,8 +82,8 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
     de: {
       name: "Außenpflege",
       moreLabel: "Mehr zur Außenpflege",
-      metaTitle: "Flugzeug-Außenpflege für Business Jets | PaintFix Aviation",
-      metaDescription: `Trockenwäsche, Nasswäsche, Brightwork-Politur und Lackkorrektur für Business Jets. Stationiert am Flughafen ${homeDe}, mit Fotodokumentation und Fertigmeldung an Ihre Ops.`,
+      metaTitle: "Außenreinigung und Politur für Business Jets | PaintFix Aviation",
+      metaDescription: `Flugzeug-Außenreinigung für Business Jets: Trockenwäsche (Dry Wash), Nasswäsche, Brightwork-Politur und Lackkorrektur. Am Flughafen ${homeDe}, mit Fotodokumentation.`,
       h1: "Außenpflege für Business Jets.",
       intro:
         "Vom wasserlosen Waschen auf dem Vorfeld bis zur polierten Eintrittskante: Wir pflegen die Außenflächen Ihres Flugzeugs in Ihrem Zeitfenster, nach den Pflegevorgaben des Herstellers und mit Fotodokumentation.",
@@ -113,8 +113,8 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
     en: {
       name: "Exterior care",
       moreLabel: "More on exterior care",
-      metaTitle: "Aircraft exterior care for business jets | PaintFix Aviation",
-      metaDescription: `Dry wash, wet wash, brightwork polishing and paint correction for business jets. Based at ${homeEn} airport, with photo documentation and a release notice to your ops.`,
+      metaTitle: "Aircraft exterior cleaning for business jets | PaintFix Aviation",
+      metaDescription: `Exterior aircraft cleaning for business jets: dry wash, wet wash, brightwork polishing and paint correction. Based at ${homeEn} airport, with photo documentation.`,
       h1: "Exterior care for business jets.",
       intro:
         "From a waterless wash on the ramp to polished leading edges: we look after your aircraft's exterior within your time window, to the manufacturer's care guidance and with photo documentation.",
@@ -147,7 +147,7 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
       name: "Kabinenpflege",
       moreLabel: "Mehr zur Kabinenpflege",
       metaTitle: "Kabinenreinigung und Lederpflege für Business Jets | PaintFix Aviation",
-      metaDescription: `Kabinen-Grundreinigung, Lederpflege, Teppich-Tiefenreinigung, Galley und Waschraum für Business Jets. Stationiert am Flughafen ${homeDe}, diskret und nach unterschriebener Checkliste.`,
+      metaDescription: `Kabinenreinigung für Business Jets: Grundreinigung, Lederpflege, Teppich-Tiefenreinigung, Galley und Waschraum. Am Flughafen ${homeDe}, nach unterschriebener Checkliste.`,
       h1: "Kabinen\u00ADpflege für Business Jets.",
       intro:
         "Sitze, Teppiche, Galley und Waschraum: Wir reinigen und pflegen die Kabine Ihres Flugzeugs nach unterschriebener Checkliste und nach den Vorgaben der Materialhersteller. Diskret und innerhalb Ihres Turnarounds.",
@@ -173,7 +173,7 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
       name: "Cabin care",
       moreLabel: "More on cabin care",
       metaTitle: "Cabin cleaning and leather care for business jets | PaintFix Aviation",
-      metaDescription: `Deep cabin cleaning, leather care, carpet extraction, galley and lavatory for business jets. Based at ${homeEn} airport, discreet and to a signed checklist.`,
+      metaDescription: `Cabin cleaning for business jets: deep clean, leather care, carpet extraction, galley and lavatory. Based at ${homeEn} airport, to a signed checklist.`,
       h1: "Cabin care for business jets.",
       intro:
         "Seats, carpets, galley and lavatory: we clean and care for your aircraft's cabin to a signed checklist and to the material manufacturers' guidance. Discreetly, within your turnaround.",
@@ -201,7 +201,7 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
       name: "Oberflächenschutz",
       moreLabel: "Mehr zum Oberflächenschutz",
       metaTitle: "Keramikversiegelung und Oberflächenschutz für Flugzeuge | PaintFix Aviation",
-      metaDescription: `Keramikversiegelung für den Lack, Oberflächenschutz für Leder, Stoffe und Furniere und feste Pflegeintervalle je Kennzeichen. Für Business Jets, stationiert am Flughafen ${homeDe}.`,
+      metaDescription: `Keramikversiegelung für den Flugzeuglack, Schutz für Leder, Stoffe und Furniere, feste Pflegeintervalle je Kennzeichen. Für Business Jets am Flughafen ${homeDe}.`,
       h1: "Oberflächen\u00ADschutz für Business Jets.",
       intro:
         "Keramikversiegelung für den Lack, Schutzbehandlung für Leder, Stoffe und Furniere und feste Pflegeintervalle je Kennzeichen: So bleibt Ihr Flugzeug zwischen den Einsätzen länger gepflegt, und die Reinigung wird leichter.",
@@ -223,7 +223,7 @@ export const aviationPages: Partial<Record<AvPageId, Record<Locale, AvServicePag
       name: "Surface protection",
       moreLabel: "More on surface protection",
       metaTitle: "Ceramic coating and surface protection for aircraft | PaintFix Aviation",
-      metaDescription: `Ceramic coating for the paint, protection for leather, fabrics and veneers, and fixed care intervals per registration. For business jets, based at ${homeEn} airport.`,
+      metaDescription: `Aircraft ceramic coating, protection for leather, fabrics and veneers, and fixed care intervals per registration. For business jets at ${homeEn} airport.`,
       h1: "Surface protection for business jets.",
       intro:
         "Ceramic coating for the paint, protective treatment for leather, fabrics and veneers, and fixed care intervals per registration: your aircraft stays cared for longer between missions, and cleaning gets easier.",

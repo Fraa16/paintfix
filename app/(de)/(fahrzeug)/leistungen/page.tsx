@@ -7,10 +7,12 @@ import { Faq } from "@/components/fahrzeug/leistungen/Faq";
 import { LeistungenStage } from "@/components/fahrzeug/design/LeistungenStage";
 import { PriceClassProvider } from "@/components/fahrzeug/leistungen/PriceClass";
 import { Services } from "@/components/fahrzeug/leistungen/Services";
+import { serviceById } from "@/content/fahrzeug";
+import { eur } from "@/lib/format";
+
 export const metadata: Metadata = {
-  title: "Leistungen und Preise",
-  description:
-    "Smart Repair, Lackkorrektur, Leasingrückgabe, Außen- und Innenaufbereitung und Keramikversiegelung in Telgte bei Münster. Alle Preise sind Endpreise. Nach einer kostenlosen Begutachtung nennen wir Ihnen den Festpreis.",
+  title: "Preise für Autoaufbereitung in Telgte bei Münster",
+  description: `Was Autoaufbereitung, Innenreinigung und Keramikversiegelung in Telgte bei Münster kosten: Endpreise ab ${eur(serviceById("aussen").p[0])}, Festpreis nach kostenloser Begutachtung.`,
   alternates: { canonical: "/leistungen" },
 };
 

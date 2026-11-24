@@ -9,12 +9,13 @@ import {
   Visit,
 } from "@/components/fahrzeug/design/Home";
 import { JsonLd } from "@/components/shared/JsonLd";
+import { serviceById } from "@/content/fahrzeug";
+import { eur } from "@/lib/format";
 import { carBusiness } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: { absolute: "PaintFix | Fahrzeugaufbereitung in Telgte bei Münster" },
-  description:
-    "Smart Repair, Lackkorrektur, Vorbereitung auf die Leasingrückgabe und hochwertige Fahrzeugaufbereitung in Telgte bei Münster. Nach einer kostenlosen Begutachtung kennen Sie den Festpreis, bevor wir beginnen.",
+  description: `Autoaufbereitung, Smart Repair, Lackkorrektur und Leasingrückgabe in Telgte bei Münster. Kostenlose Begutachtung, Festpreis vor Beginn, Endpreise ab ${eur(serviceById("aussen").p[0])}.`,
   alternates: { canonical: "/" },
 };
 
